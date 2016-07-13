@@ -307,11 +307,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Lib.ModuleLoader\Hale.Lib.ModuleLoader.csproj">
+    <ProjectReference Include="..\..\Shared\Hale.Lib.ModuleLoader\Hale.Lib.ModuleLoader.csproj">
       <Project>{a9904f35-66fa-4296-92e3-15fa49d9cf1d}</Project>
       <Name>Hale.Lib.ModuleLoader</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Shared\Lib\Hale.Lib.csproj">
+    <ProjectReference Include="..\..\Shared\Hale.Lib\Hale.Lib.csproj">
       <Project>{c023cfa8-753b-42b8-8d52-b71331991e34}</Project>
       <Name>Hale.Lib</Name>
     </ProjectReference>

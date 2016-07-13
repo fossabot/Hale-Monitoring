@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Tools", "4. Tools", "{09
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Agent", "Backend\Hale.Agent\Hale.Agent.csproj", "{1B49CA5C-B895-4139-9080-29E711C2C23A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Core", "Backend\Core\Hale.Core.csproj", "{15C782A0-DC99-4B73-B305-B8468DAD29AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Core", "Backend\Hale.Core\Hale.Core.csproj", "{15C782A0-DC99-4B73-B305-B8468DAD29AC}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web", "Frontend\Web\", "{29DBA3B0-BFE4-4BD6-9805-CD1CA40F6491}"
 	ProjectSection(WebsiteProperties) = preProject
@@ -58,7 +58,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.CheckTester", "Tools\H
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.DBTools", "Tools\Hale.DBTools\Hale.DBTools.csproj", "{C14589B5-938A-4C8F-907C-7BAC93D34BEA}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Docs", "Tools\Docs\", "{FEA1F7C9-A610-4B0A-9BC6-235385AC6F60}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Hale.Docs", "Tools\Hale.Docs\", "{FEA1F7C9-A610-4B0A-9BC6-235385AC6F60}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_58318"
