@@ -1,0 +1,119 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+body {
+  height: 100%;
+  width: 100%;
+  background: #e0e3e9;
+}
+
+#wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.hg-transparent {
+  color: #eee!important;
+
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.1);;
+  outline: none;
+  border-radius: 4px;
+  padding: 20px;
+  font-size: 20px;
+  height: 40px;
+  font-family: 'calibri light', 'arial light';
+}
+
+.hg-login-container {
+  width: 100%;
+  height: 100%;
+  padding-top: 20%;
+  background-image: url('../img/login-bg.jpg');
+}
+
+.btn-login {
+  display: block;
+  width: 100%;
+  background: rgba(20, 20, 200, .2);
+  color: rgba(255, 255, 255, .7);
+}
+
+.hg-transparent::-webkit-input-placeholder {
+  color: rgba(255,255,255,.5);
+}
+
+.hg-navbar {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  height: 100%;
+  background: #333;
+  box-shadow: 0px 0px 10px #000;
+  min-width: 35px;
+}
+.hg-navbar-container>.hg-navbar-nav>li>.nav-icon {
+  color: #fff;
+  margin: 5px;
+  font-size: 20px;
+}
+.hg-navbar-container>.hg-navbar-nav>li>.nav-label {
+  display: none;
+}
+.nav-icon {
+  float: left;
+}
+.expanded>.hg-navbar-container>.hg-navbar-nav>li>.nav-label {
+  display: block;
+  width: 150px;
+  margin-top: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+  float: right;
+  color: #fff;
+}
+
+.hg-navbar-container>.hg-navbar-nav {
+  list-style: none;
+  line-height: 0px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.hg-navbar-container>.hg-navbar-nav>li {
+  padding: 10px;
+  margin-bottom: 0px;
+  border-bottom: 1px solid #555;
+}
+
+
+#login-box {
+  width: 300px;
+  margin: auto;
+}
+
+#login-box>h1 {
+  font-family: 'Helvetica Neue', 'Calibri Light', 'Arial';
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+
+.widget {
+  width: 300px;
+  height: 300px;
+  text-align:center;
+  background: #fff;
+  color: #555;
+  overflow:hidden;
+  display: inline-block;
+  margin:30px;
+  box-shadow: 0px 0px 5px #000;
+
+}
+
+.widget>h1 {
+  font-size: 1.8em;
+}
