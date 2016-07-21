@@ -47,7 +47,8 @@ gulp.task('app-index', function() {
 
 gulp.task('app-views', function() {
   return gulp.src([
-    './src/views/*.html'
+    './src/views/*.html',
+    './src/views/**/*.html'
   ])
   .pipe(gulp.dest('./dist/views'));
 });
@@ -67,6 +68,7 @@ gulp.task('vendor-js', function() {
     './node_modules/angular-route/angular-route.js',
     './node_modules/angular-resource/angular-resource.js',
     './node_modules/angular-storage/dist/angular-storage.js',
+    './node_modules/angular-gravatar/build/angular-gravatar.js',
     './bower_components/jquery/dist/jquery.js',
     './node_modules/bootstrap/dist/js/bootstrap.js'
   ])

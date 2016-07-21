@@ -83,6 +83,7 @@ namespace Hale.Core.Handlers
             private static void ConfigureRoutes(HttpConfiguration config)
             {
                 config.MapHttpAttributeRoutes();
+                
                 // SA: No HTTP-route template needed as we only use attribute based routing. 
             }
 

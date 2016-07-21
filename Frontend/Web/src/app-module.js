@@ -1,1 +1,1 @@
-angular.module('HaleGUI', ['ngRoute', 'ngResource']);
+angular.module('HaleGUI', ['ngRoute', 'ngResource', 'ui.gravatar']);

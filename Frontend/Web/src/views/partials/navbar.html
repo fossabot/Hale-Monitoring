@@ -1,23 +1,27 @@
-<nav class="hg-navbar hg-navbar-slidable" ng-class="{'expanded' : nav.expanded}">
-  <div class="hg-navbar-container">
-    <div class="hg-navbar-brand">
+<nav class="navbar navbar-static-top navbar-inverse" ng-class="{'expanded' : nav.expanded}">
+  <div class="container-fluid" style="margin-left:10px;margin-right:10px">
+    <div class="navbar-header">
+      <a href="#" class="navbar-brand">
+        Hale
+      </a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" style="border:none;">
+        <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+      </button>
     </div>
-    <ul class="hg-navbar-nav">
-      <li ng-click="nav.toggle()" style="background: purple;border: none">
-        <div class="nav-icon">
-          <i class="fa fa-bars"></i>
-        </div>
-        <div class="nav-label">
-          Toggle Menu
-        </div>
-        <div class="clearfix">
-        </div>
-      </li>
-      <li navitem url="dashboard" icon="fa-dashboard"   label="Dashboard"></li>
-      <li navitem url="nodes"     icon="fa-server"      label="Nodes"></li>
-      <li navitem url="services"  icon="fa-binoculars"  label="Services"></li>
-      <li navitem url="reports"   icon="fa-file-text-o" label="Reports"></li>
-      <li navitem url="settings"  icon="fa-wrench"      label="Settings"></li>
-    </ul>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+
+        <li navitem class="navitem" url="dashboard" icon="fa-dashboard"   label="Dashboard"></li>
+        <li navitem class="navitem" url="nodes"     icon="fa-server"      label="Nodes"></li>
+        <li navitem class="navitem" url="services"  icon="fa-binoculars"  label="Services"></li>
+        <li navitem class="navitem" url="reports"   icon="fa-file-text-o" label="Reports"></li>
+        <li navitem class="navitem" url="settings"  icon="fa-wrench"      label="Settings"></li>
+      </ul>
+      <ul class="nav navbar-right">
+        <li class="dropdown" badge></li>
+      </ul>
+    </div>
+
   </div>
+    </div>
 </nav>

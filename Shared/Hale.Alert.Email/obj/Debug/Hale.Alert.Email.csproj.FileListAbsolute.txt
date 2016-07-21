@@ -15,5 +15,6 @@ C:\Hale-Monitoring\Shared\Hale.Alert.Email\bin\Debug\Hale-Alert-Email.dll
 C:\Hale-Monitoring\Shared\Hale.Alert.Email\bin\Debug\Hale-Alert-Email.pdb
 C:\Hale-Monitoring\Shared\Hale.Alert.Email\bin\Debug\Hale-Alert.dll
 C:\Hale-Monitoring\Shared\Hale.Alert.Email\bin\Debug\Hale-Alert.pdb
+C:\Hale-Monitoring\Shared\Hale.Alert.Email\obj\Debug\Hale.Alert.Email.csprojResolveAssemblyReference.cache
 C:\Hale-Monitoring\Shared\Hale.Alert.Email\obj\Debug\Hale-Alert-Email.dll
 C:\Hale-Monitoring\Shared\Hale.Alert.Email\obj\Debug\Hale-Alert-Email.pdb

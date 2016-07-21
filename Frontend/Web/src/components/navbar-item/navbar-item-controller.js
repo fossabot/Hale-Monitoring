@@ -1,9 +1,10 @@
 angular.module('HaleGUI')
-  .controller('NavbarItemController', ['$scope', function($scope) {
+  .controller('NavbarItemController', ['$scope', '$location', function($scope, $location) {
     $scope.url;
     $scope.icon;
     $scope.label;
     $scope.nav = function() {
-      window.location.href = '#/' + $scope.url;
+      $location.path('/' + $scope.url);
+      console.log('Navigating to /' + $scope.url);
     }
   }]);

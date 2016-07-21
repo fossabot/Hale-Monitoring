@@ -13,5 +13,6 @@ C:\Hale-Monitoring\Shared\Hale.Lib\bin\Debug\Newtonsoft.Json.dll
 C:\Hale-Monitoring\Shared\Hale.Lib\bin\Debug\NLog.dll
 C:\Hale-Monitoring\Shared\Hale.Lib\bin\Debug\Newtonsoft.Json.xml
 C:\Hale-Monitoring\Shared\Hale.Lib\bin\Debug\NLog.xml
+C:\Hale-Monitoring\Shared\Hale.Lib\obj\Debug\Hale.Lib.csprojResolveAssemblyReference.cache
 C:\Hale-Monitoring\Shared\Hale.Lib\obj\Debug\Hale.Lib.dll
 C:\Hale-Monitoring\Shared\Hale.Lib\obj\Debug\Hale.Lib.pdb

@@ -3,6 +3,9 @@ angular.module('HaleGUI')
     return {
       templateUrl: './views/partials/widget.html',
       controller: 'WidgetController',
-      restriction: 'AE'
+      restriction: 'AE',
+      scope: {
+        'size' : '='
+      }
     }
   })

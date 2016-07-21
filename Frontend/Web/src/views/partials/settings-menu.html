@@ -1,0 +1,49 @@
+<div class="col-sm-12 col-md-1 sidebar">
+  <ul class="nav nav-sidebar">
+    <li ng-class="{'active' : isActive('/settings/profile')}">
+      <a ng-click="nav('/settings/profile')">
+        Profile
+      </a>
+    </li>
+    <li ng-class="{'active' : isActive('/settings/team')}">
+      <a ng-click="nav('/settings/teams')">
+        Teams
+      </a>
+    </li>
+    <li ng-class="{'active' : isActive('/settings/dashboard')}">
+      <a ng-click="nav('/settings/dashboard')">
+        Dashboard
+      </a>
+    </li>
+    <li ng-class="{'active' : isActive('/settings/metadata') }">
+      <a ng-click="nav('/settings/metadata')">
+        Metadata
+      </a>
+    </li>
+    <li ng-class="isActive('/settings/agent')">
+      <a ng-click="nav('/settings/agent')">
+        Agent
+      </a>
+    </li>
+    <li ng-class="isActive('/settings/core')">
+      <a ng-click="nav('/settings/core')">
+        Core
+      </a>
+    </li>
+    <li ng-class="isActive('/settings/checkpacks')">
+      <a ng-click="nav('/settings/checkpacks')">
+        Checkpacks
+      </a>
+    </li>
+    <li ng-class="isActive('/settings/integrations')">
+      <a ng-click="nav('/settings/integrations')">
+        Integrations
+      </a>
+    </li>
+    <li ng-class="isActive('/settings/security')">
+      <a ng-click="nav('/settings/security')">
+        Security
+      </a>
+    </li>
+  </ul>
+</div>
