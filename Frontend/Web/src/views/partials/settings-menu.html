@@ -5,7 +5,7 @@
         Profile
       </a>
     </li>
-    <li ng-class="{'active' : isActive('/settings/team')}">
+    <li ng-class="{'active' : isActive('/settings/teams')}">
       <a ng-click="nav('/settings/teams')">
         Teams
       </a>
@@ -20,28 +20,28 @@
         Metadata
       </a>
     </li>
-    <li ng-class="isActive('/settings/agent')">
-      <a ng-click="nav('/settings/agent')">
+    <li ng-class="isActive('/settings/agent')" class="disabled">
+      <a ><!-- ng-click="nav('/settings/agent')" -->
         Agent
       </a>
     </li>
-    <li ng-class="isActive('/settings/core')">
-      <a ng-click="nav('/settings/core')">
+    <li ng-class="isActive('/settings/core')" class="disabled">
+      <a> <!-- ng-click="nav('/settings/core')" -->
         Core
       </a>
     </li>
-    <li ng-class="isActive('/settings/checkpacks')">
-      <a ng-click="nav('/settings/checkpacks')">
+    <li ng-class="isActive('/settings/checkpacks')" class="disabled">
+      <a> <!-- ng-click="nav('/settings/checkpacks')" -->
         Checkpacks
       </a>
     </li>
-    <li ng-class="isActive('/settings/integrations')">
-      <a ng-click="nav('/settings/integrations')">
+    <li ng-class="isActive('/settings/integrations')" class="disabled">
+      <a> <!-- ng-click="nav('/settings/integrations')" -->
         Integrations
       </a>
     </li>
-    <li ng-class="isActive('/settings/security')">
-      <a ng-click="nav('/settings/security')">
+    <li ng-class="isActive('/settings/security')" class="disabled">
+      <a> <!-- ng-click="nav('/settings/security')" -->
         Security
       </a>
     </li>

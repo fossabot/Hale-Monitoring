@@ -13,6 +13,10 @@ angular.module('HaleGUI')
         templateUrl: './views/settings/profile.html',
         controller: 'ProfileSettingsController'
       })
+      .when('/settings/teams', {
+        templateUrl: './views/settings/teams.html',
+        controller: 'TeamsSettingsController'
+      })
       .when('/settings/metadata', {
         templateUrl: './views/settings/metadata.html',
         controller: 'MetadataSettingsController'
