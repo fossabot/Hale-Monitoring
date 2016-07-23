@@ -1,4 +1,4 @@
-<nav class="navbar navbar-static-top navbar-inverse" ng-class="{'expanded' : nav.expanded}">
+<nav class="navbar navbar-static-top navbar-inverse" ng-class="{'expanded' : nav.expanded}" ng-show="showNavbar()">
   <div class="container-fluid" style="margin-left:10px;margin-right:10px">
     <div class="navbar-header">
       <a href="#" class="navbar-brand">
@@ -10,11 +10,11 @@
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li navitem class="navitem" url="dashboard" icon="fa-dashboard"   label="Dashboard"></li>
-        <li navitem class="navitem" url="nodes"     icon="fa-server"      label="Nodes"></li>
-        <li navitem class="navitem" url="services"  icon="fa-binoculars"  label="Services"></li>
-        <li navitem class="navitem" url="reports"   icon="fa-file-text-o" label="Reports"></li>
-        <li navitem class="navitem" url="settings"  icon="fa-wrench"      label="Settings"></li>
+        <li navitem ng-class="{ 'active' : isActive('dashboard')}" class="navitem" url="dashboard" icon="fa-dashboard"   label="Dashboard"></li>
+        <li navitem ng-class="{ 'active' : isActive('nodes')}" class="navitem" url="nodes"     icon="fa-server"      label="Nodes"></li>
+        <li navitem ng-class="{ 'active' : isActive('services')}" class="navitem" url="services"  icon="fa-binoculars"  label="Services"></li>
+        <li navitem ng-class="{ 'active' : isActive('reports')}" class="navitem" url="reports"   icon="fa-file-text-o" label="Reports"></li>
+        <li navitem ng-class="{ 'active' : isActive('settings')}" class="navitem" url="settings"  icon="fa-wrench"      label="Settings"></li>
       </ul>
       <ul class="nav navbar-right">
         <li class="dropdown" badge></li>

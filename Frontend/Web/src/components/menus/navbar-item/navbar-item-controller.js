@@ -7,4 +7,8 @@ angular.module('HaleGUI')
       $location.path('/' + $scope.url);
       console.log('Navigating to /' + $scope.url);
     }
+    $scope.isActive = function() {
+      return ($location.path() === $scope.url);
+    }
+
   }]);

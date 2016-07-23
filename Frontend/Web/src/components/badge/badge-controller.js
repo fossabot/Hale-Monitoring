@@ -1,11 +1,10 @@
 angular.module('HaleGUI')
-.controller('BadgeController', ['$scope', '$location', function($scope, $location) {
+.controller('BadgeController', ['$scope', '$location', 'Auth', function($scope, $location, Auth) {
   $scope.profile = function() {
       $location.path('/settings/profile');
   };
   $scope.logout = function() {
-
-        $location.path('/logout');
-  };
-
+    Auth.logout();
+    $location.path('/login');
+  }
 }]);

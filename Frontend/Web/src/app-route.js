@@ -5,7 +5,7 @@ angular.module('HaleGUI')
         templateUrl: './views/main.html',
         controller: 'MainController'
       })
-      .when('/settings/dashboard', {
+      /* .when('/settings/dashboard', {
         templateUrl: './views/settings/dashboard.html',
         controller: 'DashboardSettingsController'
       })
@@ -20,7 +20,7 @@ angular.module('HaleGUI')
       .when('/settings/metadata', {
         templateUrl: './views/settings/metadata.html',
         controller: 'MetadataSettingsController'
-      })
+      }) */
       .when('/login', {
         templateUrl: './views/login.html',
         controller: 'LoginController'
@@ -29,8 +29,21 @@ angular.module('HaleGUI')
         templateUrl: './views/nodes.html',
         controller: 'NodesController'
       })
+      .when('/reports', {
+        templateUrl: './views/reports.html',
+        controller: 'ReportsController'
+      })
+      .when('/services', {
+        templateUrl: './views/services.html',
+        controller: 'ServicesController'
+      })
       .when('/settings', {
-        redirectTo: '/settings/profile'
+        templateUrl: './views/settings.html',
+        controller: 'SettingsController'
+      })
+      .when('/settings/:section', {
+        templateUrl: './views/settings.html',
+        controller: 'SettingsController'
       })
       .otherwise({
         redirectTo: '/dashboard'
