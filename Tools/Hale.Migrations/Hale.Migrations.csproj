@@ -7,12 +7,12 @@
     <ProjectGuid>{CB6B3702-4AB0-4B2A-9E78-19F2EA9B1D8C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hale.Migration</RootNamespace>
-    <AssemblyName>Hale.Migration</AssemblyName>
+    <RootNamespace>Hale.Migrations</RootNamespace>
+    <AssemblyName>Hale.Migrations</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <AssemblyVersion>1.0.16208.10</AssemblyVersion>
+    <AssemblyVersion>1.0.16208.13</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -71,15 +71,15 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <UsingTask TaskName="FluentMigrator.MSBuild.Migrate" AssemblyFile="../packages/FluentMigrator.Tools.1.6.2/tools/AnyCPU/40/FluentMigrator.MSBuild.dll" />
+  <UsingTask TaskName="FluentMigrator.MSBuild.Migrate" AssemblyFile="../../packages/FluentMigrator.Tools.1.6.2/tools/AnyCPU/40/FluentMigrator.MSBuild.dll" />
   <Target Name="Migrate">
     <Message Text="Starting FluentMigrator Migration" />
-    <Migrate Database="postgres" Connection="server=localhost;uid=hale;pwd=hale;database=hale_testing" Target="./bin/Debug/Hale.Migration.dll" Output="True" OutputFilename="generated.sql">
+    <Migrate Database="postgres" Connection="server=localhost;uid=hale;pwd=hale;database=hale_testing" Target="./bin/Debug/Hale.Migrations.dll" Output="True" OutputFilename="generated.sql">
     </Migrate>
   </Target>
   <Target Name="MigrateRollbackAll">
     <Message Text="Starting FluentMigrator Rollback All" />
-    <Migrate Database="postgres" Connection="server=localhost;uid=hale;pwd=hale;database=hale_testing" Target="./bin/Debug/Hale.Migration.dll" Output="True" Task="rollback:all">
+    <Migrate Database="postgres" Connection="server=localhost;uid=hale;pwd=hale;database=hale_testing" Target="./bin/Debug/Hale.Migrations.dll" Output="True" Task="rollback:all">
     </Migrate>
   </Target>
 </Project>

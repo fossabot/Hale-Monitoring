@@ -95,7 +95,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Alert", "Testing\Hale.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Lib", "Shared\Hale.Lib\Hale.Lib.csproj", "{C023CFA8-753B-42B8-8D52-B71331991E34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Migration", "Hale.Migration\Hale.Migration.csproj", "{CB6B3702-4AB0-4B2A-9E78-19F2EA9B1D8C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Migrations", "Tools\Hale.Migrations\Hale.Migrations.csproj", "{CB6B3702-4AB0-4B2A-9E78-19F2EA9B1D8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
