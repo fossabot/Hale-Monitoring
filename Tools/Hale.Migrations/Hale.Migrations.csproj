@@ -55,8 +55,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreateUsersSchema.cs" />
     <Compile Include="CreateUsersAccountsTable.cs" />
+    <Compile Include="CreateUsersEmailsTable.cs" />
+    <Compile Include="CreateUsersPhonesTable.cs" />
+    <Compile Include="CreateUsersSchema.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
