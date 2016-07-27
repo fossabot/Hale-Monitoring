@@ -22,12 +22,18 @@ angular.module('HaleGUI')
         controller: 'ServicesController'
       })
       .when('/settings', {
-        templateUrl: './views/settings.html',
-        controller: 'SettingsController'
+        redirectTo: '/settings/profile'
       })
       .when('/settings/:section', {
         templateUrl: './views/settings.html',
         controller: 'SettingsController'
+      })
+      .when('/admin', {
+        redirectTo: '/admin/teams'
+      })
+      .when('/admin/:section', {
+        templateUrl: './views/admin.html',
+        controller: 'AdminController'
       })
       .otherwise({
         redirectTo: '/dashboard'

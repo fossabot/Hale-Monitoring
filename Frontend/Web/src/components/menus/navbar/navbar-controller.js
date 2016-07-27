@@ -9,4 +9,7 @@ angular.module('HaleGUI')
     $scope.isActive = function(url) {
       return ($location.path() === '/' + url ? true : $location.path().split('/')[1] == url);
     }
+    $scope.isAdmin = function() {
+      return true;
+    }
   }]);

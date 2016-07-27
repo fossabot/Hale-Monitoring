@@ -11,10 +11,11 @@
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav" ng-class="{ 'hg-has-submenu' : hasSubmenu()}">
         <li navitem ng-class="{ 'active' : isActive('dashboard')}" class="navitem" url="dashboard" icon="fa-dashboard"   label="Dashboard"></li>
-        <li navitem ng-class="{ 'active' : isActive('nodes')}" class="navitem" url="nodes"     icon="fa-server"      label="Nodes"></li>
-        <li navitem ng-class="{ 'active' : isActive('services')}" class="navitem" url="services"  icon="fa-binoculars"  label="Services"></li>
-        <li navitem ng-class="{ 'active' : isActive('reports')}" class="navitem" url="reports"   icon="fa-file-text-o" label="Reports"></li>
-        <li navitem ng-class="{ 'active' : isActive('settings')}" class="navitem" url="settings"  icon="fa-wrench"      label="Settings"></li>
+        <li navitem ng-class="{ 'active' : isActive('nodes')}"     class="navitem" url="nodes"     icon="fa-server"      label="Nodes"></li>
+        <li navitem ng-class="{ 'active' : isActive('services')}"  class="navitem" url="services"  icon="fa-binoculars"  label="Services"></li>
+        <li navitem ng-class="{ 'active' : isActive('reports')}"   class="navitem" url="reports"   icon="fa-file-text-o" label="Reports"></li>
+        <li navitem ng-class="{ 'active' : isActive('settings')}"  class="navitem" url="settings"  icon="fa-wrench"      label="Settings"></li>
+        <li navitem ng-class="{ 'active' : isActive('admin')}"     class="navitem" url="admin"     icon="fa-lock"        label="Admin" ng-show="isAdmin()"></li>
       </ul>
       <ul class="nav navbar-right">
         <li class="dropdown" badge></li>
