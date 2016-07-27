@@ -1,78 +1,64 @@
 <div class="pull-right" style="width:200px">
-  <input type="text" placeholder="Filter" class="form-control">
+  <input type="text" placeholder="Filter" class="form-control" ng-model="filter">
 </div>
 <div class="visible-m visible-l clearfix" style="margin-bottom:20px">
 </div>
 <table class="table table-hover table-striped">
   <thead>
     <tr>
-      <th>
+      <th class="table-sortable-header" ng-click="sortBy('name')">
         Node Name
+        <i
+          class="caret"
+          ng-class="(propertyName == 'name' ? 'caret-active' + ' ' + (reverse ? 'caret-up' : 'caret-down') : 'caret-inactive')">
+        </i>
       </th>
-      <th>
+      <th class="table-sortable-header" ng-click="sortBy('uri')">
         URI
+        <i
+          class="caret"
+          ng-class="(propertyName == 'uri' ? 'caret-active' + ' ' + (reverse ? 'caret-up' : 'caret-down') : 'caret-inactive')">
+        </i>
       </th>
-      <th>
+      <th class="table-sortable-header" ng-click="sortBy('status')">
         Status
+        <i
+          class="caret"
+          ng-class="(propertyName == 'status' ? 'caret-active' + ' ' + (reverse ? 'caret-up' : 'caret-down') : 'caret-inactive')">
+        </i>
       </th>
-      <th>
+      <th class="table-sortable-header" ng-click="sortBy('health')">
         Health %
+        <i
+          class="caret"
+          ng-class="(propertyName == 'health' ? 'caret-active' + ' ' + (reverse ? 'caret-up' : 'caret-down') : 'caret-inactive')">
+        </i>
       </th>
-      <th class="text-right">
+      <th class="table-sortable-header text-right" ng-click="sortBy('changed')">
         Last Change
+        <i
+          class="caret"
+          ng-class="(propertyName == 'changed' ? 'caret-active' + ' ' + (reverse ? 'caret-up' : 'caret-down') : 'caret-inactive')">
+        </i>
       </th>
     </tr>
   </thead>
   <tbody>
-    <tr>
+    <tr ng-repeat="host in hosts | orderBy:propertyName:reverse | filter:filter">
       <td>
-        hale-qa-srv01
+        {{host.name}}
       </td>
       <td>
-        hale-qa-srv01.io.nav
+        {{host.uri}}
       </td>
       <td>
-        Up
+        {{host.status}}
       </td>
       <td>
-        75%
+        {{host.health}}
       </td>
       <td  class="text-right">
-        2016-07-02 13:00
-      </td>
-    </tr>
-    <tr>
-      <td>
-        hale-qa-srv02
-      </td>
-      <td>
-        hale-qa-srv02.io.nav
-      </td>
-      <td>
-        Up
-      </td>
-      <td>
-        100%
-      </td>
-      <td  class="text-right">
-        2016-07-10 12:20
-      </td>
-    </tr>
-    <tr>
-      <td>
-        games-linux-srv01
-      </td>
-      <td>
-        games-linux-srv01.io.nav
-      </td>
-      <td>
-        Up
-      </td>
-      <td>
-        100%
-      </td>
-      <td  class="text-right">
-        2016-07-10 12:20
+        {{host.changed}}
       </td>
     </tr>
   </tbody>

@@ -2,11 +2,61 @@ html {
   height: 100%;
   width: 100%;
 }
+
+.navbar {
+  margin-bottom: 0px!important;
+}
+
+.caret-up {
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform:rotate(180deg);
+}
+.caret-inactive {
+  color: #aaa;
+}
+.table-sortable-header {
+  cursor: pointer;
+}
+
 body {
   height: 100%;
   width: 100%;
-  background: #f2f2f2;
+  background: #f7f7f7;
 }
+.hg-submenu {
+  background: #00ace6;
+  padding-bottom: 5px;
+}
+.hg-submenu-nav {
+  padding: 10px;
+  padding-left:15px;
+  padding-bottom: 10px;
+  margin: 0px;
+}
+.hg-submenu-nav>li {
+  display: inline-block;
+  padding-top: 10px;
+  padding-right: 10px;
+  position:relative;
+  text-align: right;
+  cursor: pointer;
+}
+.hg-submenu-nav>li.active::after {
+  content: " ";
+  border-bottom: 10px solid #f7f7f7;
+  border-left:10px solid transparent;
+  border-right:10px solid transparent;
+  margin-left: -15px;
+  position: absolute;
+  left:50%;
+  bottom:-15px;
+}
+.hg-submenu-nav>li>a {
+  color: #fff;
+}
+
+
 
 #wrapper {
   height: 100%;
@@ -102,8 +152,40 @@ body {
 }
 
 .navbar-inverse {
-  background: #333;
+  background: #0086b3;
+  outline: none;
+  border: none;
 }
+.navbar-inverse .navbar-nav > li > a,
+.navbar-inverse .navbar-brand {
+  color: #ccf2ff;
+}
+
+.navbar-inverse .navbar-nav > .active > a {
+  background: transparent;
+  position: relative;
+}
+
+.navbar-nav:not(.hg-has-submenu) > .active > a::after {
+  border-bottom: 10px solid #f7f7f7;
+  content: " ";
+  position: absolute;
+  left: 10px;
+  bottom: 0px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+
+.hg-has-submenu > .active > a::after {
+border-bottom: 10px solid #00ace6;
+content: " ";
+position: absolute;
+left: 10px;
+bottom: 0px;
+border-left: 10px solid transparent;
+border-right: 10px solid transparent;
+}
+
 
 .widget {
   width: 100%;

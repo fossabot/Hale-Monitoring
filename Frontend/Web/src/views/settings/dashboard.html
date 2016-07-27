@@ -1,27 +1,24 @@
-<div>
-  <h4>
-    Dashboard Settings
-  </h4>
-  <p>
-    <i>
-    Select the widgets that you would like to present on the dashboard screen.
-    If none is selected, the dashboard will be empty and unusable (duh).
-    Drag and drop the widgets to order, enable or disable them.
-    </i>
+<div ng-controller="DashboardSettingsController">
+  <h2>
+    {{title}}
+  </h2>
+  <p style="font-size: 1.1em;text-align:justify;">
+    {{description}}
   </p>
+  <hr/>
   <div>
     <div class="col-md-6" style="margin-left: 0px;padding-left:0px">
-      <h4>
+      <h3>
         Available Widgets:
-      </h4>
+      </h3>
       <div class="available-widgets">
         <div class="widget-item well">
-          <h5>
+          <h4>
             <i class="fa fa-list">
             </i>
             Node summary
-          </h5>
-          <p style="font-size:0.8em">
+          </h4>
+          <p>
             Displays a summary of all hosts registered in Hale Monitoring and their current
             status. This is a condensed version of what you see in the hosts tab.
           </p>
@@ -52,9 +49,9 @@
     </div>
   </div>
   <div class="col-md-6" style="margin-right: 0px;padding-right:0px">
-    <h4>
+    <h3>
       Enabled  Widgets:
-    </h4>
+    </h3>
     <div class="enabled-widgets">
       <div class="widget-item well">
         <i class="fa fa-twitter"></i>

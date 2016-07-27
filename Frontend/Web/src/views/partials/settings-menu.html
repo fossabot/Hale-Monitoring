@@ -1,49 +1,13 @@
-<div class="col-sm-12 col-md-1 sidebar">
-  <ul class="nav nav-sidebar">
-    <li ng-class="{'active' : isActive('/settings/profile')}">
-      <a ng-click="nav('/settings/profile')">
-        Profile
-      </a>
-    </li>
-    <li ng-class="{'active' : isActive('/settings/teams')}">
-      <a ng-click="nav('/settings/teams')">
-        Teams
-      </a>
-    </li>
-    <li ng-class="{'active' : isActive('/settings/dashboard')}">
-      <a ng-click="nav('/settings/dashboard')">
-        Dashboard
-      </a>
-    </li>
-    <li ng-class="{'active' : isActive('/settings/metadata') }">
-      <a ng-click="nav('/settings/metadata')">
-        Metadata
-      </a>
-    </li>
-    <li ng-class="isActive('/settings/agent')" class="disabled">
-      <a ><!-- ng-click="nav('/settings/agent')" -->
-        Agent
-      </a>
-    </li>
-    <li ng-class="isActive('/settings/core')" class="disabled">
-      <a> <!-- ng-click="nav('/settings/core')" -->
-        Core
-      </a>
-    </li>
-    <li ng-class="isActive('/settings/checkpacks')" class="disabled">
-      <a> <!-- ng-click="nav('/settings/checkpacks')" -->
-        Checkpacks
-      </a>
-    </li>
-    <li ng-class="isActive('/settings/integrations')" class="disabled">
-      <a> <!-- ng-click="nav('/settings/integrations')" -->
-        Integrations
-      </a>
-    </li>
-    <li ng-class="isActive('/settings/security')" class="disabled">
-      <a> <!-- ng-click="nav('/settings/security')" -->
-        Security
-      </a>
-    </li>
-  </ul>
+<div class="hg-submenu">
+  <div class="container">
+    <div class="row">
+      <ul class="hg-submenu-nav">
+        <li class="hg-submenu" ng-repeat="item in items" ng-class="{ 'active' : isActive(item.url) }" ng-click="nav(item.url)">
+          <a>
+            {{item.label}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

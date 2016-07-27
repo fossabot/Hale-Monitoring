@@ -1,12 +1,9 @@
-<div class="container-fluid" style="margin-left:10px;margin-right:10px">
-  <div class="row">
-    <settings-menu>
-    </settings-menu>
-    <div class="col-md-11 col-md-offset-1 col-sm-12">
-      <profile-settings   ng-show="renderSection('profile')"></profile-settings>
-      <dashboard-settings ng-show="renderSection('dashboard')"></dashboard-settings>
-      <metadata-settings  ng-show="renderSection('metadata')"></metadata-settings>
-      <teams-settings     ng-show="renderSection('teams')"></teams-settings>
-    </div>
-  </div>
+<settings-menu>
+</settings-menu>
+
+<div class="container" style="margin-top: 10px;">
+  <profile-settings   ng-show="renderSection('profile')"></profile-settings>
+  <dashboard-settings ng-show="renderSection('dashboard')"></dashboard-settings>
+  <metadata-settings  ng-show="renderSection('metadata')"></metadata-settings>
+  <teams-settings     ng-show="renderSection('teams')"></teams-settings>
 </div>

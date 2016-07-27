@@ -1,5 +1,5 @@
 <nav class="navbar navbar-static-top navbar-inverse" ng-class="{'expanded' : nav.expanded}" ng-show="showNavbar()">
-  <div class="container-fluid" style="margin-left:10px;margin-right:10px">
+  <div class="container">
     <div class="navbar-header">
       <a href="#" class="navbar-brand">
         Hale
@@ -9,7 +9,7 @@
       </button>
     </div>
     <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav" ng-class="{ 'hg-has-submenu' : hasSubmenu()}">
         <li navitem ng-class="{ 'active' : isActive('dashboard')}" class="navitem" url="dashboard" icon="fa-dashboard"   label="Dashboard"></li>
         <li navitem ng-class="{ 'active' : isActive('nodes')}" class="navitem" url="nodes"     icon="fa-server"      label="Nodes"></li>
         <li navitem ng-class="{ 'active' : isActive('services')}" class="navitem" url="services"  icon="fa-binoculars"  label="Services"></li>
