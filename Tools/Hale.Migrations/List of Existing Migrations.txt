@@ -1,0 +1,16 @@
+﻿
+  List of Existing Migrations
+  ---
+
+  Until we find out a better way to do this; include all "taken" migration
+  numbers and which class they trigger in this file. -SA 2016-07-27
+
+  #		Class						
+  ------------------------------------------------------------------------
+  1.	CreateUsersSchema
+  2.	CreateUsersAccountsTable
+  3.	CreateUsersEmailsTable
+  4.	CreateUsersPhonesTable		
+  ------------------------------------------------------------------------
+	
+  

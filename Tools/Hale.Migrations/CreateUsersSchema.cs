@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hale.Migration
+namespace Hale.Migrations
 {
     [Migration(1)]
     public class CreateUsersSchema : FluentMigrator.Migration
