@@ -5,12 +5,15 @@ gulp.task('default', [
     'app', 'vendor'
 ]);
 
+
+
 gulp.task('app', [
   'app-js',
   'app-css',
   'app-views',
   'app-views-partials',
-  'app-index'
+  'app-index',
+  'app-mocks'
 ]);
 
 gulp.task('vendor', [
@@ -60,6 +63,11 @@ gulp.task('app-views-partials', function() {
   ])
   .pipe(gulp.dest('./dist/views/partials/'));
 })
+
+gulp.task('app-mocks', function() {
+  return gulp.src('./src/mocks/**')
+  .pipe(gulp.dest('./dist/mocks'))
+});
 
 gulp.task('vendor-js', function() {
   return gulp.src([

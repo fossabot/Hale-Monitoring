@@ -13,6 +13,14 @@ angular.module('HaleGUI')
         'url' : '/settings/profile'
       },
       {
+        'label' : 'Emails',
+        'url' : '/settings/emails'
+      },
+      {
+        'label' : 'Phones',
+        'url' : '/settings/phones'
+      },
+      {
         'label' : 'Dashboard',
         'url' : '/settings/dashboard'
       }

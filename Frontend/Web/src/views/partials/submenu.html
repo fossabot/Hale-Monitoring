@@ -1,0 +1,13 @@
+<div class="hg-submenu">
+  <div class="container">
+    <div class="row">
+      <ul class="hg-submenu-nav">
+        <li class="hg-submenu" ng-repeat="item in items" ng-class="{ 'active' : isActive(item.url) }" ng-click="nav(item.url)">
+          <a>
+            {{item.label}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

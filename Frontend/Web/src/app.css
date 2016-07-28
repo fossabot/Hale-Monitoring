@@ -3,6 +3,10 @@ html {
   width: 100%;
 }
 
+.clickable {
+  cursor: pointer
+}
+
 .navbar {
   margin-bottom: 0px!important;
 }

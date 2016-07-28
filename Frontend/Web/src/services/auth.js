@@ -16,8 +16,8 @@ angular.module('HaleGUI')
 
     this.validateLogin = function() {
       if (this.isLoggedIn === false
-        && $location.path() !== "/login") {
-          $location.path('/login');
+        && $location.path() !== "/settings/emails") {
+          $location.path('/settings/emails');
         }
     }
 
