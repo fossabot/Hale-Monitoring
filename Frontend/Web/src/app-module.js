@@ -1,1 +1,6 @@
-angular.module('HaleGUI', ['ngRoute', 'ngResource', 'ui.gravatar']);
+angular.module('HaleGUI', [
+  'ngRoute',
+  'ngResource',
+  'ui.gravatar',
+  'dndLists'
+]);

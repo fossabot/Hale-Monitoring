@@ -1,17 +1,25 @@
 <div class="row">
-  <dashboard-menu>
-  </dashboard-menu>
+  <div class="col-md-12 text-right">
+    <widget-toggler>
+    </widget-toggler>
+  </div>
 </div>
-<div class="row">
-<!-- Uncomment this to render a disposition example.
+<div class="row" style="margin-left:-25px;margin-right:-25px">
+  <div class="col-md-12">
+    <ul dnd-list="widgets" style="list-style: none;margin:0px;padding:0px">
+      <li ng-repeat          = "widget in widgets | filter:{enabled:true}"
+          dnd-draggable      = "widget"
+          dnd-moved          = "widgets.splice($index, 1);moveCallback();"
+          dnd-effect-allowed = "copyMove"
+          widget
+          hg-widget-size="{{widget.size}}"
+          hg-widget-title="{{widget.title}}"
+          hg-widget-view="{{widget.view}}"
+      >
+      </li>
+      <li class="dndPlaceholder" widget hg-size="3" hg-title ="">
 
-  <widget size="4"></widget>
-  <widget size="4"></widget>
-  <widget size="4"></widget>
-  <widget size="6"></widget>
-  <widget size="6"></widget>
-  <widget size="12"></widget>
-
--->
-
+      </li>
+    </ul>
+  </div>
 </div>

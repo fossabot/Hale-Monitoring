@@ -77,6 +77,7 @@ gulp.task('vendor-js', function() {
     './node_modules/angular-resource/angular-resource.js',
     './node_modules/angular-storage/dist/angular-storage.js',
     './node_modules/angular-gravatar/build/angular-gravatar.js',
+    './node_modules/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js',
     './bower_components/jquery/dist/jquery.js',
     './node_modules/bootstrap/dist/js/bootstrap.js'
   ])

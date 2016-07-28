@@ -5,7 +5,9 @@ angular.module('HaleGUI')
       controller: 'WidgetController',
       restriction: 'AE',
       scope: {
-        'size' : '='
+        'size' : '@hgWidgetSize',
+        'title' : '@hgWidgetTitle',
+        'view' : '@hgWidgetView'
       }
     }
   })
