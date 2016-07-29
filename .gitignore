@@ -138,6 +138,12 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 
+# Visual studio local config overrides
+.vs
+
+# Visual studio Intellisense DB
+*.VC.db
+
 # =========================
 # Windows detritus
 # =========================
