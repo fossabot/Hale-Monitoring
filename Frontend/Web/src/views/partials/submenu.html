@@ -1,12 +1,25 @@
-<div class="hg-submenu">
+<div class="hg-submenu" ng-controller="SubmenuController">
   <div class="container">
     <div class="row">
       <ul class="hg-submenu-nav">
-        <li class="hg-submenu" ng-repeat="item in items" ng-class="{ 'active' : isActive(item.url) }" ng-click="nav(item.url)">
-          <a>
+        <li ng-show="item.url || item.items.length > 0" class="hg-submenu" ng-repeat="item in items" ng-class="{ 'active' : isActive(item.url) }" >
+          <a ng-if="item.url && item.url != ''" ng-click="nav(item.url)">
             {{item.label}}
           </a>
+          <div ng-if="item.items.length > 0">
+            <a class="dropdown-toggle" style="color: inherit;" type="button" data-toggle="dropdown">
+                {{item.label}}
+            </a>
+            <ul class="dropdown-menu">
+              <li ng-repeat="subitem in item.items">
+                <a ng-click="nav(subitem.url)">
+                  {{subitem.label}}
+                </a>
+              </li>
+            </ul>
+          </div>
         </li>
+
       </ul>
     </div>
   </div>

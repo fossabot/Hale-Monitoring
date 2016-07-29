@@ -3,4 +3,6 @@ angular.module('HaleGUI')
     Auth.validateLogin();
     $scope.isLoggedIn = Auth.getLoginStatus();
     console.log($scope.isLoggedIn);
+
+
   }]);
