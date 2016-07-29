@@ -3,7 +3,7 @@
     Widgets <i class="caret"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-right">
-    <li ng-repeat="widget in widgets">
+    <li ng-repeat="widget in widgets" stop-prop>
       <a ng-click="widget.enabled = !widget.enabled">
         <div class="pull-left" style="width: 300px">
           {{widget.title}}
