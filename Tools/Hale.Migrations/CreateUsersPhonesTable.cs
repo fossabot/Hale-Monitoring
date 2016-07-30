@@ -16,7 +16,8 @@ namespace Hale.Migrations
                 .WithColumn("Id").AsInt32().NotNullable()
                     .PrimaryKey().Identity()
                 .WithColumn("AccountId").AsInt32().NotNullable()
-                    .ForeignKey("Accounts", "Id").OnDeleteOrUpdate(System.Data.Rule.Cascade)
+                    .ForeignKey("FK_Phones_AccountId_Accounts_Id", "Users", "Accounts", "Id")
+                        .OnDeleteOrUpdate(System.Data.Rule.Cascade)
                 .WithColumn("Number").AsString().NotNullable().Unique()
                 .WithColumn("Primary").AsBoolean().NotNullable()
             ;
@@ -34,7 +35,7 @@ namespace Hale.Migrations
 
         public override void Down()
         {
-            Delete.Index("IX_Phones_Number")
+            Delete.Index("IX_Phones_AccountId")
                 .OnTable("Phones").InSchema("Users");
 
             Delete.Table("Phones").InSchema("Users");

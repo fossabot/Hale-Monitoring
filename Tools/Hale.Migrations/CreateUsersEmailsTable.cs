@@ -15,7 +15,8 @@ namespace Hale.Migrations
                 .WithColumn("Id").AsInt32().NotNullable()
                     .PrimaryKey().Identity()
                 .WithColumn("AccountId").AsInt32().NotNullable()
-                    .ForeignKey("Accounts", "Id").OnDeleteOrUpdate(System.Data.Rule.Cascade)
+                    .ForeignKey("FK_Accounts_Id_Emails_AccountId", "Users", "Accounts", "Id")
+                        .OnDeleteOrUpdate(System.Data.Rule.Cascade)
                 .WithColumn("Address").AsString().NotNullable().Unique()
                 .WithColumn("Primary").AsBoolean().NotNullable()
             ;
@@ -35,7 +36,7 @@ namespace Hale.Migrations
         {
             Delete.Index("IX_Emails_AccountId")
                 .OnTable("Emails").InSchema("Users");
-            Delete.Table("Emails");
+            Delete.Table("Emails").InSchema("Users");
         }
     }
 }
