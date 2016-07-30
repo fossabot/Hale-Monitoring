@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <AssemblyVersion>1.0.16208.13</AssemblyVersion>
+    <AssemblyVersion>1.0.16212.19</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -63,6 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Deploy.proj">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -87,4 +90,5 @@
     <Migrate Database="postgres" Connection="server=localhost;uid=hale;pwd=hale;database=hale_testing" Target="./bin/Debug/Hale.Migrations.dll" Output="True" Task="rollback:all">
     </Migrate>
   </Target>
+  <Import Project="Deploy.proj" />
 </Project>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+   <UsingTask TaskName="FluentMigrator.MSBuild.Migrate" AssemblyFile="../../packages/FluentMigrator.Tools.1.6.2/tools/AnyCPU/40/FluentMigrator.MSBuild.dll" />
+   <Target Name="Deploy">
+     <Message Text="Starting FluentMigrator Migration" />
+     <Migrate Database="postgres" Connection="server=localhost;uid=hale;pwd=hale;database=hale_testing" Target="./bin/Debug/Hale.Migrations.dll" Output="True" OutputFilename="generated.sql" />
+  </Target>
+</Project>
