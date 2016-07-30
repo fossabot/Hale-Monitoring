@@ -107,7 +107,7 @@ csx
 AppPackages/
 
 # Others
-sql/
+
 *.Cache
 ClientBin/
 [Ss]tyle[Cc]op.*
@@ -139,7 +139,9 @@ _Pvt_Extensions/
 ModelManifest.xml
 
 # Visual studio local config overrides
-.vs
+.vs/*
+.vs/config/*
+.vs/config/applicationhost.config
 
 # Visual studio Intellisense DB
 *.VC.db

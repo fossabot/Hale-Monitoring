@@ -1,8 +1,0 @@
-C:\Hale-Monitoring\Shared\Alert\bin\Debug\Hale-Alert.dll
-C:\Hale-Monitoring\Shared\Alert\bin\Debug\Hale-Alert.pdb
-C:\Hale-Monitoring\Shared\Alert\bin\Debug\Newtonsoft.Json.dll
-C:\Hale-Monitoring\Shared\Alert\bin\Debug\NLog.dll
-C:\Hale-Monitoring\Shared\Alert\bin\Debug\Newtonsoft.Json.xml
-C:\Hale-Monitoring\Shared\Alert\bin\Debug\NLog.xml
-C:\Hale-Monitoring\Shared\Alert\obj\Debug\Hale-Alert.dll
-C:\Hale-Monitoring\Shared\Alert\obj\Debug\Hale-Alert.pdb
