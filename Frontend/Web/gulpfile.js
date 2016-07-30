@@ -78,6 +78,8 @@ gulp.task('vendor-js', function() {
     './node_modules/angular-storage/dist/angular-storage.js',
     './node_modules/angular-gravatar/build/angular-gravatar.js',
     './node_modules/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js',
+    './node_modules/chart.js/dist/Chart.min.js',
+    './node_modules/angular-chart.js/dist/angular-chart.js',
     './bower_components/jquery/dist/jquery.js',
     './node_modules/bootstrap/dist/js/bootstrap.js'
   ])
@@ -88,7 +90,7 @@ gulp.task('vendor-js', function() {
 gulp.task('vendor-css', function() {
   return gulp.src([
     './node_modules/bootstrap/dist/css/bootstrap.css',
-    './node_modules/font-awesome/css/font-awesome.css'
+    './node_modules/font-awesome/css/font-awesome.css',
   ])
   .pipe(concat('vendor.css'))
   .pipe(gulp.dest('./dist/css'));

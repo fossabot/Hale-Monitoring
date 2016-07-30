@@ -9,7 +9,7 @@ angular.module('HaleGUI')
         },
         {
           'title' : 'Status Chart',
-          'view'  : '',
+          'view'  : './views/widgets/status-chart.html',
           'size'  : '3',
           'enabled' : true
         },

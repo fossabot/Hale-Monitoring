@@ -1,6 +1,49 @@
 <div ng-controller="HostSummaryWidgetController" style="padding-top:10px">
-  <h4 style="text-align:center;margin-top:80px">
-    You are monitoring {{nodes.length}} hosts.<br/>
-    Out of these {{statusUpCount}} ({{statusUpCountPct}}%) are currently up.
-  </h4>
+  <div style="min-height:200px;">
+  <table class="table table-striped table-condensed" style="font-size:0.8em;">
+    <thead>
+      <tr>
+        <th>
+          <i class="fa fa-heart"></i>
+        </th>
+        <th>
+          Node
+        </th>
+        <th>
+          URI
+        </th>
+        <th  class="text-right">
+          Last Change
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="node in nodes | limitTo:limit:offset | orderBy:'status':false">
+        <td style="width:10px">
+          <div style="margin-top:2px;height:10px;width:10px;display:inline-block;background:red;border-radius:2px" ng-show="node.status == 'down'">
+          </div>
+          <div style="margin-top:2px;height:10px;width:10px;display:inline-block;background:green;border-radius:2px" ng-show="node.status == 'up'">
+          </div>
+        </td>
+        <td>
+          {{node.name}}
+        </td>
+        <td>
+          {{node.uri}}
+        </td>
+        <td class="text-right">
+          {{node.changed}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="text-right">
+  <button class="btn btn-default" type="button" ng-click="decreaseOffset()">
+    Previous
+  </button>
+  <button class="btn btn-default" type="button" ng-click="increaseOffset()">
+    Next
+  </button>
+</div>
 </div>

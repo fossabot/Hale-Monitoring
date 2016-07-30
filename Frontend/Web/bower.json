@@ -13,5 +13,6 @@
   ],
   "devDependencies": {
     "jquery": "^2.2.3"
-  }
+  },
+  "dependencies": {}
 }

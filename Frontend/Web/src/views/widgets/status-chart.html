@@ -1,0 +1,8 @@
+<div ng-controller="StatusChartWidgetController" style="padding-top: 30px">
+  <canvas id="doughnut" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-options="options">
+  </canvas>
+  <div style="margin-top:20px;text-align:center;font-style:italic">
+    Node health status is {{(upCount/(upCount+downCount)*100).toFixed(0)}}%.<br/>
+    {{upCount}} nodes up, {{downCount}} nodes down.
+  </div>
+</div>

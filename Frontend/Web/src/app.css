@@ -336,7 +336,7 @@ ul[dnd-list] .dndDraggingSource {
     opacity: 0.8;
 }
 
-.widget:not(:hover) {
+.widget {
   background: transparent;
   border: 1px solid #ddd;
 }
@@ -346,6 +346,6 @@ ul[dnd-list] .dndDragOver .widget {
 
 }
 
-.widget:not(:hover) > .widget-header{
-  visibility:hidden;
+.widget-body {
+  height:100%;
 }
