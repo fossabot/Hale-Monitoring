@@ -7,15 +7,18 @@ using System.Threading.Tasks;
 
 namespace Hale.Migrations
 {
-    [Profile("Development")]
-    public partial class DevelopmentProfile : Migration
+    [Migration(9)]
+    public class M009CreateNodesSchema : Migration
     {
         public override void Up()
         {
-            SeedUsers();
-            SeedHosts();
+            Create.Schema("Nodes");
         }
 
-        public override void Down() { }
+        public override void Down()
+        {
+            Delete.Schema("Nodes");
+        }
+
     }
 }
