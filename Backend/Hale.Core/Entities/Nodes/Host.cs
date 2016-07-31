@@ -17,7 +17,7 @@ namespace Hale.Core.Entities.Nodes
         /// <summary>
         /// Corresponds to the table column Hosts.Name
         /// </summary>
-        public string Name { get; set; }
+        public string FriendlyName { get; set; }
 
         /// <summary>
         /// Corresponds to the table column Hosts.HostName
@@ -37,17 +37,17 @@ namespace Hale.Core.Entities.Nodes
         /// <summary>
         ///  Corresponds to the table column Hosts.LastSeen
         /// </summary>
-        public DateTime LastSeen { get; set; }
+        public DateTime LastConnected { get; set; }
 
         /// <summary>
         /// Corresponds to the table column Hosts.Updated
         /// </summary>
-        public DateTime Updated { get; set; }
+        public DateTime Modified { get; set; }
 
         /// <summary>
         /// Corresponds to the table column Hosts.Added
         /// </summary>
-        public DateTime Added { get; set; }
+        public DateTime Created { get; set; }
 
         /// <summary>
         /// Corresponds to the table column Hosts.Guid

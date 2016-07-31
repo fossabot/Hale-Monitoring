@@ -2,9 +2,12 @@
 using NLog;
 using System;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Security;
+using System.Text;
 using System.Threading;
+using Npgsql;
 
 
 namespace Hale.Core.Handlers
@@ -20,7 +23,7 @@ namespace Hale.Core.Handlers
         private readonly int connectionAttempts = 3;
         private readonly int connectionDelay = 3;
 
-        internal SqlConnection connection;
+        internal IDbConnection connection;
 
         internal SqlHandler()
         {
@@ -50,12 +53,25 @@ namespace Hale.Core.Handlers
         {
             try
             {
-                SqlConnectionStringBuilder connectionStringBuilder = new SqlConnectionStringBuilder();
-                connectionStringBuilder.DataSource = config.Database().Host;
-                connectionStringBuilder.InitialCatalog = config.Database().Database;
-                connectionStringBuilder.IntegratedSecurity = config.Database().UseIntegratedSecurity;
+                var _db = config.Database();
+                if (_db.Type == "mssql")
+                {
+                    SqlConnectionStringBuilder connectionStringBuilder = new SqlConnectionStringBuilder();
+                    connectionStringBuilder.DataSource = config.Database().Host;
+                    connectionStringBuilder.InitialCatalog = config.Database().Database;
+                    connectionStringBuilder.IntegratedSecurity = config.Database().UseIntegratedSecurity;
+                    connectionString = connectionStringBuilder.ToString();
+                }
+                else if(_db.Type == "postgres")
+                {
+                    var csb = new NpgsqlConnectionStringBuilder();
+                    csb.Host = _db.Host;
+                    csb.Username = _db.User;
+                    csb.Password = _db.Password;
+                    csb.Database = _db.Database;
+                    connectionString = csb.ToString();
+                }
 
-                connectionString = connectionStringBuilder.ToString();
             }
             catch
             {
@@ -81,15 +97,27 @@ namespace Hale.Core.Handlers
         {
             connection = null;
 
-            if (config.Database().UseIntegratedSecurity)
+            var _db = config.Database();
+            if (_db.Type == "mssql")
             {
-                connection = new SqlConnection(connectionString);
+                if (config.Database().UseIntegratedSecurity)
+                {
+                    connection = new SqlConnection(connectionString);
 
+                }
+                else
+                {
+                    SqlCredential credentials = LoadCredentials();
+                    connection = new SqlConnection(connectionString, credentials);
+                }
+            }
+            else if (_db.Type == "postgres")
+            {
+                connection = new NpgsqlConnection(connectionString);
             }
             else
             {
-                SqlCredential credentials = LoadCredentials();
-                connection = new SqlConnection(connectionString, credentials);
+                throw new NotImplementedException($"Datbase type \"{_db.Type}\" is not implemented.");
             }
             ConnectWithRetries();
 

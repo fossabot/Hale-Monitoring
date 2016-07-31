@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using Hale.Core.Handlers;
+using System.Data;
 
 namespace Hale.Core.Contexts
 {
@@ -17,12 +18,17 @@ namespace Hale.Core.Contexts
         public void Create (Host host)
         {
             ConnectToDatabase();
-            connection.Execute("exec uspCreateHost @name, @hostname, @ip",
+            connection.Execute(
+                @"INSERT INTO ""Nodes"".""Hosts"" (" +
+                @" ""FriendlyName"", ""HostName"", ""Ip""," +
+                @") VALUES (" +
+                @"@friendlyname, @hostname, @ip" +
+                @")",
                 new
                 {
-                    name = host.Name
-                    , hostname = host.HostName
-                    , ip = host.Ip
+                    friendlyname = host.FriendlyName,
+                    hostname = host.HostName,
+                    ip = host.Ip
                 }
             );
         }
@@ -32,17 +38,17 @@ namespace Hale.Core.Contexts
         public void Update (Host host)
         {
             ConnectToDatabase();
-            connection.Execute("exec uspUpdateHost"
-                + " @id"
-                + ", @name"
-                + ", @hostname"
-                + ", @ip"
-                + ", @guid",
+            connection.Execute(@"UPDATE ""Nodes"".""Hosts"" SET "
+                + @" @id"
+                + @"FriendlyName @friendlyname"
+                + @", @hostname"
+                + @", @ip"
+                + @", @guid",
 
                 new
                 {
                     id = host.Id,
-                    name = host.Name,
+                    friendlyname = host.FriendlyName,
                     hostname = host.HostName,
                     ip = host.Ip,
                     guid = host.Guid,
@@ -54,7 +60,7 @@ namespace Hale.Core.Contexts
         public void UpdateRsa(Host host)
         {
             ConnectToDatabase();
-            connection.Execute("exec uspUpdateHostRsaKey @id, @rsa",
+            connection.Execute(@"UPDATE ""Nodes"".""Hosts"" SET ""RsaKey"" = @rsa WHERE ""Id"" =  @id",
                 new
                 {
                     id = host.Id
@@ -67,18 +73,20 @@ namespace Hale.Core.Contexts
         public void UpdateStatus(Host host)
         {
             ConnectToDatabase();
+            /*
             connection.Execute("exec uspUpdateHostStatus @id, @status",
                 new
                 {
                     id = host.Id,
                     status = host.Status
                 });
+                */
         }
 
         public void Delete (Host host)
         {
             ConnectToDatabase();
-            connection.Execute("exec uspDeleteHost @id",
+            connection.Execute(@"DELETE FROM ""Nodes"".""Hosts"" WHERE ""Id"" = @id",
                 new
                 {
                     id = host.Id
@@ -92,7 +100,7 @@ namespace Hale.Core.Contexts
             ConnectToDatabase();
             if (host.Id != _idNotSet)
             {
-                return connection.Query<Host>("exec uspGetHost @id",
+                return connection.Query<Host>(@"SELECT * FROM ""Nodes"".""Hosts"" WHERE ""Id"" = @id",
                     new
                     {
                         id = host.Id
@@ -101,7 +109,7 @@ namespace Hale.Core.Contexts
             }
             else if (host.Guid != null)
             {
-                return connection.Query<Host>("exec uspGetHostByGuid @guid",
+                return connection.Query<Host>(@"SELECT * FROM ""Nodes"".""Hosts"" WHERE ""Guid"" = @guid",
                     new
                     {
                         guid = host.Guid
@@ -117,7 +125,7 @@ namespace Hale.Core.Contexts
         public List<Host> List()
         {
             ConnectToDatabase();
-            return connection.Query<Host>("exec uspListHosts").ToList();
+            return connection.Query<Host>(@"SELECT * FROM ""Nodes"".""Hosts"" ").ToList();
         }
     }
 }
