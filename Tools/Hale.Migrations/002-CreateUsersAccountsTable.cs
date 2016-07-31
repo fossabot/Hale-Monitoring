@@ -23,11 +23,11 @@ namespace Hale.Migrations
                 .WithColumn("Activated").AsBoolean().WithDefaultValue(false)
                 .WithColumn("Enabled").AsBoolean().WithDefaultValue(true)
                 .WithColumn("Created").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
-                .WithColumn("CreatedBy").AsInt32().NotNullable()
+                .WithColumn("CreatedBy").AsInt32().Nullable()
                     .ForeignKey("FK_Accounts_Id_Accounts_CreatedBy", "Users", "Accounts", "Id")
                         .OnDeleteOrUpdate(System.Data.Rule.Cascade)
                 .WithColumn("Changed").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
-                .WithColumn("ChangedBy").AsInt32().NotNullable()
+                .WithColumn("ChangedBy").AsInt32().Nullable()
                     .ForeignKey("FK_Accounts_Id_Accounts_ChangedBy", "Users", "Accounts", "Id")
                         .OnDeleteOrUpdate(System.Data.Rule.Cascade)
 
