@@ -9,6 +9,7 @@ using Hale.Core.Contexts;
 using Hale.Core.Handlers;
 using NLog;
 using Hale.Lib.Utilities;
+using System.Reflection;
 
 namespace Hale.Core
 {
@@ -28,6 +29,10 @@ namespace Hale.Core
         /// </summary>
         public HaleCoreService()
         {
+            _log = LogManager.GetCurrentClassLogger();
+            var v = Assembly.GetExecutingAssembly().GetName().Version;
+            _log.Info($"Hale Core v{v.Major}.{v.Minor}.{v.Revision} build {v.Build}");
+
             InitializeComponent();
 
             _env = new EnvironmentConfig();
@@ -36,7 +41,6 @@ namespace Hale.Core
             _env.ConfigFile = Path.Combine(_env.DataPath, "HaleCore.config");
             ServiceProvider.SetService(_env);
 
-            _log = LogManager.GetCurrentClassLogger();
         }
 
         /// <summary>
