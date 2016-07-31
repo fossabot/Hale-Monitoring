@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Hale.Migrations
 {
     [Migration(2)]
-    public class CreateUsersAccountsTable : Migration
+    public class M002CreateUsersAccountsTable : Migration
     {
 
         public override void Up()
