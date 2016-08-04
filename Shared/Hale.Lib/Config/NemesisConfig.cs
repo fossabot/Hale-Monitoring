@@ -18,7 +18,7 @@ namespace Hale.Lib
         public Guid Id { get; set; }
         public TimeSpan HeartBeatInterval { get; set; }
 
-        public static NemesisConfig LoadFromFile(string file)
+        public static NemesisConfig LoadFromFile(string file) 
         {
             using (StreamReader reader = File.OpenText(file))
             {
