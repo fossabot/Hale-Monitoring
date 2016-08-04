@@ -15,6 +15,7 @@ using Hale.Lib.JsonRpc;
 using Hale.Lib.Modules.Checks;
 using Hale.Lib.Modules;
 using Hale.Lib.Utilities;
+using Hale.Lib;
 
 namespace Hale.Agent.Communication
 {

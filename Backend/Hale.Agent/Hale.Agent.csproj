@@ -142,7 +142,6 @@
     <Compile Include="Modules\ResultStorage.cs" />
     <Compile Include="Config\AgentConfig.cs" />
     <Compile Include="Config\EnvironmentConfig.cs" />
-    <Compile Include="Config\NemesisConfig.cs" />
     <Compile Include="Core\CheckHandler.cs" />
     <Compile Include="HaleAgentService.cs">
       <SubType>Component</SubType>
