@@ -5,6 +5,7 @@ using Hale.Agent.Config;
 using Hale.Lib.JsonRpc;
 using NLog;
 using Piksel.Nemesis;
+using Hale.Lib;
 
 namespace Hale.Agent.Communication
 {

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-namespace Hale.Agent.Config
+namespace Hale.Lib
 {
-    class NemesisConfig
+    public class NemesisConfig
     {
         public string Hostname { get; set; }
         public ushort SendPort { get; set; }
@@ -20,10 +20,18 @@ namespace Hale.Agent.Config
 
         public static NemesisConfig LoadFromFile(string file)
         {
-            using (var sr = File.OpenText(file))
+            using (StreamReader reader = File.OpenText(file))
             {
-                var ds = new Deserializer(namingConvention: new CamelCaseNamingConvention());
-                return ds.Deserialize<NemesisConfig>(sr);
+                var deserializer = new Deserializer(namingConvention: new CamelCaseNamingConvention());
+                return deserializer.Deserialize<NemesisConfig>(reader);
+            }
+        }
+        public void SaveToFile(string file)
+        {
+            var serializer = new Serializer(namingConvention: new CamelCaseNamingConvention());
+            using (StreamWriter writer = new StreamWriter(file))
+            {
+                serializer.Serialize(writer, this);
             }
         }
     }
