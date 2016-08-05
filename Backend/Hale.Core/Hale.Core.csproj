@@ -7,8 +7,8 @@
     <ProjectGuid>{15C782A0-DC99-4B73-B305-B8468DAD29AC}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hale_Core</RootNamespace>
-    <AssemblyName>Hale-Core</AssemblyName>
+    <RootNamespace>Hale.Core</RootNamespace>
+    <AssemblyName>Hale.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -293,6 +293,7 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="nemesis.yaml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

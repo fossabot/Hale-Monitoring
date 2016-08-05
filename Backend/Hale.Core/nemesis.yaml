@@ -1,0 +1,4 @@
+﻿hostName: <HOSTNAME>
+sendPort: <SENDPORT>
+receivePort: <RECEIVEPORT>
+guid: <GUID>

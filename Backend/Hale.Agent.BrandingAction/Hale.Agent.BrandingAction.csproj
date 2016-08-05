@@ -8,8 +8,8 @@
     <ProjectGuid>{094A0278-FAD5-4C45-93F2-4A6D12D96312}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AgentBrandingAction</RootNamespace>
-    <AssemblyName>AgentBrandingAction</AssemblyName>
+    <RootNamespace>Hale.Agent.BrandingAction</RootNamespace>
+    <AssemblyName>Hale.Agent.BrandingAction</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <WixCATargetsPath Condition=" '$(WixCATargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.CA.targets</WixCATargetsPath>

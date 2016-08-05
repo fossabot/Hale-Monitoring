@@ -78,8 +78,14 @@ namespace Hale.Agent
             env.ConfigFile = Path.Combine(env.DataPath, "config.yaml");
             if(!File.Exists(env.ConfigFile))
             {
-                _log.Warn("No configuration file has been fetched.");
-                return;
+                _log.Warn("No configuration file has been fetched. Creating an empty one.");
+                //return;
+                
+                var serializer = new YamlDotNet.Serialization.Serializer(namingConvention: new YamlDotNet.Serialization.NamingConventions.CamelCaseNamingConvention());
+                using (StreamWriter writer = new StreamWriter(env.ConfigFile))
+                {
+                    serializer.Serialize(writer, new AgentConfig());
+                }
             }
             config = Config.AgentConfig.LoadFromFile(env.ConfigFile);
             ServiceProvider.SetService(config);

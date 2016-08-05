@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <?define Agent_TargetDir=$(var.Agent.TargetDir)?>
+  <?define Agent_TargetDir=$(var.Hale.Agent.TargetDir)?>
   <!--<?define ProductVersion="$(fileVersion.ProductVersion($(var.Agent.TargetPath)))" ?>-->
 	<Product Id="*" Name="Hale Agent" Language="1033" Version="!(bind.fileVersion.Agent_exe)" Manufacturer="Hale Project" UpgradeCode="93f3d83e-740a-4e17-9c20-667ae6077755">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
@@ -20,8 +20,8 @@
     <Property Id='HALE_CORE_PORT' />
 
 
-    <Binary src='$(var.AgentBrandingAction.TargetDir)AgentBrandingAction.CA.dll' Id='AgentBrandingAction.CA.dll' />
-    <CustomAction Id='AgentBranding' BinaryKey='AgentBrandingAction.CA.dll' DllEntry='AgentBrandingAction' />
+    <Binary src='$(var.Hale.Agent.BrandingAction.TargetDir)Hale.Agent.BrandingAction.CA.dll' Id='Hale.Agent.BrandingAction.CA.dll' />
+    <CustomAction Id='AgentBranding' BinaryKey='Hale.Agent.BrandingAction.CA.dll' DllEntry='AgentBrandingAction' />
     
 		<Feature Id="ProductFeature" Title="Hale Agent" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
@@ -76,14 +76,14 @@
 
 	<Fragment>
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-		  <Component Id="Agent.exe" Guid="b5efb7b7-427c-4e36-bafd-5c760ac2097d">
-        <File Id="Agent_exe" Name="Agent.exe" Source="$(var.Agent_TargetDir)Agent.exe" />
+		  <Component Id="Hale.Agent.exe" Guid="b5efb7b7-427c-4e36-bafd-5c760ac2097d">
+        <File Id="Agent_exe" Name="Agent.exe" Source="$(var.Agent_TargetDir)Hale.Agent.exe" />
       </Component>
-      <Component Id="Agent.exe.config" Guid="86472682-6e53-469f-80f0-93c29372d678">
-        <File Id="Agent.exe.config" Name="Agent.exe.config" Source="$(var.Agent_TargetDir)Agent.exe.config" />
+      <Component Id="Hale.Agent.exe.config" Guid="86472682-6e53-469f-80f0-93c29372d678">
+        <File Id="Hale.Agent.exe.config" Name="Agent.exe.config" Source="$(var.Agent_TargetDir)Hale.Agent.exe.config" />
       </Component>
-      <Component Id="Hale_Lib.dll" Guid="c5386aa3-5f25-4f34-871a-5e4c5fd8570b">
-        <File Id="Hale_Lib.dll" Name="Hale-Lib.dll" Source="$(var.Agent_TargetDir)Hale-Lib.dll" />
+      <Component Id="Hale.Lib.dll" Guid="c5386aa3-5f25-4f34-871a-5e4c5fd8570b">
+        <File Id="Hale.Lib.dll" Name="Hale-Lib.dll" Source="$(var.Agent_TargetDir)Hale.Lib.dll" />
       </Component>
       <Component Id="libnemesis.dll" Guid="c5d38144-1c0a-42bd-bdf9-adfc6e35fab7">
        <File Id="libnemesis.dll" Name="libnemesis.dll" Source="$(var.Agent_TargetDir)libnemesis.dll" />

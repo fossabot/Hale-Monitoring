@@ -6,10 +6,11 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>19acf1dc-f01c-4c2f-9791-8c75db4e70be</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>HaleAgent</OutputName>
+    <OutputName>Hale.Agent</OutputName>
     <OutputType>Package</OutputType>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <Name>Hale.Agent.Setup</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -27,16 +28,16 @@
     <Content Include="Hale-AgentSetup.wax" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AgentBrandingAction\AgentBrandingAction.csproj">
-      <Name>AgentBrandingAction</Name>
+    <ProjectReference Include="..\Hale.Agent.BrandingAction\Hale.Agent.BrandingAction.csproj">
+      <Name>Hale.Agent.BrandingAction</Name>
       <Project>{094a0278-fad5-4c45-93f2-4a6d12d96312}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\Agent\Agent.csproj">
-      <Name>Agent</Name>
+    <ProjectReference Include="..\Hale.Agent\Hale.Agent.csproj">
+      <Name>Hale.Agent</Name>
       <Project>{1b49ca5c-b895-4139-9080-29e711c2c23a}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>

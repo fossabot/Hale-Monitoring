@@ -9,6 +9,7 @@ using Hale.Core.Config;
 using Hale.Core.Entities.Nodes;
 using Hale.Lib.Utilities;
 using System.Configuration;
+using System.Reflection;
 
 namespace Hale.Core.Handlers
 {
@@ -17,7 +18,7 @@ namespace Hale.Core.Handlers
         // As these are low level variables, they shouldn't be changed during runtime.
         private readonly string _distPath;
         private readonly RSAKey _publicKey;
-        private readonly string _msifile = "HaleAgent.msi";
+        private readonly string _msifile = "Hale.Agent.msi";
 
         readonly ILogger _log = LogManager.GetLogger("AgentDistHandler");
         private readonly ushort _coreSendPort;
@@ -254,6 +255,18 @@ namespace Hale.Core.Handlers
             string nemesisConfig;
             string configPath = Path.Combine(_distPath, "common", "nemesis.yaml");
 
+            Directory.CreateDirectory(Path.Combine(_distPath, "common"));
+
+           
+            if (!File.Exists(configPath))
+            {
+                using (var writer = File.OpenWrite(configPath))
+                {
+                    Assembly.GetExecutingAssembly().GetManifestResourceStream("Hale.Core.nemesis.yaml").CopyTo(writer);
+                }
+                
+            }
+
             using (var sr = File.OpenText(configPath))
             {
                 nemesisConfig = sr.ReadToEnd();
@@ -261,7 +274,7 @@ namespace Hale.Core.Handlers
 
             nemesisConfig = nemesisConfig.Replace("<HOSTNAME>", _coreHostname);
             nemesisConfig = nemesisConfig.Replace("<SENDPORT>", _coreReceivePort.ToString()); // Note: We swap the send/receive values here -NM
-            nemesisConfig = nemesisConfig.Replace("<RECEVEPORT>", _coreSendPort.ToString());
+            nemesisConfig = nemesisConfig.Replace("<RECEIVEPORT>", _coreSendPort.ToString());
             nemesisConfig = nemesisConfig.Replace("<GUID>", host.Guid.ToString());
 
             return nemesisConfig;

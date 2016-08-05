@@ -38,7 +38,7 @@ namespace Hale.Agent.Config
         public Dictionary<string, ActionSettings> Actions { get; set; }
 
         public Dictionary<string, AgentConfigModule> Modules { get; set; }
-        public Dictionary<string, AgentConfigTask> Tasks { get; set; }
+        public Dictionary<string, AgentConfigTask> Tasks { get; set; } = new Dictionary<string, AgentConfigTask>();
 
         static readonly NumberFormatInfo nfi = new NumberFormatInfo() { NumberDecimalSeparator = "." };
 
@@ -80,11 +80,14 @@ namespace Hale.Agent.Config
 
         private static AgentConfig SetDefaultTaskValues(AgentConfig ac)
         {
+            if (ac == null)
+                ac = new AgentConfig();
+
             if (!ac.Tasks.ContainsKey("persistResults"))
             {
                 ac.Tasks.Add("persistResults", new AgentConfigTask()
                 {
-                    Enabled = true,
+                    Enabled = false,
                     Interval = new TimeSpan(0, 10, 0),
                     Startup = false
                 });
@@ -95,14 +98,14 @@ namespace Hale.Agent.Config
                 {
                     Enabled = true,
                     Interval = new TimeSpan(0, 30, 0),
-                    Startup = false
+                    Startup = true
                 });
             }
             if (!ac.Tasks.ContainsKey("sendHeartbeat"))
             {
                 ac.Tasks.Add("sendHeartbeat", new AgentConfigTask()
                 {
-                    Enabled = true,
+                    Enabled = false,
                     Interval = new TimeSpan(0, 10, 0),
                     Startup = true
                 });

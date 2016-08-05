@@ -20,9 +20,9 @@ namespace Hale.Lib
 
         public static NemesisConfig LoadFromFile(string file) 
         {
-            using (StreamReader reader = File.OpenText(file))
+            using (var reader = File.OpenText(file))
             {
-                var deserializer = new Deserializer(namingConvention: new CamelCaseNamingConvention());
+                Deserializer deserializer = new Deserializer(namingConvention: new CamelCaseNamingConvention());
                 return deserializer.Deserialize<NemesisConfig>(reader);
             }
         }
