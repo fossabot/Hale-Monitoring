@@ -15,6 +15,13 @@ namespace Hale.Core.Contexts
     {
         private readonly int _idNotSet = 0;
 
+        public enum UpdateMode
+        {
+            Status,
+            RsaKey,
+            Info
+        }
+
         public void Create (Host host)
         {
             ConnectToDatabase();
@@ -35,52 +42,60 @@ namespace Hale.Core.Contexts
 
         // FIXME[SA]: Is there a better way to do this which lets us stick to only the Update method?
         // Overloading with bool does not cut it as we have two different overloads and do not want to have two different bools to set.
-        public void Update (Host host)
+        public void Update(Host host, UpdateMode mode = UpdateMode.Info)
         {
             ConnectToDatabase();
-            connection.Execute(@"UPDATE ""Nodes"".""Hosts"" SET "
-                + @" @id"
-                + @"FriendlyName @friendlyname"
-                + @", @hostname"
-                + @", @ip"
-                + @", @guid",
 
-                new
-                {
-                    id = host.Id,
-                    friendlyname = host.FriendlyName,
-                    hostname = host.HostName,
-                    ip = host.Ip,
-                    guid = host.Guid,
-                }
-                );
+            switch (mode)
+            {
+                case UpdateMode.Info:
+                    connection.Execute(@"UPDATE ""Nodes"".""Hosts"" SET "
+                    + @"FriendlyName = '@friendlyname'"
+                    + @", ""Hostname"" =  '@hostname'"
+                    + @", ""Ip"" = '@ip'"
+                    + @", ""Guid"" = '@guid'"
+                    + @" WHERE ""Id"" = @id",
+                    new
+                    {
+                        friendlyname = host.FriendlyName,
+                        hostname = host.HostName,
+                        ip = host.Ip,
+                        guid = host.Guid,
+                        id = host.Id,
+                    });
+                    break;
+                case UpdateMode.Status:
+                    connection.Execute(@"UPDATE ""Nodes"".""Hosts"" SET "
+                    + @", ""Status"" = '@status'"
+                    + @" WHERE ""Id"" = @id",
+                    new
+                    {
+                        id = host.Id,
+                        status = host.Status
+                    });
+                    break;
+                case UpdateMode.RsaKey:
+                    connection.Execute(@"UPDATE ""Nodes"".""Hosts"" SET ""RsaKey"" = @rsa WHERE ""Id"" =  @id",
+                    new
+                    {
+                        id = host.Id
+                        ,
+                        rsa = host.RsaKey
+                    });
+                    break;
+            }
         }
 
         // Part of the fixme above.
         public void UpdateRsa(Host host)
         {
-            ConnectToDatabase();
-            connection.Execute(@"UPDATE ""Nodes"".""Hosts"" SET ""RsaKey"" = @rsa WHERE ""Id"" =  @id",
-                new
-                {
-                    id = host.Id
-                    ,
-                    rsa = host.RsaKey
-                });
+            Update(host, UpdateMode.RsaKey);
         }
 
         // Part of the fixme above.
         public void UpdateStatus(Host host)
         {
-            ConnectToDatabase();
-            /*
-            connection.Execute("exec uspUpdateHostStatus @id, @status",
-                new
-                {
-                    id = host.Id,
-                    status = host.Status
-                });
-                */
+            Update(host, UpdateMode.Status);
         }
 
         public void Delete (Host host)
@@ -107,7 +122,7 @@ namespace Hale.Core.Contexts
                     }
                 ).First();
             }
-            else if (host.Guid != null)
+            else if (host.Guid != Guid.Empty)
             {
                 return connection.Query<Host>(@"SELECT * FROM ""Nodes"".""Hosts"" WHERE ""Guid"" = @guid",
                     new
