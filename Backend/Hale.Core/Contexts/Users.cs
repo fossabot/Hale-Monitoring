@@ -15,47 +15,12 @@ namespace Hale.Core.Contexts
         private readonly string encryption = "SHA-512";
         public void Create(User user)
         {
-            ConnectToDatabase();
-            try
-            {
-                connection.Execute("exec uspAddUser @name, @email, @password, @salt, @encryption, @createdby",
-                    new
-                    {
-                        name = user.UserName,
-                        email = user.Email,
-                        password = user.Password,
-                        salt = user.Salt,
-                        encryption,
-                        createdby = user.CreatedBy
-                    }
-                );
-            }
-            catch (SqlException e)
-            {
-                throw e;
-            }
+
         }
 
         public void Update(User user)
         {
-            ConnectToDatabase();
-            try
-            {
-                connection.Execute("exec uspChangeUser @id, @name, @email, @password, @salt",
-                    new
-                    {
-                        id = user.Id,
-                        name = user.UserName,
-                        email = user.Email,
-                        password = user.Password,
-                        salt = user.Salt
-                    }
-                );
-            }
-            catch (SqlException e)
-            {
-                throw e;
-            }
+         
         }
 
         public void Delete(User user)

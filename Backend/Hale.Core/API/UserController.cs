@@ -10,6 +10,7 @@ using Hale.Core.Handlers;
 using Hale.Core.Utils;
 using NLog;
 using Hale.Core.Contexts;
+using System.Linq;
 
 namespace Hale.Core.API
 {
@@ -18,20 +19,43 @@ namespace Hale.Core.API
     /// API for passing user data.
     /// </summary>
     [RoutePrefix("api/v1/users")]
-    public class UserController : ApiController
+    public class UsersController : ApiController
     {
         private readonly SecurityHandler _security;
         private readonly Users _users;
         private readonly UserDetails _userdetails;
         private readonly Logger _log;
 
-        internal UserController()
+        internal UsersController()
         {
             _log = LogManager.GetCurrentClassLogger();   
             _security = new SecurityHandler();
             _users = new Users();
             _userdetails = new UserDetails();
         }
+
+        /// <summary>
+        /// Fetch a specific user record. (Auth)
+        /// </summary>
+        /// <param name="id">The user id to fetch.</param>
+        /// <returns></returns>
+        [HttpGet, Route("{id}")]
+        [ResponseType(typeof(User))]
+        public IHttpActionResult Get(int id)
+        {
+
+            using (var db = new HaleDBModel())
+            {
+                var user = db.Users.Include("UserDetails").FirstOrDefault(u => u.Id == id);
+
+                if (user == null)
+                    return UserNotFoundResult(id);
+
+                return Ok(user);
+            }
+
+        }
+
 
         /// <summary>
         /// Create a new user. (Auth)
@@ -78,11 +102,14 @@ namespace Hale.Core.API
         public IHttpActionResult Update(int id, [FromBody]User user)
         {
             try {
-                _users.Update(user);
-                _users.Get(user);
+                using(var db = new HaleDBModel())
+                {
+                    var dbUser = db.Users.First(u => u.Id == id);
+                    db.Entry(dbUser).CurrentValues.SetValues(user);
+                    db.SaveChanges();
+                    return Ok(dbUser);
+                }
 
-                user.UserDetails = _userdetails.List(user);
-                return Ok(user);
             }
             catch (Exception x)
             {
@@ -148,18 +175,18 @@ namespace Hale.Core.API
         /// List user records from the database. (Auth)
         /// </summary>
         /// <returns></returns>
-        [Authorize]
+        //[Authorize]
         [Route()]
         [ResponseType(typeof(List<User>))]
         [AcceptVerbs("GET")]
         public IHttpActionResult List()
         {
-            var users = _users.List();
-            foreach(var user in users)
+            using(var db = new HaleDBModel())
             {
-                user.UserDetails = _userdetails.List(user);
+                var users = db.Users.ToList();
+
+                return Ok(users);
             }
-            return Ok(users);
         }
 
         /// <summary>
@@ -167,22 +194,26 @@ namespace Hale.Core.API
         /// </summary>
         /// <param name="id">The user id to retreive the details for.</param>
         /// <returns></returns>
-        [Authorize]
+        //[Authorize]
         [AcceptVerbs("GET")]
         [ResponseType(typeof(List<UserDetail>))]
         [Route("{id}/details")]
         public IHttpActionResult Details(int id)
         {
-            try {
-                User user = _users.Get(new Entities.Security.User() { Id = id });
-                List<UserDetail> details = _userdetails.List(user);
-                
-                return Ok(details);
-            }
-            catch/*(Exception x)*/
-            {
-                return NotFound();
-            }
+
+                using (var db = new HaleDBModel())
+                {
+                    var user = db.Users.Include("UserDetails").FirstOrDefault(u => u.Id == id);
+
+                    if (user == null)
+                        return UserNotFoundResult(id);
+
+                    var userDetails = user.UserDetails.ToList();
+                    //var userDetails = db.UserDetails.Where(ud => ud.UserId == id).ToList();
+
+                    return Ok(userDetails);
+                }
+
         }
 
         /// <summary>
@@ -216,32 +247,17 @@ namespace Hale.Core.API
             }
         }
 
-        /// <summary>
-        /// Fetch a specific user record. (Auth)
-        /// </summary>
-        /// <param name="id">The user id to fetch.</param>
-        /// <returns></returns>
-        [HttpGet, Route("{id}")]
-        [ResponseType(typeof(User))]
-        public IHttpActionResult Get(int id)
-        {
-            User user = _users.Get(new User() { Id = id });
 
-            if (user == null)
-            {
-                return new StringResult(
-                    HttpStatusCode.NotFound,
-                    "User not found",
-                    detail:
-                        $"User #{id} not found!", request: Request
-                    );
-            }
-            else
-            {
-                user.UserDetails = _userdetails.List(user);
-                return Ok(user);
-            }
+        private IHttpActionResult UserNotFoundResult(int id)
+        {
+            return new StringResult(
+                HttpStatusCode.NotFound,
+                "User not found",
+                detail:
+                    $"User #{id} not found!", request: Request
+                );
         }
+
 
     }
 

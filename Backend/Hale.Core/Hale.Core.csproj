@@ -28,7 +28,7 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
-    <AssemblyVersion>1.0.16213.535</AssemblyVersion>
+    <AssemblyVersion>1.0.16223.572</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -55,6 +55,18 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net, Version=0.1.5073.29922, Culture=neutral, PublicKeyToken=6bcd409ee6bc9292, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\BCrypt-Official.0.1.109\lib\BCrypt.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Humanizer, Version=2.1.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Humanizer.Core.2.1.0\lib\netstandard1.0\Humanizer.dll</HintPath>
@@ -152,6 +164,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
@@ -160,6 +173,8 @@
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
@@ -228,6 +243,7 @@
     <Compile Include="Config\ConfigurationExtensions.cs" />
     <Compile Include="Config\EnvironmentConfig.cs" />
     <Compile Include="Contexts\CheckDetails.cs" />
+    <Compile Include="Contexts\HaleDBModel.cs" />
     <Compile Include="Contexts\Metrics.cs" />
     <Compile Include="Contexts\Modules.cs" />
     <Compile Include="Contexts\Results.cs" />
@@ -267,6 +283,27 @@
     <Compile Include="Formatting\JsonAPIMediaTypeFormatter.cs" />
     <Compile Include="Handlers\AgentDistHandler.cs" />
     <Compile Include="Handlers\AgentHandler.cs" />
+    <Compile Include="Migrations\201608101900197_InitialCreate.cs" />
+    <Compile Include="Migrations\201608101900197_InitialCreate.Designer.cs">
+      <DependentUpon>201608101900197_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608101912190_UserFix.cs" />
+    <Compile Include="Migrations\201608101912190_UserFix.Designer.cs">
+      <DependentUpon>201608101912190_UserFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608101934329_UserFix2.cs" />
+    <Compile Include="Migrations\201608101934329_UserFix2.Designer.cs">
+      <DependentUpon>201608101934329_UserFix2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608101938153_UserFix3.cs" />
+    <Compile Include="Migrations\201608101938153_UserFix3.Designer.cs">
+      <DependentUpon>201608101938153_UserFix3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608101947251_AddUserDetails.cs" />
+    <Compile Include="Migrations\201608101947251_AddUserDetails.Designer.cs">
+      <DependentUpon>201608101947251_AddUserDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Utils\MsiInterop.cs" />
     <Compile Include="Utils\ExceptionHandlingAttribute.cs" />
     <Compile Include="Utils\StringResult.cs" />
@@ -290,9 +327,25 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="LICENSE.txt" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Migrations\201608101900197_InitialCreate.resx">
+      <DependentUpon>201608101900197_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608101912190_UserFix.resx">
+      <DependentUpon>201608101912190_UserFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608101934329_UserFix2.resx">
+      <DependentUpon>201608101934329_UserFix2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608101938153_UserFix3.resx">
+      <DependentUpon>201608101938153_UserFix3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608101947251_AddUserDetails.resx">
+      <DependentUpon>201608101947251_AddUserDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="nemesis.yaml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>

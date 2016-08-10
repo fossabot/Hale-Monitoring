@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace Hale.Core.Entities.Security
 {
@@ -8,51 +12,60 @@ namespace Hale.Core.Entities.Security
     /// </summary>
     public class User
     {
+
         /// <summary>
         /// Corresponds to the table column User.Id
         /// </summary>
+        [Key]
         public int Id { get; set; }
 
         /// <summary>
         /// Corresponds to the table column User.UserName
         /// </summary>
+        [Index(IsUnique = true)]
         public string UserName { get; set; }
 
         /// <summary>
         /// Corresponds to the table column User.Email
         /// </summary>
-        public string Email { get; set; }
+        public string FullName { get; set; }
 
         /// <summary>
         /// Corresponds to the table column User.Password.
         /// Only used to hold a hashed and salted representation of the password.
         /// </summary>
-        internal string Password { get; set; }
+        [IgnoreDataMember]
+        public string Password { get; set; }
 
-        /// <summary>
-        /// Corresponds to the table column User.Salt
-        /// </summary>
-        internal string Salt { get; set; }
+        [IgnoreDataMember]
+        public string OldPassword { get; set; }
+
+        [IgnoreDataMember]
+        public DateTime? PasswordChanged { get; set; }
+
+        public bool Activated { get; set; }
+
+        public bool Enabled { get; set; }
 
         /// <summary>
         /// Corresponds to the table column User.Created
         /// </summary>
-        public DateTime Created { get; set; }
+        public DateTime Created { get; set; } = DateTime.Now;
 
         /// <summary>
         /// Corresponds to the table column User.CreatedBy (FK Security.Users.Id)
         /// </summary>
-        public int CreatedBy { get; set; }
+        public int? CreatedBy { get; set; }
 
         /// <summary>
         /// Corresponds to the table column User.Changed
         /// </summary>
-        public DateTime Changed { get; set; }
+        public DateTime? Modified { get; set; }
 
         /// <summary>
         /// Corresponds to the table column User.ChangedBy (FK Security.Users.Id)
         /// </summary>
-        public int ChangedBy { get; set; }
+        public int? ModifiedBy { get; set; }
 
         /// <summary>
         /// Aggregation of available records in the Security.UserDetails table.
