@@ -259,13 +259,12 @@
     <Compile Include="Entities\Modules\Module.cs" />
     <Compile Include="Entities\Modules\ModuleFunction.cs" />
     <Compile Include="Entities\Modules\Result.cs" />
+    <Compile Include="Entities\Security\UserCreateRequest.cs" />
     <Compile Include="Entities\Shared\LoginResponse.cs" />
     <Compile Include="Handlers\ModuleHandler.cs" />
     <Compile Include="Handlers\Scheduler.CreateDistPackages.cs" />
     <Compile Include="Handlers\Scheduler.cs" />
     <Compile Include="Handlers\SqlHandler.cs" />
-    <Compile Include="Contexts\UserDetails.cs" />
-    <Compile Include="Contexts\Users.cs" />
     <Compile Include="Entities\Modules\Checks\Check.cs" />
     <Compile Include="Entities\Modules\Checks\CheckDetail.cs" />
     <Compile Include="Entities\Modules\Checks\Metric.cs" />
@@ -303,6 +302,10 @@
     <Compile Include="Migrations\201608101947251_AddUserDetails.Designer.cs">
       <DependentUpon>201608101947251_AddUserDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608102302414_UniqueUsername.cs" />
+    <Compile Include="Migrations\201608102302414_UniqueUsername.Designer.cs">
+      <DependentUpon>201608102302414_UniqueUsername.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Utils\MsiInterop.cs" />
     <Compile Include="Utils\ExceptionHandlingAttribute.cs" />
@@ -319,7 +322,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Handlers\SecurityHandler.cs" />
     <Compile Include="Utils\SqlMapper.cs" />
     <Compile Include="Utils\TraceLogger.cs" />
   </ItemGroup>
@@ -345,6 +347,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608101947251_AddUserDetails.resx">
       <DependentUpon>201608101947251_AddUserDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608102302414_UniqueUsername.resx">
+      <DependentUpon>201608102302414_UniqueUsername.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="nemesis.yaml" />
     <None Include="NLog.xsd">

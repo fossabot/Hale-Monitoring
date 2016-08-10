@@ -21,17 +21,11 @@ namespace Hale.Core.API
     [RoutePrefix("api/v1/users")]
     public class UsersController : ApiController
     {
-        private readonly SecurityHandler _security;
-        private readonly Users _users;
-        private readonly UserDetails _userdetails;
         private readonly Logger _log;
 
         internal UsersController()
         {
             _log = LogManager.GetCurrentClassLogger();   
-            _security = new SecurityHandler();
-            _users = new Users();
-            _userdetails = new UserDetails();
         }
 
         /// <summary>
@@ -62,33 +56,38 @@ namespace Hale.Core.API
         /// </summary>
         /// <param name="user">A user model instance.</param>
         /// <returns></returns>
-        [Authorize]
+        // [Authorize]
         [Route("")]
         [ResponseType(typeof(User))]
-        [AcceptVerbs("PUT")]
-        public IHttpActionResult Add([FromBody] User user)
+        [AcceptVerbs("POST")]
+        public IHttpActionResult Add([FromBody] NewUserRequest userRequest)
         {
+            // Using a non-inherited class containing only the attributes needed seem to be the only sane way
+            // of doing this as we dont want to expose all attributes (like enabled or active) in the API.
+            // -SA 2016-08-11
 
-
-            if (_users.Get(user) == null)
+            using (var db = new HaleDBModel())
             {
-                try {
-                    _users.Create(user);
-                    user = _users.Get(user);
-
-                    return Created($"/users/{user.Id}", user);
-                }
-                catch (Exception x)
+                if (db.Users.Where(x => x.UserName == userRequest.UserName).Any())
+                    return UserAlreadyExistsResponse();
+                else
                 {
-                    return InternalServerError(x);
+
+                    var user = new User();
+
+                    user.UserName = userRequest.UserName;
+                    user.Password = BCrypt.Net.BCrypt.HashPassword(userRequest.Password, 5);
+                    user.FullName = userRequest.FullName;
+
+                    db.Users.Add(user);
+                    db.SaveChanges();
+
+                    return Ok(db.Users.First(x => x.UserName == user.UserName));
                 }
             }
-            else
-            {
-                return new StringResult(HttpStatusCode.PreconditionFailed, "There is already a user with that username.", Request);
-            }
-
         }
+
+        
 
         /// <summary>
         /// Update user attributes except for password. (Auth)
@@ -130,46 +129,26 @@ namespace Hale.Core.API
         [AcceptVerbs("POST")]
         public IHttpActionResult AddDetail(int id, string key, [FromBody] UserDetail detail)
         {
-            User user = _users.Get(
-                new Entities.Security.User() {
-                    Id = id
-                });
-
-            detail.Key = key;
-
-            if (_users.Get(user) != null)
+            using (var db = new HaleDBModel())
             {
-                if (_userdetails.Get(user, detail) == null)
-                {
-                    try {
-                        _userdetails.Create(user, detail);
-                        detail = _userdetails.Get(user, detail);
-                        return Created($"{id}/details/{key}", detail);
-                    }
-                    catch(Exception x)
-                    {
-                        return InternalServerError(x);
-                    }
+                if (db.Users.Find(id) == null)
+                    return UserNotFoundResult(id);
 
-                }
+                else if (db.UserDetails.Any(x => x.UserId == id && x.Key == key))
+                    return DetailAlreadyExistsResponse(id, key);
+
                 else
                 {
-                    return ResponseMessage(new HttpResponseMessage()
-                    {
-                        Content = new StringContent("There is already a detail with that key."),
-                        StatusCode = HttpStatusCode.PreconditionFailed
-                    });
+                    db.UserDetails.Add(detail);
+                    db.SaveChanges();
+
+                    return Ok(db.UserDetails.First(x => x.Id == id && x.Key == key));
                 }
             }
-            else
-            {
-                return ResponseMessage(new HttpResponseMessage()
-                {
-                    Content = new StringContent("There is no user with that username."),
-                    StatusCode = HttpStatusCode.PreconditionFailed
-                });
-            }
+
         }
+
+        
 
         /// <summary>
         /// List user records from the database. (Auth)
@@ -183,9 +162,7 @@ namespace Hale.Core.API
         {
             using(var db = new HaleDBModel())
             {
-                var users = db.Users.ToList();
-
-                return Ok(users);
+                return Ok(db.Users.ToList());
             }
         }
 
@@ -229,24 +206,25 @@ namespace Hale.Core.API
         // GET: /api/user/{id}/detail/{key}
         public IHttpActionResult Detail(int userid, int detailid)
         {
-            var user = _users.Get(new Entities.Security.User() { Id = userid });
-            var detail = _userdetails.Get(user, new UserDetail() { Id = detailid });
-            
-            if (detail != null)
+            using (var db = new HaleDBModel())
             {
-                return Ok(detail);
-            }
-            else
-            {
-                return new StringResult(
-                    HttpStatusCode.NotFound,
-                    "UserDetail not found",
-                    detail:
-                        $"UserDetail \"{detailid}\" for User #{userid} not found!", request: Request
-                    );
+                var user = db.Users.Find(userid);
+                if (user == null)
+                    return UserNotFoundResult(userid);
+                else
+                {
+                    var detail = user.UserDetails.FirstOrDefault(x => x.Id == detailid);
+                    if (detail == null)
+                        return UserDetailNotFoundResult(detailid);
+                    else
+                    {
+                        return Ok(detail);
+                    }
+                }
+                
             }
         }
-
+   
 
         private IHttpActionResult UserNotFoundResult(int id)
         {
@@ -257,7 +235,29 @@ namespace Hale.Core.API
                     $"User #{id} not found!", request: Request
                 );
         }
+        private IHttpActionResult UserDetailNotFoundResult(int id)
+        {
+            return new StringResult(
+                HttpStatusCode.NotFound,
+                "User Detail not found",
+                detail:
+                    $"User Detail #{id} not found!", request: Request
+                );
+        }
 
+        private IHttpActionResult DetailAlreadyExistsResponse(int id, string key)
+        {
+            return new StringResult(
+                HttpStatusCode.PreconditionFailed,
+                "User Detail already exists",
+                detail:
+                    $"User Detail {key} for user #{id} already exists.", request: Request
+                );
+        }
+        private StringResult UserAlreadyExistsResponse()
+        {
+            return new StringResult(HttpStatusCode.PreconditionFailed, "There is already a user with that username.", Request);
+        }
 
     }
 

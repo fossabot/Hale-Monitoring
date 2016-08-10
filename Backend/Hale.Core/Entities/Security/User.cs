@@ -23,6 +23,7 @@ namespace Hale.Core.Entities.Security
         /// Corresponds to the table column User.UserName
         /// </summary>
         [Index(IsUnique = true)]
+        [StringLength(450)] // Needs a max length to be able to function as a unique field.
         public string UserName { get; set; }
 
         /// <summary>
@@ -34,6 +35,14 @@ namespace Hale.Core.Entities.Security
         /// Corresponds to the table column User.Password.
         /// Only used to hold a hashed and salted representation of the password.
         /// </summary>
+
+        [NotMapped]
+        public string PasswordInput
+        {
+            get;
+            set;
+        }
+
         [IgnoreDataMember]
         public string Password { get; set; }
 

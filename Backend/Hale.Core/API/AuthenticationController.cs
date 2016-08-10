@@ -13,6 +13,8 @@ using NLog;
 using Microsoft.Owin;
 using Hale.Core.Entities.Shared;
 using Hale.Core.Contexts;
+using System.Linq;
+using System;
 
 namespace Hale.Core.API
 {
@@ -23,59 +25,50 @@ namespace Hale.Core.API
     public class AuthenticationController : ApiController
     {
 
-        readonly SecurityHandler _security;
         readonly Logger _log;
-        readonly Users _users;
+        // readonly Users _users;
 
         
         internal AuthenticationController()
         {
             _log = LogManager.GetCurrentClassLogger();
-            _security = new SecurityHandler();
-            _users = new Users();
+           // _users = new Users();
         }
-        
-#if DEBUG
-        /// <summary>
-        /// Creates claim and session if the authentication succeeds. (Debug only)
-        /// </summary>
-        /// <param name="username">Username for the login attempt</param>
-        /// <param name="password">Password for the login attempt</param>
-        /// <param name="persistent">Whether or not the session should persist on exit.</param>
-        /// <returns>A custom LoginResponse that will be stored in the local storage for the Hale-GUI ember application.</returns>
-        [Route("login")]
-        [ResponseType(typeof(LoginResponse))]
-        [HttpGet]
-        public LoginResponse DevLogin(string username, string password, bool persistent = false)
-        {
-            return DoLogin(username, password, persistent);
-        }
-#endif
 
         private LoginResponse DoLogin(string username, string password, bool persistent = false)
         {
-
-            if (_security.Authenticate(username, password))
+            try
             {
-                var context = Request.GetOwinContext();
-                context.Authentication.SignIn(
-                    new AuthenticationProperties() {
-                        IsPersistent = persistent,
-                    },
-                    new ClaimsIdentity(
-                        new[] { new Claim(ClaimsIdentity.DefaultNameClaimType, username) },
-                        "HaleCoreAuth"
-                    )
-                );
-
-                User user = _users.Get(new User() { UserName = username});
-                return new LoginResponse()
+                using (var db = new HaleDBModel())
                 {
-                    UserId = user.Id,
-                    Error = ""
-                };
+                    var user = db.Users.FirstOrDefault(x => x.UserName == username);
+                    var passwordAccepted = BCrypt.Net.BCrypt.Verify(password, user.Password);
+
+                    if (passwordAccepted)
+                    {
+                        var context = Request.GetOwinContext();
+                        context.Authentication.SignIn(
+                            new AuthenticationProperties()
+                            {
+                                IsPersistent = persistent,
+                            },
+                            new ClaimsIdentity(
+                                new[] { new Claim(ClaimsIdentity.DefaultNameClaimType, username) },
+                                "HaleCoreAuth"
+                            )
+                        );
+
+                        return new LoginResponse()
+                        {
+                            UserId = user.Id,
+                            Error = ""
+                        };
+                    }
+                    else
+                        throw new Exception();
+                }
             }
-            else
+            catch
             {
                 _log.Info("Authorization failed - " + Request.GetOwinContext().Request.RemoteIpAddress + "@'" + username + "'");
                 return new LoginResponse()
@@ -84,7 +77,7 @@ namespace Hale.Core.API
                     Error = "Invalid credentials"
                 };
             }
-
+            
         }
 
 
@@ -148,19 +141,5 @@ namespace Hale.Core.API
 
             };
         }
-
-
-#if DEBUG
-        /// <summary>
-        /// Deletes claim and session if there is any. (Debug only)
-        /// </summary>
-        /// <returns></returns>
-        [Route("logout")]
-        [AcceptVerbs("GET", "POST")]
-        public HttpResponseMessage DevLogout()
-        {
-            return Logout();
-        }
-#endif
     }
 }

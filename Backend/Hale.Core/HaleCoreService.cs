@@ -90,8 +90,6 @@ namespace Hale.Core
 
         private void LaunchCoreInstances()
         {
-            LaunchSecurityHandler();
-
             // Todo: Decide if we are going to use the entity context together with the service proivder
             // and if so move this to a separate entity -NM 2016-01-17
             ServiceProvider.SetService<Contexts.Hosts>(new Hosts());
@@ -132,11 +130,6 @@ namespace Hale.Core
             ApiHandler apiHandler = new ApiHandler();
         }
 
-        private void LaunchSecurityHandler()
-        {
-            _log.Info("Creating Security Handler instance...");
-            SecurityHandler securityHandler = new SecurityHandler();
-        }
 
         private void SaveConfigToFileIfMissing()
         {
