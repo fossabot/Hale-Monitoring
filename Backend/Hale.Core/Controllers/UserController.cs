@@ -25,11 +25,19 @@ namespace Hale.Core.Controllers
         private readonly Logger _log;
         public readonly UserContext db;
 
+        /// <summary>
+        /// Default constructor using the provided DbContext as the data provider.
+        /// </summary>
         public UsersController() : this(new UserContext())
         {
             _log = LogManager.GetCurrentClassLogger();
         }
 
+        /// <summary>
+        /// Constructor used for injecting custom data providers to be used as the UserContext.
+        /// Used in the UnitTests
+        /// </summary>
+        /// <param name="context">Custom context</param>
         public UsersController(UserContext context)
         {
             db = context;
