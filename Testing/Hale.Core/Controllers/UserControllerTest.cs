@@ -17,45 +17,14 @@ namespace Hale_Core_UnitTests.Controllers
 {
     public class UserControllerTest
     {
-
-        internal List<Account> GetMockData() {
-            return new List<Account>()
-            {
-                new Account { Id = 1, UserName = "leroy", FullName = "leroy jenkins" },
-                new Account { Id = 2, UserName = "foo"  , FullName =" foobar"        }
-            };
-        }
-
-        private Mock<DbSet<Account>> GetQueryableMockAccountDbSet()
-        {
-            var data = GetMockData();
-
-            var mock = new Mock<DbSet<Account>>();
-
-            mock.As<IQueryable<Account>>().Setup(m => m.Provider).Returns(data.AsQueryable().Provider);
-            mock.As<IQueryable<Account>>().Setup(m => m.Expression).Returns(data.AsQueryable().Expression);
-            mock.As<IQueryable<Account>>().Setup(m => m.ElementType).Returns(data.AsQueryable().ElementType);
-            mock.As<IQueryable<Account>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-            mock.Setup(m => m.Add(It.IsAny<Account>())).Callback<Account>(data.Add);
-
-         
-            return mock;
-        }
-        
-        private Mock<UserContext> GetMockUserContext()
-        {
-            var mock = GetQueryableMockAccountDbSet();
-            var mockContext = new Mock<UserContext>();
-            mockContext.Setup(x => x.Accounts).Returns(mock.Object);
-
-            return mockContext;
-        }
+        UserContextHelper helper = new UserContextHelper();
+       
 
         [TestCase]
         // HTTP GET: /api/v1/users/:id
-        public void TestCaseGetSingleUser()
+        public void Users_GetSingleUser()
         {
-            var context = GetMockUserContext();
+            var context = helper.GetMockUserContext();
             var controller = new UsersController(context.Object);
 
             var user = (controller.Get(1) as OkNegotiatedContentResult<Account>).Content;
@@ -65,9 +34,9 @@ namespace Hale_Core_UnitTests.Controllers
         }
 
         [TestCase]
-        public void GetUserList()
+        public void Users_GetUserList()
         {
-            var context = GetMockUserContext();
+            var context = helper.GetMockUserContext();
             var controller = new UsersController(context.Object);
 
             var users = (controller.List() as OkNegotiatedContentResult<List<Account>>).Content;
@@ -81,7 +50,7 @@ namespace Hale_Core_UnitTests.Controllers
         }
 
         [TestCase]
-        public void CreateNewUser()
+        public void Users_CreateNewUser()
         {
             var request = new CreateAccountRequest()
             {
@@ -90,7 +59,7 @@ namespace Hale_Core_UnitTests.Controllers
                 Password = "testpass"
             };
 
-            var context = GetMockUserContext().Object;
+            var context = helper.GetMockUserContext().Object;
             var controller = new UsersController(context);
 
             var response = (controller.Add(request) as OkNegotiatedContentResult<Account>).Content;
@@ -101,9 +70,9 @@ namespace Hale_Core_UnitTests.Controllers
         }
         
         [TestCase]
-        public void UpdateUser()
+        public void Users_UpdateUser()
         {
-            var context = GetMockUserContext().Object;
+            var context = helper.GetMockUserContext().Object;
             var controller = new UsersController(context);
 
             var input = context.Accounts.First(x => x.Id == 1);

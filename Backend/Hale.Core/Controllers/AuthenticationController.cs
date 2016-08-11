@@ -25,48 +25,51 @@ namespace Hale.Core.Controllers
     public class AuthenticationController : ApiController
     {
 
-        readonly Logger _log;
+        private readonly Logger      _log;
+        private readonly UserContext _db;
+
         // readonly Users _users;
 
-        
-        internal AuthenticationController()
+
+        internal AuthenticationController() : this(new UserContext())
+        {
+        }
+
+        public AuthenticationController(UserContext context)
         {
             _log = LogManager.GetCurrentClassLogger();
-           // _users = new Users();
+            _db = context;
         }
 
         private LoginResponse DoLogin(string username, string password, bool persistent = false)
         {
             try
             {
-                using (var db = new UserContext())
+                var user = _db.Accounts.FirstOrDefault(x => x.UserName == username);
+                var passwordAccepted = BCrypt.Net.BCrypt.Verify(password, user.Password);
+
+                if (passwordAccepted)
                 {
-                    var user = db.Accounts.FirstOrDefault(x => x.UserName == username);
-                    var passwordAccepted = BCrypt.Net.BCrypt.Verify(password, user.Password);
-
-                    if (passwordAccepted)
-                    {
-                        var context = Request.GetOwinContext();
-                        context.Authentication.SignIn(
-                            new AuthenticationProperties()
-                            {
-                                IsPersistent = persistent,
-                            },
-                            new ClaimsIdentity(
-                                new[] { new Claim(ClaimsIdentity.DefaultNameClaimType, username) },
-                                "HaleCoreAuth"
-                            )
-                        );
-
-                        return new LoginResponse()
+                    var context = Request.GetOwinContext();
+                    context.Authentication.SignIn(
+                        new AuthenticationProperties()
                         {
-                            UserId = user.Id,
-                            Error = ""
-                        };
-                    }
-                    else
-                        throw new Exception();
+                            IsPersistent = persistent,
+                        },
+                        new ClaimsIdentity(
+                            new[] { new Claim(ClaimsIdentity.DefaultNameClaimType, username) },
+                            "HaleCoreAuth"
+                        )
+                    );
+
+                    return new LoginResponse()
+                    {
+                        UserId = user.Id,
+                        Error = ""
+                    };
                 }
+                else
+                    throw new Exception();
             }
             catch
             {
