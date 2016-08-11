@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit;
 using Hale.Core.Models.User;
 using Hale.Core.Contexts;
 using System.Linq;
@@ -11,10 +11,10 @@ using Moq;
 using System.Data.Entity;
 using System.Diagnostics;
 using Newtonsoft.Json;
+using NUnit.Framework;
 
 namespace Hale_Core_UnitTests.Controllers
 {
-    [TestClass]
     public class UserControllerTest
     {
 
@@ -51,9 +51,9 @@ namespace Hale_Core_UnitTests.Controllers
             return mockContext;
         }
 
-        [TestMethod]
+        [TestCase]
         // HTTP GET: /api/v1/users/:id
-        public void GetSingleUser()
+        public void TestCaseGetSingleUser()
         {
             var context = GetMockUserContext();
             var controller = new UsersController(context.Object);
@@ -64,7 +64,7 @@ namespace Hale_Core_UnitTests.Controllers
             System.Diagnostics.Trace.WriteLine($"Got user #{user.Id}, {user.UserName}");
         }
 
-        [TestMethod]
+        [TestCase]
         public void GetUserList()
         {
             var context = GetMockUserContext();
@@ -80,7 +80,7 @@ namespace Hale_Core_UnitTests.Controllers
             }
         }
 
-        [TestMethod]
+        [TestCase]
         public void CreateNewUser()
         {
             var request = new CreateAccountRequest()
@@ -100,7 +100,7 @@ namespace Hale_Core_UnitTests.Controllers
             
         }
         
-        [TestMethod]
+        [TestCase]
         public void UpdateUser()
         {
             var context = GetMockUserContext().Object;
