@@ -1,6 +1,7 @@
 ﻿using System;
 using Hale.Agent;
 using NLog;
+using System.ServiceProcess;
 
 namespace Hale.Agent
 {
