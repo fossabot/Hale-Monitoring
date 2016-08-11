@@ -125,7 +125,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Backend\Hale.Core\Hale.Core.csproj">
       <Project>{15c782a0-dc99-4b73-b305-b8468dad29ac}</Project>
-      <Name>Core</Name>
+      <Name>Hale.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Shared\Hale.Lib\Hale.Lib.csproj">
       <Project>{c023cfa8-753b-42b8-8d52-b71331991e34}</Project>

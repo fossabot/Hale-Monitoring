@@ -95,8 +95,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Alert", "Testing\Hale.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Lib", "Shared\Hale.Lib\Hale.Lib.csproj", "{C023CFA8-753B-42B8-8D52-B71331991E34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Migrations", "Tools\Hale.Migrations\Hale.Migrations.csproj", "{CB6B3702-4AB0-4B2A-9E78-19F2EA9B1D8C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Agent.BrandingAction", "Backend\Hale.Agent.BrandingAction\Hale.Agent.BrandingAction.csproj", "{094A0278-FAD5-4C45-93F2-4A6D12D96312}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Hale.Agent.Bootstrapper", "Backend\Hale.Agent.Bootstrapper\Hale.Agent.Bootstrapper.wixproj", "{F31C06C1-DD56-4BE0-8092-13F1497A9587}"
@@ -106,6 +104,21 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EFBE464D-C366-47E5-BB16-43F4477764D5}"
 	ProjectSection(SolutionItems) = preProject
 		.travis.yml = .travis.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ArchivedMigrationsCode", "ArchivedMigrationsCode", "{8772C012-A8F0-4906-9ED6-4D53ADB2B1A0}"
+	ProjectSection(SolutionItems) = preProject
+		Tools\Hale.Migrations\001-CreateUsersSchema.cs = Tools\Hale.Migrations\001-CreateUsersSchema.cs
+		Tools\Hale.Migrations\002-CreateUsersAccountsTable.cs = Tools\Hale.Migrations\002-CreateUsersAccountsTable.cs
+		Tools\Hale.Migrations\003-CreateUsersEmailsTable.cs = Tools\Hale.Migrations\003-CreateUsersEmailsTable.cs
+		Tools\Hale.Migrations\004-CreateUsersPhonesTable.cs = Tools\Hale.Migrations\004-CreateUsersPhonesTable.cs
+		Tools\Hale.Migrations\005-CreateModulesSchema.cs = Tools\Hale.Migrations\005-CreateModulesSchema.cs
+		Tools\Hale.Migrations\006-CreateModulesFunctionsTable.cs = Tools\Hale.Migrations\006-CreateModulesFunctionsTable.cs
+		Tools\Hale.Migrations\007-CreateModulesVersionsTable.cs = Tools\Hale.Migrations\007-CreateModulesVersionsTable.cs
+		Tools\Hale.Migrations\008-CreateModulesResultsTable.cs = Tools\Hale.Migrations\008-CreateModulesResultsTable.cs
+		Tools\Hale.Migrations\009-CreateNodesSchema.cs = Tools\Hale.Migrations\009-CreateNodesSchema.cs
+		Tools\Hale.Migrations\010-CreateNodesHostsTable.cs = Tools\Hale.Migrations\010-CreateNodesHostsTable.cs
+		Tools\Hale.Migrations\Helpers.cs = Tools\Hale.Migrations\Helpers.cs
 	EndProjectSection
 EndProject
 Global
@@ -322,18 +335,6 @@ Global
 		{C023CFA8-753B-42B8-8D52-B71331991E34}.Release|x64.Build.0 = Release|Any CPU
 		{C023CFA8-753B-42B8-8D52-B71331991E34}.Release|x86.ActiveCfg = Release|Any CPU
 		{C023CFA8-753B-42B8-8D52-B71331991E34}.Release|x86.Build.0 = Release|Any CPU
-		{CB6B3702-4AB0-4B2A-9E78-19F2EA9B1D8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CB6B3702-4AB0-4B2A-9E78-19F2EA9B1D8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CB6B3702-4AB0-4B2A-9E78-19F2EA9B1D8C}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{CB6B3702-4AB0-4B2A-9E78-19F2EA9B1D8C}.Debug|x64.Build.0 = Debug|Any CPU
-		{CB6B3702-4AB0-4B2A-9E78-19F2EA9B1D8C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{CB6B3702-4AB0-4B2A-9E78-19F2EA9B1D8C}.Debug|x86.Build.0 = Debug|Any CPU
-		{CB6B3702-4AB0-4B2A-9E78-19F2EA9B1D8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CB6B3702-4AB0-4B2A-9E78-19F2EA9B1D8C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CB6B3702-4AB0-4B2A-9E78-19F2EA9B1D8C}.Release|x64.ActiveCfg = Release|Any CPU
-		{CB6B3702-4AB0-4B2A-9E78-19F2EA9B1D8C}.Release|x64.Build.0 = Release|Any CPU
-		{CB6B3702-4AB0-4B2A-9E78-19F2EA9B1D8C}.Release|x86.ActiveCfg = Release|Any CPU
-		{CB6B3702-4AB0-4B2A-9E78-19F2EA9B1D8C}.Release|x86.Build.0 = Release|Any CPU
 		{094A0278-FAD5-4C45-93F2-4A6D12D96312}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{094A0278-FAD5-4C45-93F2-4A6D12D96312}.Debug|x64.ActiveCfg = Debug|x86
 		{094A0278-FAD5-4C45-93F2-4A6D12D96312}.Debug|x86.ActiveCfg = Debug|x86
@@ -384,9 +385,9 @@ Global
 		{788F5A75-91FD-4361-8EAE-FF3E31253C71} = {28BD8B71-9E1E-4DF6-90EB-1A20F9B8CF2E}
 		{DDE0C66C-50E9-4C04-A9DD-3015A94394E5} = {28BD8B71-9E1E-4DF6-90EB-1A20F9B8CF2E}
 		{C023CFA8-753B-42B8-8D52-B71331991E34} = {E1EF2A14-563C-4C83-91A2-8A16A00AFDCA}
-		{CB6B3702-4AB0-4B2A-9E78-19F2EA9B1D8C} = {097D7656-AF7E-4311-8D57-5A17AD720773}
 		{094A0278-FAD5-4C45-93F2-4A6D12D96312} = {0768DEEE-4D7A-41C2-939A-92F24724720C}
 		{F31C06C1-DD56-4BE0-8092-13F1497A9587} = {0768DEEE-4D7A-41C2-939A-92F24724720C}
 		{19ACF1DC-F01C-4C2F-9791-8C75DB4E70BE} = {0768DEEE-4D7A-41C2-939A-92F24724720C}
+		{8772C012-A8F0-4906-9ED6-4D53ADB2B1A0} = {EFBE464D-C366-47E5-BB16-43F4477764D5}
 	EndGlobalSection
 EndGlobal
