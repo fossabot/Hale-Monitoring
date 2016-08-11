@@ -10,3 +10,5 @@ script:
 cache:
   directories:
     - packages
+notifications:
+  slack: itshale:zzA1c500hMvaht5WuURG7qob
