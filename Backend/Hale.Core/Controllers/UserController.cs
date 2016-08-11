@@ -141,23 +141,19 @@ namespace Hale.Core.Controllers
         [AcceptVerbs("POST")]
         public IHttpActionResult AddDetail(int id, string key, [FromBody] AccountDetail detail)
         {
-            using (var db = new UserContext())
+            if (db.Accounts.Find(id) == null)
+                return UserNotFoundResult(id);
+
+            else if (db.AccountDetails.Any(x => x.UserId == id && x.Key == key))
+                return DetailAlreadyExistsResponse(id, key);
+
+            else
             {
-                if (db.Accounts.Find(id) == null)
-                    return UserNotFoundResult(id);
+                db.AccountDetails.Add(detail);
+                db.SaveChanges();
 
-                else if (db.AccountDetails.Any(x => x.UserId == id && x.Key == key))
-                    return DetailAlreadyExistsResponse(id, key);
-
-                else
-                {
-                    db.AccountDetails.Add(detail);
-                    db.SaveChanges();
-
-                    return Ok(db.AccountDetails.First(x => x.Id == id && x.Key == key));
-                }
+                return Ok(db.AccountDetails.First(x => x.Id == id && x.Key == key));
             }
-
         }
 
 
@@ -173,19 +169,14 @@ namespace Hale.Core.Controllers
         [Route("{id}/details")]
         public IHttpActionResult Details(int id)
         {
+            var user = db.Accounts.Include("AccountDetails").FirstOrDefault(u => u.Id == id);
 
-                using (var db = new UserContext())
-                {
-                    var user = db.Accounts.Include("AccountDetails").FirstOrDefault(u => u.Id == id);
+            if (user == null)
+                return UserNotFoundResult(id);
 
-                    if (user == null)
-                        return UserNotFoundResult(id);
+            var accountDetails = user.AccountDetails.ToList();
 
-                    var accountDetails = user.AccountDetails.ToList();
-
-                    return Ok(accountDetails);
-                }
-
+            return Ok(accountDetails);
         }
 
         /// <summary>
@@ -201,22 +192,18 @@ namespace Hale.Core.Controllers
         // GET: /api/user/{id}/detail/{key}
         public IHttpActionResult Detail(int userid, int detailid)
         {
-            using (var db = new UserContext())
+            var user = db.Accounts.Find(userid);
+            if (user == null)
+                return UserNotFoundResult(userid);
+            else
             {
-                var user = db.Accounts.Find(userid);
-                if (user == null)
-                    return UserNotFoundResult(userid);
+                var detail = user.AccountDetails.FirstOrDefault(x => x.Id == detailid);
+                if (detail == null)
+                    return AccountDetailNotFound(detailid);
                 else
                 {
-                    var detail = user.AccountDetails.FirstOrDefault(x => x.Id == detailid);
-                    if (detail == null)
-                        return AccountDetailNotFound(detailid);
-                    else
-                    {
-                        return Ok(detail);
-                    }
+                    return Ok(detail);
                 }
-                
             }
         }
    
