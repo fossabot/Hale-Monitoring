@@ -4,15 +4,15 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Hale.Core.Entities;
-using Hale.Core.Entities.Security;
+using Hale.Core.Models;
+using Hale.Core.Models.User;
 using Hale.Core.Handlers;
 using Hale.Core.Utils;
 using NLog;
 using Hale.Core.Contexts;
 using System.Linq;
 
-namespace Hale.Core.API
+namespace Hale.Core.Controllers
 {
 
     /// <summary>
@@ -34,13 +34,13 @@ namespace Hale.Core.API
         /// <param name="id">The user id to fetch.</param>
         /// <returns></returns>
         [HttpGet, Route("{id}")]
-        [ResponseType(typeof(User))]
+        [ResponseType(typeof(Account))]
         public IHttpActionResult Get(int id)
         {
 
-            using (var db = new HaleDBModel())
+            using (var db = new UserContext())
             {
-                var user = db.Users.Include("UserDetails").FirstOrDefault(u => u.Id == id);
+                var user = db.Accounts.Include("AccountDetails").FirstOrDefault(u => u.Id == id);
 
                 if (user == null)
                     return UserNotFoundResult(id);
@@ -58,31 +58,31 @@ namespace Hale.Core.API
         /// <returns></returns>
         // [Authorize]
         [Route("")]
-        [ResponseType(typeof(User))]
+        [ResponseType(typeof(Account))]
         [AcceptVerbs("POST")]
-        public IHttpActionResult Add([FromBody] NewUserRequest userRequest)
+        public IHttpActionResult Add([FromBody] CreateAccountRequest userRequest)
         {
             // Using a non-inherited class containing only the attributes needed seem to be the only sane way
             // of doing this as we dont want to expose all attributes (like enabled or active) in the API.
             // -SA 2016-08-11
 
-            using (var db = new HaleDBModel())
+            using (var db = new UserContext())
             {
-                if (db.Users.Where(x => x.UserName == userRequest.UserName).Any())
+                if (db.Accounts.Where(x => x.UserName == userRequest.UserName).Any())
                     return UserAlreadyExistsResponse();
                 else
                 {
 
-                    var user = new User();
+                    var user = new Account();
 
                     user.UserName = userRequest.UserName;
                     user.Password = BCrypt.Net.BCrypt.HashPassword(userRequest.Password, 5);
                     user.FullName = userRequest.FullName;
 
-                    db.Users.Add(user);
+                    db.Accounts.Add(user);
                     db.SaveChanges();
 
-                    return Ok(db.Users.First(x => x.UserName == user.UserName));
+                    return Ok(db.Accounts.First(x => x.UserName == user.UserName));
                 }
             }
         }
@@ -97,13 +97,13 @@ namespace Hale.Core.API
         /// <returns></returns>
         [Route("{id}")]
         [AcceptVerbs("PATCH")]
-        [ResponseType(typeof(User))]
-        public IHttpActionResult Update(int id, [FromBody]User user)
+        [ResponseType(typeof(Account))]
+        public IHttpActionResult Update(int id, [FromBody]Account user)
         {
             try {
-                using(var db = new HaleDBModel())
+                using(var db = new UserContext())
                 {
-                    var dbUser = db.Users.First(u => u.Id == id);
+                    var dbUser = db.Accounts.First(u => u.Id == id);
                     db.Entry(dbUser).CurrentValues.SetValues(user);
                     db.SaveChanges();
                     return Ok(dbUser);
@@ -121,28 +121,28 @@ namespace Hale.Core.API
         /// </summary>
         /// <param name="id">The user ID for the detail.</param>
         /// <param name="key">The key to store the detail in.</param>
-        /// <param name="detail">The full userdetail object.</param>
+        /// <param name="detail">The full accountdetails object.</param>
         /// <returns></returns>
         [Authorize]
         [Route("{id}/details/{key}")]
-        [ResponseType(typeof(UserDetail))]
+        [ResponseType(typeof(AccountDetail))]
         [AcceptVerbs("POST")]
-        public IHttpActionResult AddDetail(int id, string key, [FromBody] UserDetail detail)
+        public IHttpActionResult AddDetail(int id, string key, [FromBody] AccountDetail detail)
         {
-            using (var db = new HaleDBModel())
+            using (var db = new UserContext())
             {
-                if (db.Users.Find(id) == null)
+                if (db.Accounts.Find(id) == null)
                     return UserNotFoundResult(id);
 
-                else if (db.UserDetails.Any(x => x.UserId == id && x.Key == key))
+                else if (db.AccountDetails.Any(x => x.UserId == id && x.Key == key))
                     return DetailAlreadyExistsResponse(id, key);
 
                 else
                 {
-                    db.UserDetails.Add(detail);
+                    db.AccountDetails.Add(detail);
                     db.SaveChanges();
 
-                    return Ok(db.UserDetails.First(x => x.Id == id && x.Key == key));
+                    return Ok(db.AccountDetails.First(x => x.Id == id && x.Key == key));
                 }
             }
 
@@ -156,13 +156,13 @@ namespace Hale.Core.API
         /// <returns></returns>
         //[Authorize]
         [Route()]
-        [ResponseType(typeof(List<User>))]
+        [ResponseType(typeof(List<Account>))]
         [AcceptVerbs("GET")]
         public IHttpActionResult List()
         {
-            using(var db = new HaleDBModel())
+            using(var db = new UserContext())
             {
-                return Ok(db.Users.ToList());
+                return Ok(db.Accounts.ToList());
             }
         }
 
@@ -173,22 +173,21 @@ namespace Hale.Core.API
         /// <returns></returns>
         //[Authorize]
         [AcceptVerbs("GET")]
-        [ResponseType(typeof(List<UserDetail>))]
+        [ResponseType(typeof(List<AccountDetail>))]
         [Route("{id}/details")]
         public IHttpActionResult Details(int id)
         {
 
-                using (var db = new HaleDBModel())
+                using (var db = new UserContext())
                 {
-                    var user = db.Users.Include("UserDetails").FirstOrDefault(u => u.Id == id);
+                    var user = db.Accounts.Include("AccountDetails").FirstOrDefault(u => u.Id == id);
 
                     if (user == null)
                         return UserNotFoundResult(id);
 
-                    var userDetails = user.UserDetails.ToList();
-                    //var userDetails = db.UserDetails.Where(ud => ud.UserId == id).ToList();
+                    var accountDetails = user.AccountDetails.ToList();
 
-                    return Ok(userDetails);
+                    return Ok(accountDetails);
                 }
 
         }
@@ -201,21 +200,21 @@ namespace Hale.Core.API
         /// <returns></returns>
         [Authorize]
         [AcceptVerbs("GET")]
-        [ResponseType(typeof(UserDetail))]
+        [ResponseType(typeof(AccountDetail))]
         [Route("{userid}/details/{detailid}")]
         // GET: /api/user/{id}/detail/{key}
         public IHttpActionResult Detail(int userid, int detailid)
         {
-            using (var db = new HaleDBModel())
+            using (var db = new UserContext())
             {
-                var user = db.Users.Find(userid);
+                var user = db.Accounts.Find(userid);
                 if (user == null)
                     return UserNotFoundResult(userid);
                 else
                 {
-                    var detail = user.UserDetails.FirstOrDefault(x => x.Id == detailid);
+                    var detail = user.AccountDetails.FirstOrDefault(x => x.Id == detailid);
                     if (detail == null)
-                        return UserDetailNotFoundResult(detailid);
+                        return AccountDetailNotFound(detailid);
                     else
                     {
                         return Ok(detail);
@@ -235,7 +234,7 @@ namespace Hale.Core.API
                     $"User #{id} not found!", request: Request
                 );
         }
-        private IHttpActionResult UserDetailNotFoundResult(int id)
+        private IHttpActionResult AccountDetailNotFound(int id)
         {
             return new StringResult(
                 HttpStatusCode.NotFound,

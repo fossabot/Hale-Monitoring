@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hale.Core.Entities.Security
+namespace Hale.Core.Models.User
 {
-    public class NewUserRequest
+    public class CreateAccountRequest
     {
         public string UserName
         {

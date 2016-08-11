@@ -4,19 +4,19 @@ using System.Net.Security;
 using System.Security.Claims;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Hale.Core.Entities;
-using Hale.Core.Entities.Security;
+using Hale.Core.Models;
+using Hale.Core.Models.User;
 using Hale.Core.Handlers;
 using Microsoft.Owin.Security;
 using Newtonsoft.Json;
 using NLog;
 using Microsoft.Owin;
-using Hale.Core.Entities.Shared;
+using Hale.Core.Models.Shared;
 using Hale.Core.Contexts;
 using System.Linq;
 using System;
 
-namespace Hale.Core.API
+namespace Hale.Core.Controllers
 {
     /// <summary>
     /// API for handling logins, logouts and status checks.
@@ -39,9 +39,9 @@ namespace Hale.Core.API
         {
             try
             {
-                using (var db = new HaleDBModel())
+                using (var db = new UserContext())
                 {
-                    var user = db.Users.FirstOrDefault(x => x.UserName == username);
+                    var user = db.Accounts.FirstOrDefault(x => x.UserName == username);
                     var passwordAccepted = BCrypt.Net.BCrypt.Verify(password, user.Password);
 
                     if (passwordAccepted)

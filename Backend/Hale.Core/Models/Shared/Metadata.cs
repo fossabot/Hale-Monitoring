@@ -1,4 +1,4 @@
-﻿namespace Hale.Core.Entities.Shared
+﻿namespace Hale.Core.Models.Shared
 {
     /// <summary>
     /// Corresponds to the database table Shared.Metadata

@@ -50,8 +50,8 @@ namespace Hale.Core.Handlers
             foreach (var fn in mi.ActionFunctions) {
                 try
                 {
-                    var mf = new Entities.Modules.Function();
-                    mf.Type = Entities.Modules.FunctionType.Action;
+                    var mf = new Models.Modules.Function();
+                    mf.Type = Models.Modules.FunctionType.Action;
                     mf.Name = fn;
                     mf.ModuleId = me.Id;
                     moduleFunctions.Create(mf);
@@ -67,8 +67,8 @@ namespace Hale.Core.Handlers
             {
                 try
                 {
-                    var mf = new Entities.Modules.Function();
-                    mf.Type = Entities.Modules.FunctionType.Check;
+                    var mf = new Models.Modules.Function();
+                    mf.Type = Models.Modules.FunctionType.Check;
                     mf.Name = fn;
                     mf.ModuleId = me.Id;
                     moduleFunctions.Create(mf);
@@ -84,8 +84,8 @@ namespace Hale.Core.Handlers
             {
                 try
                 {
-                    var mf = new Entities.Modules.Function();
-                    mf.Type = Entities.Modules.FunctionType.Info;
+                    var mf = new Models.Modules.Function();
+                    mf.Type = Models.Modules.FunctionType.Info;
                     mf.Name = fn;
                     mf.ModuleId = me.Id;
                     moduleFunctions.Create(mf);
@@ -211,9 +211,9 @@ namespace Hale.Core.Handlers
             }
         }
 
-        public Entities.Modules.Module GetModuleEntity()
+        public Models.Modules.Module GetModuleEntity()
         {
-            return new Entities.Modules.Module() { Version = Version, Identifier = Identifier };
+            return new Models.Modules.Module() { Version = Version, Identifier = Identifier };
         }
     }
 

@@ -6,7 +6,7 @@ using WindowsInstaller;
 using NLog;
 using Piksel.Nemesis.Security;
 using Hale.Core.Config;
-using Hale.Core.Entities.Nodes;
+using Hale.Core.Models.Nodes;
 using Hale.Lib.Utilities;
 using System.Configuration;
 using System.Reflection;

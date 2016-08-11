@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using Hale.Core.Entities.Checks;
+using Hale.Core.Models.Checks;
 using Hale.Core.Handlers;
 using System;
 using System.Collections.Generic;

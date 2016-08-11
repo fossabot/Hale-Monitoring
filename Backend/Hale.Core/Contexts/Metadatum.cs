@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
-using Hale.Core.Entities.Shared;
+using Hale.Core.Models.Shared;
 using Hale.Core.Handlers;
 
 namespace Hale.Core.Contexts

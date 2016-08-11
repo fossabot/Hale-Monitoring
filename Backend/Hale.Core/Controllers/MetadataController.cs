@@ -5,13 +5,13 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Hale.Core.Contexts;
-using Hale.Core.Entities;
-using Hale.Core.Entities.Shared;
+using Hale.Core.Models;
+using Hale.Core.Models.Shared;
 using Hale.Core.Handlers;
 using Hale.Core.Utils;
 using NLog;
 
-namespace Hale.Core.API
+namespace Hale.Core.Controllers
 {
 
     /// <summary>

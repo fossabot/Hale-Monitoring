@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using Hale.Core.Entities.Nodes;
+using Hale.Core.Models.Nodes;
 using Hale.Core.Handlers;
 using System;
 using System.Collections.Generic;

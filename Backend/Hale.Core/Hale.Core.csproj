@@ -243,40 +243,44 @@
     <Compile Include="Config\ConfigurationExtensions.cs" />
     <Compile Include="Config\EnvironmentConfig.cs" />
     <Compile Include="Contexts\CheckDetails.cs" />
-    <Compile Include="Contexts\HaleDBModel.cs" />
+    <Compile Include="Contexts\UserContext.cs" />
     <Compile Include="Contexts\Metrics.cs" />
     <Compile Include="Contexts\Modules.cs" />
     <Compile Include="Contexts\Results.cs" />
     <Compile Include="Contexts\Checks.cs" />
     <Compile Include="Contexts\HostDetails.cs" />
     <Compile Include="Contexts\Hosts.cs" />
-    <Compile Include="API\MetadataController.cs" />
+    <Compile Include="Controllers\MetadataController.cs" />
     <Compile Include="Config\AgentSection.cs" />
     <Compile Include="Config\ApiSection.cs" />
     <Compile Include="Config\AppConfig.cs" />
     <Compile Include="Config\DatabaseSection.cs" />
     <Compile Include="Contexts\Metadatum.cs" />
-    <Compile Include="Entities\Modules\Module.cs" />
-    <Compile Include="Entities\Modules\ModuleFunction.cs" />
-    <Compile Include="Entities\Modules\Result.cs" />
-    <Compile Include="Entities\Security\UserCreateRequest.cs" />
-    <Compile Include="Entities\Shared\LoginResponse.cs" />
+    <Compile Include="Migrations\201608110031064_SchemaAndRenames.cs" />
+    <Compile Include="Migrations\201608110031064_SchemaAndRenames.Designer.cs">
+      <DependentUpon>201608110031064_SchemaAndRenames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Modules\Module.cs" />
+    <Compile Include="Models\Modules\ModuleFunction.cs" />
+    <Compile Include="Models\Modules\Result.cs" />
+    <Compile Include="Models\Security\CreateAccountRequest.cs" />
+    <Compile Include="Models\Shared\LoginResponse.cs" />
     <Compile Include="Handlers\ModuleHandler.cs" />
     <Compile Include="Handlers\Scheduler.CreateDistPackages.cs" />
     <Compile Include="Handlers\Scheduler.cs" />
     <Compile Include="Handlers\SqlHandler.cs" />
-    <Compile Include="Entities\Modules\Checks\Check.cs" />
-    <Compile Include="Entities\Modules\Checks\CheckDetail.cs" />
-    <Compile Include="Entities\Modules\Checks\Metric.cs" />
-    <Compile Include="Entities\Modules\Checks\Result.cs" />
-    <Compile Include="Entities\Nodes\Host.cs" />
-    <Compile Include="Entities\Nodes\HostDetail.cs" />
-    <Compile Include="Entities\Nodes\HostResponseWrapper.cs" />
-    <Compile Include="Entities\Nodes\Status.cs" />
-    <Compile Include="Entities\Security\Authentication.cs" />
-    <Compile Include="Entities\Security\User.cs" />
-    <Compile Include="Entities\Security\UserDetail.cs" />
-    <Compile Include="Entities\Shared\Metadata.cs" />
+    <Compile Include="Models\Modules\Checks\Check.cs" />
+    <Compile Include="Models\Modules\Checks\CheckDetail.cs" />
+    <Compile Include="Models\Modules\Checks\Metric.cs" />
+    <Compile Include="Models\Modules\Checks\Result.cs" />
+    <Compile Include="Models\Nodes\Host.cs" />
+    <Compile Include="Models\Nodes\HostDetail.cs" />
+    <Compile Include="Models\Nodes\HostResponseWrapper.cs" />
+    <Compile Include="Models\Nodes\Status.cs" />
+    <Compile Include="Models\Security\Authentication.cs" />
+    <Compile Include="Models\Security\Account.cs" />
+    <Compile Include="Models\Security\AccountDetail.cs" />
+    <Compile Include="Models\Shared\Metadata.cs" />
     <Compile Include="Formatting\JsonAPI.cs" />
     <Compile Include="Formatting\JsonAPIContractResolver.cs" />
     <Compile Include="Formatting\JsonAPIMediaTypeFormatter.cs" />
@@ -311,9 +315,9 @@
     <Compile Include="Utils\ExceptionHandlingAttribute.cs" />
     <Compile Include="Utils\StringResult.cs" />
     <Compile Include="Handlers\ApiHandler.cs" />
-    <Compile Include="API\AuthenticationController.cs" />
-    <Compile Include="API\HostController.cs" />
-    <Compile Include="API\UserController.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\HostController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="HaleCoreService.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -350,6 +354,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608102302414_UniqueUsername.resx">
       <DependentUpon>201608102302414_UniqueUsername.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608110031064_SchemaAndRenames.resx">
+      <DependentUpon>201608110031064_SchemaAndRenames.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="nemesis.yaml" />
     <None Include="NLog.xsd">

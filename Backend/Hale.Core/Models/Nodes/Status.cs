@@ -1,4 +1,4 @@
-﻿namespace Hale.Core.Entities.Nodes
+﻿namespace Hale.Core.Models.Nodes
 {
     /// <summary>
     /// Represents the possible values for the table column Nodes.Hosts.Status

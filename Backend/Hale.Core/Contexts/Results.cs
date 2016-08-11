@@ -1,9 +1,9 @@
-﻿using Hale.Core.Entities.Checks;
+﻿using Hale.Core.Models.Checks;
 using Hale.Core.Handlers;
 using System.Collections.Generic;
 using System.Linq;
 using Dapper;
-using Hale.Core.Entities.Nodes;
+using Hale.Core.Models.Nodes;
 
 namespace Hale.Core.Contexts
 {

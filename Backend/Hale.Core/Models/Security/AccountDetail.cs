@@ -1,32 +1,32 @@
 using Newtonsoft.Json;
 
-namespace Hale.Core.Entities.Security
+namespace Hale.Core.Models.User
 {
     /// <summary>
-    /// Corresponds to the database table Security.UserDetails
+    /// Corresponds to the database table Security.AccountDetails
     /// </summary>
-    public class UserDetail
+    public class AccountDetail
     {
         /// <summary>
-        /// Corresponds to the table column UserDetails.Id
+        /// Corresponds to the table column AccountDetails.Id
         /// </summary>
         [JsonProperty("_id")]
         public int Id { get; set; }
 
         /// <summary>
-        /// Corresponds to the table column UserDetails.UserId (FK: Security.Users.Id)
+        /// Corresponds to the table column AccountDetails.UserId
         /// </summary>
         [JsonProperty("userId")]
         public int UserId { get; set; }
 
         /// <summary>
-        /// Corresponds to the table column UserDetails.Key
+        /// Corresponds to the table column AccountDetails.Key
         /// </summary>
         [JsonProperty("id")]
         public string Key { get; set; }
 
         /// <summary>
-        /// Corresponds to the table column UserDetails.Value
+        /// Corresponds to the table column AccountDetails.Value
         /// </summary>
         [JsonProperty("value")]
         public string Value { get; set; }

@@ -5,12 +5,13 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
-namespace Hale.Core.Entities.Security
+namespace Hale.Core.Models.User
 {
     /// <summary>
     /// Corresponds to the database table Security.User
     /// </summary>
-    public class User
+    
+    public class Account
     {
 
         /// <summary>
@@ -78,9 +79,9 @@ namespace Hale.Core.Entities.Security
 
         /// <summary>
         /// Aggregation of available records in the Security.UserDetails table.
-        /// Users [1..*] UserDetails
+        /// Accounts [1..*] AccountDetails
         /// </summary>
-        public List<UserDetail> UserDetails { get; set; }
+        public List<AccountDetail> AccountDetails { get; set; }
 
 
     }

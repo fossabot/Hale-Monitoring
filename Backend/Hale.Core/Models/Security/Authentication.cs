@@ -1,4 +1,4 @@
-namespace Hale.Core.Entities.Security
+namespace Hale.Core.Models.User
 {
     /// <summary>
     /// TODO: Add a usage description.

@@ -4,8 +4,8 @@ using Hale.Lib.Modules.Checks;
 using Hale.Lib.Utilities;
 using Hale.Core.Config;
 using Hale.Core.Contexts;
-using Hale.Core.Entities.Modules;
-using Hale.Core.Entities.Nodes;
+using Hale.Core.Models.Modules;
+using Hale.Core.Models.Nodes;
 using Hale.Core.Utils;
 using Newtonsoft.Json.Linq;
 using NLog;
@@ -216,12 +216,12 @@ namespace Hale.Core.Handlers
             return result;
         }
 
-        private Entities.Modules.Module ResolveModule(IModuleResultRecord record)
+        private Models.Modules.Module ResolveModule(IModuleResultRecord record)
         {
-            return _modules.Get(new Entities.Modules.Module(record.Module));
+            return _modules.Get(new Models.Modules.Module(record.Module));
         }
 
-        private Function ResolveModuleFunction(IModuleResultRecord record, Entities.Modules.Module module)
+        private Function ResolveModuleFunction(IModuleResultRecord record, Models.Modules.Module module)
         {
             int ft = 0;
 
@@ -243,7 +243,7 @@ namespace Hale.Core.Handlers
         }
 
         private Result ConvertToResult(IModuleResultRecord record, ModuleResult moduleResult,
-            Host host, Function function, Entities.Modules.Module module, string target)
+            Host host, Function function, Models.Modules.Module module, string target)
         {
             //var check = (Check)function;                 //      \
             //var checkDetail = (CheckDetail)detail;       // Hack: Until database has support for other function types

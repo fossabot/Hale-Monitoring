@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Hale.Core.Contexts;
-using Hale.Core.Entities.Nodes;
+using Hale.Core.Models.Nodes;
 using NLog;
 
-namespace Hale.Core.API
+namespace Hale.Core.Controllers
 {
     /// <summary>
     /// API for handling Host entries and related data.

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Hale.Core.Entities.Nodes
+namespace Hale.Core.Models.Nodes
 {
     /// <summary>
     /// Corresponds to the database table Nodes.Hosts
