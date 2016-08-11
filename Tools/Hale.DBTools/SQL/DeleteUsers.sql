@@ -1,5 +1,0 @@
-﻿USE HaleDB
-GO
-
-TRUNCATE TABLE Security.Users
-GO

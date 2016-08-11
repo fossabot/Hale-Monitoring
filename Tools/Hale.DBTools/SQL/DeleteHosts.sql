@@ -1,6 +1,0 @@
-﻿USE HaleDB
-GO
-
-
-TRUNCATE TABLE Nodes.Hosts
-GO
