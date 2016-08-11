@@ -78,7 +78,7 @@ namespace Hale.Core.Models.User
         public int? ModifiedBy { get; set; }
 
         /// <summary>
-        /// Aggregation of available records in the Security.UserDetails table.
+        /// Aggregation of available records in the Security.AccountDetails table.
         /// Accounts [1..*] AccountDetails
         /// </summary>
         public List<AccountDetail> AccountDetails { get; set; }

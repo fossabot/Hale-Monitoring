@@ -11,6 +11,7 @@ using Hale.Core.Utils;
 using NLog;
 using Hale.Core.Contexts;
 using System.Linq;
+using System.Data.Entity;
 
 namespace Hale.Core.Controllers
 {
@@ -22,9 +23,16 @@ namespace Hale.Core.Controllers
     public class UsersController : ApiController
     {
         private readonly Logger _log;
+        public readonly UserContext db;
 
-        internal UsersController()
+        public UsersController() : this(new UserContext())
         {
+            _log = LogManager.GetCurrentClassLogger();
+        }
+
+        public UsersController(UserContext context)
+        {
+            db = context;
             _log = LogManager.GetCurrentClassLogger();   
         }
 
@@ -38,16 +46,26 @@ namespace Hale.Core.Controllers
         public IHttpActionResult Get(int id)
         {
 
-            using (var db = new UserContext())
-            {
-                var user = db.Accounts.Include("AccountDetails").FirstOrDefault(u => u.Id == id);
-
-                if (user == null)
-                    return UserNotFoundResult(id);
-
+            var user = db.Accounts.FirstOrDefault(u => u.Id == id);
+            if (user == null)
+                return UserNotFoundResult(id);
+            else
                 return Ok(user);
-            }
+        }
 
+
+
+        /// <summary>
+        /// List user records from the database. (Auth)
+        /// </summary>
+        /// <returns></returns>
+        //[Authorize]
+        [Route()]
+        [ResponseType(typeof(List<Account>))]
+        [AcceptVerbs("GET")]
+        public IHttpActionResult List()
+        {
+            return Ok(db.Accounts.ToList());
         }
 
 
@@ -66,24 +84,21 @@ namespace Hale.Core.Controllers
             // of doing this as we dont want to expose all attributes (like enabled or active) in the API.
             // -SA 2016-08-11
 
-            using (var db = new UserContext())
+            if (db.Accounts.Where(x => x.UserName == userRequest.UserName).Any())
+                return UserAlreadyExistsResponse();
+            else
             {
-                if (db.Accounts.Where(x => x.UserName == userRequest.UserName).Any())
-                    return UserAlreadyExistsResponse();
-                else
-                {
 
-                    var user = new Account();
+                var user = new Account();
 
-                    user.UserName = userRequest.UserName;
-                    user.Password = BCrypt.Net.BCrypt.HashPassword(userRequest.Password, 5);
-                    user.FullName = userRequest.FullName;
+                user.UserName = userRequest.UserName;
+                user.Password = BCrypt.Net.BCrypt.HashPassword(userRequest.Password, 5);
+                user.FullName = userRequest.FullName;
 
-                    db.Accounts.Add(user);
-                    db.SaveChanges();
+                db.Accounts.Add(user);
+                db.SaveChanges();
 
-                    return Ok(db.Accounts.First(x => x.UserName == user.UserName));
-                }
+                return Ok(db.Accounts.First(x => x.UserName == user.UserName));
             }
         }
 
@@ -101,13 +116,10 @@ namespace Hale.Core.Controllers
         public IHttpActionResult Update(int id, [FromBody]Account user)
         {
             try {
-                using(var db = new UserContext())
-                {
-                    var dbUser = db.Accounts.First(u => u.Id == id);
-                    db.Entry(dbUser).CurrentValues.SetValues(user);
-                    db.SaveChanges();
-                    return Ok(dbUser);
-                }
+                db.Accounts.Attach(user);
+                db.SaveChanges();
+
+                return Ok(db.Accounts.First(x => x.Id == id));
 
             }
             catch (Exception x)
@@ -148,23 +160,7 @@ namespace Hale.Core.Controllers
 
         }
 
-        
 
-        /// <summary>
-        /// List user records from the database. (Auth)
-        /// </summary>
-        /// <returns></returns>
-        //[Authorize]
-        [Route()]
-        [ResponseType(typeof(List<Account>))]
-        [AcceptVerbs("GET")]
-        public IHttpActionResult List()
-        {
-            using(var db = new UserContext())
-            {
-                return Ok(db.Accounts.ToList());
-            }
-        }
 
         /// <summary>
         /// List user details for a specific user. (Auth)
