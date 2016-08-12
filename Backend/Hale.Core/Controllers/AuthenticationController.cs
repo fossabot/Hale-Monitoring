@@ -35,6 +35,10 @@ namespace Hale.Core.Controllers
         {
         }
 
+        /// <summary>
+        /// Constructor for AuthenticationController
+        /// </summary>
+        /// <param name="context"></param>
         public AuthenticationController(UserContext context)
         {
             _log = LogManager.GetCurrentClassLogger();
@@ -46,6 +50,9 @@ namespace Hale.Core.Controllers
             try
             {
                 var user = _db.Accounts.FirstOrDefault(x => x.UserName == username);
+
+                if (user == null) return LoginResponse.InvalidCredentialsResponse();
+
                 var passwordAccepted = BCrypt.Net.BCrypt.Verify(password, user.Password);
 
                 if (passwordAccepted)
@@ -68,19 +75,23 @@ namespace Hale.Core.Controllers
                         Error = ""
                     };
                 }
-                else
-                    throw new Exception();
-            }
-            catch
-            {
-                _log.Info("Authorization failed - " + Request.GetOwinContext().Request.RemoteIpAddress + "@'" + username + "'");
-                return new LoginResponse()
+                else if (user.PasswordChanged.HasValue && BCrypt.Net.BCrypt.Verify(password, user.OldPassword))
                 {
-                    UserId = -1,
-                    Error = "Invalid credentials"
-                };
+                    return LoginResponse.PasswordChangedResponse(user.PasswordChanged.Value);
+                }
+                else
+                    return LoginResponse.InvalidCredentialsResponse();
             }
-            
+            catch(Exception x)
+            {
+                _log.Warn(x, $"Error authenticating from {Request.GetOwinContext().Request.RemoteIpAddress}, user \"{username}\": {x.Message}");
+#if DEBUG
+                return LoginResponse.ErrorResponse(x.Message);
+#else
+                return LoginResponse.ErrorResponse("Internal error");
+#endif
+            }
+
         }
 
 
