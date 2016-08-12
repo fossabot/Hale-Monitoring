@@ -52,27 +52,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Lib.ModuleLoader", "Sh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.CheckTester", "Tools\Hale.CheckTester\Hale.CheckTester.csproj", "{45358E81-C3DA-4A94-9A69-B7468F610509}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Hale.Docs", "Tools\Hale.Docs\", "{FEA1F7C9-A610-4B0A-9BC6-235385AC6F60}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_58318"
-		Debug.AspNetCompiler.PhysicalPath = "Tools\Hale.Docs\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58318\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_58318"
-		Release.AspNetCompiler.PhysicalPath = "Tools\Hale.Docs\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58318\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "58318"
-		SlnRelativePath = "Tools\Hale.Docs\"
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Checks", "Checks", "{F73AEBDF-BAD7-47CA-B266-DC66C83B6B75}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CpuUsage", "Modules\Hale.Check.CpuUsage\CpuUsage.csproj", "{D5431865-303D-4709-BDA8-5D1E26C4445E}"
@@ -117,6 +96,52 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ArchivedMigrationsCode", "A
 		Tools\Hale.Migrations\009-CreateNodesSchema.cs = Tools\Hale.Migrations\009-CreateNodesSchema.cs
 		Tools\Hale.Migrations\010-CreateNodesHostsTable.cs = Tools\Hale.Migrations\010-CreateNodesHostsTable.cs
 		Tools\Hale.Migrations\Helpers.cs = Tools\Hale.Migrations\Helpers.cs
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "docs", "docs\", "{7D2174A2-26F5-4C4C-BE23-B13DB9CE8B95}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_53349"
+		Debug.AspNetCompiler.PhysicalPath = "docs\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53349\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_53349"
+		Release.AspNetCompiler.PhysicalPath = "docs\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53349\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "53349"
+		SlnRelativePath = "docs\"
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ArchivedMigrations", "ArchivedMigrations", "{2DE925E7-1308-4C71-9F0C-5AEDAF2F238E}"
+	ProjectSection(SolutionItems) = preProject
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608101900197_InitialCreate.cs = Backend\Hale.Core\Migrations\UserContextMigrations\201608101900197_InitialCreate.cs
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608101900197_InitialCreate.Designer.cs = Backend\Hale.Core\Migrations\UserContextMigrations\201608101900197_InitialCreate.Designer.cs
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608101900197_InitialCreate.resx = Backend\Hale.Core\Migrations\UserContextMigrations\201608101900197_InitialCreate.resx
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608101912190_UserFix.cs = Backend\Hale.Core\Migrations\UserContextMigrations\201608101912190_UserFix.cs
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608101912190_UserFix.Designer.cs = Backend\Hale.Core\Migrations\UserContextMigrations\201608101912190_UserFix.Designer.cs
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608101912190_UserFix.resx = Backend\Hale.Core\Migrations\UserContextMigrations\201608101912190_UserFix.resx
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608101934329_UserFix2.cs = Backend\Hale.Core\Migrations\UserContextMigrations\201608101934329_UserFix2.cs
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608101934329_UserFix2.Designer.cs = Backend\Hale.Core\Migrations\UserContextMigrations\201608101934329_UserFix2.Designer.cs
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608101934329_UserFix2.resx = Backend\Hale.Core\Migrations\UserContextMigrations\201608101934329_UserFix2.resx
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608101938153_UserFix3.cs = Backend\Hale.Core\Migrations\UserContextMigrations\201608101938153_UserFix3.cs
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608101938153_UserFix3.Designer.cs = Backend\Hale.Core\Migrations\UserContextMigrations\201608101938153_UserFix3.Designer.cs
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608101938153_UserFix3.resx = Backend\Hale.Core\Migrations\UserContextMigrations\201608101938153_UserFix3.resx
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608101947251_AddUserDetails.cs = Backend\Hale.Core\Migrations\UserContextMigrations\201608101947251_AddUserDetails.cs
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608101947251_AddUserDetails.Designer.cs = Backend\Hale.Core\Migrations\UserContextMigrations\201608101947251_AddUserDetails.Designer.cs
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608101947251_AddUserDetails.resx = Backend\Hale.Core\Migrations\UserContextMigrations\201608101947251_AddUserDetails.resx
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608102302414_UniqueUsername.cs = Backend\Hale.Core\Migrations\UserContextMigrations\201608102302414_UniqueUsername.cs
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608102302414_UniqueUsername.Designer.cs = Backend\Hale.Core\Migrations\UserContextMigrations\201608102302414_UniqueUsername.Designer.cs
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608102302414_UniqueUsername.resx = Backend\Hale.Core\Migrations\UserContextMigrations\201608102302414_UniqueUsername.resx
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608110031064_SchemaAndRenames.cs = Backend\Hale.Core\Migrations\UserContextMigrations\201608110031064_SchemaAndRenames.cs
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608110031064_SchemaAndRenames.Designer.cs = Backend\Hale.Core\Migrations\UserContextMigrations\201608110031064_SchemaAndRenames.Designer.cs
+		Backend\Hale.Core\Migrations\UserContextMigrations\201608110031064_SchemaAndRenames.resx = Backend\Hale.Core\Migrations\UserContextMigrations\201608110031064_SchemaAndRenames.resx
 	EndProjectSection
 EndProject
 Global
@@ -237,18 +262,6 @@ Global
 		{45358E81-C3DA-4A94-9A69-B7468F610509}.Release|x64.Build.0 = Release|Any CPU
 		{45358E81-C3DA-4A94-9A69-B7468F610509}.Release|x86.ActiveCfg = Release|Any CPU
 		{45358E81-C3DA-4A94-9A69-B7468F610509}.Release|x86.Build.0 = Release|Any CPU
-		{FEA1F7C9-A610-4B0A-9BC6-235385AC6F60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FEA1F7C9-A610-4B0A-9BC6-235385AC6F60}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FEA1F7C9-A610-4B0A-9BC6-235385AC6F60}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{FEA1F7C9-A610-4B0A-9BC6-235385AC6F60}.Debug|x64.Build.0 = Debug|Any CPU
-		{FEA1F7C9-A610-4B0A-9BC6-235385AC6F60}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{FEA1F7C9-A610-4B0A-9BC6-235385AC6F60}.Debug|x86.Build.0 = Debug|Any CPU
-		{FEA1F7C9-A610-4B0A-9BC6-235385AC6F60}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{FEA1F7C9-A610-4B0A-9BC6-235385AC6F60}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{FEA1F7C9-A610-4B0A-9BC6-235385AC6F60}.Release|x64.ActiveCfg = Debug|Any CPU
-		{FEA1F7C9-A610-4B0A-9BC6-235385AC6F60}.Release|x64.Build.0 = Debug|Any CPU
-		{FEA1F7C9-A610-4B0A-9BC6-235385AC6F60}.Release|x86.ActiveCfg = Debug|Any CPU
-		{FEA1F7C9-A610-4B0A-9BC6-235385AC6F60}.Release|x86.Build.0 = Debug|Any CPU
 		{D5431865-303D-4709-BDA8-5D1E26C4445E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D5431865-303D-4709-BDA8-5D1E26C4445E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5431865-303D-4709-BDA8-5D1E26C4445E}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -349,6 +362,18 @@ Global
 		{19ACF1DC-F01C-4C2F-9791-8C75DB4E70BE}.Release|x64.ActiveCfg = Release|x86
 		{19ACF1DC-F01C-4C2F-9791-8C75DB4E70BE}.Release|x86.ActiveCfg = Release|x86
 		{19ACF1DC-F01C-4C2F-9791-8C75DB4E70BE}.Release|x86.Build.0 = Release|x86
+		{7D2174A2-26F5-4C4C-BE23-B13DB9CE8B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D2174A2-26F5-4C4C-BE23-B13DB9CE8B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D2174A2-26F5-4C4C-BE23-B13DB9CE8B95}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7D2174A2-26F5-4C4C-BE23-B13DB9CE8B95}.Debug|x64.Build.0 = Debug|Any CPU
+		{7D2174A2-26F5-4C4C-BE23-B13DB9CE8B95}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7D2174A2-26F5-4C4C-BE23-B13DB9CE8B95}.Debug|x86.Build.0 = Debug|Any CPU
+		{7D2174A2-26F5-4C4C-BE23-B13DB9CE8B95}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D2174A2-26F5-4C4C-BE23-B13DB9CE8B95}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{7D2174A2-26F5-4C4C-BE23-B13DB9CE8B95}.Release|x64.ActiveCfg = Debug|Any CPU
+		{7D2174A2-26F5-4C4C-BE23-B13DB9CE8B95}.Release|x64.Build.0 = Debug|Any CPU
+		{7D2174A2-26F5-4C4C-BE23-B13DB9CE8B95}.Release|x86.ActiveCfg = Debug|Any CPU
+		{7D2174A2-26F5-4C4C-BE23-B13DB9CE8B95}.Release|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -363,7 +388,6 @@ Global
 		{F589482C-D4AE-4A37-9825-E3C21808AFA8} = {E1EF2A14-563C-4C83-91A2-8A16A00AFDCA}
 		{A9904F35-66FA-4296-92E3-15FA49D9CF1D} = {E1EF2A14-563C-4C83-91A2-8A16A00AFDCA}
 		{45358E81-C3DA-4A94-9A69-B7468F610509} = {097D7656-AF7E-4311-8D57-5A17AD720773}
-		{FEA1F7C9-A610-4B0A-9BC6-235385AC6F60} = {097D7656-AF7E-4311-8D57-5A17AD720773}
 		{F73AEBDF-BAD7-47CA-B266-DC66C83B6B75} = {0C223B6C-93C3-4336-A50D-3B2A604E1881}
 		{D5431865-303D-4709-BDA8-5D1E26C4445E} = {F73AEBDF-BAD7-47CA-B266-DC66C83B6B75}
 		{912018B1-15C8-41B1-9C96-FF4C057B635F} = {F73AEBDF-BAD7-47CA-B266-DC66C83B6B75}
@@ -378,5 +402,7 @@ Global
 		{F31C06C1-DD56-4BE0-8092-13F1497A9587} = {0768DEEE-4D7A-41C2-939A-92F24724720C}
 		{19ACF1DC-F01C-4C2F-9791-8C75DB4E70BE} = {0768DEEE-4D7A-41C2-939A-92F24724720C}
 		{8772C012-A8F0-4906-9ED6-4D53ADB2B1A0} = {EFBE464D-C366-47E5-BB16-43F4477764D5}
+		{7D2174A2-26F5-4C4C-BE23-B13DB9CE8B95} = {EFBE464D-C366-47E5-BB16-43F4477764D5}
+		{2DE925E7-1308-4C71-9F0C-5AEDAF2F238E} = {EFBE464D-C366-47E5-BB16-43F4477764D5}
 	EndGlobalSection
 EndGlobal
