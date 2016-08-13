@@ -243,7 +243,6 @@
     <Compile Include="Config\ConfigurationExtensions.cs" />
     <Compile Include="Config\EnvironmentConfig.cs" />
     <Compile Include="Contexts\CheckDetails.cs" />
-    <Compile Include="Contexts\NodeContext.cs" />
     <Compile Include="Contexts\UserContext.cs" />
     <Compile Include="Contexts\Metrics.cs" />
     <Compile Include="Contexts\Modules.cs" />
@@ -257,16 +256,10 @@
     <Compile Include="Config\AppConfig.cs" />
     <Compile Include="Config\DatabaseSection.cs" />
     <Compile Include="Contexts\Metadatum.cs" />
-    <Compile Include="Migrations\NodeContextMigrations\201608111825520_NodeContextInit.cs" />
-    <Compile Include="Migrations\NodeContextMigrations\201608111825520_NodeContextInit.Designer.cs">
-      <DependentUpon>201608111825520_NodeContextInit.cs</DependentUpon>
+    <Compile Include="Migrations\201608110031064_SchemaAndRenames.cs" />
+    <Compile Include="Migrations\201608110031064_SchemaAndRenames.Designer.cs">
+      <DependentUpon>201608110031064_SchemaAndRenames.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\NodeContextMigrations\Configuration.cs" />
-    <Compile Include="Migrations\UserContextMigrations\201608111823433_UserContextInit.cs" />
-    <Compile Include="Migrations\UserContextMigrations\201608111823433_UserContextInit.Designer.cs">
-      <DependentUpon>201608111823433_UserContextInit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\UserContextMigrations\Configuration.cs" />
     <Compile Include="Models\Modules\Module.cs" />
     <Compile Include="Models\Modules\ModuleFunction.cs" />
     <Compile Include="Models\Modules\Result.cs" />
@@ -293,6 +286,31 @@
     <Compile Include="Formatting\JsonAPIMediaTypeFormatter.cs" />
     <Compile Include="Handlers\AgentDistHandler.cs" />
     <Compile Include="Handlers\AgentHandler.cs" />
+    <Compile Include="Migrations\201608101900197_InitialCreate.cs" />
+    <Compile Include="Migrations\201608101900197_InitialCreate.Designer.cs">
+      <DependentUpon>201608101900197_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608101912190_UserFix.cs" />
+    <Compile Include="Migrations\201608101912190_UserFix.Designer.cs">
+      <DependentUpon>201608101912190_UserFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608101934329_UserFix2.cs" />
+    <Compile Include="Migrations\201608101934329_UserFix2.Designer.cs">
+      <DependentUpon>201608101934329_UserFix2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608101938153_UserFix3.cs" />
+    <Compile Include="Migrations\201608101938153_UserFix3.Designer.cs">
+      <DependentUpon>201608101938153_UserFix3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608101947251_AddUserDetails.cs" />
+    <Compile Include="Migrations\201608101947251_AddUserDetails.Designer.cs">
+      <DependentUpon>201608101947251_AddUserDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608102302414_UniqueUsername.cs" />
+    <Compile Include="Migrations\201608102302414_UniqueUsername.Designer.cs">
+      <DependentUpon>201608102302414_UniqueUsername.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Utils\MsiInterop.cs" />
     <Compile Include="Utils\ExceptionHandlingAttribute.cs" />
     <Compile Include="Utils\StringResult.cs" />
@@ -319,11 +337,26 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Migrations\NodeContextMigrations\201608111825520_NodeContextInit.resx">
-      <DependentUpon>201608111825520_NodeContextInit.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608101900197_InitialCreate.resx">
+      <DependentUpon>201608101900197_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\UserContextMigrations\201608111823433_UserContextInit.resx">
-      <DependentUpon>201608111823433_UserContextInit.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608101912190_UserFix.resx">
+      <DependentUpon>201608101912190_UserFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608101934329_UserFix2.resx">
+      <DependentUpon>201608101934329_UserFix2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608101938153_UserFix3.resx">
+      <DependentUpon>201608101938153_UserFix3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608101947251_AddUserDetails.resx">
+      <DependentUpon>201608101947251_AddUserDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608102302414_UniqueUsername.resx">
+      <DependentUpon>201608102302414_UniqueUsername.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608110031064_SchemaAndRenames.resx">
+      <DependentUpon>201608110031064_SchemaAndRenames.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="nemesis.yaml" />
     <None Include="NLog.xsd">
@@ -353,7 +386,6 @@
       <Name>Hale.Lib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent Condition=" '$(OS)' != 'Unix' ">forfiles /P "$(SolutionDir)packages\Humanizer.1.37.7\lib\portable-win+net40+sl50+wp8+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10" /c "cmd /c if @isdir==TRUE rmdir /s/q @file" &amp;&amp; EXIT /B 0</PreBuildEvent>
