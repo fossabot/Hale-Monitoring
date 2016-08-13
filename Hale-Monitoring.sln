@@ -52,25 +52,25 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Lib.ModuleLoader", "Sh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.CheckTester", "Tools\Hale.CheckTester\Hale.CheckTester.csproj", "{45358E81-C3DA-4A94-9A69-B7468F610509}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Hale.Docs", "Tools\Hale.Docs\", "{FEA1F7C9-A610-4B0A-9BC6-235385AC6F60}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Hale.Docs", "Shared\Hale.Docs\", "{FEA1F7C9-A610-4B0A-9BC6-235385AC6F60}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_58318"
-		Debug.AspNetCompiler.PhysicalPath = "Tools\Hale.Docs\"
+		Debug.AspNetCompiler.PhysicalPath = "Shared\Hale.Docs\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58318\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/localhost_58318"
-		Release.AspNetCompiler.PhysicalPath = "Tools\Hale.Docs\"
+		Release.AspNetCompiler.PhysicalPath = "Shared\Hale.Docs\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58318\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "58318"
-		SlnRelativePath = "Tools\Hale.Docs\"
+		SlnRelativePath = "Shared\Hale.Docs\"
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Checks", "Checks", "{F73AEBDF-BAD7-47CA-B266-DC66C83B6B75}"
@@ -89,7 +89,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStatus", "Modules\Ha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uptime", "Modules\Hale.Check.Uptime\Uptime.csproj", "{65BB47ED-573C-48DD-ACC8-454E0EE4C039}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Core", "Testing\Hale.Core\Hale.Core.csproj", "{788F5A75-91FD-4361-8EAE-FF3E31253C71}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing.Hale.Core", "Testing\Hale.Core\Testing.Hale.Core.csproj", "{788F5A75-91FD-4361-8EAE-FF3E31253C71}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Lib", "Shared\Hale.Lib\Hale.Lib.csproj", "{C023CFA8-753B-42B8-8D52-B71331991E34}"
 EndProject
@@ -363,7 +363,7 @@ Global
 		{F589482C-D4AE-4A37-9825-E3C21808AFA8} = {E1EF2A14-563C-4C83-91A2-8A16A00AFDCA}
 		{A9904F35-66FA-4296-92E3-15FA49D9CF1D} = {E1EF2A14-563C-4C83-91A2-8A16A00AFDCA}
 		{45358E81-C3DA-4A94-9A69-B7468F610509} = {097D7656-AF7E-4311-8D57-5A17AD720773}
-		{FEA1F7C9-A610-4B0A-9BC6-235385AC6F60} = {097D7656-AF7E-4311-8D57-5A17AD720773}
+		{FEA1F7C9-A610-4B0A-9BC6-235385AC6F60} = {E1EF2A14-563C-4C83-91A2-8A16A00AFDCA}
 		{F73AEBDF-BAD7-47CA-B266-DC66C83B6B75} = {0C223B6C-93C3-4336-A50D-3B2A604E1881}
 		{D5431865-303D-4709-BDA8-5D1E26C4445E} = {F73AEBDF-BAD7-47CA-B266-DC66C83B6B75}
 		{912018B1-15C8-41B1-9C96-FF4C057B635F} = {F73AEBDF-BAD7-47CA-B266-DC66C83B6B75}
