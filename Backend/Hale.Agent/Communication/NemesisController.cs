@@ -79,9 +79,18 @@ namespace Hale.Agent.Communication
             {
                 var respTask = node.SendCommand(JsonRpcDefaults.Encoding.GetString(req.Serialize()));
                 var response = JsonRpcResponse.FromJsonString(respTask.Result); // Blocking!
-                var result = (string) response.Result;
-                _log.Debug("Got a {0} character response string.", result.Length);
-                return result;
+                if (response.Error == null)
+                {
+                    var result = (string)response.Result;
+                    if(result != null)
+                        _log.Debug("Got a {0} character response string.", result.Length);
+                    return result;
+                }
+                else
+                {
+                    _log.Error(response.Error.Data, $"Got JSONRPC Error: {response.Error.Data.GetType()}, Message: {response.Error.Message}");
+                    return string.Empty;
+                }
             }
             catch (Exception x)
             {
