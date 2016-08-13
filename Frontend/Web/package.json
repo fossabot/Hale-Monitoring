@@ -3,16 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
+  "scripts": {},
+  "author": "It's Hale",
   "license": "ISC",
   "devDependencies": {
     "angular": "^1.5.5",
     "angular-chart": "^0.5.0",
     "angular-chart.js": "^1.0.0-alpha6",
-    "angular-chartist.js": "^4.2.0",
     "angular-drag-and-drop-lists": "^1.4.0",
     "angular-gravatar": "^0.4.2",
     "angular-resource": "^1.5.5",
@@ -29,6 +26,5 @@
     "jquery": "^2.2.3"
   },
   "dependencies": {
-    "chart.js": "^2.2.0"
   }
 }

@@ -71,7 +71,7 @@ namespace Hale.Core.Controllers
 
                     return new LoginResponse()
                     {
-                        UserId = user.Id,
+                        Account = user,
                         Error = ""
                     };
                 }
@@ -100,7 +100,7 @@ namespace Hale.Core.Controllers
         /// </summary>
         /// <param name="auth">A JSON Serialized authentication attempt.</param>
         /// <returns>A custom LoginResponse that will be stored in the local storage for the Hale-GUI ember application.</returns>
-        [Route("login")]
+        [Route("")]
         [HttpPost]
         public LoginResponse Login([FromBody]Authentication auth)
         {
@@ -116,6 +116,7 @@ namespace Hale.Core.Controllers
         [Route("status")]
         [Route()]
         [HttpGet]
+        [Authorize]
         public HttpResponseMessage Status()
         {
             IOwinContext context = Request.GetOwinContext();
@@ -140,6 +141,7 @@ namespace Hale.Core.Controllers
         /// <returns>200</returns>
         [Route()]
         [HttpDelete]
+        [Authorize]
         public HttpResponseMessage Logout()
         {
             var context = Request.GetOwinContext();

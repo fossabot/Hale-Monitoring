@@ -1,8 +1,4 @@
 angular.module('HaleGUI')
-  .controller('MainController', ['$scope', 'Auth', '$location', function($scope, Auth, $location) {
+  .controller('MainController', ['$scope', 'Auth', 'store', function($scope, Auth, store) {
     Auth.validateLogin();
-    $scope.isLoggedIn = Auth.getLoginStatus();
-    console.log($scope.isLoggedIn);
-
-
   }]);

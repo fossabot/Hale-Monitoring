@@ -49,6 +49,7 @@ namespace Hale.Core.Controllers
         /// </summary>
         /// <param name="id">The user id to fetch.</param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet, Route("{id}")]
         [ResponseType(typeof(Account))]
         public IHttpActionResult Get(int id)
@@ -67,7 +68,7 @@ namespace Hale.Core.Controllers
         /// List user records from the database. (Auth)
         /// </summary>
         /// <returns></returns>
-        //[Authorize]
+        [Authorize]
         [Route()]
         [ResponseType(typeof(List<Account>))]
         [AcceptVerbs("GET")]
@@ -82,7 +83,7 @@ namespace Hale.Core.Controllers
         /// </summary>
         /// <param name="user">A user model instance.</param>
         /// <returns></returns>
-        // [Authorize]
+        [Authorize]
         [Route("")]
         [ResponseType(typeof(Account))]
         [AcceptVerbs("POST")]
@@ -118,6 +119,7 @@ namespace Hale.Core.Controllers
         /// <param name="id">The User Id to update.</param>
         /// <param name="user">An instance of the user model containing the new values.</param>
         /// <returns></returns>
+        [Authorize]
         [Route("{id}")]
         [AcceptVerbs("PATCH")]
         [ResponseType(typeof(Account))]
