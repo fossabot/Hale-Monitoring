@@ -1,5 +1,5 @@
 ﻿using Hale.Core.Contexts;
-using Hale.Core.Models.User;
+using Hale.Core.Models.Users;
 using Moq;
 using System;
 using System.Collections.Generic;

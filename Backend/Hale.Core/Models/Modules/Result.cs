@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hale.Core.Models.Modules
 {
-    class Result
+    public class Result
     {
         public int Id { get; set; }
         public int HostId { get; set; }

@@ -1,4 +1,4 @@
-namespace Hale.Core.Models.User
+namespace Hale.Core.Models.Users
 {
     /// <summary>
     /// TODO: Add a usage description.

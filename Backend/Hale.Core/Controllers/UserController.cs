@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Hale.Core.Models;
-using Hale.Core.Models.User;
+using Hale.Core.Models.Users;
 using Hale.Core.Handlers;
 using Hale.Core.Utils;
 using NLog;
@@ -23,12 +23,12 @@ namespace Hale.Core.Controllers
     public class UsersController : ApiController
     {
         private readonly Logger _log;
-        public readonly UserContext db;
+        public readonly HaleDBContext db;
 
         /// <summary>
         /// Default constructor using the provided DbContext as the data provider.
         /// </summary>
-        public UsersController() : this(new UserContext())
+        public UsersController() : this(new HaleDBContext())
         {
             _log = LogManager.GetCurrentClassLogger();
         }
@@ -38,7 +38,7 @@ namespace Hale.Core.Controllers
         /// Used in the UnitTests
         /// </summary>
         /// <param name="context">Custom context</param>
-        public UsersController(UserContext context)
+        public UsersController(HaleDBContext context)
         {
             db = context;
             _log = LogManager.GetCurrentClassLogger();   

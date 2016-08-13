@@ -28,7 +28,7 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
-    <AssemblyVersion>1.0.16223.572</AssemblyVersion>
+    <AssemblyVersion>1.0.16226.588</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -242,28 +242,29 @@
   <ItemGroup>
     <Compile Include="Config\ConfigurationExtensions.cs" />
     <Compile Include="Config\EnvironmentConfig.cs" />
-    <Compile Include="Contexts\CheckDetails.cs" />
-    <Compile Include="Contexts\UserContext.cs" />
-    <Compile Include="Contexts\Metrics.cs" />
-    <Compile Include="Contexts\Modules.cs" />
-    <Compile Include="Contexts\Results.cs" />
-    <Compile Include="Contexts\Checks.cs" />
-    <Compile Include="Contexts\HostDetails.cs" />
-    <Compile Include="Contexts\Hosts.cs" />
+    <Compile Include="Database\HaleDBContext.cs" />
+    <Compile Include="Database\HaleDBConvention.cs" />
     <Compile Include="Controllers\MetadataController.cs" />
     <Compile Include="Config\AgentSection.cs" />
     <Compile Include="Config\ApiSection.cs" />
     <Compile Include="Config\AppConfig.cs" />
     <Compile Include="Config\DatabaseSection.cs" />
-    <Compile Include="Contexts\Metadatum.cs" />
     <Compile Include="Migrations\201608110031064_SchemaAndRenames.cs" />
     <Compile Include="Migrations\201608110031064_SchemaAndRenames.Designer.cs">
       <DependentUpon>201608110031064_SchemaAndRenames.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608131326525_AddNodesSchemaAndHosts.cs" />
+    <Compile Include="Migrations\201608131326525_AddNodesSchemaAndHosts.Designer.cs">
+      <DependentUpon>201608131326525_AddNodesSchemaAndHosts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608131417256_PluralSchemasAddModules.cs" />
+    <Compile Include="Migrations\201608131417256_PluralSchemasAddModules.Designer.cs">
+      <DependentUpon>201608131417256_PluralSchemasAddModules.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Modules\Module.cs" />
-    <Compile Include="Models\Modules\ModuleFunction.cs" />
+    <Compile Include="Models\Modules\Function.cs" />
     <Compile Include="Models\Modules\Result.cs" />
-    <Compile Include="Models\Security\CreateAccountRequest.cs" />
+    <Compile Include="Models\Users\CreateAccountRequest.cs" />
     <Compile Include="Models\Shared\LoginResponse.cs" />
     <Compile Include="Handlers\ModuleHandler.cs" />
     <Compile Include="Handlers\Scheduler.CreateDistPackages.cs" />
@@ -277,9 +278,9 @@
     <Compile Include="Models\Nodes\HostDetail.cs" />
     <Compile Include="Models\Nodes\HostResponseWrapper.cs" />
     <Compile Include="Models\Nodes\Status.cs" />
-    <Compile Include="Models\Security\Authentication.cs" />
-    <Compile Include="Models\Security\Account.cs" />
-    <Compile Include="Models\Security\AccountDetail.cs" />
+    <Compile Include="Models\Users\Authentication.cs" />
+    <Compile Include="Models\Users\Account.cs" />
+    <Compile Include="Models\Users\AccountDetail.cs" />
     <Compile Include="Models\Shared\Metadata.cs" />
     <Compile Include="Formatting\JsonAPI.cs" />
     <Compile Include="Formatting\JsonAPIContractResolver.cs" />
@@ -357,6 +358,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608110031064_SchemaAndRenames.resx">
       <DependentUpon>201608110031064_SchemaAndRenames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608131326525_AddNodesSchemaAndHosts.resx">
+      <DependentUpon>201608131326525_AddNodesSchemaAndHosts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608131417256_PluralSchemasAddModules.resx">
+      <DependentUpon>201608131417256_PluralSchemasAddModules.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="nemesis.yaml" />
     <None Include="NLog.xsd">

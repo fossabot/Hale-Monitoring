@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Hale.Core.Models;
-using Hale.Core.Models.User;
+using Hale.Core.Models.Users;
 using Hale.Core.Handlers;
 using Microsoft.Owin.Security;
 using Newtonsoft.Json;
@@ -26,12 +26,12 @@ namespace Hale.Core.Controllers
     {
 
         private readonly Logger      _log;
-        private readonly UserContext _db;
+        private readonly HaleDBContext _db;
 
         // readonly Users _users;
 
 
-        internal AuthenticationController() : this(new UserContext())
+        internal AuthenticationController() : this(new HaleDBContext())
         {
         }
 
@@ -39,7 +39,7 @@ namespace Hale.Core.Controllers
         /// Constructor for AuthenticationController
         /// </summary>
         /// <param name="context"></param>
-        public AuthenticationController(UserContext context)
+        public AuthenticationController(HaleDBContext context)
         {
             _log = LogManager.GetCurrentClassLogger();
             _db = context;

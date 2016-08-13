@@ -90,10 +90,6 @@ namespace Hale.Core
 
         private void LaunchCoreInstances()
         {
-            // Todo: Decide if we are going to use the entity context together with the service proivder
-            // and if so move this to a separate entity -NM 2016-01-17
-            ServiceProvider.SetService<Contexts.Hosts>(new Hosts());
-
             LaunchApiHandler();
             LaunchAgentHandler();
             LaunchAgentDistributionHandler();

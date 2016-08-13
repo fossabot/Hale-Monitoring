@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
-namespace Hale.Core.Models.User
+namespace Hale.Core.Models.Users
 {
     /// <summary>
     /// Corresponds to the database table Security.User

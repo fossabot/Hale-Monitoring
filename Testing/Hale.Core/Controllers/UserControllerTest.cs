@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit;
-using Hale.Core.Models.User;
+using Hale.Core.Models.Users;
 using Hale.Core.Contexts;
 using System.Linq;
 using Hale.Core.Controllers;

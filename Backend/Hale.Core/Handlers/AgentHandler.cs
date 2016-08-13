@@ -16,17 +16,13 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Net;
+using System.Linq;
 
 namespace Hale.Core.Handlers
 {
     class AgentHandler
     {
         private readonly ILogger _log;
-        private readonly Hosts _hosts;
-        private readonly Checks _checks;
-        private readonly ModuleFunctions _functions = new ModuleFunctions();
-        private readonly Contexts.Modules _modules = new Contexts.Modules();
-        private readonly Results _results;
 
         private NemesisHub _nemesis;
         
@@ -37,7 +33,7 @@ namespace Hale.Core.Handlers
         private readonly AgentSection _agentConfig;
         private readonly Dictionary<Guid, int> _hostGuidsToIds;
 
-
+        private readonly HaleDBContext _db = new HaleDBContext();
 
         public AgentHandler()
         {
@@ -53,12 +49,6 @@ namespace Hale.Core.Handlers
             _agentKeyStorePath = Path.Combine(keyRepoPath, "HostKeys");
 
             _log = LogManager.GetCurrentClassLogger();
-
-            _hosts = new Hosts(); 
-            _checks = new Checks();
-            //_checkDetails = new CheckDetails();
-            _results = new Results();
-
 
             LoadXmlFileKeyStore();
             LoadNemesisClient();
@@ -142,62 +132,67 @@ namespace Hale.Core.Handlers
 
         private JsonRpcResponse RpcUploadResults(Guid nodeId, JsonRpcRequest req)
         {
-            if (!_hostGuidsToIds.ContainsKey(nodeId))
-                return new JsonRpcResponse(req)
-                {
-                    Error = new JsonRpcError()
-                    {
-                        Code = JsonRpcErrorCode.ServerInvalidMethodParameters
-                    }
-                };
-
-            try {
-                var received = new List<Guid>();
-
-                var firstParam = (JToken)req.Params[0];
-                var records = firstParam.ToObject<ResultRecordChunk>();
-
-                _log.Info($"Got {records.Count} records from node {nodeId.ToString()}.");
-                foreach (var kvpRecord in records)
-                {
-                    Guid guid = kvpRecord.Key;
-                    ModuleResultRecord record = ((JObject)kvpRecord.Value).ToObject<ModuleResultRecord>();
-
-                    _log.Debug($"{guid.ToString()} {record.Module}[{record.FunctionType}]{record.Function}: {record.Results.Count} target(s).");
-
-                    if (record.FunctionType == ModuleFunctionType.Check)
-                    {
-                        foreach (var kvpResult in record.Results)
-                        {
-                            var _tl = new TraceLogger("Result");
-                            var target = kvpResult.Key;
-                            var result = ((JObject)kvpResult.Value).ToObject<CheckResult>();
-                            _log.Debug($" - {target} => {result.RawValues.Count} raws, S:{(result.RanSuccessfully ? 1 : 0)} W:{(result.Warning ? 1 : 0)} C:{(result.Critical ? 1 : 0)} {result.Message}");
-                            _tl.Trace("Init");
-
-                            Result r = ResolveToResultEntity(target, record, result, nodeId);
-                            _tl.Trace("Resolve");
-
-                            _results.Create(r);
-                            _tl.Trace("Insert");
-                        }
-                    }
-                    else
-                    {
-                        _log.Warn($"Module function type {record.FunctionType} is not supported!");
-                    }
-
-                    received.Add(guid);
-                }
-
-                return new JsonRpcResponse(req)
-                {
-                    Result = received.ToArray()
-                };
-            }
-            catch(Exception x)
+            using (var db = new HaleDBContext())
             {
-                return FetchApplicationErrorResponse(req, x);
+                if (!_hostGuidsToIds.ContainsKey(nodeId))
+                    return new JsonRpcResponse(req)
+                    {
+                        Error = new JsonRpcError()
+                        {
+                            Code = JsonRpcErrorCode.ServerInvalidMethodParameters
+                        }
+                    };
+
+                try
+                {
+                    var received = new List<Guid>();
+
+                    var firstParam = (JToken)req.Params[0];
+                    var records = firstParam.ToObject<ResultRecordChunk>();
+
+                    _log.Info($"Got {records.Count} records from node {nodeId.ToString()}.");
+                    foreach (var kvpRecord in records)
+                    {
+                        Guid guid = kvpRecord.Key;
+                        ModuleResultRecord record = ((JObject)kvpRecord.Value).ToObject<ModuleResultRecord>();
+
+                        _log.Debug($"{guid.ToString()} {record.Module}[{record.FunctionType}]{record.Function}: {record.Results.Count} target(s).");
+
+                        if (record.FunctionType == ModuleFunctionType.Check)
+                        {
+                            foreach (var kvpResult in record.Results)
+                            {
+                                var _tl = new TraceLogger("Result");
+                                var target = kvpResult.Key;
+                                var result = ((JObject)kvpResult.Value).ToObject<CheckResult>();
+                                _log.Debug($" - {target} => {result.RawValues.Count} raws, S:{(result.RanSuccessfully ? 1 : 0)} W:{(result.Warning ? 1 : 0)} C:{(result.Critical ? 1 : 0)} {result.Message}");
+                                _tl.Trace("Init");
+
+                                Result r = ResolveToResultEntity(target, record, result, nodeId);
+                                _tl.Trace("Resolve");
+
+                                db.Results.Add(r);
+                                db.SaveChanges();
+                                _tl.Trace("Insert");
+                            }
+                        }
+                        else
+                        {
+                            _log.Warn($"Module function type {record.FunctionType} is not supported!");
+                        }
+
+                        received.Add(guid);
+                    }
+
+                    return new JsonRpcResponse(req)
+                    {
+                        Result = received.ToArray()
+                    };
+                }
+                catch (Exception x)
+                {
+                    return FetchApplicationErrorResponse(req, x);
+                }
             }
         }
 
@@ -218,7 +213,14 @@ namespace Hale.Core.Handlers
 
         private Models.Modules.Module ResolveModule(IModuleResultRecord record)
         {
-            return _modules.Get(new Models.Modules.Module(record.Module));
+            using (var db = new HaleDBContext())
+            {
+                return db.Modules.Find(new
+                {
+                    Version = record.Module.Version,
+                    Identifier = record.Module.Identifier
+                });
+            }
         }
 
         private Function ResolveModuleFunction(IModuleResultRecord record, Models.Modules.Module module)
@@ -232,13 +234,15 @@ namespace Hale.Core.Handlers
                 case ModuleFunctionType.Info: ft = FunctionType.Info; break;
                 default: throw new Exception("Unknown function type");
             }
-
-            return _functions.Get(new Function()
+            using (var db = new HaleDBContext())
             {
-                Name = record.Function,
-                ModuleId = module.Id,
-                Type = ft
-            });
+                return db.Functions.Find(new
+                {
+                    Name = record.Function,
+                    ModuleId = module.Id,
+                    Type = ft
+                });
+            }
 
         }
 
@@ -267,7 +271,7 @@ namespace Hale.Core.Handlers
 
         private Host ResolveHost(Guid guid)
         {
-            return _hosts.Get(new Host()
+            return _db.Hosts.Find(new 
             {
                 Guid = guid
             });
@@ -323,10 +327,10 @@ namespace Hale.Core.Handlers
                         Code = JsonRpcErrorCode.ServerInvalidMethodParameters
                     }
                 };
-            Host host = _hosts.Get(new Host() { Id = _hostGuidsToIds[nodeId] });
+            Host host = _db.Hosts.Find(new { Id = _hostGuidsToIds[nodeId] });
             host.Status = (int)Status.Ok;
 
-            _hosts.UpdateStatus(host);
+            _db.SaveChanges();
 
             return new JsonRpcResponse(req)
             {
@@ -336,7 +340,7 @@ namespace Hale.Core.Handlers
 
         public void GenerateRsaKeys()
         {
-            var hosts = _hosts.List();
+            var hosts = _db.Hosts.ToList();
 
             ValidateHostKeyDirectory(_agentKeyStorePath);
             hosts.ForEach(host =>
@@ -356,10 +360,10 @@ namespace Hale.Core.Handlers
             }
             if(host.RsaKey == null) // Hack: Since we dont want to generate new keys even if the database has been cleaned right now -NM
             {
-                host = _hosts.Get(host);
+                host = _db.Hosts.Attach(host);
                 host.RsaKey = xfks.PrivateKey.Key;
 
-                _hosts.UpdateRsa(host);
+                _db.SaveChanges();
             }
         }
 
@@ -379,7 +383,7 @@ namespace Hale.Core.Handlers
 
         public void LoadKeys()
         {
-            var hosts = _hosts.List();
+            var hosts = _db.Hosts.ToList();
 
             hosts.ForEach(host =>
             {

@@ -1,12 +1,12 @@
 namespace Hale.Core.Migrations
 {
-    using Models.User;
+    using Models.Users;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Hale.Core.Contexts.UserContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Hale.Core.Contexts.HaleDBContext>
     {
         public Configuration()
         {
@@ -14,7 +14,7 @@ namespace Hale.Core.Migrations
             ContextKey = "Hale.Core.Contexts.HaleDBModel";
         }
 
-        protected override void Seed(Hale.Core.Contexts.UserContext context)
+        protected override void Seed(Hale.Core.Contexts.HaleDBContext context)
         {
             //  This method will be called after migrating to the latest version.
 

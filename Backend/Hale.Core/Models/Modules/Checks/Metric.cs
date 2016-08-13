@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Remoting.Proxies;
 
-namespace Hale.Core.Models.Checks
+namespace Hale.Core.Models.Modules
 {
     /// <summary>
     /// Corresponds to the database table Checks.Metrics

@@ -1,6 +1,6 @@
 ﻿using Hale.Core.Controllers;
 using Hale.Core.Models.Shared;
-using Hale.Core.Models.User;
+using Hale.Core.Models.Users;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

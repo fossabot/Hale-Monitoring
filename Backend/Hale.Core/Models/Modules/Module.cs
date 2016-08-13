@@ -1,6 +1,7 @@
 ﻿using Hale.Lib.Modules;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,23 +26,32 @@ namespace Hale.Core.Models.Modules
         /// <summary>
         /// 
         /// </summary>
-        // Hack: Permits the dapper deserializer to correctly build this object -NM 2016-01-21
+        [NotMapped]
         public Version Version { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int Major { set { updateVersion( major: value ); } }
+        public int Major {
+            set { updateVersion( major: value ); }
+            get { return Version.Major; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public int Minor { set { updateVersion( minor: value ); } }
+        public int Minor {
+            set { updateVersion( minor: value ); }
+            get { return Version.Minor; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public int Revision { set { updateVersion( revision: value ); } }
+        public int Revision {
+            set { updateVersion( revision: value ); }
+            get { return Version.Revision; }
+        }
 
         /// <summary>
         /// 

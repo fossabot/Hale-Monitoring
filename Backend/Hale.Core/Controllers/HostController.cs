@@ -5,6 +5,7 @@ using System.Web.Http.Description;
 using Hale.Core.Contexts;
 using Hale.Core.Models.Nodes;
 using NLog;
+using System.Linq;
 
 namespace Hale.Core.Controllers
 {
@@ -14,15 +15,12 @@ namespace Hale.Core.Controllers
     [RoutePrefix("api/v1/hosts")]
     public class HostController : ApiController
     {
-        private readonly Hosts _hosts;
-        private readonly HostDetails _hostdetails;
         private readonly Logger _log;
+        private readonly HaleDBContext _db = new HaleDBContext();
 
         internal HostController()
         {
             _log = LogManager.GetCurrentClassLogger();
-            _hosts = new Hosts();
-            _hostdetails = new HostDetails();
         }
 
         /// <summary>
@@ -35,11 +33,7 @@ namespace Hale.Core.Controllers
         [AcceptVerbs("GET")]
         public IHttpActionResult List()
         {
-            var hostList = _hosts.List();
-            foreach(var host in hostList)
-            {
-                host.HostDetails = _hostdetails.List(host);
-            }
+            var hostList = _db.Hosts.Include("HostDetaiks").ToList();
             return Ok(hostList);
         }
 
@@ -56,9 +50,9 @@ namespace Hale.Core.Controllers
         {
             try
             {
-                var host = _hosts.Get(new Host() { Id = id });
-                host.HostDetails = _hostdetails.List(host);
-
+                var host = _db.Hosts.Include("HostDetails").FirstOrDefault( h => h.Id == id );
+                if (host == null)
+                    return NotFound();
                 return Ok(host);
             }
 

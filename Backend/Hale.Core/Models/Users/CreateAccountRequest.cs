@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hale.Core.Models.User
+namespace Hale.Core.Models.Users
 {
     public class CreateAccountRequest
     {

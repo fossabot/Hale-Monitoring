@@ -21,11 +21,10 @@ namespace Hale.Core.Controllers
     public class MetadataController : ApiController
     {
         private readonly Logger _log;
-        private readonly Metadatum _metadatum;
+        private readonly HaleDBContext _db = new HaleDBContext();
 
         internal MetadataController()
         {
-            _metadatum = new Metadatum();
             _log = LogManager.GetCurrentClassLogger();   
         }
 
@@ -39,6 +38,8 @@ namespace Hale.Core.Controllers
         [Route("{type}")]
         public IHttpActionResult List(string type)
         {
+            return InternalServerError(new NotImplementedException());
+            /*
             try
             {
                 List<Metadata> template = _metadatum.List(new Metadata() { Type = type });
@@ -48,6 +49,7 @@ namespace Hale.Core.Controllers
             {
                 return InternalServerError(e);
             }
+            */
             
         }
 
@@ -62,6 +64,8 @@ namespace Hale.Core.Controllers
         [Route("{type}/{id}")]
         public IHttpActionResult Get(string type, int id)
         {
+            return InternalServerError(new NotImplementedException());
+            /*
             try
             {
                 Metadata metadata = _metadatum.Get(new Metadata() { Type = type, Id = id });
@@ -71,7 +75,7 @@ namespace Hale.Core.Controllers
             {
                 return InternalServerError(e);
             }
-
+            */
         }
 
         /// <summary>
@@ -85,6 +89,8 @@ namespace Hale.Core.Controllers
         [Route("{type}")]
         public IHttpActionResult Put(string type, [FromBody]Metadata metadata)
         {
+            return InternalServerError(new NotImplementedException());
+            /*
             try
             {
                 // Use the type provided by the rest URI.
@@ -100,7 +106,7 @@ namespace Hale.Core.Controllers
             {
                 return InternalServerError();
             }
-            
+            */
         }
 
         /// <summary>
@@ -115,6 +121,9 @@ namespace Hale.Core.Controllers
         [Route("{type}/{id}")]
         public IHttpActionResult Patch(string type, int id, [FromBody]Metadata metadata)
         {
+            return InternalServerError(new NotImplementedException());
+
+            /*
             try
             {
                 // Use the type provided by the rest URI.
@@ -130,7 +139,7 @@ namespace Hale.Core.Controllers
             {
                 return InternalServerError();
             }
-
+            */
         }
 
     }

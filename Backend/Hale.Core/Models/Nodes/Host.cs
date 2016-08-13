@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace Hale.Core.Models.Nodes
 {
@@ -58,7 +59,7 @@ namespace Hale.Core.Models.Nodes
         /// Corresponds to the table column Hosts.RsaKey.
         /// Is not serialized by the JsonApiAdapter.
         /// </summary>
-        [JsonIgnore]
+        [IgnoreDataMember]
         public byte[] RsaKey { get; set; }
 
         /// <summary>

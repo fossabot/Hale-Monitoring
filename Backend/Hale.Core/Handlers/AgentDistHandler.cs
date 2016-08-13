@@ -10,6 +10,8 @@ using Hale.Core.Models.Nodes;
 using Hale.Lib.Utilities;
 using System.Configuration;
 using System.Reflection;
+using Hale.Core.Contexts;
+using System.Linq;
 
 namespace Hale.Core.Handlers
 {
@@ -29,6 +31,8 @@ namespace Hale.Core.Handlers
         private string target = "win32_i386"; // Todo: platform is @hardcoded for now @fixme -NM
         private readonly string _versionFile = "version.txt";
 
+        private readonly HaleDBContext _db = new HaleDBContext();
+
         public AgentDistHandler()
         {
             // Todo: Move service provider calls to where the values are actually used and avoid critical
@@ -45,9 +49,7 @@ namespace Hale.Core.Handlers
 
         internal void CreatePackages(bool force = false)
         {
-            var hostsContext = ServiceProvider.GetService<Contexts.Hosts>();
-            if (hostsContext == null) return;
-            var hosts = hostsContext.List();
+            var hosts = _db.Hosts.ToList();
 
             // NM: @todo @performance @blocking make this threaded?
             foreach(Host host in hosts)

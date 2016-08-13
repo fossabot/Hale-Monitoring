@@ -15,6 +15,7 @@ namespace Hale.Core.Handlers
     class ModuleHandler
     {
         ILogger _log = LogManager.GetLogger("ModuleHandler");
+        HaleDBContext _db = new HaleDBContext();
 
         public void ScanForModules(string scanPath)
         {
@@ -36,16 +37,13 @@ namespace Hale.Core.Handlers
             var me = mi.GetModuleEntity();
 
             try {
-                var modules = new Contexts.Modules();
-                modules.Create(me);
+                _db.Modules.Add(me);
             }
             catch (Exception x)
             {
                 _log.Warn($"Could not add module <{mi}> to database: {x.Message}");
                 return;
             }
-
-            var moduleFunctions = new ModuleFunctions();
 
             foreach (var fn in mi.ActionFunctions) {
                 try
@@ -54,7 +52,7 @@ namespace Hale.Core.Handlers
                     mf.Type = Models.Modules.FunctionType.Action;
                     mf.Name = fn;
                     mf.ModuleId = me.Id;
-                    moduleFunctions.Create(mf);
+                    _db.Functions.Add(mf);
                 }
                 catch (Exception x)
                 {
@@ -71,7 +69,7 @@ namespace Hale.Core.Handlers
                     mf.Type = Models.Modules.FunctionType.Check;
                     mf.Name = fn;
                     mf.ModuleId = me.Id;
-                    moduleFunctions.Create(mf);
+                    _db.Functions.Add(mf);
                 }
                 catch (Exception x)
                 {
@@ -88,7 +86,7 @@ namespace Hale.Core.Handlers
                     mf.Type = Models.Modules.FunctionType.Info;
                     mf.Name = fn;
                     mf.ModuleId = me.Id;
-                    moduleFunctions.Create(mf);
+                    _db.Functions.Add(mf);
                 }
                 catch (Exception x)
                 {
@@ -96,6 +94,8 @@ namespace Hale.Core.Handlers
                     return;
                 }
             }
+
+            _db.SaveChanges();
 
         }
 
