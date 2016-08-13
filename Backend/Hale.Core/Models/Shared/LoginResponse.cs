@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hale.Core.Models.Users;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,7 @@ namespace Hale.Core.Models.Shared
         /// <summary>
         /// Returns the user id for the authenticated user.
         /// </summary>
-        public int UserId { get; set; }
+        public Account Account { get; set; }
 
         /// <summary>
         /// Returns any errors during the authentication process.
@@ -45,7 +46,7 @@ namespace Hale.Core.Models.Shared
         public static LoginResponse ErrorResponse(string error)
         {
             return new LoginResponse() {
-                UserId = -1,
+                Account = null,
                 Error = error,
                 ResponseType = LoginResponseType.InternalError
             };
@@ -60,7 +61,7 @@ namespace Hale.Core.Models.Shared
         {
             return new LoginResponse()
             {
-                UserId = -1,
+                Account = null,
                 Error = "Invalid credentials",
                 ResponseType = LoginResponseType.InvalidCredentials
             };
@@ -70,7 +71,7 @@ namespace Hale.Core.Models.Shared
         {
             return new LoginResponse()
             {
-                UserId = -1,
+                Account = null,
                 Error = "Password was changed",
                 PasswordChanged = changedTime,
                 ResponseType = LoginResponseType.OldPassword
