@@ -40,10 +40,10 @@ namespace Hale_Core_UnitTests
             return mock;
         }
 
-        internal Mock<UserContext> GetMockUserContext()
+        internal Mock<HaleDBContext> GetMockUserContext()
         {
             var mock = GetQueryableMockAccountDbSet();
-            var mockContext = new Mock<UserContext>();
+            var mockContext = new Mock<HaleDBContext>();
             mockContext.Setup(x => x.Accounts).Returns(mock.Object);
 
             return mockContext;
