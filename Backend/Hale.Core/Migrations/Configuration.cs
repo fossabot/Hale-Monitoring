@@ -39,12 +39,36 @@ namespace Hale.Core.Migrations
 
             context.Hosts.AddOrUpdate(
                 h => h.Guid,
-                new Host { Ip = "127.0.0.1", FriendlyName = "TestHost01", Created = now, Modified = now,
-                    Guid = new Guid("{057449E7-E7F1-47B6-80A7-B21ED8DEA058}") },
-                new Host { Ip = "10.1.2.3", FriendlyName = "TestHost02", Created = now, Modified = now,
-                    Guid = new Guid("{FAF16DE0-B8E4-4A0F-8C1B-EB410725C6DA}") },
-                new Host { Ip = "10.1.2.4", FriendlyName = "TestHost03", Created = now, Modified = now,
-                    Guid = new Guid("{844FA1AB-3B54-45BF-AB5C-9BEDFCD6AFA8}") }
+                new Host
+                {
+                    Ip = "127.0.0.1",
+                    FriendlyName = "TestHost01",
+                    Created = now,
+                    Modified = now,
+                    Status = (int)Status.Warning,
+                    Guid = new Guid("{057449E7-E7F1-47B6-80A7-B21ED8DEA058}"),
+                    HostName = "test-host-01.domain.com"
+                },
+                new Host
+                {
+                    Ip = "10.1.2.3",
+                    FriendlyName = "TestHost02",
+                    Created = now,
+                    Modified = now,
+                    Status = (int)Status.Ok,
+                    Guid = new Guid("{FAF16DE0-B8E4-4A0F-8C1B-EB410725C6DA}"),
+                    HostName = "test-host-01.domain.com"
+                },
+                new Host
+                {
+                    Ip = "10.1.2.4",
+                    FriendlyName = "TestHost03",
+                    Created = now,
+                    Modified = now,
+                    Status = (int)Status.Ok,
+                    Guid = new Guid("{844FA1AB-3B54-45BF-AB5C-9BEDFCD6AFA8}"),
+                    HostName = "test-host-01.domain.com"
+                }
             );
         }
     }

@@ -10,7 +10,7 @@
           Node
         </th>
         <th>
-          URI
+          FQDN
         </th>
         <th  class="text-right">
           Last Change
@@ -18,31 +18,29 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="node in nodes | limitTo:limit:offset | orderBy:'status':false">
+      <tr ng-repeat="host in hosts | limitTo:limit:offset | orderBy:'status':false">
         <td style="width:10px">
-          <div style="margin-top:2px;height:10px;width:10px;display:inline-block;background:red;border-radius:2px" ng-show="node.status == 'down'">
-          </div>
-          <div style="margin-top:2px;height:10px;width:10px;display:inline-block;background:green;border-radius:2px" ng-show="node.status == 'up'">
-          </div>
+          <div style="margin-top:2px;height:10px;width:10px;display:inline-block;border-radius:2px; background: {{status[host.status]}}"></div>
+
         </td>
         <td>
-          {{node.name}}
+          {{host.friendlyName}}
         </td>
         <td>
-          {{node.uri}}
+          {{host.hostName}}
         </td>
         <td class="text-right">
-          {{node.changed}}
+          {{host.modified}}
         </td>
       </tr>
     </tbody>
   </table>
 </div>
 <div class="text-right">
-  <button class="btn btn-default" type="button" ng-click="decreaseOffset()">
+  <button class="btn btn-default btn-sm" type="button" ng-click="decreaseOffset()">
     Previous
   </button>
-  <button class="btn btn-default" type="button" ng-click="increaseOffset()">
+  <button class="btn btn-default btn-sm" type="button" ng-click="increaseOffset()">
     Next
   </button>
 </div>
