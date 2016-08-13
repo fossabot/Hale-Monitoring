@@ -261,6 +261,10 @@
     <Compile Include="Migrations\201608131417256_PluralSchemasAddModules.Designer.cs">
       <DependentUpon>201608131417256_PluralSchemasAddModules.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608131705380_HostNullableLastConnected.cs" />
+    <Compile Include="Migrations\201608131705380_HostNullableLastConnected.Designer.cs">
+      <DependentUpon>201608131705380_HostNullableLastConnected.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Modules\Module.cs" />
     <Compile Include="Models\Modules\Function.cs" />
     <Compile Include="Models\Modules\Result.cs" />
@@ -364,6 +368,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608131417256_PluralSchemasAddModules.resx">
       <DependentUpon>201608131417256_PluralSchemasAddModules.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608131705380_HostNullableLastConnected.resx">
+      <DependentUpon>201608131705380_HostNullableLastConnected.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="nemesis.yaml" />
     <None Include="NLog.xsd">

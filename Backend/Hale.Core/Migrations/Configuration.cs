@@ -1,5 +1,6 @@
 namespace Hale.Core.Migrations
 {
+    using Models.Nodes;
     using Models.Users;
     using System;
     using System.Data.Entity;
@@ -28,10 +29,22 @@ namespace Hale.Core.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+            var now = DateTime.Now;
+
             context.Accounts.AddOrUpdate(
                 u => u.UserName,
                 new Account { UserName = "test01", FullName = "Test User 01", Password = BCrypt.Net.BCrypt.HashPassword("test01", 5) },
                 new Account { UserName = "test02", FullName = "Test User 02", Password = BCrypt.Net.BCrypt.HashPassword("test02", 5) }
+            );
+
+            context.Hosts.AddOrUpdate(
+                h => h.Guid,
+                new Host { Ip = "127.0.0.1", FriendlyName = "TestHost01", Created = now, Modified = now,
+                    Guid = new Guid("{057449E7-E7F1-47B6-80A7-B21ED8DEA058}") },
+                new Host { Ip = "10.1.2.3", FriendlyName = "TestHost02", Created = now, Modified = now,
+                    Guid = new Guid("{FAF16DE0-B8E4-4A0F-8C1B-EB410725C6DA}") },
+                new Host { Ip = "10.1.2.4", FriendlyName = "TestHost03", Created = now, Modified = now,
+                    Guid = new Guid("{844FA1AB-3B54-45BF-AB5C-9BEDFCD6AFA8}") }
             );
         }
     }
