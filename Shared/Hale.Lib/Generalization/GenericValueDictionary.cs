@@ -62,7 +62,7 @@ namespace Hale.Lib.Generalization
         public bool ContainsKey(string key) { return _dir.ContainsKey(key); }
         public void Add(string key, T value)
         {
-            throw new NotImplementedException();
+            _dir.Add(key, value);
         }
 
         public void CopyTo(KeyValuePair<string, T>[] array, int arrayIndex) { return; }
