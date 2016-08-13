@@ -265,6 +265,10 @@
     <Compile Include="Migrations\201608131705380_HostNullableLastConnected.Designer.cs">
       <DependentUpon>201608131705380_HostNullableLastConnected.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608131812405_Nodes.cs" />
+    <Compile Include="Migrations\201608131812405_Nodes.Designer.cs">
+      <DependentUpon>201608131812405_Nodes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Modules\Module.cs" />
     <Compile Include="Models\Modules\Function.cs" />
     <Compile Include="Models\Modules\Result.cs" />
@@ -321,8 +325,8 @@
     <Compile Include="Utils\StringResult.cs" />
     <Compile Include="Handlers\ApiHandler.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
-    <Compile Include="Controllers\HostController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\HostsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="HaleCoreService.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -370,6 +374,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608131705380_HostNullableLastConnected.resx">
       <DependentUpon>201608131705380_HostNullableLastConnected.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608131812405_Nodes.resx">
+      <DependentUpon>201608131812405_Nodes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="nemesis.yaml" />
     <None Include="NLog.xsd">
