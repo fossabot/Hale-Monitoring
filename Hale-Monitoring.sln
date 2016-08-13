@@ -68,7 +68,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStatus", "Modules\Ha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uptime", "Modules\Hale.Check.Uptime\Uptime.csproj", "{65BB47ED-573C-48DD-ACC8-454E0EE4C039}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Core", "Testing\Hale.Core\Hale.Core.csproj", "{788F5A75-91FD-4361-8EAE-FF3E31253C71}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Tests.Core", "Testing\Hale.Core\Hale.Tests.Core.csproj", "{788F5A75-91FD-4361-8EAE-FF3E31253C71}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Lib", "Shared\Hale.Lib\Hale.Lib.csproj", "{C023CFA8-753B-42B8-8D52-B71331991E34}"
 EndProject
