@@ -131,12 +131,12 @@ namespace Hale.Core
         {
             if (!_config.HasFile)
             {
-                _log.Warn("No configuration file present! Writing new file with defaults to \"{0}\".", _config.FilePath);
+                _log.Warn($"No configuration file present! Writing new file with defaults to '{_config.FilePath}'.");
                 _config.Save(ConfigurationSaveMode.Modified);
             }
             else
             {
-                _log.Info("Loaded configuration from \"{0}\".", _config.FilePath);
+                _log.Info($"Loaded configuration from '{ _config.FilePath}'.");
             }
         }
 
