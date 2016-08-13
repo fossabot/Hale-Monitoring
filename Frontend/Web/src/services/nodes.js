@@ -2,16 +2,16 @@ angular.module('HaleGUI')
   .factory('Nodes', ['$http', function($http) {
     // TODO: Switch mock data to loading from API -SA 2016-07-27
     this.nodes = [];
-
-   $http({
-      method: 'GET',
-      contentType: 'application/json',
-      url: 'http://localhost:8989/api/v1/hosts',
-      withCredentials: true
-    }).then(function(response) {
-      this.nodes = response.data;
-      console.dir(this.nodes);
-    });
+    this.load = function() {
+      return $http({
+        method: 'GET',
+        contentType: 'application/json',
+        url: 'http://localhost:8989/api/v1/hosts',
+        withCredentials: true
+      }).then(function(response) {
+        this.nodes = response.data;
+      });
+    }
 /*
     [
       {
@@ -66,7 +66,13 @@ angular.module('HaleGUI')
 
     ];
 */
-    this.List = function() {
+    this.List = function(callback) {
+      console.log(this.nodes);
+      if (this.nodes.length <= 0) {
+        this.load().then(function() {
+          callback(this.nodes);
+        });
+      }
       return this.nodes;
     }
 

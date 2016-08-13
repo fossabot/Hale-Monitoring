@@ -1,6 +1,12 @@
 angular.module('HaleGUI')
-  .controller('HostSummaryWidgetController', ['$scope', 'Nodes' , function($scope, Nodes) {
-    $scope.nodes = Nodes.List();
+  .controller('HostSummaryWidgetController', ['$scope', 'Nodes', 'Const', function($scope, Nodes, Const) {
+    $scope.status = Const.NodeStatusBg;
+
+    function onNodesListed(response) {
+      $scope.hosts = response;
+    }
+    Nodes.List(onNodesListed);
+
     $scope.limit = 10;
     $scope.offset = 0;
 
