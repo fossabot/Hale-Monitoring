@@ -1,16 +1,27 @@
-angular.module('HaleGUI')
-  .controller('StatusChartWidgetController', ['$scope', 'Nodes', function($scope, Nodes) {
-    $scope.upCount   = 0;
-    $scope.downCount = 0;
-    var nodes = Nodes.List();
-    for (i=0;i<nodes.length;i++) {
-      if (nodes[i].status == 'up') {
-        $scope.upCount++;
+(function() {
+  'use strict';
+
+  angular.module('HaleGUI')
+    .controller('StatusChartWidgetController', ['$scope', 'Nodes', function($scope, Nodes) {
+      $scope.okCount   = 0;
+      $scope.warnCount = 0;
+      $scope.critCount = 0;
+      function onNodesLoaded(response) {
+        $scope.hosts = response;
+        for (var i=0;i<$scope.hosts.length;i++) {
+          if ($scope.hosts[i].status == '0') {
+            $scope.okCount++;
+          }
+          else if ($scope.hosts[i].status == '1') {
+            $scope.warnCount++;
+          }
+          else {
+            $scope.critCount++;
+          }
+        }
+        $scope.data = [$scope.okCount, $scope.warnCount, $scope.critCount];
+        $scope.labels = ['ok', 'warning', 'critical'];
       }
-      else {
-        $scope.downCount++;
-      }
-    }
-    $scope.data = [$scope.upCount, $scope.downCount];
-    $scope.labels = ['up', 'down']
-  }])
+      Nodes.List(onNodesLoaded);
+    }]);
+})();

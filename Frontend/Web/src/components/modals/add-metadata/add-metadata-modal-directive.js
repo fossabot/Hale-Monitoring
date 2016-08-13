@@ -1,3 +1,6 @@
+(function() {
+  'use strict';
+
 angular.module('HaleGUI')
   .directive('addMetadataModal', function() {
     return {
@@ -5,3 +8,4 @@ angular.module('HaleGUI')
       controller: 'AddMetadataModalController'
     }
   })
+})();

@@ -1,11 +1,15 @@
-angular.module('HaleGUI')
-  .directive('emailsSettings', function() {
-    return {
-      templateUrl: './views/settings/emails.html',
-      controller: 'EmailsSettingsController',
-      scope: {
+(function() {
+  'use strict';
 
-      },
-      restrict: 'AE'
-    }
-  })
+  angular.module('HaleGUI')
+    .directive('emailsSettings', function() {
+      return {
+        templateUrl: './views/settings/emails.html',
+        controller: 'EmailsSettingsController',
+        scope: {
+
+        },
+        restrict: 'AE'
+      }
+    })
+})();

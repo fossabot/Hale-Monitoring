@@ -1,4 +1,7 @@
-angular.module('HaleGUI')
+(function() {
+  'use strict';
+
+  angular.module('HaleGUI')
   .controller('DashboardController', ['$scope', 'Widgets', function($scope, Widgets) {
     $scope.widgets = Widgets.List();
 
@@ -7,3 +10,4 @@ angular.module('HaleGUI')
    };
 
   }]);
+})();

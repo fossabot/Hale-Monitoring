@@ -1,14 +1,18 @@
-angular.module('HaleGUI')
-  .controller('NodesController', ['$scope', function($scope) {
+(function() {
+  'use strict';
 
-        $scope.submenuItems = [
-          {
-            'label' : 'Summary',
-            'url' : '/nodes/summary'
-          },
-          {
-            'label' : 'Map',
-            'url' : '/nodes/map'
-          }
-        ]
-  }]);
+  angular.module('HaleGUI')
+    .controller('NodesController', ['$scope', function($scope) {
+
+          $scope.submenuItems = [
+            {
+              'label' : 'Summary',
+              'url' : '/nodes/summary'
+            },
+            {
+              'label' : 'Map',
+              'url' : '/nodes/map'
+            }
+          ]
+    }]);
+})();

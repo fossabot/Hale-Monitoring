@@ -1,4 +1,7 @@
-angular.module('HaleGUI')
+(function() {
+  'use strict';
+
+  angular.module('HaleGUI')
   .controller('SubmenuController', ['$scope', '$location', function($scope, $location) {
     $scope.isActive = function(url) {
       return ($location.path() === url);
@@ -8,3 +11,5 @@ angular.module('HaleGUI')
       $location.path(url);
     }
   }])
+
+})();

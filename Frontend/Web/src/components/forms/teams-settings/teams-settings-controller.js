@@ -1,4 +1,7 @@
-angular.module('HaleGUI')
+(function() {
+  'use strict';
+
+  angular.module('HaleGUI')
   .controller('TeamsSettingsController', ['$scope', function($scope) {
     $scope.title = 'Team Settings';
     $scope.description =
@@ -8,3 +11,4 @@ angular.module('HaleGUI')
       'other than in read only. You may also create a group for DBAs, to whom ' +
       'you then assign all the database related alerts under the Integrations tab.'
   }]);
+})();

@@ -1,8 +1,12 @@
-angular.module('HaleGUI', [
-  'ngRoute',
-  'ngResource',
-  'angular-storage',
-  'ui.gravatar',
-  'dndLists',
-  'chart.js'
-  ]);
+(function() {
+  'use strict';
+
+  angular.module('HaleGUI', [
+    'ngRoute',
+    'ngResource',
+    'angular-storage',
+    'ui.gravatar',
+    'dndLists',
+    'chart.js'
+    ]);
+})();
