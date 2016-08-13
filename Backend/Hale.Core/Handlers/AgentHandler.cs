@@ -17,6 +17,7 @@ using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Linq;
+using Hale.Lib.Modules.Info;
 
 namespace Hale.Core.Handlers
 {
@@ -48,7 +49,7 @@ namespace Hale.Core.Handlers
             _coreKeyFilePath = Path.Combine(keyRepoPath, "core-keys.xml");
             _agentKeyStorePath = Path.Combine(keyRepoPath, "HostKeys");
 
-            _log = LogManager.GetCurrentClassLogger();
+            _log = LogManager.GetLogger("Hale.Core.AgentHandler");
 
             LoadXmlFileKeyStore();
             LoadNemesisClient();
@@ -156,7 +157,7 @@ namespace Hale.Core.Handlers
                         Guid guid = kvpRecord.Key;
                         ModuleResultRecord record = ((JObject)kvpRecord.Value).ToObject<ModuleResultRecord>();
 
-                        _log.Debug($"{guid.ToString()} {record.Module}[{record.FunctionType}]{record.Function}: {record.Results.Count} target(s).");
+                        _log.Debug($"{guid.ToString()} {record.Module}[{record.FunctionType}]{record.Function}:{record.Results.Count}");
 
                         if (record.FunctionType == ModuleFunctionType.Check)
                         {
@@ -166,6 +167,24 @@ namespace Hale.Core.Handlers
                                 var target = kvpResult.Key;
                                 var result = ((JObject)kvpResult.Value).ToObject<CheckResult>();
                                 _log.Debug($" - {target} => {result.RawValues.Count} raws, S:{(result.RanSuccessfully ? 1 : 0)} W:{(result.Warning ? 1 : 0)} C:{(result.Critical ? 1 : 0)} {result.Message}");
+                                _tl.Trace("Init");
+
+                                Result r = ResolveToResultEntity(target, record, result, nodeId);
+                                _tl.Trace("Resolve");
+
+                                db.Results.Add(r);
+                                db.SaveChanges();
+                                _tl.Trace("Insert");
+                            }
+                        }
+                        if (record.FunctionType == ModuleFunctionType.Info)
+                        {
+                            foreach (var kvpResult in record.Results)
+                            {
+                                var _tl = new TraceLogger("Result");
+                                var target = kvpResult.Key;
+                                var result = ((JObject)kvpResult.Value).ToObject<InfoResult>();
+                                _log.Debug($" - ({target}) => {result.ItemsAsString()}");
                                 _tl.Trace("Init");
 
                                 Result r = ResolveToResultEntity(target, record, result, nodeId);
@@ -213,14 +232,24 @@ namespace Hale.Core.Handlers
 
         private Models.Modules.Module ResolveModule(IModuleResultRecord record)
         {
-            using (var db = new HaleDBContext())
+            var v = record.Module.Version;
+            var module = _db.Modules.SingleOrDefault(m => 
+                m.Major == v.Major && 
+                m.Minor == v.Minor && 
+                m.Revision == v.Revision &&
+                m.Identifier == record.Module.Identifier
+            );
+            if(module == null)
             {
-                return db.Modules.Find(new
+                module = _db.Modules.Add(new Models.Modules.Module()
                 {
-                    Version = record.Module.Version,
+                    Version = v,
                     Identifier = record.Module.Identifier
                 });
+                _log.Warn($"Added missing module '{record.Module.ToString()}' to database.");
+                _db.SaveChanges();
             }
+            return module;
         }
 
         private Function ResolveModuleFunction(IModuleResultRecord record, Models.Modules.Module module)
@@ -234,15 +263,29 @@ namespace Hale.Core.Handlers
                 case ModuleFunctionType.Info: ft = FunctionType.Info; break;
                 default: throw new Exception("Unknown function type");
             }
-            using (var db = new HaleDBContext())
+
+            var func = _db.Functions.SingleOrDefault(f =>
+                f.Name == record.Function &&
+                f.ModuleId == module.Id &&
+                f.Type == ft
+            );
+
+            // Todo: Decide if we really want to add all module functions that are missing to the database here -NM 2016-08-13
+            if(func == null)
             {
-                return db.Functions.Find(new
+                func = _db.Functions.Add(new Function()
                 {
                     Name = record.Function,
                     ModuleId = module.Id,
                     Type = ft
                 });
+                _log.Warn($"Added missing module function '{record.Module.ToString()}[{record.FunctionType}]{record.Function}' to database.");
+
+                _db.SaveChanges();
             }
+            
+
+            return func;
 
         }
 
@@ -271,10 +314,7 @@ namespace Hale.Core.Handlers
 
         private Host ResolveHost(Guid guid)
         {
-            return _db.Hosts.Find(new 
-            {
-                Guid = guid
-            });
+            return _db.Hosts.SingleOrDefault(h => h.Guid == guid);
         }
 
         private int GetCheckResultType(CheckResult result)
@@ -327,7 +367,7 @@ namespace Hale.Core.Handlers
                         Code = JsonRpcErrorCode.ServerInvalidMethodParameters
                     }
                 };
-            Host host = _db.Hosts.Find(new { Id = _hostGuidsToIds[nodeId] });
+            Host host = _db.Hosts.Find(_hostGuidsToIds[nodeId]);
             host.Status = (int)Status.Ok;
 
             _db.SaveChanges();
@@ -353,7 +393,7 @@ namespace Hale.Core.Handlers
         {
             // Hack: Stores agent keys as XML as well as in database for easier development @fixme @security -NM
             // Todo: Write a proper keystore with database as sole backend
-            var xfks = new XMLFileKeyStore(Path.Combine(hostKeysPath, host.HostName + ".xml"), true);
+            var xfks = new XMLFileKeyStore(Path.Combine(hostKeysPath, host.Guid + ".xml"), true);
             if (!xfks.Available) // Only write to disk and database if new keys has been generated. -NM
             {
                 xfks.Save();
