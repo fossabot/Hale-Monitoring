@@ -1,1 +1,0 @@
-server=lab-srv01;user id=haleadmin;password=HejHale!;database=HaleDB
