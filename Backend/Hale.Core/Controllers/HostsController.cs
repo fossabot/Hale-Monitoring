@@ -13,12 +13,12 @@ namespace Hale.Core.Controllers
     /// API for handling Host entries and related data.
     /// </summary>
     [RoutePrefix("api/v1/hosts")]
-    public class HostController : ApiController
+    public class HostsController : ApiController
     {
         private readonly Logger _log;
         private readonly HaleDBContext _db = new HaleDBContext();
 
-        internal HostController()
+        internal HostsController()
         {
             _log = LogManager.GetCurrentClassLogger();
         }
@@ -33,7 +33,7 @@ namespace Hale.Core.Controllers
         [AcceptVerbs("GET")]
         public IHttpActionResult List()
         {
-            var hostList = _db.Hosts.Include("HostDetaiks").ToList();
+            var hostList = _db.Hosts.Include("HostDetails").ToList();
             return Ok(hostList);
         }
 

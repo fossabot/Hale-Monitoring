@@ -321,8 +321,8 @@
     <Compile Include="Utils\StringResult.cs" />
     <Compile Include="Handlers\ApiHandler.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
-    <Compile Include="Controllers\HostController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\HostsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="HaleCoreService.cs">
       <SubType>Component</SubType>
     </Compile>

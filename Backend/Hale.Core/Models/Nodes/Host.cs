@@ -38,7 +38,7 @@ namespace Hale.Core.Models.Nodes
         /// <summary>
         ///  Corresponds to the table column Hosts.LastSeen
         /// </summary>
-        public DateTime LastConnected { get; set; }
+        public DateTime? LastConnected { get; set; }
 
         /// <summary>
         /// Corresponds to the table column Hosts.Updated

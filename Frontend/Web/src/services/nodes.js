@@ -1,8 +1,18 @@
 angular.module('HaleGUI')
-  .factory('Nodes', function() {
+  .factory('Nodes', ['$http', function($http) {
     // TODO: Switch mock data to loading from API -SA 2016-07-27
-    var nodes =
+    this.nodes = [];
 
+   $http({
+      method: 'GET',
+      contentType: 'application/json',
+      url: 'http://localhost:8989/api/v1/hosts',
+      withCredentials: true
+    }).then(function(response) {
+      this.nodes = response.data;
+      console.dir(this.nodes);
+    });
+/*
     [
       {
         'id' : 1,
@@ -55,18 +65,18 @@ angular.module('HaleGUI')
 
 
     ];
-
+*/
     this.List = function() {
-      return nodes;
+      return this.nodes;
     }
 
     this.Get = function(id) {
-      for (i=0;i<nodes.length;i++) {
-        if (nodes[i].id == id) {
-          return nodes[i];
+      for (i=0;i<this.nodes.length;i++) {
+        if (this.nodes[i].id == id) {
+          return this.nodes[i];
         }
       }
     }
 
     return this;
-  });
+  }]);
