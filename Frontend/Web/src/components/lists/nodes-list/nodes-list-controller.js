@@ -1,7 +1,7 @@
 angular.module('HaleGUI')
-  .controller('NodesListController', ['$scope', 'Nodes', 'Const', function($scope, Nodes, Const) {
+  .controller('NodesListController', ['$scope', 'Nodes', 'NodeConstants', function($scope, Nodes, NodeConstants) {
 
-    $scope.status = Const.NodeStatusBg;
+    $scope.status = NodeConstants.StatusBg;
 
     function onNodesListed(response) {
       $scope.hosts = response;
@@ -9,8 +9,8 @@ angular.module('HaleGUI')
 
     Nodes.List(onNodesListed);
 
-    $scope.propertyName = 'name';
-    $scope.reverse = false;
+    $scope.propertyName = 'status';
+    $scope.reverse = true;
     $scope.filter;
 
     $scope.isReverse = function() {

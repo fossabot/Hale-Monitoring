@@ -1,10 +1,14 @@
-angular.module('HaleGUI')
-  .directive('settingsMenu', function() {
-    return {
-      templateUrl: './views/partials/submenu.html',
-      controller: 'SettingsMenuController',
-      scope: {
-        
-      }
-    };
-  })
+(function() {
+  'use strict';
+  angular.module('HaleGUI')
+    .directive('settingsMenu', function() {
+      return {
+        templateUrl: './views/partials/submenu.html',
+        controller: 'SettingsMenuController',
+        scope: {
+
+        }
+      };
+    })
+
+})();

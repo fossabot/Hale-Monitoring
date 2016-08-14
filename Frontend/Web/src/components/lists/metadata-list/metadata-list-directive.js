@@ -1,3 +1,5 @@
+(function() {
+  'use strict';
 angular.module('HaleGUI')
   .directive('metadataList', function() {
     return {
@@ -5,3 +7,5 @@ angular.module('HaleGUI')
       controller: 'MetadataListController'
     }
   })
+
+})();

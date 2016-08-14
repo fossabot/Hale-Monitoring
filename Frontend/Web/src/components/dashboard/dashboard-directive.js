@@ -1,4 +1,7 @@
-angular.module('HaleGUI')
+(function() {
+  'use strict';
+
+  angular.module('HaleGUI')
   .directive('dashboard', function() {
     return {
       templateUrl: './views/partials/dashboard.html',
@@ -6,3 +9,4 @@ angular.module('HaleGUI')
       controller: 'DashboardController'
     }
   })
+})();

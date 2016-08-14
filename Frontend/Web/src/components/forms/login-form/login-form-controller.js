@@ -1,4 +1,7 @@
-angular.module('HaleGUI')
+(function() {
+  'use strict';
+
+  angular.module('HaleGUI')
   .controller('LoginFormController', ['$scope', 'Auth', '$location', function($scope, Auth, $location) {
     $scope.credentials = {
       username: '',
@@ -16,3 +19,4 @@ angular.module('HaleGUI')
     }
 
   }]);
+})();

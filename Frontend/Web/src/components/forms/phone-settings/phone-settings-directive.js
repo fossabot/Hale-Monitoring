@@ -1,4 +1,7 @@
-angular.module('HaleGUI')
+(function() {
+  'use strict';
+
+  angular.module('HaleGUI')
   .directive('phonesSettings', function() {
     return {
       templateUrl: './views/settings/phones.html',
@@ -9,3 +12,4 @@ angular.module('HaleGUI')
       restrict: 'AE'
     }
   })
+})();

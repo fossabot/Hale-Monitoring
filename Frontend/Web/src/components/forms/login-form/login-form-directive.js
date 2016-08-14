@@ -1,4 +1,7 @@
-angular.module('HaleGUI')
+(function() {
+  'use strict';
+
+  angular.module('HaleGUI')
   .directive('loginform', function() {
     return {
       templateUrl: './views/partials/login-form.html',
@@ -6,3 +9,4 @@ angular.module('HaleGUI')
       restriction: 'AE'
     }
   });
+})();

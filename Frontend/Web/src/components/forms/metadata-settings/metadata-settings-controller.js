@@ -1,4 +1,7 @@
-angular.module('HaleGUI')
+(function() {
+  'use strict';
+
+  angular.module('HaleGUI')
   .controller('MetadataSettingsController', ['$scope', function($scope) {
     $scope.title = 'Metadata Templates';
     $scope.description =
@@ -7,3 +10,4 @@ angular.module('HaleGUI')
       'reality. Each metadata attribute is tied to a certain template that ' +
       'will also be the context in which it wil be rendered and/or edited.';
   }]);
+})();
