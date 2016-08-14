@@ -55,6 +55,19 @@ namespace Hale.Core.Config
             }
         }
 
+        [ConfigurationProperty("frontendRoot")]
+        public string FrontendRoot
+        {
+            get
+            {
+                return (string)this["frontendRoot"];
+            }
+            set
+            {
+                this["frontendRoot"] = value;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -67,7 +80,8 @@ namespace Hale.Core.Config
                 {
                     Port = 8989,
                     Host = "+",
-                    Scheme = "http"
+                    Scheme = "http",
+                    FrontendRoot = @"frontend"
                 };
                 _config.Sections.Add("api", section);
             }

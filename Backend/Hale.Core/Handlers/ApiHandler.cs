@@ -8,6 +8,8 @@ using NLog;
 using Swashbuckle.Application;
 using Hale.Lib.Utilities;
 using Hale.Core.Config;
+using Microsoft.Owin.StaticFiles;
+using Microsoft.Owin.FileSystems;
 
 namespace Hale.Core.Handlers
 {
@@ -59,6 +61,7 @@ namespace Hale.Core.Handlers
                 HttpConfiguration config = new HttpConfiguration();
 
                 ConfigureRoutes(config);
+                ConfigureFrontend(appBuilder);
                 ConfigureJson(config);
                 ConfigureExceptionHandling(config);
                 ConfigureAuth(appBuilder);
@@ -67,6 +70,24 @@ namespace Hale.Core.Handlers
 
                 appBuilder.UseWebApi(config);
 
+
+            }
+
+            private void ConfigureFrontend(IAppBuilder app)
+            {
+                var _api = ServiceProvider.GetServiceCritical<System.Configuration.Configuration>().Api();
+                var pfs = new PhysicalFileSystem(_api.FrontendRoot);
+                var fso = new FileServerOptions()
+                {
+                    EnableDefaultFiles = true,
+                    FileSystem = pfs,
+                    EnableDirectoryBrowsing = false,
+                };
+
+#if DEBUG
+                fso.EnableDirectoryBrowsing = true;
+#endif
+                app.UseFileServer(fso);
 
             }
 
