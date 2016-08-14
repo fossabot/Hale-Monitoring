@@ -43,6 +43,7 @@ namespace Hale.Core.Contexts
         public virtual DbSet<Module> Modules { get; set; }
         public virtual DbSet<Function> Functions { get; set; }
         public virtual DbSet<Result> Results { get; set; }
+        public virtual DbSet<InfoRecord> InfoRecords { get; set; }
 
         #endregion
 
