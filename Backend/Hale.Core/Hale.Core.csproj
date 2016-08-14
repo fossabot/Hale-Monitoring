@@ -273,6 +273,15 @@
     <Compile Include="Migrations\201608131705380_HostNullableLastConnected.Designer.cs">
       <DependentUpon>201608131705380_HostNullableLastConnected.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608141440054_AddInfoRecord.cs" />
+    <Compile Include="Migrations\201608141440054_AddInfoRecord.Designer.cs">
+      <DependentUpon>201608141440054_AddInfoRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608141511284_AddCheckRecords.cs" />
+    <Compile Include="Migrations\201608141511284_AddCheckRecords.Designer.cs">
+      <DependentUpon>201608141511284_AddCheckRecords.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Modules\CheckRecord.cs" />
     <Compile Include="Models\Modules\InfoRecord.cs" />
     <Compile Include="Models\Modules\Module.cs" />
     <Compile Include="Models\Modules\Function.cs" />
@@ -379,6 +388,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608131705380_HostNullableLastConnected.resx">
       <DependentUpon>201608131705380_HostNullableLastConnected.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608141440054_AddInfoRecord.resx">
+      <DependentUpon>201608141440054_AddInfoRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608141511284_AddCheckRecords.resx">
+      <DependentUpon>201608141511284_AddCheckRecords.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="nemesis.yaml" />
     <None Include="NLog.xsd">

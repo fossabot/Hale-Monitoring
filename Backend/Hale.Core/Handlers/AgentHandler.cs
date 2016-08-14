@@ -170,14 +170,29 @@ namespace Hale.Core.Handlers
                                 _tl.Trace("Init");
 
                                 Result r = ResolveToResultEntity(target, record, result, nodeId);
+                                db.Results.Add(r);
+
                                 _tl.Trace("Resolve");
 
-                                db.Results.Add(r);
+                                foreach (var rawvalue in result.RawValues) {
+                                    db.CheckRecords.Add(new CheckRecord()
+                                    {
+                                        Result = r,
+                                        Key = record.Module.Identifier + "." + rawvalue.DataType,
+                                        Value = rawvalue.Value
+                                    });
+                                }
+
+                                
+
+                                _tl.Trace("Items");
+
+
                                 db.SaveChanges();
                                 _tl.Trace("Insert");
                             }
                         }
-                        if (record.FunctionType == ModuleFunctionType.Info)
+                        else if (record.FunctionType == ModuleFunctionType.Info)
                         {
                             foreach (var kvpResult in record.Results)
                             {
@@ -188,10 +203,26 @@ namespace Hale.Core.Handlers
                                 _tl.Trace("Init");
 
                                 Result r = ResolveToResultEntity(target, record, result, nodeId);
+                                db.Results.Add(r);
+
                                 _tl.Trace("Resolve");
 
-                                db.Results.Add(r);
+
+                                foreach (var item in result.Items)
+                                {
+                                    _db.InfoRecords.Add(new InfoRecord()
+                                    {
+                                        Result = r,
+                                        Key = record.Module.Identifier + "." + item.Key,
+                                        Value = item.Value
+                                    });
+                                }
+
+                                _tl.Trace("Items");
+
+ 
                                 db.SaveChanges();
+
                                 _tl.Trace("Insert");
                             }
                         }
