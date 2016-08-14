@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents the possible values for the table column Nodes.Hosts.Status
     /// </summary>
-    internal enum Status
+    public enum Status
     {
         Na = -1,
         Ok = 0,
