@@ -13,6 +13,7 @@ using Hale.Lib.Modules.Info;
 using Hale.Lib.Modules.Actions;
 using Hale.Lib.Utilities;
 using Hale.Lib;
+using Hale.Lib.Config;
 
 namespace Hale.Agent
 {

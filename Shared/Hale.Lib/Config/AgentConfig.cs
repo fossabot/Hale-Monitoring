@@ -11,11 +11,13 @@ using Hale.Lib.Modules.Checks;
 using Hale.Lib.Modules.Info;
 using Hale.Lib.Modules.Actions;
 using System.Collections;
+using Hale.Lib.Modules;
 
-namespace Hale.Agent.Config
+namespace Hale.Lib.Config
 {
-    class AgentConfig
+    public class AgentConfig
     {
+
         [YamlMember( Alias ="checks")]
         public Dictionary<string, Dictionary<string, object>> _checks { get; set; }
             = new Dictionary<string, Dictionary<string, object>>();
@@ -228,14 +230,17 @@ namespace Hale.Agent.Config
         }
     }
 
-    class AgentConfigTask
+    public class AgentConfigTask
     {
+        [YamlIgnore]
+        public int Id { get; set; }
+
         public bool Enabled { get; set; } = true;
         public TimeSpan Interval { get; set; }
         public bool Startup { get; set; } = false;
     }
 
-    class AgentConfigModule
+    public class AgentConfigModule
     {
         public string Dll { get; set; }
     }

@@ -6,6 +6,7 @@ using NLog;
 using Hale.Agent.Config;
 using Hale.Agent.Modules;
 using Hale.Lib.Utilities;
+using Hale.Lib.Config;
 
 namespace Hale.Agent
 {
@@ -13,7 +14,7 @@ namespace Hale.Agent
     {
         private ILogger _log = LogManager.GetLogger("Service");
 
-        private Config.AgentConfig config;
+        private AgentConfig config;
         private NemesisController nemesis;
         private AgentScheduler scheduler;
         private IResultStorage resultStorage;
@@ -87,7 +88,7 @@ namespace Hale.Agent
                     serializer.Serialize(writer, new AgentConfig());
                 }
             }
-            config = Config.AgentConfig.LoadFromFile(env.ConfigFile);
+            config = AgentConfig.LoadFromFile(env.ConfigFile);
             ServiceProvider.SetService(config);
 
             _log.Debug("Configuration successfully loaded, found {0} checks.", config.Checks.Count);
