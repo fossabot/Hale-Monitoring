@@ -29,7 +29,7 @@ namespace Hale.Lib
         public void SaveToFile(string file)
         {
             var serializer = new Serializer(namingConvention: new CamelCaseNamingConvention());
-            using (StreamWriter writer = new StreamWriter(file))
+            using (StreamWriter writer = new StreamWriter(File.OpenWrite(file)))
             {
                 serializer.Serialize(writer, this);
             }

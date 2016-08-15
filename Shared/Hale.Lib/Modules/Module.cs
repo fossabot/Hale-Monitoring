@@ -17,7 +17,7 @@ namespace Hale.Lib.Modules
         {
             get
             {
-                var fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+                var fvi = FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location);
                 return fvi.FileDescription;
             }
         }
@@ -29,7 +29,7 @@ namespace Hale.Lib.Modules
         {
             get
             {
-                var fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+                var fvi = FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location);
                 return fvi.CompanyName;
             }
         }
@@ -39,7 +39,7 @@ namespace Hale.Lib.Modules
         /// </summary>
         public virtual Version Version {
             get {
-                return Assembly.GetExecutingAssembly().GetName().Version;
+                return Assembly.GetEntryAssembly().GetName().Version;
             }
         }
 
@@ -59,7 +59,7 @@ namespace Hale.Lib.Modules
         public virtual Decimal TargetApi {
             get
             {
-                var haleLibAssembly = Assembly.GetExecutingAssembly().GetReferencedAssemblies().First((an) => { return an.Name == "Hale-Lib"; });
+                var haleLibAssembly = Assembly.GetEntryAssembly().GetReferencedAssemblies().First((an) => { return an.Name == "Hale-Lib"; });
                 return haleLibAssembly.Version.Major + (haleLibAssembly.Version.Minor * 0.1M);
             }
         }

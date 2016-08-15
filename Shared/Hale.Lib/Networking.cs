@@ -15,7 +15,7 @@ namespace Hale.Lib
         {
             List<string> addresses = new List<string>();
 
-            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+            IPHostEntry host = Dns.GetHostEntryAsync(Dns.GetHostName()).Result;
             host.AddressList.ToList().ForEach(ip =>
             {
                 if (ip.AddressFamily == type)

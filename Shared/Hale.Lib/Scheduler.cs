@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Timers = System.Timers;
+using Timers = System.Threading;
 
 namespace Hale.Lib
 {
@@ -130,7 +130,7 @@ namespace Hale.Lib
             {
                 foreach (var timer in TaskTimers)
                 {
-                    timer.Value.Stop();
+                    timer.Value.Dispose();
                 }
                 TaskTimers.Clear();
 
@@ -140,11 +140,9 @@ namespace Hale.Lib
             {
                 try
                 {
-                    var timer = new Timers.Timer(kvpCheckTask.Key.TotalMilliseconds); // Maximum interval is 24 days (Int.Max milliseconds)
-
-                    timer.Elapsed += delegate { EnqueueTasks(kvpCheckTask.Value); };
-
-                    timer.Start();
+                    TimerCallback tcb = new TimerCallback(OnElapsedTime);
+                    var timer = new Timer(tcb, kvpCheckTask.Value, 
+                        (int)kvpCheckTask.Key.TotalMilliseconds, Timeout.Infinite); // Maximum interval is 24 days (Int.Max milliseconds)
 
                     TaskTimers.Add(kvpCheckTask.Key, timer);
                 }
@@ -154,6 +152,12 @@ namespace Hale.Lib
                 }
             }
 
+        }
+
+        private void OnElapsedTime(Object stateInfo)
+        {
+            var tasks = stateInfo as List<TaskBase>;
+            EnqueueTasks(tasks);
         }
 
         protected void EnqueueTasks(List<TaskBase> tasks)
