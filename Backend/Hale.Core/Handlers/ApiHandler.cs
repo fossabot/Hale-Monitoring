@@ -10,6 +10,7 @@ using Hale.Lib.Utilities;
 using Hale.Core.Config;
 using Microsoft.Owin.StaticFiles;
 using Microsoft.Owin.FileSystems;
+using System.IO;
 
 namespace Hale.Core.Handlers
 {
@@ -55,6 +56,8 @@ namespace Hale.Core.Handlers
             private static string _baseUrl;
             public static string BaseUrl { get { return _baseUrl; } set { _baseUrl = value; } }
 
+            private static ILogger _log = LogManager.GetLogger("Hale.Core.OwinStartup");
+
             // ReSharper disable once UnusedMember.Local
             public void Configuration(IAppBuilder appBuilder)
             {
@@ -76,6 +79,9 @@ namespace Hale.Core.Handlers
             private void ConfigureFrontend(IAppBuilder app)
             {
                 var _api = ServiceProvider.GetServiceCritical<System.Configuration.Configuration>().Api();
+                if (String.IsNullOrEmpty(_api.FrontendRoot) || !Directory.Exists(_api.FrontendRoot))
+                    return;
+
                 var pfs = new PhysicalFileSystem(_api.FrontendRoot);
                 var fso = new FileServerOptions()
                 {
@@ -88,6 +94,8 @@ namespace Hale.Core.Handlers
                 fso.EnableDirectoryBrowsing = true;
 #endif
                 app.UseFileServer(fso);
+                _log.Info($"Serving static content from '{Path.GetFullPath(_api.FrontendRoot)}'.");
+
 
             }
 

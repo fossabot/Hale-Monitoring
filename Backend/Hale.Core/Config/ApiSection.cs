@@ -81,7 +81,7 @@ namespace Hale.Core.Config
                     Port = 8989,
                     Host = "+",
                     Scheme = "http",
-                    FrontendRoot = @"frontend"
+                    FrontendRoot = string.Empty
                 };
                 _config.Sections.Add("api", section);
             }
