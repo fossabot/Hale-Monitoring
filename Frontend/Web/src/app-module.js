@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('HaleGUI', [
+  angular.module('hale.gui', [
     'ngRoute',
     'ngResource',
     'angular-storage',

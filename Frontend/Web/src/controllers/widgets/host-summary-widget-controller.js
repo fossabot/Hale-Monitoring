@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  angular.module('HaleGUI')
+  angular.module('hale.gui')
     .controller('HostSummaryWidgetController', ['$scope', 'Nodes', 'NodeConstants', function($scope, Nodes, NodeConstants) {
       $scope.status = NodeConstants.StatusBg;
 

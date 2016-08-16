@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('HaleGUI')
+  angular.module('hale.gui')
     .factory('Auth', ['$location', '$http', 'store', function($location, $http, store) {
       this.login = function(credentials, onSuccess, onFail) {
         $http({
@@ -14,7 +14,7 @@
           url: 'http://localhost:8989/api/v1/authentication',
           withCredentials: true
         }).then(function(response) {
-          if (response.data.account.id !== null
+          if (response.data.account !== null
           && response.data.error === '') {
             store.set('hale-session', response.data.account);
             onSuccess();

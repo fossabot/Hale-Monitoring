@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('HaleGUI')
+  angular.module('hale.gui')
     .config(['$routeProvider', function($routeProvider) {
       $routeProvider
         .when('/dashboard', {

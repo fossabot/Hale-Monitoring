@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('HaleGUI')
+  angular.module('hale.gui')
     .factory('Nodes', ['$http', function($http) {
       var self = this;
       this.hosts = [];

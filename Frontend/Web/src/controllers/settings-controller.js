@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('HaleGUI')
+  angular.module('hale.gui')
     .controller('SettingsController', ['$scope', '$routeParams', function($scope, $routeParams) {
       $scope.title = 'Settings';
       $scope.description = '';
@@ -15,21 +15,12 @@
           'url' : '/settings/profile'
         },
         {
-          'label' : 'Dashboard',
-          'url' : '/settings/dashboard'
+          'label' : 'Emails',
+          'url' : '/settings/email'
         },
         {
-          'label': 'Contacts',
-          'items': [
-            {
-              'label' : 'Emails',
-              'url' : '/settings/emails'
-            },
-            {
-              'label' : 'Phones',
-              'url' : '/settings/phones'
-            }
-          ]
+          'label' : 'Phones',
+          'url' : '/settings/phone'
         }
       ]
     }]);

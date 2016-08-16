@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('HaleGUI')
+  angular.module('hale.gui')
     .factory('Users', function() {
       // TODO: Switch mock data to loading from API -SA 2016-07-27
       var users =
@@ -41,8 +41,8 @@
       ];
 
       this.Update = function(user) {
-        console.log('HaleGUI.Users: Mock Update Triggered.');
-        for (i=0;i<users.length;i++)
+        console.log('hale.gui.Users: Mock Update Triggered.');
+        for (var i=0;i<users.length;i++)
         {
             if (users[i].id == user.id)
             {
@@ -57,12 +57,12 @@
         return users;
       };
 
-      this.Get = function(id) {
-        for (i=0;i<users.length;i++)
+      this.Get = function(id, callback) {
+        for (var i=0;i<users.length;i++)
         {
             if (users[i].id == id)
             {
-              return users[i];
+              callback(users[i]);
             }
         }
       };

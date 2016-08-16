@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  angular.module('HaleGUI')
+  angular.module('hale.gui')
     .config(function(storeProvider) {
         storeProvider.setStore('sessionStorage');
     })

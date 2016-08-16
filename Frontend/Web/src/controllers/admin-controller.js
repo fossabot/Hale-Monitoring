@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('HaleGUI')
+  angular.module('hale.gui')
     .controller('AdminController', ['$scope', '$routeParams', function($scope, $routeParams) {
       $scope.title = 'Administration';
       $scope.description = '';

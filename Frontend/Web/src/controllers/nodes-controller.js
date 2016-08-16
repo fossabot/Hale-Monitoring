@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('HaleGUI')
+  angular.module('hale.gui')
     .controller('NodesController', ['$scope', function($scope) {
 
           $scope.submenuItems = [

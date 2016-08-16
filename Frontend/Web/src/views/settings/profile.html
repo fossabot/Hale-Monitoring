@@ -1,67 +1,65 @@
-<div ng-controller="ProfileSettingsController">
-  <div class="row">
-    <div class="col-md-12">
-      <h4>
-        {{title}}
-      </h4>
-      <p style="font-size:1.1em;text-align:justify">
-          {{description}}
-      </p>
-    </div>
+<div class="row">
+  <div class="col-md-12">
+    <h4>
+      {{$ctrl.title}}
+    </h4>
+    <p style="font-size:1.1em;text-align:justify">
+        {{$ctrl.description}}
+    </p>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="" style="margin-top:20px;">
-        <div class="pull-left">
-          <div class="form-group">
-            <label>
-              Username:
-            </label>
-            <p>
-              {{username}}
-            </p>
-          </div>
-
-          <div class="form-group">
-            <label>
-              Full Name:
-            </label>
-            <p>
-              {{fullname}}
-            </p>
-          </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="" style="margin-top:20px;">
+      <div class="pull-left">
+        <div class="form-group">
+          <label>
+            Username:
+          </label>
+          <p>
+            {{$ctrl.username}}
+          </p>
         </div>
-        <div class="pull-right">
-          <img gravatar-src="email" gravatar-size="180" />
-        </div>
-        <div class="clearfix"></div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
 
-      <div class="form-group">
-        <label>
-          Location:
-        </label>
-        <input type="text" placeholder="Skärhamn, Sweden" class="form-control">
-      </div>
-      <div class="form-group">
-        <label>
-          About you:
-        </label>
-        <textarea rows="5" placeholder="Im a cool cat with a fly bike, yo." class="form-control"></textarea>
+        <div class="form-group">
+          <label>
+            Full Name:
+          </label>
+          <p>
+            {{$ctrl.fullname}}
+          </p>
+        </div>
       </div>
       <div class="pull-right">
-        <button type="button" class="btn btn-default">
-          Cancel
-        </button>
-        <button type="button" class="btn btn-primary">
-          Save
-        </button>
+        <img gravatar-src="$ctrl.email" gravatar-size="180" />
       </div>
+      <div class="clearfix"></div>
     </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="form-group">
+      <label>
+        Location:
+      </label>
+      <input type="text" placeholder="Skärhamn, Sweden" class="form-control">
     </div>
+    <div class="form-group">
+      <label>
+        About you:
+      </label>
+      <textarea rows="5" placeholder="Im a cool cat with a fly bike, yo." class="form-control"></textarea>
+    </div>
+    <div class="pull-right">
+      <button type="button" class="btn btn-default">
+        Cancel
+      </button>
+      <button type="button" class="btn btn-primary">
+        Save
+      </button>
+    </div>
+  </div>
   </div>
 </div>

@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  angular.module('HaleGUI')
+  angular.module('hale.gui')
     .factory('Widgets', function() {
       var widgets = [
           {
@@ -46,7 +46,7 @@
       }
 
       this.Save = function() {
-        console.log('HaleGUI.Widgets - Mockup Save Triggered.');
+        console.log('hale.gui.Widgets - Mockup Save Triggered.');
         console.log('Current state of model:');
         console.dir(widgets);
       }

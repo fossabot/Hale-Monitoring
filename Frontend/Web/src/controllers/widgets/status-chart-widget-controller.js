@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('HaleGUI')
+  angular.module('hale.gui')
     .controller('StatusChartWidgetController', ['$scope', 'Nodes', function($scope, Nodes) {
       $scope.okCount   = 0;
       $scope.warnCount = 0;
