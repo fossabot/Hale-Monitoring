@@ -1,5 +1,6 @@
 namespace Hale.Core.Contexts
 {
+    using Lib.Config;
     using Models.Modules;
     using Models.Nodes;
     using Models.Users;
@@ -43,6 +44,13 @@ namespace Hale.Core.Contexts
         public virtual DbSet<Module> Modules { get; set; }
         public virtual DbSet<Function> Functions { get; set; }
         public virtual DbSet<Result> Results { get; set; }
+        public virtual DbSet<InfoRecord> InfoRecords { get; set; }
+        public virtual DbSet<CheckRecord> CheckRecords { get; set; }
+
+        #endregion
+        #region AgentConfig
+
+        public virtual DbSet<AgentConfigSet> AgentConfigs { get; set; }
 
         #endregion
 

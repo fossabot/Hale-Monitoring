@@ -33,7 +33,7 @@ namespace Hale.Core.Models.Nodes
         /// <summary>
         /// Corresponds to the table column Hosts.Status
         /// </summary>
-        public int Status { get; set; }
+        public Status Status { get; set; }
 
         /// <summary>
         ///  Corresponds to the table column Hosts.LastSeen

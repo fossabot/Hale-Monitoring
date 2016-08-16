@@ -13,6 +13,7 @@ using Hale.Lib.Modules.Info;
 using Hale.Lib.Modules.Actions;
 using Hale.Lib.Utilities;
 using Hale.Lib;
+using Hale.Lib.Config;
 
 namespace Hale.Agent
 {
@@ -251,37 +252,6 @@ namespace Hale.Agent
             var env = ServiceProvider.GetServiceCritical<EnvironmentConfig>();
             return Path.Combine(env.ModulePath, check.Substring(0, check.LastIndexOf('.')),
                 check.Substring(check.LastIndexOf('.') + 1));
-        }
-
-        private new void _updateQueue()
-        {
-            if (TaskTimers.Count > 0)
-            {
-                foreach (var timer in TaskTimers)
-                {
-                    timer.Value.Stop();
-                }
-                TaskTimers.Clear();
-
-            }
-
-            foreach (var kvpCheckTask in ScheduleTasks)
-            {
-                try {
-                    var timer = new Timers.Timer(kvpCheckTask.Key.TotalMilliseconds); // Maximum interval is 24 days (Int.Max milliseconds)
-
-                    timer.Elapsed += delegate { EnqueueTasks(kvpCheckTask.Value); };
-
-                    timer.Start();
-
-                    TaskTimers.Add(kvpCheckTask.Key, timer);
-                }
-                catch (Exception x)
-                {
-                    _log.Error($"Could not add Task interval {kvpCheckTask.Key}: {x.Message}");
-                }
-            }
-
         }
 
         private void _verifyChecks(Dictionary<string, ModuleSettingsBase> checks)

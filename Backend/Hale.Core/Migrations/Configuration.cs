@@ -45,7 +45,7 @@ namespace Hale.Core.Migrations
                     FriendlyName = "TestHost01",
                     Created = now,
                     Modified = now,
-                    Status = (int)Status.Warning,
+                    Status = Status.Warning,
                     Guid = new Guid("{057449E7-E7F1-47B6-80A7-B21ED8DEA058}"),
                     HostName = "test-host-01.domain.com"
                 },
@@ -55,7 +55,7 @@ namespace Hale.Core.Migrations
                     FriendlyName = "TestHost02",
                     Created = now,
                     Modified = now,
-                    Status = (int)Status.Ok,
+                    Status = Status.Ok,
                     Guid = new Guid("{FAF16DE0-B8E4-4A0F-8C1B-EB410725C6DA}"),
                     HostName = "test-host-02.domain.com"
                 },
@@ -65,7 +65,7 @@ namespace Hale.Core.Migrations
                     FriendlyName = "TestHost03",
                     Created = now,
                     Modified = now,
-                    Status = (int)Status.Ok,
+                    Status = Status.Ok,
                     Guid = new Guid("{844FA1AB-3B54-45BF-AB5C-9BEDFCD6AFA9}"),
                     HostName = "test-host-03.domain.com"
                 },
@@ -75,7 +75,7 @@ namespace Hale.Core.Migrations
                      FriendlyName = "TestHost04",
                      Created = now,
                      Modified = now,
-                     Status = (int)Status.Warning,
+                     Status = Status.Warning,
                      Guid = new Guid("{057449E7-E7F1-47B6-80A7-B21ED8DEA051}"),
                      HostName = "test-host-04.domain.com"
                  },
@@ -85,7 +85,7 @@ namespace Hale.Core.Migrations
                     FriendlyName = "TestHost05",
                     Created = now,
                     Modified = now,
-                    Status = (int)Status.Ok,
+                    Status = Status.Ok,
                     Guid = new Guid("{FAF16DE0-B8E4-4A0F-8C1B-EB410725C6D2}"),
                     HostName = "test-host-05.domain.com"
                 },
@@ -95,7 +95,7 @@ namespace Hale.Core.Migrations
                     FriendlyName = "TestHost06",
                     Created = now,
                     Modified = now,
-                    Status = (int)Status.Ok,
+                    Status = Status.Ok,
                     Guid = new Guid("{844FA1AB-3B54-45BF-AB5C-9BEDFCD6AFA3}"),
                     HostName = "test-host-06.domain.com"
                 },
@@ -105,7 +105,7 @@ namespace Hale.Core.Migrations
                      FriendlyName = "TestHost07",
                      Created = now,
                      Modified = now,
-                     Status = (int)Status.Warning,
+                     Status = Status.Warning,
                      Guid = new Guid("{057449E7-E7F1-47B6-80A7-B21ED8DEA044}"),
                      HostName = "test-host-01.domain.com"
                  },
@@ -115,7 +115,7 @@ namespace Hale.Core.Migrations
                     FriendlyName = "TestHost08",
                     Created = now,
                     Modified = now,
-                    Status = (int)Status.Ok,
+                    Status = Status.Ok,
                     Guid = new Guid("{FAF16DE0-B8E4-4A0F-8C1B-EB410725C6D5}"),
                     HostName = "test-host-01.domain.com"
                 },
@@ -125,7 +125,7 @@ namespace Hale.Core.Migrations
                     FriendlyName = "TestHost09",
                     Created = now,
                     Modified = now,
-                    Status = (int)Status.Ok,
+                    Status = Status.Ok,
                     Guid = new Guid("{844FA1AB-3B54-45BF-AB5C-9BEDFCD6AFA6}"),
                     HostName = "test-host-01.domain.com"
                 },
@@ -135,7 +135,7 @@ namespace Hale.Core.Migrations
                      FriendlyName = "TestHost10",
                      Created = now,
                      Modified = now,
-                     Status = (int)Status.Warning,
+                     Status = Status.Warning,
                      Guid = new Guid("{057449E7-E7F1-47B6-80A7-B21ED8DEA05B}"),
                      HostName = "test-host-01.domain.com"
                  },
@@ -145,7 +145,7 @@ namespace Hale.Core.Migrations
                     FriendlyName = "TestHost11",
                     Created = now,
                     Modified = now,
-                    Status = (int)Status.Ok,
+                    Status = Status.Ok,
                     Guid = new Guid("{FAF16DE0-B8E4-4A0F-8C1B-EB410725C6DD}"),
                     HostName = "test-host-01.domain.com"
                 },
@@ -155,7 +155,7 @@ namespace Hale.Core.Migrations
                     FriendlyName = "TestHost12",
                     Created = now,
                     Modified = now,
-                    Status = (int)Status.Ok,
+                    Status = Status.Ok,
                     Guid = new Guid("{844FA1AB-3B54-45BF-AB5C-9BEDFCD6AFBB}"),
                     HostName = "test-host-01.domain.com"
                 },
@@ -165,7 +165,7 @@ namespace Hale.Core.Migrations
                     FriendlyName = "TestHost13",
                     Created = now,
                     Modified = now,
-                    Status = (int)Status.Ok,
+                    Status = Status.Ok,
                     Guid = new Guid("{844FA1AB-3B54-45BF-AB5C-9BEDFCD6AFCC}"),
                     HostName = "test-host-01.domain.com"
                 }
