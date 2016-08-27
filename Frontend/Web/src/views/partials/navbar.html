@@ -17,8 +17,10 @@
         <li navitem ng-class="{ 'active' : isActive('settings')}"  class="navitem" url="settings"  icon="fa-wrench"      label="Settings"></li>
         <li navitem ng-class="{ 'active' : isActive('admin')}"     class="navitem" url="admin"     icon="fa-lock"        label="Admin" ng-show="isAdmin()"></li>
       </ul>
-      <ul class="nav navbar-right">
-        <li class="dropdown" badge></li>
+      <ul class="nav navbar-right" >
+        <li class="dropdown" style="padding-top:10px;padding-right:10px">
+          <badge></badge>
+        </li>
       </ul>
     </div>
 

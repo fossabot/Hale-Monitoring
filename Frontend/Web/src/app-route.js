@@ -16,6 +16,10 @@
           templateUrl: './views/nodes.html',
           controller: 'NodesController'
         })
+        .when('/nodes/:id', {
+          templateUrl: './views/node.html',
+          controller: 'NodeController'
+        })
         .when('/reports', {
           templateUrl: './views/reports.html',
           controller: 'ReportsController'
