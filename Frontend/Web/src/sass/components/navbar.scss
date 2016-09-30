@@ -18,10 +18,11 @@
       font-size: 0.9em;
       li {
         a {
+          display: block;
           color: #cad7e4;
+          padding: 10px 0px 10px 10px;
         }
         cursor: pointer;
-        padding: 10px 0px 10px 10px;
         border-left:3px solid #456586;
         transition: all 0.01s;
 
