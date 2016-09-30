@@ -1,4 +1,19 @@
-<nav class="navbar navbar-static-top navbar-inverse" ng-class="{'expanded' : nav.expanded}" ng-show="showNavbar()">
+<nav class="hg-navbar">
+    <ul class="hg-navbar-nav">
+      <li ui-sref-active="active">
+        <a ui-sref="app.hale.dashboard">
+          Dashboard
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.hale.nodes">
+          Hosts
+        </a>
+      </li>
+    </ul>
+</nav>
+
+<!-- nav class="navbar navbar-static-top navbar-inverse" ng-class="{'expanded' : nav.expanded}" ng-show="showNavbar()">
   <div class="container">
     <div class="navbar-header">
       <a href="#" class="navbar-brand">
@@ -18,7 +33,7 @@
         <li navitem ng-class="{ 'active' : isActive('admin')}"     class="navitem" url="admin"     icon="fa-lock"        label="Admin" ng-show="isAdmin()"></li>
       </ul>
       <ul class="nav navbar-right" >
-        <li class="dropdown" style="padding-top:10px;padding-right:10px">
+        <li class="dropdown" style="padding-top:10px;padding-right:15px">
           <badge></badge>
         </li>
       </ul>
@@ -26,4 +41,4 @@
 
   </div>
     </div>
-</nav>
+</nav -->

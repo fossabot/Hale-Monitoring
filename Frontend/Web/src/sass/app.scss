@@ -1,0 +1,21 @@
+@import "variables.scss";
+@import "components/*";
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background: #ececea;
+  overflow: hidden;
+}
+
+.wrapper {
+  display: flex;
+  height: 100%;
+}
+.hg-ui-main {
+  flex: auto;
+  margin: 20px;
+}

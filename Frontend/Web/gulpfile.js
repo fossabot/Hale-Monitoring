@@ -1,5 +1,7 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
+var sass = require('gulp-sass');
+var sass_bulk = require('gulp-sass-bulk-import');
 
 gulp.task('default', [
     'app', 'vendor'
@@ -9,11 +11,9 @@ gulp.task('default', [
 
 gulp.task('app', [
   'app-js',
-  'app-css',
+  'app-sass',
   'app-views',
-  'app-views-partials',
-  'app-index',
-  'app-mocks'
+  'app-index'
 ]);
 
 gulp.task('vendor', [
@@ -34,11 +34,13 @@ gulp.task('app-js', function() {
   .pipe(gulp.dest('./dist/js'));
 });
 
-gulp.task('app-css', function() {
+gulp.task('app-sass', function() {
   return gulp.src([
-    './src/app.css'
+    './src/sass/app.scss'
   ])
-  .pipe(gulp.dest('./dist/css'))
+  .pipe(sass_bulk())
+  .pipe(sass())
+  .pipe(gulp.dest('./dist/css'));
 });
 
 gulp.task('app-index', function() {
@@ -56,25 +58,11 @@ gulp.task('app-views', function() {
   .pipe(gulp.dest('./dist/views'));
 });
 
-
-gulp.task('app-views-partials', function() {
-  return gulp.src([
-    './src/views/partials/*.html'
-  ])
-  .pipe(gulp.dest('./dist/views/partials/'));
-})
-
-gulp.task('app-mocks', function() {
-  return gulp.src('./src/mocks/**')
-  .pipe(gulp.dest('./dist/mocks'))
-});
-
 gulp.task('vendor-js', function() {
   return gulp.src([
     './node_modules/chartjs/chart.js',
     './node_modules/angular/angular.js',
-    './node_modules/angular-route/angular-route.js',
-    './node_modules/angular-resource/angular-resource.js',
+    './node_modules/angular-ui-router/release/angular-ui-router.js',
     './node_modules/angular-storage/dist/angular-storage.js',
     './node_modules/angular-gravatar/build/angular-gravatar.js',
     './node_modules/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js',

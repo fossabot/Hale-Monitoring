@@ -2,41 +2,54 @@
   'use strict';
 
   angular.module('hale.gui')
-    .factory('Auth', ['$location', '$http', 'store', function($location, $http, store) {
-      this.login = function(credentials, onSuccess, onFail) {
-        $http({
+    .factory('Auth', ['$location', '$http', 'store', '$state', function($location, $http, store, $state) {
+      var baseUrl = 'http://localhost:8989/api/v1/';
+
+      this.login = function(credentials) {
+        return $http({
           method: 'POST',
           data: {
             'username': credentials.username,
             'password': credentials.password
           },
           contentType: 'application/json',
-          url: 'http://localhost:8989/api/v1/authentication',
+          url: baseUrl + 'authentication',
           withCredentials: true
-        }).then(function(response) {
-          if (response.data.account !== null
-          && response.data.error === '') {
-            store.set('hale-session', response.data.account);
-            onSuccess();
-          }
-          else {
-            onFail();
-          }
         })
+        .then(
+          (response) => {
+            if (response.data.account !== null && response.data.error === '') {
+              store.set('hale-session', response.data.account);
+              $state.go('app.hale.dashboard');
+            }
+            else {
+              $state.go('app.login.failed');
+            }
+          },
+          () => {
+            $state.go('app.login.unavailable');
+        });
       }
 
       this.logout = function() {
         store.remove('hale-session');
+        $state.go('app.login');
       }
 
-      this.validateLogin = function() {
+      this.authorize = function() {
+        return $http({
+          method: 'GET',
+          contentType: 'application/json',
+          url: baseUrl + 'authentication',
+          withCredentials: true
+        })
+        .then((response) => {
 
-        if (store.get('hale-session') === null
-          && $location.path() !== "/login") {
-            $location.path('/login');
-          }
+        }, () => {
+          store.remove('hale-session');
+          $state.go('app.login');
+        });
       }
-
       return this;
     }]);
 })();

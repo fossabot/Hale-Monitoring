@@ -1,4 +1,4 @@
-html {
+/*html {
   height: 100%;
   width: 100%;
 }
@@ -260,7 +260,7 @@ border-right: 10px solid transparent;
     padding: 20px;
     padding-left: 0px;
     overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content.
     border-right: 1px solid #eee;
     background-color: #f5f5f5;
   }
@@ -285,7 +285,7 @@ border-right: 10px solid transparent;
 }
 
 .nav-sidebar {
-  margin-right: -21px; /* 20px padding + 1px border */
+  margin-right: -21px; /* 20px padding + 1px border
   margin-bottom: 20px;
   margin-left: -20px;
 }
@@ -347,3 +347,34 @@ ul[dnd-list] .dndDragOver .widget {
 .widget-body {
   height:100%;
 }
+
+.toast-message {
+  position: absolute;
+  top: 50px;
+  left: calc(50% - 150px);
+  right: calc(50% - 150px);
+
+  -webkit-box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+  -moz-box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+  box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+  border-radius: 0px;
+
+}
+.toast-fade-in {
+  animation-name: fadeIn;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+  animation-duration: 0.2s;
+}
+
+@keyframes fadeIn {
+  0% {
+    top:100px;
+    opacity: 0;
+  }
+  100% {
+    top:50px;
+    opacity: 1;
+  }
+}
+ */

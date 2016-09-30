@@ -1,9 +1,9 @@
 (function() {
   'use strict';
-
   angular.module('hale.gui')
-    .controller('NodesController', ['nodes', function(nodes) {
+    .controller('NodeController', ['node', function(node) {
       var vm = this;
-      vm.nodes = nodes;
+
+      vm.node = node;
     }]);
 })();

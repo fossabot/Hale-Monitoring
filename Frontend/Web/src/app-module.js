@@ -2,11 +2,10 @@
   'use strict';
 
   angular.module('hale.gui', [
-    'ngRoute',
-    'ngResource',
-    'angular-storage',
+    'ui.router',
     'ui.gravatar',
+    'angular-storage',
     'dndLists',
     'chart.js'
-    ]);
+  ]);
 })();

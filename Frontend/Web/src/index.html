@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="hale.gui">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,10 +10,11 @@
     <link rel="stylesheet" type="text/css" href="css/app.css">
   </head>
 
-  <body ng-controller="MainController">
-    <navbar>
-    </navbar>
-    <div id="wrapper" ng-view>
+  <body ng-app="hale.gui">
+    <div class="wrapper">
+      <div ui-view="toast" class="hg-ui-toast"></div>
+      <div ui-view="nav"   class="hg-ui-nav"  ></div>
+      <div ui-view="main"  class="hg-ui-main" ></div>
     </div>
   </body>
 </html>
