@@ -36,7 +36,7 @@
             abstract: true,
             resolve: {
               'authentication': (Auth) => {
-                return Auth.authorize();
+                return Auth.authenticate();
               },
             },
             views: {

@@ -36,7 +36,7 @@
         $state.go('app.login');
       }
 
-      this.authorize = function() {
+      this.authenticate = function() {
         return $http({
           method: 'GET',
           contentType: 'application/json',
