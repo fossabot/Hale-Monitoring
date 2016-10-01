@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('hale.gui')
-    .controller('SettingsController', ['$scope', '$routeParams', function($scope, $routeParams) {
+    .controller('SettingsController', ['$scope', function($scope) {
       $scope.title = 'Settings';
       $scope.description = '';
       $scope.renderSection = function(name) {

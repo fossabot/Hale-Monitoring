@@ -1,12 +1,2 @@
-<div ng-controller="SettingsController">
-  <sub-menu hg-submenu-items="submenuItems">
-  </sub-menu>
-
-  <div class="container" style="margin-top: 10px;">
-    <profile-settings   ng-show="renderSection('profile')"></profile-settings>
-    <email-settings   ng-show="renderSection('email')"></email-settings>
-    <phone-settings   ng-show="renderSection('phone')"></phone-settings>
-    <dashboard-settings ng-show="renderSection('dashboard')"></dashboard-settings>
-  </div>
-
+<div ui-view="section">
 </div>

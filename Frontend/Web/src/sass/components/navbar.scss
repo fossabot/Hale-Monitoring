@@ -7,26 +7,34 @@
     width: 250px;
     background: #283c51;
     content: "";
+    transition: all 0.2s;
 
     &.minimized {
-        width: 50px;
+        width: 40px;
+        transition: all 0.2s;
     }
     .hg-navbar-nav {
       list-style-type: none;
       width: 100%;
       padding: 0px;
       font-size: 0.9em;
-      li {
+      >li {
         a {
           display: block;
           color: #cad7e4;
           padding: 10px 0px 10px 10px;
+          i {
+            padding-right: 10px;
+          }
         }
         cursor: pointer;
         border-left:3px solid #456586;
         transition: all 0.01s;
 
         &.active {
+          .hg-submenu {
+            display: block;
+          }
           a {
             text-decoration: none;
             color: #fff;
@@ -44,6 +52,25 @@
       }
     }
 
+  }
+
+}
+
+
+.hg-submenu {
+  background: #486a8e;
+  color: #eee;
+  padding: 0px;
+  list-style-type: none;
+  display: none;
+  li,
+  li:hover,
+  li:active {
+    border-left: 0px!important;
+    &.active {
+      background: #6e8ba9;
+      color: #fff;
+    }
   }
 
 }

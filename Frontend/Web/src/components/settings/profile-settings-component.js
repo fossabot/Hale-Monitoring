@@ -1,7 +1,8 @@
 angular.module('hale.gui')
   .component('profileSettings', {
     templateUrl: './views/settings/profile.html',
-    controller: 'ProfileSettingsController'
+    controller: 'ProfileSettingsController',
+    controllerAs: '$ctrl'
   })
   .controller('ProfileSettingsController', function() {
       var vm = this;

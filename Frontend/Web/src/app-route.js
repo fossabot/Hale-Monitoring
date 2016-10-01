@@ -86,6 +86,48 @@
                 }
               }
             }
+          })
+          .state('app.hale.settings', {
+            url: '/settings',
+            views: {
+              'main@': {
+                templateUrl: './views/settings.html',
+                controller: 'SettingsController',
+                controllerAs: '$ctrl',
+                resolve: {
+                }
+              }
+            }
+          })
+          .state('app.hale.settings.profile', {
+            url: '/user',
+            views: {
+              'section@app.hale.settings': {
+                templateUrl: './views/settings/profile.html',
+                controller: 'ProfileSettingsController',
+                controllerAs: '$ctrl'
+              }
+            }
+          })
+          .state('app.hale.settings.emails', {
+            url: '/email',
+            views: {
+              'section@app.hale.settings': {
+                templateUrl: './views/settings/email.html',
+                controller: 'EmailSettingsController',
+                controllerAs: '$ctrl'
+              }
+            }
+          })
+          .state('app.hale.settings.phone', {
+            url: '/phone',
+            views: {
+              'section@app.hale.settings': {
+                templateUrl: './views/settings/phone.html',
+                controller: 'PhoneSettingsController',
+                controllerAs: '$ctrl'
+              }
+            }
           });
 
       /*$routeProvider

@@ -1,14 +1,60 @@
-<nav class="hg-navbar">
+<nav class="hg-navbar" ng-class="{'minimized': $ctrl.minimized}">
     <ul class="hg-navbar-nav">
+      <li>
+        <a ng-click="$ctrl.toggleSize()">
+          <i class="fa fa-bars"></i>
+        </a>
+      </li>
       <li ui-sref-active="active">
+
         <a ui-sref="app.hale.dashboard">
-          Dashboard
+          <i class="fa fa-dashboard"></i>
+          <span ng-show="!$ctrl.minimized">
+            Dashboard
+          </span>
         </a>
       </li>
       <li ui-sref-active="active">
         <a ui-sref="app.hale.nodes">
-          Hosts
+          <i class="fa fa-server"></i>
+          <span ng-show="!$ctrl.minimized">
+            Nodes
+          </span>
         </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.hale.settings">
+          <i class="fa fa-wrench"></i>
+          <span ng-show="!$ctrl.minimized">
+            Settings
+          </span>
+        </a>
+        <ul class="hg-submenu">
+          <li ui-sref-active="active">
+            <a ui-sref="app.hale.settings.profile">
+              <i class="fa fa-user"></i>
+              <span ng-show="!$ctrl.minimized">
+                Profile Settings
+              </span>
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a ui-sref="app.hale.settings.emails">
+              <i class="fa fa-envelope"></i>
+              <span ng-show="!$ctrl.minimized">
+                Email Settings
+              </span>
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a ui-sref="app.hale.settings.phone">
+              <i class="fa fa-phone"></i>
+              <span ng-show="!$ctrl.minimized">
+                Phone Settings
+              </span>
+            </a>
+          </li>
+        </ul>
       </li>
     </ul>
 </nav>
