@@ -32,6 +32,16 @@
               }
             }
           })
+          .state('app.login.unavailable', {
+            url: '/unavailable',
+            views: {
+              'toast@': {
+                templateUrl: './views/toasts/service-unavailable.html',
+                controller: 'ToastController',
+                controllerAs: '$ctrl'
+              }
+            }
+          })
           .state('app.hale', {
             abstract: true,
             resolve: {

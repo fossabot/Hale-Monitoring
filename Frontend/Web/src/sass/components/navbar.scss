@@ -26,6 +26,10 @@
           i {
             padding-right: 10px;
           }
+          div {
+            display: inline;
+          }
+
         }
         cursor: pointer;
         border-left:3px solid #456586;
@@ -66,6 +70,10 @@
   li,
   li:hover,
   li:active {
+    a div {
+      display: inline;
+      overflow: hidden;
+    }
     border-left: 0px!important;
     &.active {
       background: #6e8ba9;

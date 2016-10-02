@@ -10,48 +10,63 @@
         <a ui-sref="app.hale.dashboard">
           <i class="fa fa-dashboard"></i>
           <span ng-show="!$ctrl.minimized">
-            Dashboard
+            <div ng-show="!$ctrl.minimized">
+              <span>
+                Dashboard
+              </span>
+            </div>
           </span>
         </a>
       </li>
       <li ui-sref-active="active">
         <a ui-sref="app.hale.nodes">
           <i class="fa fa-server"></i>
-          <span ng-show="!$ctrl.minimized">
-            Nodes
-          </span>
+          <div ng-show="!$ctrl.minimized">
+            <span>
+              Nodes
+            </span>
+          </div>
         </a>
       </li>
       <li ui-sref-active="active">
         <a ui-sref="app.hale.settings">
           <i class="fa fa-wrench"></i>
-          <span ng-show="!$ctrl.minimized">
-            Settings
-          </span>
+          <div ng-show="!$ctrl.minimized">
+            <span>
+              Settings
+            </span>
+          </div>
         </a>
         <ul class="hg-submenu">
           <li ui-sref-active="active">
             <a ui-sref="app.hale.settings.profile">
               <i class="fa fa-user"></i>
-              <span ng-show="!$ctrl.minimized">
-                Profile Settings
-              </span>
+              <div ng-show="!$ctrl.minimized">
+                <span>
+                  Profile Settings
+                </span>
+              </div>
             </a>
           </li>
           <li ui-sref-active="active">
             <a ui-sref="app.hale.settings.emails">
               <i class="fa fa-envelope"></i>
-              <span ng-show="!$ctrl.minimized">
-                Email Settings
-              </span>
+              <div ng-show="!$ctrl.minimized">
+                <span>
+                  Email Settings
+                </span>
+              </div>
             </a>
           </li>
           <li ui-sref-active="active">
             <a ui-sref="app.hale.settings.phone">
               <i class="fa fa-phone"></i>
-              <span ng-show="!$ctrl.minimized">
-                Phone Settings
-              </span>
+              <div ng-show="!$ctrl.minimized">
+                <span>
+                  Phone Settings
+                </span>
+              </div>
+
             </a>
           </li>
         </ul>
