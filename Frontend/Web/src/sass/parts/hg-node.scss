@@ -1,0 +1,25 @@
+.hg-node {
+  .hg-node-header {
+  }
+  .hg-node-details {
+    .row {
+      margin-top:10px;
+    }
+  }
+}
+
+.hg-sections {
+  margin-top: 10px;
+  padding: 10px;
+  background: #fafafa;
+  .hg-section {
+    border-radius: 2px;
+    &:not(:last-of-type) {
+      margin: 0px 0px 10px 0px;
+      padding: 0px 0px 10px 0px;
+      border-bottom: 1px solid #e0e0e0;
+
+    }
+  }
+
+}
