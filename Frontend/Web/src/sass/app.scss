@@ -1,6 +1,6 @@
 @import "variables.scss";
-@import "components/*";
-@import "parts/*";
+@import "components/components.scss";
+@import "parts/parts.scss";
 
 html {
   height: 100%;
@@ -9,6 +9,7 @@ html {
 body {
   height: 100%;
   background: #ececea;
+  font-family: 'Roboto';
   overflow: hidden;
 }
 

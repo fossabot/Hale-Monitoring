@@ -1,12 +1,8 @@
-(function() {
-  'use strict';
-
-  angular.module('hale.gui')
+angular.module('hale.gui')
     .controller('NavbarController', function() {
       var vm = this;
 
-      vm.toggleSize = function() {
+      vm.toggleSize = () => {
         vm.minimized = !vm.minimized;
       }
     });
-})();
