@@ -286,13 +286,13 @@
       <DependentUpon>201608151708331_AddAgentConfigSet.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Agent\Config.cs" />
+    <Compile Include="Models\Messages\LoginAttempt.cs" />
     <Compile Include="Models\Modules\CheckRecord.cs" />
     <Compile Include="Models\Modules\InfoRecord.cs" />
     <Compile Include="Models\Modules\Module.cs" />
     <Compile Include="Models\Modules\Function.cs" />
     <Compile Include="Models\Modules\Result.cs" />
     <Compile Include="Models\Users\CreateAccountRequest.cs" />
-    <Compile Include="Models\Shared\LoginResponse.cs" />
     <Compile Include="Handlers\ModuleHandler.cs" />
     <Compile Include="Handlers\Scheduler.CreateDistPackages.cs" />
     <Compile Include="Handlers\Scheduler.cs" />
@@ -305,7 +305,6 @@
     <Compile Include="Models\Nodes\HostDetail.cs" />
     <Compile Include="Models\Nodes\HostResponseWrapper.cs" />
     <Compile Include="Models\Nodes\Status.cs" />
-    <Compile Include="Models\Users\Authentication.cs" />
     <Compile Include="Models\Users\Account.cs" />
     <Compile Include="Models\Users\AccountDetail.cs" />
     <Compile Include="Models\Shared\Metadata.cs" />
