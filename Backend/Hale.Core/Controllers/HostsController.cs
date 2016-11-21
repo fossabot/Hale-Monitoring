@@ -9,24 +9,21 @@ using System.Linq;
 
 namespace Hale.Core.Controllers
 {
-    /// <summary>
-    /// API for handling Host entries and related data.
-    /// </summary>
     [RoutePrefix("api/v1/hosts")]
     public class HostsController : ApiController
     {
+        #region Constructors and declarations
         private readonly Logger _log;
-        private readonly HaleDBContext _db = new HaleDBContext();
+        private readonly HaleDBContext _db;
 
-        internal HostsController()
+        internal HostsController() : this(new HaleDBContext()) { }
+        internal HostsController(HaleDBContext context)
         {
+            _db = context;
             _log = LogManager.GetCurrentClassLogger();
         }
+        #endregion
 
-        /// <summary>
-        /// List host entities. (Auth)
-        /// </summary>
-        /// <returns></returns>
         [Authorize]
         [Route()]
         [ResponseType(typeof(List<Host>))]
@@ -37,11 +34,6 @@ namespace Hale.Core.Controllers
             return Ok(hostList);
         }
 
-        /// <summary>
-        /// Get information on a specific host. (Auth)
-        /// </summary>
-        /// <param name="id">Host ID of the host in question.</param>
-        /// <returns></returns>
         [Authorize]
         [Route("{id}")]
         [ResponseType(typeof (Host))]
