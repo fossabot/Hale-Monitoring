@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Hale.Core.Models.Messages
 {
+    /// <summary>
+    /// TODO: Add text here
+    /// </summary>
     public class LoginAttempt
     {
         /// <summary>

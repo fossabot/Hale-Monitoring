@@ -3,8 +3,12 @@ namespace Hale.Core.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
+    /// <summary>
+    /// TODO: Add text here
+    /// </summary>
     public partial class AddInfoRecord : DbMigration
     {
+        /// <inheritdoc />
         public override void Up()
         {
             CreateTable(
@@ -21,7 +25,8 @@ namespace Hale.Core.Migrations
                 .Index(t => t.Result_Id);
             
         }
-        
+
+        /// <inheritdoc />
         public override void Down()
         {
             DropForeignKey("Modules.InfoRecords", "Result_Id", "Modules.Results");

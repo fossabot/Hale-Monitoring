@@ -3,8 +3,12 @@ namespace Hale.Core.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
+    /// <summary>
+    /// TODO: Add text here
+    /// </summary>
     public partial class AddAgentConfigSet : DbMigration
     {
+        /// <inheritdoc />
         public override void Up()
         {
             CreateTable(
@@ -85,7 +89,8 @@ namespace Hale.Core.Migrations
                 .Index(t => t.AgentConfigSet_Id);
             
         }
-        
+
+        /// <inheritdoc />
         public override void Down()
         {
             DropForeignKey("Modules.AgentConfigSetTasks", "AgentConfigSet_Id", "Modules.AgentConfigSets");

@@ -23,35 +23,33 @@ namespace Hale.Agent.Communication
     {
         ILogger _log = LogManager.GetLogger("NemesisController");
 
-        private NemesisConfig config;
-        private readonly XMLFileKeyStore keystore;
-        private readonly NemesisNode node;
-        private readonly NemesisHeartbeatWorker heartbeatworker;
+        private readonly NemesisNode _node;
+        private readonly NemesisHeartbeatWorker _heartbeatworker;
 
         public NemesisController()
         {
             var env = ServiceProvider.GetService<EnvironmentConfig>();
 
             _log.Debug("Loading nemesis config file \"{0}\"...", env.NemesisConfigFile);
-            config = NemesisConfig.LoadFromFile(env.NemesisConfigFile);
+            var config = NemesisConfig.LoadFromFile(env.NemesisConfigFile);
 
             _log.Debug("Host: {0}, Send port: {1}, Receive port: {4}, Encryption: {2}, GUID: {3}", 
                 config.Hostname, config.SendPort, config.UseEncryption, config.Id, config.ReceivePort);
 
-            node = new NemesisNode(config.Id, new int[] { config.ReceivePort, config.SendPort }, config.Hostname, false);
+            _node = new NemesisNode(config.Id, new int[] { config.ReceivePort, config.SendPort }, config.Hostname, false);
             if (config.UseEncryption && string.Empty != env.NemesisKeyFile) {
                 _log.Debug("Loading encryption keys from \"{0}\"...", env.NemesisKeyFile);
-                keystore = new XMLFileKeyStore(env.NemesisKeyFile);
+                var keystore = new XMLFileKeyStore(env.NemesisKeyFile);
 
                 var coreKeystore = new XMLFileKeyStore(env.NemesisKeyFile.Replace("agent", "core"));
-                node.HubPublicKey = coreKeystore.PublicKey;
+                _node.HubPublicKey = coreKeystore.PublicKey;
 
-                node.EnableEncryption(keystore);
+                _node.EnableEncryption(keystore);
 
                 _log.Debug("Encryption is enabled.");
             }
 
-            node.Connect();
+            _node.Connect();
 
             //_log.Debug("Starting hearbeat worker thread...");
             //heartbeatworker = new NemesisHeartbeatWorker(config, node);
@@ -62,7 +60,7 @@ namespace Hale.Agent.Communication
 
         public void Stop()
         {
-            heartbeatworker.Stop();
+            _heartbeatworker.Stop();
         }
 
         public string RetrieveString(string command, params object[] parameters)
@@ -77,7 +75,7 @@ namespace Hale.Agent.Communication
 
             try
             {
-                var respTask = node.SendCommand(JsonRpcDefaults.Encoding.GetString(req.Serialize()));
+                var respTask = _node.SendCommand(JsonRpcDefaults.Encoding.GetString(req.Serialize()));
                 var response = JsonRpcResponse.FromJsonString(respTask.Result); // Blocking!
                 if (response.Error == null)
                 {
@@ -115,7 +113,7 @@ namespace Hale.Agent.Communication
             {
                 _log.Info($"Uploading {records.Count} result records to Core...");
                 var serialized = JsonRpcDefaults.Encoding.GetString(req.Serialize());
-                var respTask = node.SendCommand(serialized);
+                var respTask = _node.SendCommand(serialized);
                 var response = JsonRpcResponse.FromJsonString(respTask.Result); // Blocking!
                 if (response.Error != null)
                 {

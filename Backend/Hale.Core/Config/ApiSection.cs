@@ -55,6 +55,9 @@ namespace Hale.Core.Config
             }
         }
 
+        /// <summary>
+        /// TODO: Add text here.
+        /// </summary>
         [ConfigurationProperty("frontendRoot")]
         public string FrontendRoot
         {

@@ -8,8 +8,14 @@ using System.Threading.Tasks;
 
 namespace Hale.Core.Contexts
 {
+    /// <summary>
+    /// TODO: Add text here
+    /// </summary>
     public class HaleDBConvention: Convention
     {
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
         public HaleDBConvention()
         {
             IPluralizationService ps =

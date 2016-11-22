@@ -3,10 +3,12 @@ namespace Hale.Core.Migrations
     using System;
     using System.Data.Entity.Migrations;
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    /// <summary>
+    /// TODO: Add text here
+    /// </summary>
     public partial class UserFix : DbMigration
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
+        /// <inheritdoc />
         public override void Up()
         {
             AddColumn("dbo.Users", "Password", c => c.String());
@@ -15,7 +17,8 @@ namespace Hale.Core.Migrations
             DropColumn("dbo.Users", "Changed");
             DropColumn("dbo.Users", "ChangedBy");
         }
-        
+
+        /// <inheritdoc />
         public override void Down()
         {
             AddColumn("dbo.Users", "ChangedBy", c => c.Int(nullable: false));

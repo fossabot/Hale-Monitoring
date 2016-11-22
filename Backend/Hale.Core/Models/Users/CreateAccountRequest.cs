@@ -6,22 +6,24 @@ using System.Threading.Tasks;
 
 namespace Hale.Core.Models.Users
 {
+    /// <summary>
+    /// TODO: Add text here
+    /// </summary>
     public class CreateAccountRequest
     {
-        public string UserName
-        {
-            get;
-            set;
-        }
-        public string Password
-        {
-            get;
-            set;
-        }
-        public string FullName
-        {
-            get;
-            set;
-        }
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
+        public string UserName { get; set; }
+
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
+        public string Password { get; set; }
+        
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
+        public string FullName { get; set; }
     }
 }

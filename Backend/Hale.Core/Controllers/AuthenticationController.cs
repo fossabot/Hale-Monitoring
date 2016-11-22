@@ -14,6 +14,9 @@ using System.Linq;
 
 namespace Hale.Core.Controllers
 {
+    /// <summary>
+    /// TODO: Add text here
+    /// </summary>
     [RoutePrefix("api/v1/authentication")]
     public class AuthenticationController : ApiController
     {
@@ -24,6 +27,10 @@ namespace Hale.Core.Controllers
 
         internal AuthenticationController() : this(new HaleDBContext()) { }
 
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
+        /// <param name="context"></param>
         public AuthenticationController(HaleDBContext context)
         {
             _log = LogManager.GetCurrentClassLogger();
@@ -71,6 +78,10 @@ namespace Hale.Core.Controllers
             }
         }
 
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
+        /// <returns></returns>
         [Route()]
         [HttpGet]
         [Authorize(Roles = "User")]
@@ -79,6 +90,10 @@ namespace Hale.Core.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
+        /// <returns></returns>
         [Route()]
         [HttpDelete]
         [Authorize]

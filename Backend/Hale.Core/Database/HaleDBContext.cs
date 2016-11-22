@@ -1,3 +1,5 @@
+using Hale.Core.Models.Agent;
+
 namespace Hale.Core.Contexts
 {
     using Lib.Config;
@@ -8,6 +10,9 @@ namespace Hale.Core.Contexts
     using System.Data.Entity;
     using System.Linq;
 
+    /// <summary>
+    /// TODO: Add text here.
+    /// </summary>
     public class HaleDBContext : DbContext
     {
 
@@ -34,22 +39,50 @@ namespace Hale.Core.Contexts
         #endregion
         #region Nodes
 
+        /// <summary>
+        /// TODO: Add text here.
+        /// </summary>
         public virtual DbSet<Host> Hosts { get; set; }
 
+        /// <summary>
+        /// TODO: Add text here.
+        /// </summary>
         public virtual DbSet<HostDetail> HostDetails { get; set; }
 
         #endregion
         #region Modules
 
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
         public virtual DbSet<Module> Modules { get; set; }
+
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
         public virtual DbSet<Function> Functions { get; set; }
+        
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
         public virtual DbSet<Result> Results { get; set; }
+        
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
         public virtual DbSet<InfoRecord> InfoRecords { get; set; }
+        
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
         public virtual DbSet<CheckRecord> CheckRecords { get; set; }
 
         #endregion
         #region AgentConfig
 
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
         public virtual DbSet<AgentConfigSet> AgentConfigs { get; set; }
 
         #endregion

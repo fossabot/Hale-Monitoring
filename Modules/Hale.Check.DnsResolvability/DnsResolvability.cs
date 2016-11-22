@@ -56,7 +56,7 @@ namespace Hale.Checks
                         failed++;
                     result.RanSuccessfully = true;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     failed++;
                 }

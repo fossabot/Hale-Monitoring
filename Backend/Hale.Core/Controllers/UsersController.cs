@@ -16,12 +16,15 @@ using System.Data.Entity;
 namespace Hale.Core.Controllers
 {
     
+    /// <summary>
+    /// TODO: Add text here
+    /// </summary>
     [RoutePrefix("api/v1/users")]
     public class UsersController : ApiController
     {
         #region Constructors and declarations
         private readonly Logger _log;
-        public readonly HaleDBContext db;
+        private readonly HaleDBContext db;
 
         internal UsersController() : this(new HaleDBContext()) { }
         internal UsersController(HaleDBContext context)
@@ -31,6 +34,11 @@ namespace Hale.Core.Controllers
         }
         #endregion
         
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize, HttpGet, Route("{id}")]
         public IHttpActionResult Get(int id)
         {
@@ -42,12 +50,21 @@ namespace Hale.Core.Controllers
             return Ok(user);
         }
 
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
+        /// <returns></returns>
         [Authorize, HttpGet, Route("")]
         public IHttpActionResult List()
         {
             return Ok(db.Accounts.ToList());
         }
 
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
+        /// <param name="userRequest"></param>
+        /// <returns></returns>
         [Authorize, HttpPost, Route("")]
         public IHttpActionResult Create([FromBody] CreateAccountRequest userRequest)
         {
@@ -69,6 +86,12 @@ namespace Hale.Core.Controllers
             }
         }
 
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [Authorize, HttpPatch, Route("{id}")]
         public IHttpActionResult Update(int id, [FromBody]Account user)
         {

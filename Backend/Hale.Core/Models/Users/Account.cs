@@ -44,17 +44,32 @@ namespace Hale.Core.Models.Users
             set;
         }
 
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
         [IgnoreDataMember]
         public string Password { get; set; }
 
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
         [IgnoreDataMember]
         public string OldPassword { get; set; }
 
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
         [IgnoreDataMember]
         public DateTime? PasswordChanged { get; set; }
 
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
         public bool Activated { get; set; }
 
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
         public bool Enabled { get; set; }
 
         /// <summary>

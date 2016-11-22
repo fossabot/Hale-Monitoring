@@ -2,11 +2,13 @@ namespace Hale.Core.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
-
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    
+    /// <summary>
+    /// TODO: Add text here
+    /// </summary>
     public partial class InitialCreate : DbMigration
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
+        /// <inheritdoc />
         public override void Up()
         {
             CreateTable(
@@ -37,7 +39,8 @@ namespace Hale.Core.Migrations
                 .Index(t => t.UserId);
             
         }
-        
+
+        /// <inheritdoc />
         public override void Down()
         {
             DropForeignKey("dbo.UserDetails", "UserId", "dbo.Users");

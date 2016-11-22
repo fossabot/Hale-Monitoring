@@ -9,6 +9,9 @@ using System.Linq;
 
 namespace Hale.Core.Controllers
 {
+    /// <summary>
+    /// TODO: Add text here
+    /// </summary>
     [RoutePrefix("api/v1/hosts")]
     public class HostsController : ApiController
     {
@@ -24,6 +27,10 @@ namespace Hale.Core.Controllers
         }
         #endregion
 
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         [Route()]
         [ResponseType(typeof(List<Host>))]
@@ -34,6 +41,11 @@ namespace Hale.Core.Controllers
             return Ok(hostList);
         }
 
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize]
         [Route("{id}")]
         [ResponseType(typeof (Host))]

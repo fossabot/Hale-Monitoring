@@ -3,8 +3,12 @@ namespace Hale.Core.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
+    /// <summary>
+    /// Add text here
+    /// </summary>
     public partial class PluralSchemasAddModules : DbMigration
     {
+        /// <inheritdoc />
         public override void Up()
         {
             MoveTable(name: "User.AccountDetails", newSchema: "Users");
@@ -59,7 +63,8 @@ namespace Hale.Core.Migrations
                 .Index(t => t.Id);
             
         }
-        
+
+        /// <inheritdoc />
         public override void Down()
         {
             DropForeignKey("Checks.Checks", "Id", "Modules.Functions");
