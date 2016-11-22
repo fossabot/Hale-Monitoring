@@ -1,12 +1,12 @@
-﻿using Hale.Lib.Modules;
-using Hale.Lib.Modules.Alerts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Hale.Lib.Modules;
+using Hale.Lib.Modules.Alerts;
 
 namespace Hale.Alerts
 {
-    public class SimpleHaleAlert : Module, IAlertProvider
+    public class SimpleHaleAlert : Hale.Lib.Modules.Module, IAlertProvider
     {
         public new string Name { get; } = "Simple Alert";
 

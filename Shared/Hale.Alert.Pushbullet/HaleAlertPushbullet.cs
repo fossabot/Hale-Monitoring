@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Hale.Lib.Modules;
 using Hale.Lib.Modules.Alerts;
 using Hale.Alert.Pushbullet;
+using Module = Hale.Lib.Modules.Module;
 
 namespace Hale.Alerts
 {

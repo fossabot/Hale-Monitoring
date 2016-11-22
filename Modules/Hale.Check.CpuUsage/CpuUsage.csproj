@@ -65,7 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Hale.Lib\Hale.Lib.csproj">
-      <Project>{c023cfa8-753b-42b8-8d52-b71331991e34}</Project>
+      <Project>{cf1e1001-e40f-40a8-b1e3-29feb471b2bd}</Project>
       <Name>Hale.Lib</Name>
     </ProjectReference>
   </ItemGroup>

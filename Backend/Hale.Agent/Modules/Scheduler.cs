@@ -1,21 +1,19 @@
-﻿using Hale.Agent.Config;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Timers = System.Timers;
 using Hale.Agent.Communication;
-using Hale.Lib.Modules;
-using Hale.Lib.ModuleLoader;
-using Hale.Lib.Modules.Checks;
-using Hale.Agent.Modules;
-using Hale.Lib.Modules.Info;
-using Hale.Lib.Modules.Actions;
-using Hale.Lib.Utilities;
+using Hale.Agent.Config;
 using Hale.Lib;
 using Hale.Lib.Config;
+using Hale.Lib.ModuleLoader;
+using Hale.Lib.Modules;
+using Hale.Lib.Modules.Actions;
+using Hale.Lib.Modules.Checks;
+using Hale.Lib.Modules.Info;
+using Hale.Lib.Utilities;
 
-namespace Hale.Agent
+namespace Hale.Agent.Modules
 {
     class AgentScheduler: Scheduler
     {
