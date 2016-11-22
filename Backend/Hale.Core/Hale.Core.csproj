@@ -252,7 +252,6 @@
     <Compile Include="Config\EnvironmentConfig.cs" />
     <Compile Include="Database\HaleDBContext.cs" />
     <Compile Include="Database\HaleDBConvention.cs" />
-    <Compile Include="Controllers\MetadataController.cs" />
     <Compile Include="Config\AgentSection.cs" />
     <Compile Include="Config\ApiSection.cs" />
     <Compile Include="Config\AppConfig.cs" />
