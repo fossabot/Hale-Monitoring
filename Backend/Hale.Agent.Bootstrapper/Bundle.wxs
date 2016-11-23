@@ -17,7 +17,7 @@
 		<Chain>
       
       <PackageGroupRef Id="NetFx45Web"/>
-      <MsiPackage Id="HaleAgent" SourceFile="$(var.Hale-AgentSetup.TargetPath)"/>
+      <MsiPackage Id="HaleAgent" SourceFile="$(var.Hale.Agent.Setup.TargetPath)"/>
 		</Chain>
 	</Bundle>
 </Wix>
