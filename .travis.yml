@@ -1,7 +1,5 @@
 language: csharp
 solution: Hale-Monitoring.sln
-before_install:
-  - sudo apt-get install nunit-console
 before_script:
   - nuget restore Hale-Monitoring.sln
 script:
