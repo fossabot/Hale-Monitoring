@@ -16,8 +16,12 @@
     <Property Id='HALE_AGENT_KEYS'  />
     <Property Id='HALE_AGENT_NEMESIS_CONFIG'  />
     <Property Id='HALE_AGENT_GUID'  />
-    <Property Id='HALE_CORE_HOSTNAME' />
-    <Property Id='HALE_CORE_PORT' />
+    <Property Id='HALE_CORE_HOSTNAME' Secure='yes'  />
+    <Property Id='HALE_CORE_PORT_SEND' Value='8988' />
+    <Property Id='HALE_CORE_PORT_RECIEVE' Value='8987' />
+
+    <WixVariable Id='WixUIBannerBmp' Value='WixUIBannerBmp.bmp' />
+    <WixVariable Id='WixUIDialogBmp' Value='WixUIDialogBmp.bmp' />
 
 
     <Binary src='$(var.Hale.Agent.BrandingAction.TargetDir)Hale.Agent.BrandingAction.CA.dll' Id='Hale.Agent.BrandingAction.CA.dll' />
@@ -47,6 +51,8 @@
       <Custom Action="AgentBranding" Before="InstallFinalize" />
     </InstallExecuteSequence>
 
+    <UIRef Id="WixUI_Hale" />
+    
     <InstallUISequence />
     
 	</Product>
