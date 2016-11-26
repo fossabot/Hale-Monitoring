@@ -61,7 +61,7 @@ namespace Hale.Core.Controllers
 
         [Route("")]
         [HttpPost]
-        private IHttpActionResult Login([FromBody] LoginAttempt attempt)
+        public IHttpActionResult Login([FromBody] LoginAttempt attempt)
         {
             var user = _db.Accounts.First(x => x.UserName == attempt.Username);
             if (user == null)
