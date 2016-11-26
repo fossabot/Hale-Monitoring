@@ -75,9 +75,9 @@
       <HintPath>..\..\packages\JsonApiNet.2.0.1.0\lib\net45\JsonApiNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="libnemesis, Version=4.0.16331.232, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="libnemesis, Version=4.0.16331.224, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\dev\.net\Hale\packages\libnemesis.4.0.16331.224\lib\net45\libnemesis.dll</HintPath>
+      <HintPath>..\..\packages\libnemesis.4.0.16331.224\lib\net45\libnemesis.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
