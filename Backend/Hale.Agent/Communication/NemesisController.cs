@@ -80,7 +80,7 @@ namespace Hale.Agent.Communication
                 var serialized = JsonRpcDefaults.Encoding.GetString(req.Serialize());
                 var respTask = _node.SendCommand(serialized);
                 var response = JsonRpcResponse.FromJsonString(respTask.Result); // Blocking!
-                if (response.Error == null)
+                if (response != null && response.Error == null)
                 {
                     var result = (string)response.Result;
                     if(result != null)
@@ -89,7 +89,15 @@ namespace Hale.Agent.Communication
                 }
                 else
                 {
-                    _log.Error(response.Error.Data, $"Got JSONRPC Error: {response.Error.Data.GetType()}, Message: {response.Error.Message}");
+                    if(response == null)
+                    {
+                        _log.Error("Got empty response!");
+                    }
+                    else
+                    {
+                        _log.Error(response.Error?.Data, $"Got JSONRPC Error: {response.Error.Code}, Message: {response.Error.Message}");
+                    }
+                    
                     return string.Empty;
                 }
             }
@@ -120,7 +128,7 @@ namespace Hale.Agent.Communication
                 var response = JsonRpcResponse.FromJsonString(respTask.Result); // Blocking!
                 if (response.Error != null)
                 {
-                    _log.Warn($"Error uploading records: {response.Error.Message} (0x{response.Error.Code.ToString("x")})");
+                    _log.Warn($"Error uploading records: {response.Error.Message} ({response.Error.Code})");
                     return new Guid[0];
                 }
                 else

@@ -155,7 +155,8 @@ namespace Hale.Core.Handlers
                     {
                         Error = new JsonRpcError()
                         {
-                            Code = JsonRpcErrorCode.ServerInvalidMethodParameters
+                            Code = JsonRpcErrorCode.ServerInvalidMethodParameters,
+                            Message = "Unknown GUID"
                         }
                     };
 
@@ -410,7 +411,8 @@ namespace Hale.Core.Handlers
                 {
                     Error = new JsonRpcError()
                     {
-                        Code = JsonRpcErrorCode.ServerInvalidMethodParameters
+                        Code = JsonRpcErrorCode.ServerInvalidMethodParameters,
+                        Message = "Unknown GUID"
                     }
                 };
             Host host = _db.Hosts.Find(_hostGuidsToIds[nodeId]);
