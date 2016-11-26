@@ -24,6 +24,23 @@ id: <GUID>
 heartBeatInterval: 00:02:00
 ]]>
     </Property>
+    <Property Id='HALE_AGENT_CONFIG'>
+      <![CDATA[
+tasks:
+  uploadResults:
+    enabled: true
+    interval: 0:10:00
+    startup: true
+  persistResults:
+    enabled: true
+    interval: 0:05:00
+    startup: true
+  sendHeartbeat:
+    enabled: true
+    interval: 0:01:00
+    startup: true
+]]>
+    </Property>
     <Property Id='HALE_AGENT_GUID' Secure='yes' />
     <Property Id='HALE_CORE_HOSTNAME' Secure='yes'  />
     <Property Id='HALE_CORE_PORT_SEND' Value='8988' />

@@ -52,7 +52,8 @@ namespace AgentBrandingAction
                 session.Log("Writing config.yaml...");
                 using (var sw = File.CreateText(Path.Combine(basePath, "config.yaml")))
                 {
-                    sw.Write("modules:");
+                    session.Log(session["HALE_AGENT_CONFIG"]);
+                    sw.Write(session["HALE_AGENT_CONFIG"]);
                 }
 
             }
