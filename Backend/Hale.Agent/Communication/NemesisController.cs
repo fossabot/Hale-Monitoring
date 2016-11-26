@@ -38,10 +38,13 @@ namespace Hale.Agent.Communication
 
             _node = new NemesisNode(config.Id, new int[] { config.ReceivePort, config.SendPort }, config.Hostname, false);
             if (config.UseEncryption && string.Empty != env.NemesisKeyFile) {
-                _log.Debug("Loading encryption keys from \"{0}\"...", env.NemesisKeyFile);
-                var keystore = new XMLFileKeyStore(env.NemesisKeyFile);
 
-                var coreKeystore = new XMLFileKeyStore(env.NemesisKeyFile.Replace("agent", "core"));
+                var ke = new RSA();
+
+                _log.Debug("Loading encryption keys from \"{0}\"...", env.NemesisKeyFile);
+                var keystore = new XMLFileKeyStore(env.NemesisKeyFile, ke);
+
+                var coreKeystore = new XMLFileKeyStore(env.NemesisKeyFile.Replace("agent", "core"), ke);
                 _node.HubPublicKey = coreKeystore.PublicKey;
 
                 _node.EnableEncryption(keystore);
@@ -75,7 +78,8 @@ namespace Hale.Agent.Communication
 
             try
             {
-                var respTask = _node.SendCommand(JsonRpcDefaults.Encoding.GetString(req.Serialize()));
+                var serialized = JsonRpcDefaults.Encoding.GetString(req.Serialize());
+                var respTask = _node.SendCommand(serialized);
                 var response = JsonRpcResponse.FromJsonString(respTask.Result); // Blocking!
                 if (response.Error == null)
                 {

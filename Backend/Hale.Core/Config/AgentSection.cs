@@ -125,6 +125,29 @@ namespace Hale.Core.Config
         /// <summary>
         /// 
         /// </summary>
+        [ConfigurationProperty("useencryption")]
+        public bool UseEncryption
+        {
+            get
+            {
+                try
+                {
+                    return bool.Parse(this["useencryption"] as string);
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            set
+            {
+                this["useencryption"] = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="_config"></param>
         public static void ValidateSection(Configuration _config)
         {
@@ -135,7 +158,8 @@ namespace Hale.Core.Config
                     SendPort = 8988,
                     ReceivePort = 8987,
                     Ip = IPAddress.Any,
-                    Hostname = "localhost"
+                    Hostname = "localhost",
+                    UseEncryption = false
                 };
                 _config.Sections.Add("agent", section);
             }

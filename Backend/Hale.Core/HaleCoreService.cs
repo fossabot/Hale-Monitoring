@@ -100,7 +100,7 @@ namespace Hale.Core
             _log.Info("Creating Agent Handler instance...");
             
             _agentHandler = new AgentHandler();
-            _agentHandler.GenerateRsaKeys();
+            
             ServiceProvider.SetService(_agentHandler);
         }
 

@@ -40,7 +40,10 @@ namespace Hale.Core.Handlers
             var agentHandler = ServiceProvider.GetServiceCritical<AgentHandler>();
             var agentConfig = ServiceProvider.GetServiceCritical<Configuration>().Agent();
 
-            _publicKey = agentHandler.PublicKey;
+            if (agentConfig.UseEncryption)
+            {
+                _publicKey = agentHandler.PublicKey;
+            }
             _distPath = env.AgentDistPath;
             _coreSendPort = (ushort)agentConfig.SendPort;
             _coreReceivePort = (ushort)agentConfig.ReceivePort;
@@ -307,7 +310,7 @@ namespace Hale.Core.Handlers
         {
             
             _log.Debug("Setting core key...");
-            var xmlKeyCore = RSA.ExportToXml(_publicKey.Key, false);
+            var xmlKeyCore = RSA.Default.ExportToXml(_publicKey.Key, false);
             MsiError me = _updateProperty(hMsi, "HALE_CORE_KEY", xmlKeyCore);
 
             if (me != MsiError.Success)
@@ -318,7 +321,7 @@ namespace Hale.Core.Handlers
         {
             
             _log.Debug("Setting agent keys...");
-            var xmlKeyAgent = RSA.ExportToXml(host.RsaKey);
+            var xmlKeyAgent = RSA.Default.ExportToXml(host.RsaKey);
             MsiError me = _updateProperty(hMsi, "HALE_AGENT_KEYS", xmlKeyAgent);
 
             if (me != MsiError.Success)

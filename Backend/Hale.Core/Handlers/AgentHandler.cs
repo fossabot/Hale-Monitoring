@@ -41,39 +41,50 @@ namespace Hale.Core.Handlers
             var agentConfig = ServiceProvider.GetServiceCritical<Configuration>().Agent();
 
             string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-            string keyRepoPath = Path.Combine(appDataPath, "Hale", "Core");
-
-            _agentConfig = agentConfig;
-            _hostGuidsToIds = new Dictionary<Guid, int>();
-            
-            _coreKeyFilePath = Path.Combine(keyRepoPath, "core-keys.xml");
-            _agentKeyStorePath = Path.Combine(keyRepoPath, "HostKeys");
 
             _log = LogManager.GetLogger("Hale.Core.AgentHandler");
 
-            LoadXmlFileKeyStore();
-            LoadNemesisClient();
+            _agentConfig = agentConfig;
+            _hostGuidsToIds = new Dictionary<Guid, int>();
+
+            if (agentConfig.UseEncryption)
+            {
+                string keyRepoPath = Path.Combine(appDataPath, "Hale", "Core");
+
+                _coreKeyFilePath = Path.Combine(keyRepoPath, "core-keys.xml");
+                _agentKeyStorePath = Path.Combine(keyRepoPath, "HostKeys");
+
+                LoadXmlFileKeyStore();
+                GenerateRsaKeys();
+            }
+
+            LoadNemesisClient(agentConfig.UseEncryption);
         }
 
         private void LoadXmlFileKeyStore()
         {
 
-            _xmlFileKeyStore = new XMLFileKeyStore(_coreKeyFilePath, true);
+            _xmlFileKeyStore = new XMLFileKeyStore(_coreKeyFilePath, new RSA(), true);
 
             if (!_xmlFileKeyStore.Available)
                 _xmlFileKeyStore.Save();
 
         }
 
-        private void LoadNemesisClient()
+        private void LoadNemesisClient(bool useEncryption)
         {
             _nemesis = new NemesisHub(new IPEndPoint(_agentConfig.Ip, _agentConfig.SendPort),
                 new IPEndPoint(_agentConfig.Ip, _agentConfig.ReceivePort));
-            _nemesis.EnableEncryption(_xmlFileKeyStore);
+
+            if (useEncryption)
+            {
+                _nemesis.EnableEncryption(_xmlFileKeyStore);
+            }
 
             LoadKeys();
 
             _nemesis.CommandReceived += _nemesis_CommandReceived;
+            
         }
 
         private void _nemesis_CommandReceived(object sender, CommandReceivedEventArgs e)
@@ -90,6 +101,7 @@ namespace Hale.Core.Handlers
             }
             catch(Exception x)
             {
+                _log.Warn(x, $"Got invalid RPC command from Node! Error: {x.Message}");
                 response = new JsonRpcResponse()
                 {
                     Error = new JsonRpcError()
@@ -100,8 +112,8 @@ namespace Hale.Core.Handlers
                     }
                 };
             }
-
-            e.ResultSource.SetResult(JsonRpcDefaults.Encoding.GetString(response.Serialize()));
+            var serialized = JsonRpcDefaults.Encoding.GetString(response.Serialize());
+            e.ResultSource.SetResult(serialized);
         }
 
         private JsonRpcResponse ExecuteRequest(CommandReceivedEventArgs e, JsonRpcRequest request)
@@ -424,7 +436,7 @@ namespace Hale.Core.Handlers
         {
             // Hack: Stores agent keys as XML as well as in database for easier development @fixme @security -NM
             // Todo: Write a proper keystore with database as sole backend
-            var xfks = new XMLFileKeyStore(Path.Combine(hostKeysPath, host.Guid + ".xml"), true);
+            var xfks = new XMLFileKeyStore(Path.Combine(hostKeysPath, host.Guid + ".xml"), RSA.Default, true);
             if (!xfks.Available) // Only write to disk and database if new keys has been generated. -NM
             {
                 xfks.Save();

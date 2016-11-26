@@ -26,7 +26,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <AssemblyVersion>1.0.16228.272</AssemblyVersion>
+    <AssemblyVersion>1.0.16330.280</AssemblyVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -59,9 +59,9 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="libnemesis, Version=3.4.16226.207, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\libnemesis.3.4.16038.200\lib\net45\libnemesis.dll</HintPath>
+    <Reference Include="libnemesis, Version=4.0.16330.218, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\libnemesis.4.0.16330.218\lib\net45\libnemesis.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
