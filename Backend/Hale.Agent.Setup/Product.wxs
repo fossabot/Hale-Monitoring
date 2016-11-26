@@ -16,12 +16,12 @@
     <Property Id='HALE_AGENT_KEYS' Secure='yes'  />
     <Property Id='HALE_AGENT_NEMESIS_CONFIG'>
 <![CDATA[
-hostName: <HOSTNAME>
+hostname: <HOSTNAME>
 sendPort: <SENDPORT>
 receivePort: <RECEIVEPORT>
 useEncryption: <ENCRYPTION>
 id: <GUID>
-heartBeatInterval: 00:00:30
+heartBeatInterval: 00:02:00
 ]]>
     </Property>
     <Property Id='HALE_AGENT_GUID' Secure='yes' />

@@ -37,8 +37,11 @@ namespace AgentBrandingAction
                 {
                     var nemesisConf = session["HALE_AGENT_NEMESIS_CONFIG"];
                     nemesisConf = nemesisConf.Replace("<HOSTNAME>", session["HALE_CORE_HOSTNAME"]);
-                    nemesisConf = nemesisConf.Replace("<SENDPORT>", session["HALE_CORE_PORT_SEND"]);
-                    nemesisConf = nemesisConf.Replace("<RECEIVEPORT>", session["HALE_CORE_PORT_RECEIVE"]);
+
+                    // Swap send and recieve ports so that the CORE send is the AGENT receive -NM 2016-11-26
+                    nemesisConf = nemesisConf.Replace("<RECEIVEPORT>", session["HALE_CORE_PORT_SEND"]);
+                    nemesisConf = nemesisConf.Replace("<SENDPORT>", session["HALE_CORE_PORT_RECEIVE"]);
+
                     nemesisConf = nemesisConf.Replace("<ENCRYPTION>", session["HALE_CORE_ENCRYPTION"]);
                     nemesisConf = nemesisConf.Replace("<GUID>", string.IsNullOrEmpty(session["HALE_AGENT_GUID"]) ?
                         Guid.NewGuid().ToString() : session["HALE_AGENT_GUID"]);

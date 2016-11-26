@@ -76,6 +76,9 @@ namespace Hale.Core.Handlers
             _nemesis = new NemesisHub(new IPEndPoint(_agentConfig.Ip, _agentConfig.SendPort),
                 new IPEndPoint(_agentConfig.Ip, _agentConfig.ReceivePort));
 
+            // Allow new nodes to connect -NM 2016-11-26
+            _nemesis.AllowUnknownGuid = true;
+
             if (useEncryption)
             {
                 _nemesis.EnableEncryption(_xmlFileKeyStore);
