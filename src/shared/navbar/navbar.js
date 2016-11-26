@@ -9,7 +9,7 @@ angular.module('hale.shared')
 
 function NavbarController() {
   const vm = this;
-
+  vm.minimized = true;
   vm.toggleSize = toggleSize;
   
   function toggleSize() {
