@@ -23,7 +23,7 @@
                 <Control Type="Edit" Id="SendEdit" Width="55" Height="15" X="30" Y="142" Property="HALE_CORE_PORT_SEND" />
               
                 <Control Type="Text" Id="RecieveLabel" Width="62" Height="10" X="112" Y="128" Text="Recieve port:" />
-                <Control Type="Edit" Id="RecieveEdit" Width="55" Height="15" X="116" Y="142" Property="HALE_CORE_PORT_RECIEVE" />
+                <Control Type="Edit" Id="RecieveEdit" Width="55" Height="15" X="116" Y="142" Property="HALE_CORE_PORT_RECEIVE" />
             </Dialog>
         </UI>
     </Fragment>

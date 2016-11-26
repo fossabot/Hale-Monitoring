@@ -35,8 +35,21 @@ namespace AgentBrandingAction
                 session.Log("Writing nemesis.yaml...");
                 using (var sw = File.CreateText(Path.Combine(basePath, "nemesis.yaml")))
                 {
-                    session.Log(session["HALE_AGENT_NEMESIS_CONFIG"]);
-                    sw.Write(session["HALE_AGENT_NEMESIS_CONFIG"]);
+                    var nemesisConf = session["HALE_AGENT_NEMESIS_CONFIG"];
+                    nemesisConf = nemesisConf.Replace("<HOSTNAME>", session["HALE_CORE_HOSTNAME"]);
+                    nemesisConf = nemesisConf.Replace("<SENDPORT>", session["HALE_CORE_PORT_SEND"]);
+                    nemesisConf = nemesisConf.Replace("<RECEIVEPORT>", session["HALE_CORE_PORT_RECEIVE"]);
+                    nemesisConf = nemesisConf.Replace("<ENCRYPTION>", session["HALE_CORE_ENCRYPTION"]);
+                    nemesisConf = nemesisConf.Replace("<GUID>", string.IsNullOrEmpty(session["HALE_AGENT_GUID"]) ?
+                        Guid.NewGuid().ToString() : session["HALE_AGENT_GUID"]);
+                    session.Log(nemesisConf);
+                    sw.Write(nemesisConf);
+                }
+
+                session.Log("Writing config.yaml...");
+                using (var sw = File.CreateText(Path.Combine(basePath, "config.yaml")))
+                {
+                    sw.Write("modules:");
                 }
 
             }

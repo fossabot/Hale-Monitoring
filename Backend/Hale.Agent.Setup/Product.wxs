@@ -11,14 +11,24 @@
 
     <Icon Id='icon.ico' SourceFile='icon.ico' />
     <Property Id='ARPPRODUCTICON' Value='icon.ico' />
-    
-    <Property Id='HALE_CORE_KEY'  />
-    <Property Id='HALE_AGENT_KEYS'  />
-    <Property Id='HALE_AGENT_NEMESIS_CONFIG'  />
-    <Property Id='HALE_AGENT_GUID'  />
+
+    <Property Id='HALE_CORE_KEY' Secure='yes' />
+    <Property Id='HALE_AGENT_KEYS' Secure='yes'  />
+    <Property Id='HALE_AGENT_NEMESIS_CONFIG'>
+<![CDATA[
+hostName: <HOSTNAME>
+sendPort: <SENDPORT>
+receivePort: <RECEIVEPORT>
+useEncryption: <ENCRYPTION>
+id: <GUID>
+heartBeatInterval: 00:00:30
+]]>
+    </Property>
+    <Property Id='HALE_AGENT_GUID' Secure='yes' />
     <Property Id='HALE_CORE_HOSTNAME' Secure='yes'  />
     <Property Id='HALE_CORE_PORT_SEND' Value='8988' />
-    <Property Id='HALE_CORE_PORT_RECIEVE' Value='8987' />
+    <Property Id='HALE_CORE_PORT_RECEIVE' Value='8987' />
+    <Property Id='HALE_CORE_ENCRYPTION' Value='false' />
 
     <WixVariable Id='WixUIBannerBmp' Value='WixUIBannerBmp.bmp' />
     <WixVariable Id='WixUIDialogBmp' Value='WixUIDialogBmp.bmp' />
