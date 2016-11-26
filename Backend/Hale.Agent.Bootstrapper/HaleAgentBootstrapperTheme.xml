@@ -16,19 +16,35 @@
         <Button Name="HelpCancelButton" X="-11" Y="-11" Width="75" Height="23" TabStop="yes" FontId="0">#(loc.HelpCloseButton)</Button>
     </Page>
     <Page Name="Install">
+        <Text X="11" Y="80" Width="-11" Height="30" FontId="2" DisablePrefix="yes">#(loc.OptionsHeader)</Text>
+
+        <Text X="11" Y="121" Width="-11" Height="17" FontId="3" DisablePrefix="yes">#(loc.OptionsHostLabel)</Text>
+        <Editbox Name="HostEditbox" X="11" Y="141" Width="-91" Height="21" TabStop="yes" FontId="3" />
+
+        <Text X="11" Y="170" Width="-11" Height="17" FontId="3" DisablePrefix="yes">#(loc.OptionsPortSendLabel)</Text>
+        <Editbox Name="PortSendEditbox" X="11" Y="190" Width="80" Height="21" TabStop="yes" FontId="3"></Editbox>
+        <Text X="101" Y="170" Width="-11" Height="17" FontId="3" DisablePrefix="yes">#(loc.OptionsPortRecieveLabel)</Text>
+        <Editbox Name="PortRecieveEditbox" X="101" Y="190" Width="80" Height="21" TabStop="yes" FontId="3" />
         <!--
         <Hypertext Name="EulaHyperlink" X="11" Y="121" Width="-11" Height="51" TabStop="yes" FontId="3" HideWhenDisabled="yes">#(loc.InstallLicenseLinkText)</Hypertext>
         <Checkbox Name="EulaAcceptCheckbox" X="-11" Y="-41" Width="260" Height="17" TabStop="yes" FontId="3" HideWhenDisabled="yes">#(loc.InstallAcceptCheckbox)</Checkbox>
-        <Button Name="OptionsButton" X="-171" Y="-11" Width="75" Height="23" TabStop="yes" FontId="0" HideWhenDisabled="yes">#(loc.InstallOptionsButton)</Button>
         -->
+        <Button Name="OptionsButton" X="-171" Y="-11" Width="75" Height="23" TabStop="yes" FontId="0" HideWhenDisabled="yes">#(loc.InstallOptionsButton)</Button>
+        
         <Button Name="InstallButton" X="-91" Y="-11" Width="75" Height="23" TabStop="yes" FontId="0">#(loc.InstallInstallButton)</Button>
         <Button Name="WelcomeCancelButton" X="-11" Y="-11" Width="75" Height="23" TabStop="yes" FontId="0">#(loc.InstallCloseButton)</Button>
     </Page>
     <Page Name="Options">
         <Text X="11" Y="80" Width="-11" Height="30" FontId="2" DisablePrefix="yes">#(loc.OptionsHeader)</Text>
-        <Text X="11" Y="121" Width="-11" Height="17" FontId="3" DisablePrefix="yes">#(loc.OptionsLocationLabel)</Text>
-        <Editbox Name="FolderEditbox" X="11" Y="143" Width="-91" Height="21" TabStop="yes" FontId="3" FileSystemAutoComplete="yes" />
-        <Button Name="BrowseButton" X="-11" Y="142" Width="75" Height="23" TabStop="yes" FontId="3">#(loc.OptionsBrowseButton)</Button>
+        
+        <Text X="11" Y="121" Width="-11" Height="17" FontId="3" DisablePrefix="yes">#(loc.OptionsHostLabel)</Text>
+        <Editbox Name="HostEditbox" X="11" Y="141" Width="-91" Height="21" TabStop="yes" FontId="3" />
+        
+        <Text X="11" Y="170" Width="-11" Height="17" FontId="3" DisablePrefix="yes">#(loc.OptionsPort1Label)</Text>
+        <Editbox Name="Port1Editbox" X="11" Y="190" Width="80" Height="21" TabStop="yes" FontId="3" />
+        <Text X="101" Y="170" Width="-11" Height="17" FontId="3" DisablePrefix="yes">#(loc.OptionsPort2Label)</Text>
+        <Editbox Name="Port2Editbox" X="101" Y="190" Width="80" Height="21" TabStop="yes" FontId="3" />
+        
         <Button Name="OptionsOkButton" X="-91" Y="-11" Width="75" Height="23" TabStop="yes" FontId="0">#(loc.OptionsOkButton)</Button>
         <Button Name="OptionsCancelButton" X="-11" Y="-11" Width="75" Height="23" TabStop="yes" FontId="0">#(loc.OptionsCancelButton)</Button>
     </Page>
