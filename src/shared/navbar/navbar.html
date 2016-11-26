@@ -1,17 +1,23 @@
 <nav class="hg-navbar" ng-class="{'minimized': $ctrl.minimized}">
     <ul class="hg-navbar-nav">
       <li>
-        <a ng-click="$ctrl.toggleSize()">
+        <a ng-click="$ctrl.toggleSize()" title="Toggle sidebar">
           <i class="fa fa-bars"></i>
         </a>
       </li>
       <li ui-sref-active="active">
-        <a ui-sref="app.hale.nodes">
+        <a ui-sref="app.hale.nodes" title="Nodes">
           <i class="fa fa-server"></i>
           <div ng-show="!$ctrl.minimized">
-            <span>
-              Nodes
-            </span>
+            Nodes
+          </div>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.logout" title="Logout">
+          <i class="fa fa-sign-out"></i>
+          <div ng-show="!$ctrl.minimized">
+            Logout
           </div>
         </a>
       </li>

@@ -17,6 +17,11 @@ function AppRoutes($urlRouterProvider, $stateProvider) {
         }
       }
     })
+    .state('app.logout', {
+      onEnter: function(Auth) {
+        Auth.logout();
+      }
+    })
     .state('app.hale', {
       abstract: true,
       resolve: {
