@@ -1,0 +1,16 @@
+.hg-node {
+  height: 100%;
+}
+.hg-sections {
+  height: calc(100% - 40px);
+  overflow-y:auto;
+  overflow-x: hidden;
+}
+
+.hg-section {
+  margin-bottom:20px;
+}
+
+.col-sm-4 {
+  margin-top: 10px;
+}

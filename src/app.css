@@ -1,0 +1,351 @@
+/*html {
+  height: 100%;
+  width: 100%;
+}
+
+.clickable {
+  cursor: pointer
+}
+
+.navbar {
+  margin-bottom: 0px!important;
+}
+
+.caret-up {
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform:rotate(180deg);
+}
+.caret-inactive {
+  color: #aaa;
+}
+.table-sortable-header {
+  cursor: pointer;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  background: #f7f7f7;
+}
+.hg-submenu {
+  background: #00ace6;
+  padding-bottom: 5px;
+}
+.hg-submenu-nav {
+  padding: 10px;
+  padding-left:15px;
+  padding-bottom: 10px;
+  margin: 0px;
+}
+.hg-submenu-nav>li {
+  display: inline-block;
+  padding-top: 10px;
+  padding-right: 10px;
+  position:relative;
+  text-align: right;
+  cursor: pointer;
+}
+.hg-submenu-nav>li.active::after {
+  content: " ";
+  border-bottom: 10px solid #f7f7f7;
+  border-left:10px solid transparent;
+  border-right:10px solid transparent;
+  margin-left: -15px;
+  position: absolute;
+  left:50%;
+  bottom:-15px;
+}
+.hg-submenu-nav>li>a {
+  color: #fff;
+}
+
+
+
+#wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.hg-transparent {
+  color: #eee!important;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.1);;
+  outline: none;
+  border-radius: 4px;
+  padding: 20px;
+  font-size: 20px;
+  height: 40px;
+  font-family: 'calibri light', 'arial light';
+}
+
+.hg-login-container {
+  width: 100%;
+  height: 100%;
+  padding-top: 20%;
+}
+
+.btn-login {
+  display: block;
+  width: 100%;
+
+}
+
+
+.hg-navbar {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  height: 100%;
+  background: #333;
+  min-width: 35px;
+}
+.hg-navbar-container>.hg-navbar-nav>li>.nav-icon {
+  color: #fff;
+  margin: 5px;
+  font-size: 16px;
+}
+.hg-navbar-container>.hg-navbar-nav>li>.nav-label {
+  display: none;
+}
+.nav-icon {
+  float: left;
+}
+.expanded>.hg-navbar-container>.hg-navbar-nav>li>.nav-label {
+  display: block;
+  width: 100px;
+  margin-top: 13px;
+  margin-left: 10px;
+  margin-right: 10px;
+  float: right;
+  color: #fff;
+}
+
+.hg-navbar-container>.hg-navbar-nav {
+  list-style: none;
+  line-height: 0px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.hg-navbar-container>.hg-navbar-nav>li {
+  padding: 10px;
+  margin-bottom: 0px;
+  border-bottom: 1px solid #555;
+}
+
+
+#login-box {
+  width: 300px;
+  margin: auto;
+}
+#loginUsername,
+#loginPassword {
+  color: #000!important;
+  background: #fff;
+  border:1px solid #ccc;
+}
+
+#login-box>h1 {
+  font-family: 'Helvetica Neue', 'Calibri Light', 'Arial';
+  font-size: 20px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.navbar-inverse {
+  background: #0086b3;
+  outline: none;
+  border: none;
+}
+.navbar-inverse .navbar-nav > li > a,
+.navbar-inverse .navbar-brand {
+  color: #ccf2ff;
+}
+
+.navbar-inverse .navbar-nav > .active > a {
+  background: transparent;
+  position: relative;
+}
+
+.navbar-nav:not(.hg-has-submenu) > .active > a::after {
+  border-bottom: 10px solid #f7f7f7;
+  content: " ";
+  position: absolute;
+  left: 10px;
+  bottom: 0px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+
+.hg-has-submenu > .active > a::after {
+border-bottom: 10px solid #00ace6;
+content: " ";
+position: absolute;
+left: 10px;
+bottom: 0px;
+border-left: 10px solid transparent;
+border-right: 10px solid transparent;
+}
+
+
+.widget {
+  width: 100%;
+  min-height: 300px;
+  background: transparent;
+  color: #555;
+
+  overflow:hidden;
+  display: inline-block;
+  padding:10px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.widget>.widget-header>.pull-left>h1 {
+  line-height:normal;
+  text-transform: uppercase;
+  margin:0px;
+}
+
+@media (min-width: 768px) {
+  .navitem:not(:last-of-type) {
+    border-right: 1px solid rgba(100, 100, 100, 0.2);
+  }
+
+}
+
+
+.hg-navbar-gravatar:hover,
+.hg-navbar-gravatar:active,
+.hg-navbar-gravatar:focus,
+.hg-navbar-gravatar a:hover,
+.hg-navbar-gravatar a:focus,
+.hg-navbar-gravatar a:active,
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+  background: transparent!important;
+}
+
+
+.hg-navbar-gravatar:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .sidebar{
+    margin:20px;
+    padding: 0px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    margin-left:15px;
+    marign-right:15px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .hg-navbar-gravatar {
+    padding-left: 0px!important;
+  }
+  .hg-navbar-gravatar>img {
+    width: 14px!important;
+    height: 14px!important;
+  }
+}
+@media (min-width: 768px) {
+.sidebar {
+    position: absolute;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    padding-left: 0px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content.
+    border-right: 1px solid #eee;
+    background-color: #f5f5f5;
+  }
+}
+
+@media screen and (max-width: 768px) {
+    .visible-xs-inline {
+        display: inline-block; !important
+    }
+    .navbar-collapse.in {
+      overflow: inherit;;
+    }
+    .navbar-toggle {
+      padding-right: 0px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .visible-xs-inline {
+        display: none; !important
+    }
+}
+
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 45px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+.navbar-brand {
+      border-right: 1px solid rgba(100, 100, 100, 0.2);
+}
+
+.container-fluid {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+ul[dnd-list],
+ul[dnd-list] > li {
+  position: relative;
+}
+
+ul[dnd-list] li.selected {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+.dndPlaceholder > .col-md-12{
+  padding: -10px;
+}
+.dndPlaceholder .widget {
+  background: transparent;
+  background-color: transparent;
+  border: 3px dotted #777;
+  color: #f7f7f7;
+  border-radius:5px;
+
+}
+
+ul[dnd-list] .dndDraggingSource {
+    opacity: 0.8;
+}
+
+.widget {
+  background: transparent;
+  border: 1px solid #ddd;
+}
+
+ul[dnd-list] .dndDragOver .widget {
+  border: 10px solid #000;
+
+}
+
+.widget-body {
+  height:100%;
+}
+
+ */
