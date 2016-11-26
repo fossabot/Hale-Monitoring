@@ -24,7 +24,6 @@ namespace Hale.Agent.Communication
         ILogger _log = LogManager.GetLogger("NemesisController");
 
         private readonly NemesisNode _node;
-        private readonly NemesisHeartbeatWorker _heartbeatworker;
 
         public NemesisController()
         {
@@ -63,7 +62,7 @@ namespace Hale.Agent.Communication
 
         public void Stop()
         {
-            _heartbeatworker.Stop();
+
         }
 
         public string RetrieveString(string command, params object[] parameters)

@@ -92,7 +92,9 @@ namespace Hale.Core
         {
             LaunchApiHandler();
             LaunchAgentHandler();
-            LaunchAgentDistributionHandler();
+
+            // Distribution Handler is disabled for now -NM 2016-11-26
+            //LaunchAgentDistributionHandler();
         }
 
         private void LaunchAgentHandler()
