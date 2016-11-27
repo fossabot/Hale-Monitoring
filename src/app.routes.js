@@ -4,7 +4,7 @@ angular.module('hale.gui')
 AppRoutes.$inject = [ '$urlRouterProvider', '$stateProvider' ];
 function AppRoutes($urlRouterProvider, $stateProvider) {
 
-  $urlRouterProvider.otherwise('/nodes');
+  $urlRouterProvider.otherwise('/nodes/monitored');
   $stateProvider
     .state('app', {
       abstract: true,
@@ -36,10 +36,21 @@ function AppRoutes($urlRouterProvider, $stateProvider) {
       }
     })
     .state('app.hale.nodes', {
-      url: '/nodes',
+      abstract: true
+    })
+    .state('app.hale.nodes.unconfigured', {
+      url: '/nodes/unconfigured',
       views: {
         'main@': {
-          template: '<nodes-list></nodes-list>'
+          template: '<unconfigured-nodes-list></unconfigured-nodes-list>'
+        }
+      }
+    })
+    .state('app.hale.nodes.monitored', {
+      url: '/nodes/monitored',
+      views: {
+        'main@': {
+          template: '<monitored-nodes-list></monitored-nodes-list>'
         }
       }
     })

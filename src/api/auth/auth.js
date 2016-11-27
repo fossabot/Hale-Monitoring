@@ -25,7 +25,7 @@ function AuthService($location, $http, store, $state, toastr) {
     .then(
       (response) => {
           store.set('hale-session', response.data.account);
-          $state.go('app.hale.nodes');
+          $state.go('app.hale.nodes.monitored');
       },
       () => {
         toastr.error('The username and/or password provided is incorrect.')

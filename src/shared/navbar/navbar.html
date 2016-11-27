@@ -6,19 +6,37 @@
         </a>
       </li>
       <li ui-sref-active="active">
-        <a ui-sref="app.hale.nodes" title="Nodes">
+        <a ui-sref="app.hale.nodes.monitored" title="Nodes">
           <i class="fa fa-server"></i>
-          <div ng-show="!$ctrl.minimized">
+          <span ng-show="!$ctrl.minimized">
             Nodes
-          </div>
+          </span>
         </a>
+        <ul class="hg-navbar-nav">
+          <li>
+            <a ui-sref="app.hale.nodes.monitored" title="Configured nodes">
+              <i class="fa fa-server"></i>
+              <span ng-show="!$ctrl.minimized">
+                Monitored Nodes
+              </span>
+            </a>
+          </li>
+          <li>
+            <a ui-sref="app.hale.nodes.unconfigured" title="Unconfigured nodes">
+              <i class="fa fa-empire"></i>
+              <span ng-show="!$ctrl.minimized">
+                Unconfigured nodes
+              </span>
+            </a>
+          </li>
+        </ul>
       </li>
       <li ui-sref-active="active">
         <a ui-sref="app.logout" title="Logout">
           <i class="fa fa-sign-out"></i>
-          <div ng-show="!$ctrl.minimized">
+          <span ng-show="!$ctrl.minimized">
             Logout
-          </div>
+          </span>
         </a>
       </li>
     </ul>
