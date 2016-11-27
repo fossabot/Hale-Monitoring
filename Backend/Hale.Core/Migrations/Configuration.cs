@@ -47,7 +47,9 @@ namespace Hale.Core.Migrations
                     Modified = now,
                     Status = Status.Warning,
                     Guid = new Guid("{057449E7-E7F1-47B6-80A7-B21ED8DEA058}"),
-                    HostName = "test-host-01.domain.com"
+                    HostName = "test-host-01",
+                    Domain = "domain.com",
+                    Configured = true
                 },
                 new Host
                 {
@@ -57,7 +59,9 @@ namespace Hale.Core.Migrations
                     Modified = now,
                     Status = Status.Ok,
                     Guid = new Guid("{FAF16DE0-B8E4-4A0F-8C1B-EB410725C6DA}"),
-                    HostName = "test-host-02.domain.com"
+                    HostName = "test-host-02",
+                    Domain = "domain.com",
+                    Configured = true
                 },
                 new Host
                 {
@@ -67,7 +71,9 @@ namespace Hale.Core.Migrations
                     Modified = now,
                     Status = Status.Ok,
                     Guid = new Guid("{844FA1AB-3B54-45BF-AB5C-9BEDFCD6AFA9}"),
-                    HostName = "test-host-03.domain.com"
+                    HostName = "test-host-03",
+                    Domain = "domain.com",
+                    Configured = true
                 },
                  new Host
                  {
@@ -77,7 +83,9 @@ namespace Hale.Core.Migrations
                      Modified = now,
                      Status = Status.Warning,
                      Guid = new Guid("{057449E7-E7F1-47B6-80A7-B21ED8DEA051}"),
-                     HostName = "test-host-04.domain.com"
+                     HostName = "test-host-04",
+                     Domain = "domain.com",
+                     Configured = true
                  },
                 new Host
                 {
@@ -87,7 +95,9 @@ namespace Hale.Core.Migrations
                     Modified = now,
                     Status = Status.Ok,
                     Guid = new Guid("{FAF16DE0-B8E4-4A0F-8C1B-EB410725C6D2}"),
-                    HostName = "test-host-05.domain.com"
+                    HostName = "test-host-05",
+                    Domain = "domain.com",
+                    Configured = true
                 },
                 new Host
                 {
@@ -97,7 +107,9 @@ namespace Hale.Core.Migrations
                     Modified = now,
                     Status = Status.Ok,
                     Guid = new Guid("{844FA1AB-3B54-45BF-AB5C-9BEDFCD6AFA3}"),
-                    HostName = "test-host-06.domain.com"
+                    HostName = "test-host-06",
+                    Domain = "domain.com",
+                    Configured = true
                 },
                  new Host
                  {
@@ -107,7 +119,9 @@ namespace Hale.Core.Migrations
                      Modified = now,
                      Status = Status.Warning,
                      Guid = new Guid("{057449E7-E7F1-47B6-80A7-B21ED8DEA044}"),
-                     HostName = "test-host-01.domain.com"
+                     HostName = "test-host-01",
+                     Domain = "domain.com",
+                     Configured = true
                  },
                 new Host
                 {
@@ -117,7 +131,9 @@ namespace Hale.Core.Migrations
                     Modified = now,
                     Status = Status.Ok,
                     Guid = new Guid("{FAF16DE0-B8E4-4A0F-8C1B-EB410725C6D5}"),
-                    HostName = "test-host-01.domain.com"
+                    HostName = "test-host-01",
+                    Domain = "domain.com",
+                    Configured = true
                 },
                 new Host
                 {
@@ -127,7 +143,10 @@ namespace Hale.Core.Migrations
                     Modified = now,
                     Status = Status.Ok,
                     Guid = new Guid("{844FA1AB-3B54-45BF-AB5C-9BEDFCD6AFA6}"),
-                    HostName = "test-host-01.domain.com"
+                    HostName = "test-host-01",
+                    Domain = "domain.com",
+                    Configured = false,
+                    OperatingSystem = "Microsoft Windows NT 10.0.14393.0"
                 },
                  new Host
                  {
@@ -137,7 +156,10 @@ namespace Hale.Core.Migrations
                      Modified = now,
                      Status = Status.Warning,
                      Guid = new Guid("{057449E7-E7F1-47B6-80A7-B21ED8DEA05B}"),
-                     HostName = "test-host-01.domain.com"
+                     HostName = "test-host-01",
+                     Domain = "domain.com",
+                     Configured = false,
+                     OperatingSystem = "Microsoft Windows NT 10.0.14393.0"
                  },
                 new Host
                 {
@@ -147,7 +169,10 @@ namespace Hale.Core.Migrations
                     Modified = now,
                     Status = Status.Ok,
                     Guid = new Guid("{FAF16DE0-B8E4-4A0F-8C1B-EB410725C6DD}"),
-                    HostName = "test-host-01.domain.com"
+                    HostName = "test-host-01",
+                    Domain = "domain.com",
+                    Configured = false,
+                    OperatingSystem = "Microsoft Windows NT 10.0.14393.0"
                 },
                 new Host
                 {
@@ -157,7 +182,10 @@ namespace Hale.Core.Migrations
                     Modified = now,
                     Status = Status.Ok,
                     Guid = new Guid("{844FA1AB-3B54-45BF-AB5C-9BEDFCD6AFBB}"),
-                    HostName = "test-host-01.domain.com"
+                    HostName = "test-host-01",
+                    Domain = "domain.com",
+                    Configured = false,
+                    OperatingSystem = "Microsoft Windows NT 10.0.14393.0"
                 },
                 new Host
                 {
@@ -167,7 +195,10 @@ namespace Hale.Core.Migrations
                     Modified = now,
                     Status = Status.Ok,
                     Guid = new Guid("{844FA1AB-3B54-45BF-AB5C-9BEDFCD6AFCC}"),
-                    HostName = "test-host-01.domain.com"
+                    HostName = "test-host-01",
+                    Domain = "domain.com",
+                    Configured = false,
+                    OperatingSystem = "Microsoft Windows NT 10.0.14393.0"
                 }
 
             );

@@ -26,6 +26,26 @@ namespace Hale.Core.Models.Nodes
         public string HostName { get; set; }
 
         /// <summary>
+        /// Domain name part of FQDN
+        /// </summary>
+        public string Domain { get; set; }
+
+        /// <summary>
+        /// Host operating system platform and version
+        /// </summary>
+        public string OperatingSystem { get; set; }
+
+        /// <summary>
+        /// Summary of the Hosts NICs
+        /// </summary>
+        public string NicSummary { get; set; }
+
+        /// <summary>
+        /// Summary of the Hosts hardware
+        /// </summary>
+        public string HardwareSummary { get; set; }
+
+        /// <summary>
         /// Corresponds to the table column Hosts.Ip
         /// </summary>
         public string Ip { get; set; }
