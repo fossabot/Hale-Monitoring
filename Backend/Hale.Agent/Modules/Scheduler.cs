@@ -15,7 +15,7 @@ using Hale.Lib.Utilities;
 
 namespace Hale.Agent.Modules
 {
-    class AgentScheduler: Scheduler
+    partial class AgentScheduler: Scheduler
     {
         public AgentScheduler()
         {
@@ -33,7 +33,7 @@ namespace Hale.Agent.Modules
             {
                 var key = itt.ToString();
                 key = key.Substring(0, 1).ToLower() + key.Substring(1); // Convert to dict key
-                if (!config.Tasks[key].Enabled)
+                if (!config.Tasks.ContainsKey(key) || !config.Tasks[key].Enabled)
                     continue;
                 ScheduleTask(new InternalTask(itt),
                     config.Tasks[key].Interval);
@@ -101,58 +101,27 @@ namespace Hale.Agent.Modules
             {
                 RunModuleTask(queuedTask as QueuedModuleTask);
             }
-            else
+            else if (queuedTask.GetType() == typeof(QueuedInternalTask))
             {
-                if (queuedTask.GetType() == typeof(QueuedInternalTask))
+                var task = (QueuedInternalTask)queuedTask;
+                switch(task.TaskType)
                 {
-                    var task = (QueuedInternalTask)queuedTask;
-                    switch(task.TaskType)
-                    {
-                        case InternalTaskType.PersistResults:
-                            internalTaskPersistResults();
-                            break;
-                        case InternalTaskType.UploadResults:
-                            internalTaskUploadResults();
-                            break;
-                        case InternalTaskType.SendHeartbeat:
-                            internalTaskSendHeartbeat();
-                            break;
-                        default:
+                    case InternalTaskType.PersistResults:
+                        internalTaskPersistResults();
                         break;
-                    }
+                    case InternalTaskType.UploadResults:
+                        internalTaskUploadResults();
+                        break;
+                    case InternalTaskType.SendHeartbeat:
+                        internalTaskSendHeartbeat();
+                        break;
+                    case InternalTaskType.IdentifyAgent:
+                        internalTaskIdentifyAgent();
+                        break;
+                    default:
+                    break;
                 }
             }
-        }
-
-        private void internalTaskSendHeartbeat()
-        {
-            var nemesis = ServiceProvider.GetService<NemesisController>();
-            if (nemesis == null) return;
-            _log.Debug("Sending hearbeat to Core...");
-            nemesis.SendCommand("heartbeat"); // TODO: Handle errors? -NM 2016-02-07
-        }
-
-        private void internalTaskPersistResults()
-        {
-            var resultStorage = ServiceProvider.GetService<IResultStorage>();
-            if (resultStorage == null) return;
-
-            resultStorage.Persist();
-        }
-
-        private void internalTaskUploadResults()
-        {
-            var nemesis = ServiceProvider.GetService<NemesisController>();
-            if (nemesis == null) return;
-
-            var resultStorage = ServiceProvider.GetService<IResultStorage>();
-            if (resultStorage == null) return;
-
-            var records = resultStorage.Fetch(10);
-            var uploaded = nemesis.UploadResults(records);
-
-            if(uploaded != null)
-                resultStorage.Clear(uploaded);
         }
 
         private void RunModuleTask(QueuedModuleTask queuedTask)
@@ -345,7 +314,7 @@ namespace Hale.Agent.Modules
 
     internal enum InternalTaskType
     {
-        UploadResults, PersistResults, SendHeartbeat
+        UploadResults, PersistResults, SendHeartbeat, IdentifyAgent
     }
 
 
