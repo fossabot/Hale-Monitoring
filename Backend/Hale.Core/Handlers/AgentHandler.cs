@@ -18,6 +18,8 @@ using System.IO;
 using System.Net;
 using System.Linq;
 using Hale.Lib.Modules.Info;
+using Hale.Lib;
+using System.Text;
 
 namespace Hale.Core.Handlers
 {
@@ -134,6 +136,10 @@ namespace Hale.Core.Handlers
             else if (request.Method == "uploadResults")
             {
                 response = RpcUploadResults(e.NodeId, request);
+            }
+            else if (request.Method == "identifyAgent")
+            {
+                response = RpcIdentifyAgent(e.NodeId, request);
             }
             else
             {
@@ -404,16 +410,67 @@ namespace Hale.Core.Handlers
             throw new NotImplementedException();
         }
 
+        private JsonRpcResponse RpcIdentifyAgent(Guid nodeId, JsonRpcRequest req)
+        {
+            var firstParam = (JToken)req.Params[0];
+            var agentId = firstParam.ToObject<AgentIdentification>();
+
+            var sbNics = new StringBuilder();
+
+            _log.Info($"Got agent identification for node {nodeId}.");
+
+            _log.Debug("Hostname: " + agentId.Hostname);
+            _log.Debug("Operating system: " + agentId.OperatingSystem);
+            _log.Debug("Network interfaces: ");
+
+            foreach (var nic in agentId.NetworkInterfaces)
+            {
+                _log.Debug(" - " + nic.Name);
+                sbNics.AppendLine(" - " + nic.Name);
+                _log.Debug("   " + nic.PhysicalAddress);
+                sbNics.AppendLine("   " + nic.PhysicalAddress);
+                _log.Debug("   " + string.Join(", ", nic.Addresses));
+                sbNics.AppendLine("   " + string.Join(", ", nic.Addresses));
+            }
+
+            _db.Hosts.Add(new Host()
+            {
+                Configured = false,
+                HostName = agentId.Hostname,
+                Guid = nodeId,
+                HardwareSummary = agentId.HardwareSummary,
+                NicSummary = sbNics.ToString(),
+                OperatingSystem = agentId.OperatingSystem,
+                LastConnected = DateTime.Now,
+                Created = DateTime.Now,
+                Modified = DateTime.Now
+            });
+            _db.SaveChanges();
+
+            // Reload GUIDs/keys from database to permit the new node to be identified -NM 2016-11-27
+            LoadKeys();
+
+            _log.Info($"Unconfigured node {nodeId} added to database.");
+
+            return new JsonRpcResponse(req)
+            {
+                Result = "OK"
+            };
+        }
+
         private JsonRpcResponse RpcHeartbeat(Guid nodeId, JsonRpcRequest req)
         {
             if (!_hostGuidsToIds.ContainsKey(nodeId))
                 return new JsonRpcResponse(req)
                 {
+                    /*
                     Error = new JsonRpcError()
                     {
                         Code = JsonRpcErrorCode.ServerInvalidMethodParameters,
                         Message = "Unknown GUID"
                     }
+                    */
+                    Result = "UnknownGUID"
                 };
             Host host = _db.Hosts.Find(_hostGuidsToIds[nodeId]);
             host.Status = (int)Status.Ok;
@@ -471,6 +528,8 @@ namespace Hale.Core.Handlers
 
         public void LoadKeys()
         {
+            _hostGuidsToIds.Clear();
+
             var hosts = _db.Hosts.ToList();
 
             hosts.ForEach(host =>
