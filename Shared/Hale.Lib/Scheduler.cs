@@ -142,7 +142,7 @@ namespace Hale.Lib
                 {
                     TimerCallback tcb = new TimerCallback(OnElapsedTime);
                     var timer = new Timer(tcb, kvpCheckTask.Value, 
-                        (int)kvpCheckTask.Key.TotalMilliseconds, Timeout.Infinite); // Maximum interval is 24 days (Int.Max milliseconds)
+                        kvpCheckTask.Key, kvpCheckTask.Key);
 
                     TaskTimers.Add(kvpCheckTask.Key, timer);
                 }
