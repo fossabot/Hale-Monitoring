@@ -116,34 +116,13 @@ tasks:
         <File Id="Hale.Agent.exe.config" Name="Agent.exe.config" Source="$(var.Agent_TargetDir)Hale.Agent.exe.config" />
       </Component>
       <Component Id="Hale.Lib.dll" Guid="c5386aa3-5f25-4f34-871a-5e4c5fd8570b">
-        <File Id="Hale.Lib.dll" Name="Hale-Lib.dll" Source="$(var.Agent_TargetDir)Hale.Lib.dll" />
+        <File Id="Hale.Lib.dll" Name="Hale.Lib.dll" Source="$(var.Agent_TargetDir)Hale.Lib.dll" />
+      </Component>
+      <Component Id="Hale.Lib.ModuleLoader.dll" Guid="4A23056D-21CA-4A39-A29E-EE18D794366F">
+        <File Id="Hale.Lib.ModuleLoader.dll" Name="Hale-Lib.ModuleLoader.dll" Source="$(var.Agent_TargetDir)Hale-Lib.ModuleLoader.dll" />
       </Component>
       <Component Id="libnemesis.dll" Guid="c5d38144-1c0a-42bd-bdf9-adfc6e35fab7">
        <File Id="libnemesis.dll" Name="libnemesis.dll" Source="$(var.Agent_TargetDir)libnemesis.dll" />
-      </Component>
-      <Component Id="System.Web.Cors.dll" Guid="4ac987e7-c582-42e9-b728-ddf5c2fb83a1">
-        <File Id="System.Web.Cors.dll" Name="System.Web.Cors.dll" Source="$(var.Agent_TargetDir)System.Web.Cors.dll" />
-      </Component>
-      <Component Id="System.Net.Http.Formatting.dll" Guid="c06320e2-0d84-42be-a60c-1eb3bcc8e318">
-        <File Id="System.Net.Http.Formatting.dll" Name="System.Net.Http.Formatting.dll" Source="$(var.Agent_TargetDir)System.Net.Http.Formatting.dll" />
-      </Component>
-      <Component Id="System.Web.Http.dll" Guid="fa669140-2672-431d-bc85-ad948485564f">
-        <File Id="System.Web.Http.dll" Name="System.Web.Http.dll" Source="$(var.Agent_TargetDir)System.Web.Http.dll" />
-      </Component>
-      <Component Id="System.Web.Http.Cors.dll" Guid="462d55bd-e552-4844-984a-5a53da443750">
-        <File Id="System.Web.Http.Cors.dll" Name="System.Web.Http.Cors.dll" Source="$(var.Agent_TargetDir)System.Web.Http.Cors.dll" />
-      </Component>
-      <Component Id="System.Web.Http.Owin.dll" Guid="d92757fe-4826-453b-9189-b003b4caeb51">
-        <File Id="System.Web.Http.Owin.dll" Name="System.Web.Http.Owin.dll" Source="$(var.Agent_TargetDir)System.Web.Http.Owin.dll" />
-      </Component>
-      <Component Id="Microsoft.Owin.dll" Guid="73a09460-bd35-4a61-a141-1126fce804d0">
-        <File Id="Microsoft.Owin.dll" Name="Microsoft.Owin.dll" Source="$(var.Agent_TargetDir)Microsoft.Owin.dll" />
-      </Component>
-      <Component Id="Microsoft.Owin.Host.HttpListener.dll" Guid="3fe568e7-2686-4c43-a7c5-19dfed8a428c">
-        <File Id="Microsoft.Owin.Host.HttpListener.dll" Name="Microsoft.Owin.Host.HttpListener.dll" Source="$(var.Agent_TargetDir)Microsoft.Owin.Host.HttpListener.dll" />
-      </Component>
-      <Component Id="Microsoft.Owin.Hosting.dll" Guid="e26b6f88-a1eb-4e65-8454-faca0c3be3f5">
-        <File Id="Microsoft.Owin.Hosting.dll" Name="Microsoft.Owin.Hosting.dll" Source="$(var.Agent_TargetDir)Microsoft.Owin.Hosting.dll" />
       </Component>
       <Component Id="Newtonsoft.Json.dll" Guid="cd6b4814-51f0-4441-9ad2-05dd7a63dc40">
         <File Id="Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" Source="$(var.Agent_TargetDir)Newtonsoft.Json.dll" />
@@ -151,8 +130,8 @@ tasks:
       <Component Id="NLog.dll" Guid="8fccd2c9-0ba2-4f6d-965a-3c33de41891c">
         <File Id="NLog.dll" Name="NLog.dll" Source="$(var.Agent_TargetDir)NLog.dll" />
       </Component>
-      <Component Id="Owin.dll" Guid="a37c644b-c9c4-42cf-af85-321b552660c4">
-        <File Id="Owin.dll" Name="Owin.dll" Source="$(var.Agent_TargetDir)Owin.dll" />
+      <Component Id="NLog.config" Guid="8fccd2c9-0ba2-4f6d-965a-aaaaae41891c">
+        <File Id="NLog.config" Name="NLog.config" Source="$(var.Agent_TargetDir)NLog.config" />
       </Component>
       <Component Id="System.Management.Automation.dll" Guid="64d7499e-d660-4c2f-bc4e-62a6ffc14875">
         <File Id="System.Management.Automation.dll" Name="System.Management.Automation.dll" Source="$(var.Agent_TargetDir)System.Management.Automation.dll" />

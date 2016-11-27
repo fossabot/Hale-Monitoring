@@ -6,6 +6,8 @@ using Hale.Core.Contexts;
 using Hale.Core.Models.Nodes;
 using NLog;
 using System.Linq;
+using System.Net.Http;
+using System.Security.Claims;
 
 namespace Hale.Core.Controllers
 {
@@ -48,23 +50,69 @@ namespace Hale.Core.Controllers
         /// <returns></returns>
         [Authorize]
         [Route("{id}")]
-        [ResponseType(typeof (Host))]
+        [ResponseType(typeof(Host))]
         [AcceptVerbs("GET")]
         public IHttpActionResult Get(int id)
         {
             try
             {
-                var host = _db.Hosts.Include("HostDetails").FirstOrDefault( h => h.Id == id );
+                var host = _db.Hosts.Include("HostDetails").FirstOrDefault(h => h.Id == id);
                 if (host == null)
                     return NotFound();
                 return Ok(host);
             }
 
-            catch(Exception x)
+            catch (Exception x)
             {
                 return InternalServerError(x);
             }
         }
 
+
+        private string _currentUsername {
+            get {
+                return Request.GetOwinContext().Authentication.User.Identities.First().Claims
+                    .First(claim => claim.Type == ClaimsIdentity.DefaultNameClaimType).Value;
+            }
+        }
+
+        /// <summary>
+        /// Used to update the host from the webapi
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="hostToSave"></param>
+        /// <returns></returns>
+        [Authorize]
+        [Route("{id}")]
+        [ResponseType(typeof(Host))]
+        [HttpPost]
+        public IHttpActionResult Update(int id, [FromBody] Host hostToSave)
+        {
+            try
+            {
+                var user = _db.Accounts.First(x => x.UserName == _currentUsername);
+                var host = _db.Hosts.FirstOrDefault(x => x.Id == id);
+                
+                if (host == null)
+                    return NotFound();
+
+                host.FriendlyName = hostToSave.FriendlyName;
+                host.Domain = hostToSave.Domain;
+                host.ModifiedBy = user.Id;
+                host.ConfiguredBy = user.Id;
+
+                host.Configured = !hostToSave.Blocked;
+                host.Blocked = hostToSave.Blocked;
+
+                _db.SaveChanges();
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+            
+        }
     }
 }

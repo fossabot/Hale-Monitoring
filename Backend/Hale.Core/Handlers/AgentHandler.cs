@@ -34,7 +34,7 @@ namespace Hale.Core.Handlers
         private XMLFileKeyStore _xmlFileKeyStore;
 
         private readonly AgentSection _agentConfig;
-        private readonly Dictionary<Guid, int> _hostGuidsToIds;
+        private readonly Dictionary<Guid, int> _hostGuidsToIds = new Dictionary<Guid, int>();
 
         private readonly HaleDBContext _db = new HaleDBContext();
 
@@ -47,7 +47,6 @@ namespace Hale.Core.Handlers
             _log = LogManager.GetLogger("Hale.Core.AgentHandler");
 
             _agentConfig = agentConfig;
-            _hostGuidsToIds = new Dictionary<Guid, int>();
 
             if (agentConfig.UseEncryption)
             {
@@ -531,7 +530,6 @@ namespace Hale.Core.Handlers
             _hostGuidsToIds.Clear();
 
             var hosts = _db.Hosts.ToList();
-
             hosts.ForEach(host =>
             {
                 // Todo: Handle concurrent dictionary better -NM

@@ -296,6 +296,10 @@
     <Compile Include="Migrations\201611271503313_AddAgentHostIdentification.Designer.cs">
       <DependentUpon>201611271503313_AddAgentHostIdentification.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611272004298_AddModifiedAndConfiguredByToHost.cs" />
+    <Compile Include="Migrations\201611272004298_AddModifiedAndConfiguredByToHost.Designer.cs">
+      <DependentUpon>201611272004298_AddModifiedAndConfiguredByToHost.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Agent\Config.cs" />
     <Compile Include="Models\Messages\LoginAttempt.cs" />
     <Compile Include="Models\Modules\CheckRecord.cs" />
@@ -421,6 +425,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611271503313_AddAgentHostIdentification.resx">
       <DependentUpon>201611271503313_AddAgentHostIdentification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611272004298_AddModifiedAndConfiguredByToHost.resx">
+      <DependentUpon>201611272004298_AddModifiedAndConfiguredByToHost.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="nemesis.yaml" />
     <None Include="NLog.xsd">

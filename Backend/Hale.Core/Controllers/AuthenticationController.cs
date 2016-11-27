@@ -58,7 +58,6 @@ namespace Hale.Core.Controllers
         }
 
         #endregion
-
         [Route("")]
         [HttpPost]
         public IHttpActionResult Login([FromBody] LoginAttempt attempt)

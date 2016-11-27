@@ -66,9 +66,19 @@ namespace Hale.Core.Models.Nodes
         public DateTime Modified { get; set; }
 
         /// <summary>
+        /// The account who made the most recent modification on the host
+        /// </summary>
+        public int? ModifiedBy { get; set; }
+
+        /// <summary>
         /// Corresponds to the table column Hosts.Added
         /// </summary>
         public DateTime Created { get; set; }
+
+        /// <summary>
+        /// The account who originally created the host
+        /// </summary>
+        public int? ConfiguredBy { get; set; }
 
         /// <summary>
         /// Corresponds to the table column Hosts.Guid
