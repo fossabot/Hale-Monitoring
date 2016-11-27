@@ -7,13 +7,49 @@ angular.module('hale.nodes')
         controller: UnconfiguredNodesListController
     });
 
-UnconfiguredNodesListController.$inject = [ 'Nodes', 'NgTableParams' ];
-function UnconfiguredNodesListController(Nodes, NgTableParams) {
+UnconfiguredNodesListController.$inject = [ 'Nodes', 'NgTableParams', 'toastr' ];
+function UnconfiguredNodesListController(Nodes, NgTableParams, toastr) {
   const vm = this;
 
-  function _activate() {
+  vm.callbacks = {
+    'save': _doSave,
+    'cancel': _doCancel,
+    'ban': _doBan
+  };
+
+  function _doCancel(host) {
+    vm.nodes
+      .filter((node) => { return node.id === host.id})[0]
+      .edit = false;
+  }
+
+  function _doSave(host) {
+    Nodes.update(host)
+      .then(() => {
+        toastr.success('Host has been configured.');
+        _loadData();
+      })
+      .catch(() => {
+        toastr.error('Could not save host configuration.');
+      });
+  }
+
+  function _doBan(host) {
+    host.blocked = true;
+    Nodes.update(host)
+      .then(() => {
+        toastr.success('Host has been blocked.');
+        _loadData();
+      })
+      .catch(() => {
+        toastr.error('Host could not be blocked.')
+      });
+    
+  }
+
+  function _loadData() {
     vm.promise = Nodes.list().then((nodes) => {
-      vm.nodes = nodes.filter((item) => { return item.configured === false; });
+      vm.nodes = nodes.filter((item) => { return item.configured === false && item.blocked === false; });
       vm.tableParams = new NgTableParams({
         count: 20
       }, {
@@ -21,6 +57,10 @@ function UnconfiguredNodesListController(Nodes, NgTableParams) {
         dataset: vm.nodes
       });
     });
+  }
+
+  function _activate() {
+    _loadData();
   }
 
   _activate();
