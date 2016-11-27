@@ -66,6 +66,16 @@ namespace Hale.Core.Models.Nodes
         /// Wrapper containing data in a one-to-many relationship to Nodes.HostDetails.
         /// </summary>
         public List<HostDetail> HostDetails { get; set; }
+
+        /// <summary>
+        /// Whether the node is configured by an operator or if it is a new one.
+        /// </summary>
+        public bool Configured { get; set; }
+
+        /// <summary>
+        /// Toggles if the node is black listed and the Core won't accept connections from it.
+        /// </summary>
+        public bool Blocked { get; set; }
     }
 
     

@@ -288,6 +288,10 @@
     <Compile Include="Migrations\201611261105192_UpdateAgentSchemas.Designer.cs">
       <DependentUpon>201611261105192_UpdateAgentSchemas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611270903328_AddAgentConfiguredStatus.cs" />
+    <Compile Include="Migrations\201611270903328_AddAgentConfiguredStatus.Designer.cs">
+      <DependentUpon>201611270903328_AddAgentConfiguredStatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Agent\Config.cs" />
     <Compile Include="Models\Messages\LoginAttempt.cs" />
     <Compile Include="Models\Modules\CheckRecord.cs" />
@@ -407,6 +411,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611261105192_UpdateAgentSchemas.resx">
       <DependentUpon>201611261105192_UpdateAgentSchemas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611270903328_AddAgentConfiguredStatus.resx">
+      <DependentUpon>201611270903328_AddAgentConfiguredStatus.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="nemesis.yaml" />
     <None Include="NLog.xsd">
