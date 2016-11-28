@@ -13,11 +13,18 @@
       <Payload
           SourceFile="hale-logo.png"/>
     </BootstrapperApplicationRef>
-
+    <Variable Name="HaleCoreHostname" bal:Overridable="yes"/>
+    <Variable Name="HaleCoreSendPort" bal:Overridable="yes" Value="8988"/>
+    <Variable Name="HaleCoreReceivePort" bal:Overridable="yes" Value="8987" />
 		<Chain>
-      
+
+
       <PackageGroupRef Id="NetFx45Web"/>
-      <MsiPackage Id="HaleAgent" SourceFile="$(var.Hale.Agent.Setup.TargetPath)"/>
+      <MsiPackage Id="HaleAgent" SourceFile="$(var.Hale.Agent.Setup.TargetPath)">
+        <MsiProperty Value="[HaleCoreHostname]" Name="HALE_CORE_HOSTNAME"/>
+        <MsiProperty Value="[HaleCoreSendPort]" Name="HALE_CORE_PORT_SEND"/>
+        <MsiProperty Value="[HaleCoreReceivePort]" Name="HALE_CORE_PORT_RECEIVE"/>
+      </MsiPackage>
 		</Chain>
 	</Bundle>
 </Wix>

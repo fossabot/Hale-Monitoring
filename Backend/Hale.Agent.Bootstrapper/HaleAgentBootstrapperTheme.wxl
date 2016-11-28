@@ -19,8 +19,8 @@
   <String Id="InstallInstallButton">&amp;Install</String>
   <String Id="InstallCloseButton">&amp;Close</String>
   <String Id="OptionsHeader">Setup Options</String>
-  <String Id="OptionsPort1Label">Recieve port</String>
-  <String Id="OptionsPort2Label">Send port</String>
+  <String Id="OptionsPortRecieveLabel">Recieve port</String>
+  <String Id="OptionsPortSendLabel">Send port</String>
   <String Id="OptionsHostLabel">Hostname</String>
   <String Id="OptionsOkButton">&amp;OK</String>
   <String Id="OptionsCancelButton">&amp;Cancel</String>
