@@ -7,8 +7,37 @@
   overflow-x: hidden;
 }
 
+.row {
+  &:not(:last-of-type) {
+    .col-md-12>.hg-section {
+      // border-bottom: 1px solid #ccc;
+    }
+  }
+}
+
 .hg-section {
-  margin-bottom:20px;
+  
+
+  margin:0 20px 20px 0;
+  background: transparent;
+  border-radius: 3px;
+  
+  .form-group {
+    margin-bottom: 5px;
+  }
+
+  h4 {
+    font-weight: bold;
+    margin: 0 0 15px 0;
+    font-size:14px;
+    padding-bottom: 5px;
+  }
+  label {
+    color: #888;
+  }
+  .form-group {
+    font-size: 12px;
+  }
 }
 
 .col-sm-4 {

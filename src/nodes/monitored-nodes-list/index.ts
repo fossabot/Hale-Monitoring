@@ -33,7 +33,7 @@ export class MonitoredNodesListController {
     this.promise = this.Nodes
       .list()
       .then((nodes: any) => {
-        this.nodes = nodes.filter((item: any) => item.configured);
+        this.nodes = nodes.filter((item: any) => item.configured !== false);
         this.tableParams = new this.NgTableParams({ count: 20}, { counts: [], dataset: this.nodes});
       });
   }

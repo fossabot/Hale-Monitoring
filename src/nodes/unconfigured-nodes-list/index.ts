@@ -33,6 +33,7 @@ export class UnconfiguredNodesListController {
     private toastr: any) {}
 
   $onInit() {
+    this.loadData();
     this.callbacks = {
       save: this.doSave,
       cancel: this.doCancel,
@@ -75,6 +76,7 @@ export class UnconfiguredNodesListController {
     this.promise = this.Nodes
       .list()
       .then((nodes: any) => {
+        console.log(nodes);
         this.nodes = nodes.filter((item: any) => item.configured === false && item.blocked === false);
         this.tableParams = new this.NgTableParams({ count: 20 }, { counts: [], dataset: this.nodes });
     });
