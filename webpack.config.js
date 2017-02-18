@@ -12,6 +12,10 @@ module.exports = {
         path: __dirname + '/dist',
         filename: 'app.js'
     },
+    resolve: {
+        root: __dirname,
+        extensions: ['', '.ts', '.js', '.json' ]
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: './index.template.html'
@@ -27,6 +31,7 @@ module.exports = {
             { test: /\.css$/,  loader: "style!css" },
             { test: /\.scss$/, loader: "style!css!sass" },
             { test: /\.js$/,   loader: "babel", exclude: /node_modules/, query: { presets: ['es2015']}},
+            { test: /\.ts$/,   loader: 'ts-loader'},
             {
               test: /\.(ttf|eot|svg|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
               loader: "file-loader"

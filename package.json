@@ -35,5 +35,10 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2"
+  },
+  "dependencies": {
+    "@types/webpack": "^2.2.6",
+    "ts-loader": "^2.0.0",
+    "typescript": "^2.1.6"
   }
 }
