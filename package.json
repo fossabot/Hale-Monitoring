@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@types/webpack": "^2.2.6",
+    "roboto-fontface": "^0.7.0",
     "ts-loader": "^2.0.0",
     "typescript": "^2.1.6"
   }
