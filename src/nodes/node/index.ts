@@ -36,4 +36,8 @@ export class NodeController {
         this.node = node;
       });
   }
+
+  getStatus() {
+    return this.NodeConstants.Status[this.node ? this.node.status : '-1'];
+  }
 }

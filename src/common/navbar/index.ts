@@ -15,4 +15,13 @@ export class NavbarComponent implements IComponentOptions {
 
 export class NavbarController {
   minimized: boolean;
+  nav: any;
+
+  $onInit() {
+    this.nav = [
+      { state: 'app.hale.nodes.monitored', title: 'Nodes'},
+      { state: 'app.hale.nodes.monitored', title: 'Admin'},
+      
+    ]
+  }
 }

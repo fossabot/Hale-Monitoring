@@ -9,14 +9,10 @@ body {
   overflow: hidden;
 }
 
-.wrapper {
-  display: flex;
-  height: 100%;
-}
-.hg-ui-main {
-  flex: auto;
-  margin: 20px 0px 20px 20px;
-}
+// .hg-ui-main {
+//   flex: auto;
+//   margin: 20px 0px 20px 20px;
+// }
 
 #toast-container {
   margin-top: 20px;
@@ -24,4 +20,22 @@ body {
 
 .clickable {
   cursor: pointer;
+}
+
+.status-box {
+  margin-top:2px;
+  height:10px;
+  width:10px;
+  display:inline-block;
+  border-radius:2px;
+  &.warning {
+    background: #ff8800;
+  }
+  &.ok {
+    background: #00aa88;
+  }
+}
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+   background-color: #fafafa;
 }

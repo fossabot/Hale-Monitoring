@@ -5,6 +5,6 @@ import { NavbarComponent } from './navbar';
 
 export default angular
   .module('hale.common', [])
-  .component('badge', new BadgeComponent())
+  .component('hgBadge', new BadgeComponent())
   .component('navbar', new NavbarComponent())
   .name;
