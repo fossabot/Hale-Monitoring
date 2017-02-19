@@ -7,7 +7,7 @@ import { NodeComponent } from './node';
 
 import hgNodeBasicInfo from './basic-information';
 import hgNodeTimestamps from './timestamps';
-
+import hgNodeComments from './comments';
 import NodeConstants from './constants';
 
 export default angular
@@ -18,6 +18,6 @@ export default angular
   .component('node', new NodeComponent())
   .component('hgNodeBasicInfo', new hgNodeBasicInfo())
   .component('hgNodeTimestamps', new hgNodeTimestamps())
-  
+  .component('hgNodeComments', new hgNodeComments())
   .constant('NodeConstants', NodeConstants)
   .name;

@@ -1,0 +1,49 @@
+<div style="margin-bottom: 20px">
+  <h4>
+    Comments
+  </h4>
+  <div class="row">
+    <div class="col-md-12">
+      <div ng-if="$ctrl.comments.length <= 0" style="margin-bottom: 10px">
+        <i style="font-size: 12px">
+          There are currently no comments for this host.
+        </i>
+      </div>
+      <div ng-repeat="comment in $ctrl.comments" style="margin-bottom: 10px;padding-bottom: 10px" ng-if="$ctrl.comments.length > 0">
+        <div style="display: flex">
+          <div style="flex: initial;padding: 0px 10px 0 0">
+            <img gravatar-src="comment.user.email" style="width:30px;height:30px;border-radius:4px">
+          </div>
+          <div style="flex: 1;border-left: 3px solid #eee;padding-left:10px;margin-left:10px;">
+            <div style="width: 100%; font-size: 12px;">
+              <div class="pull-right">
+                <i class="fa fa-fw fa-trash" ng-click="$ctrl.deleteComment(comment.id)"></i>
+              </div>
+              {{comment.text}}
+              <div>
+                <small>
+                  <i>
+                    {{comment.timestamp | date: 'd MMM yyyy hh:MM:ss'}} by <b>{{comment.user.fullName}}</b>
+                  </i>
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="display: flex">
+          <div style="flex: initial; padding: 0px 10px 0 0">
+            <img gravatar-src="'simon.aronsson@outlook.com'" style="width:30px;height:30px;border-radius:4px">            
+          </div>
+          <div style="flex: 1;margin-left:10px;" class="text-right">
+            <textarea type="text" class="form-control" rows="3" style="font-size: 12px;resize: none" ng-model="$ctrl.text"></textarea>
+            <button type="button" class="btn btn-primary btn-sm" style="margin-top: 10px" ng-click="$ctrl.saveComment()">
+              Save Comment
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
