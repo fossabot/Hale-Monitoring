@@ -49,6 +49,11 @@ namespace Hale.Core.Contexts
         /// </summary>
         public virtual DbSet<HostDetail> HostDetails { get; set; }
 
+        /// <summary>
+        /// TODO: Add text here.
+        /// </summary>
+        public virtual DbSet<HostComment> HostComments { get; set; }
+
         #endregion
         #region Modules
 

@@ -27,6 +27,8 @@ namespace Hale.Core.Models.Users
         [StringLength(450)] // Needs a max length to be able to function as a unique field.
         public string UserName { get; set; }
 
+
+        public string Email { get; set; }
         /// <summary>
         /// Corresponds to the table column User.Email
         /// </summary>

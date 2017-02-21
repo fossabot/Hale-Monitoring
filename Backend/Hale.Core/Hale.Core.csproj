@@ -300,13 +300,19 @@
     <Compile Include="Migrations\201611272004298_AddModifiedAndConfiguredByToHost.Designer.cs">
       <DependentUpon>201611272004298_AddModifiedAndConfiguredByToHost.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702192117235_AddCommentsAndEmail.cs" />
+    <Compile Include="Migrations\201702192117235_AddCommentsAndEmail.Designer.cs">
+      <DependentUpon>201702192117235_AddCommentsAndEmail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Agent\Config.cs" />
     <Compile Include="Models\Messages\LoginAttempt.cs" />
+    <Compile Include="Models\Messages\NewNodeComment.cs" />
     <Compile Include="Models\Modules\CheckRecord.cs" />
     <Compile Include="Models\Modules\InfoRecord.cs" />
     <Compile Include="Models\Modules\Module.cs" />
     <Compile Include="Models\Modules\Function.cs" />
     <Compile Include="Models\Modules\Result.cs" />
+    <Compile Include="Models\Nodes\HostComment.cs" />
     <Compile Include="Models\Users\CreateAccountRequest.cs" />
     <Compile Include="Handlers\ModuleHandler.cs" />
     <Compile Include="Handlers\Scheduler.CreateDistPackages.cs" />
@@ -428,6 +434,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611272004298_AddModifiedAndConfiguredByToHost.resx">
       <DependentUpon>201611272004298_AddModifiedAndConfiguredByToHost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702192117235_AddCommentsAndEmail.resx">
+      <DependentUpon>201702192117235_AddCommentsAndEmail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="nemesis.yaml" />
     <None Include="NLog.xsd">

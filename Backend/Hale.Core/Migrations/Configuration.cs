@@ -33,8 +33,8 @@ namespace Hale.Core.Migrations
 
             context.Accounts.AddOrUpdate(
                 u => u.UserName,
-                new Account { UserName = "test01", FullName = "Test User 01", Password = BCrypt.Net.BCrypt.HashPassword("test01", 5) },
-                new Account { UserName = "test02", FullName = "Test User 02", Password = BCrypt.Net.BCrypt.HashPassword("test02", 5) }
+                new Account { UserName = "test01", Email = "simon.aronsson@outlook.com", FullName = "Test User 01", Password = BCrypt.Net.BCrypt.HashPassword("test01", 5) },
+                new Account { UserName = "test02", Email = "nils@piksel.se", FullName = "Test User 02", Password = BCrypt.Net.BCrypt.HashPassword("test02", 5) }
             );
 
             context.Hosts.AddOrUpdate(
