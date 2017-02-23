@@ -1,23 +1,24 @@
-<div style="height:100%;width:100%">
-  <div style="height: 50px;margin-right:25px;">
-    <input type="text" placeholder="Filter" class="form-control" ng-model="$ctrl.filter">
-  </div>
-  <div style="height:calc(100% - 30px);overflow-y:scroll;padding-right:10px;">
-    <table ng-table="$ctrl.tableParams" show-filter="false" class="table table-hover table-striped">
-      <tr ng-repeat="host in $data" ui-sref="app.hale.node({'id': host.id})">
-        <td title="'Health'">
-            <div style="margin-top:2px;height:10px;width:10px;display:inline-block;border-radius:2px; background: {{$ctrl.status[host.status]}}"></div>
-        </td>
-        <td title="'Host Name'">
-          {{host.friendlyName}}
-        </td>
-        <td title="'FQDN'">
-          {{host.hostName}}
-        </td>
-        <td title="'Last Change'">
-          {{host.modified}}
-        </td>
-      </tr>
-    </table>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="hg-content">
+        <table ng-table="$ctrl.tableParams" show-filter="false" class="table table-hover table-striped table-sm">
+          <tr ng-repeat="host in $data" ui-sref="app.hale.node({'id': host.id})">
+            <td title="''" style="width: 20px">
+                <div class="status-box" ng-class="$ctrl.status[host.status]"></div>
+            </td>
+            <td title="'Host Name'">
+              {{host.friendlyName}}
+            </td>
+            <td title="'FQDN'">
+              {{host.hostName}}
+            </td>
+            <td title="'Last Change'">
+              {{host.modified}}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

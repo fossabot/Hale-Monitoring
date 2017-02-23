@@ -1,118 +1,21 @@
-<div class="hg-node">
-  <div class="hg-node-header">
-    <div class="row">
-      <div class="col-sm-12">
-        <h2>
-          <div style="height:20px;width:20px;display:inline-block;border-radius:2px; background: {{$ctrl.status[$ctrl.node.status]}}"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="hg-node">
+        <h3 style="margin-bottom:10px;padding-bottom:10px;margin-right:10px;">
+          <div class="status-box" ng-class="$ctrl.getStatus()"></div>
           {{$ctrl.node.friendlyName}}
-        </h2>
-      </div>
-    </div>
-  </div>
-  <div class="hg-sections">
-    <div class="hg-node-details hg-section">
-      <div class="row">
-        <div class="col-sm-12">
-          <h3>
-            Details
-          </h3>
+        </h3>
+        <div class="hg-section">
+          <hg-node-basic-info
+            class="hg-section"
+            hg-node="$ctrl.node">
+          </hg-node-basic-info>
         </div>
-        <div class="col-sm-4">
-          <label>
-            Host Name
-          </label>
-          <p>
-            {{$ctrl.node.hostName}}
-          </p>
-        </div>
-        <div class="col-sm-4">
-          <label>
-            IP Address
-          </label>
-          <p>
-            {{$ctrl.node.ip}}
-          </p>
-        </div>
-        <div class="col-sm-4">
-          <label>
-            Last Seen
-          </label>
-          <p>
-            {{$ctrl.node.lastSeen || '-' }}
-          </p>
-        </div>
-        <div class="col-sm-4">
-          <label>
-            Operating System
-          </label>
-          <p>
-            {{$ctrl.node.os || '-' }}
-          </p>
-        </div>
-        <div class="col-sm-4">
-          <label>
-            Type
-          </label>
-          <p>
-            {{$ctrl.node.lastSeen || '-' }}
-          </p>
-        </div>
-        <div class="col-sm-4">
-          <label>
-            Owner
-          </label>
-          <p>
-            {{$ctrl.node.owner || '-' }}
-          </p>
-        </div>
-        <div class="col-sm-4">
-          <label>
-            Last Status Change
-          </label>
-          <p>
-            {{$ctrl.node.lastChange || '-' }}
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="hg-node-timestamps hg-section">
-      <div class="row">
-        <div class="col-sm-12">
-          <h3>
-            Timestamps
-          </h3>
-        </div>
-        <div class="col-sm-4">
-          <label>
-          Created
-        </label>
-          <p>
-            {{$ctrl.getFriendlyDate($ctrl.node.created)}}
-          </p>
-        </div>
-        <div class="col-sm-4">
-          <label>
-            Created by
-          </label>
-          <p>
-            {{$ctrl.node.createdBy || '-'}}
-          </p>
-        </div>
-        <div class="col-sm-4">
-          <label>
-            Last modified
-          </label>
-          <p>
-            {{$ctrl.friendlifyDate($ctrl.node.modified) || '-'}}
-          </p>
-        </div>
-        <div class="col-sm-4">
-          <label>
-            Modified by
-          </label>
-          <p>
-            {{$ctrl.node.modifiedBy || '-'}}
-          </p>
+        <div class="hg-section">
+          <hg-node-timestamps
+            hg-node="$ctrl.node">
+          </hg-node-timestamps>
         </div>
       </div>
     </div>

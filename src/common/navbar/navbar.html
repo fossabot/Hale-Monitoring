@@ -1,3 +1,25 @@
+<nav class="navbar navbar-toggleable-md navbar-light" style="background: white;border-bottom: 1px solid #ccc;">
+  <div class="container">
+    <a class="navbar-brand" href="#">Hale Monitoring</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" ui-sref-active="active" ng-repeat="item in $ctrl.nav">
+          <a class="nav-link" ui-sref="{{item.state}}">
+            {{item.title}}
+          </a>
+        </li>
+      </ul>
+      <div class="navbar-nav">
+        <hg-badge></hg-badge>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!--<nav>
+  <div class="container">
+  </div>
+</nav>
 <nav class="hg-navbar" ng-class="{'minimized': $ctrl.minimized}">
     <ul class="hg-navbar-nav">
       <li>
@@ -40,4 +62,4 @@
         </a>
       </li>
     </ul>
-</nav>
+</nav>-->

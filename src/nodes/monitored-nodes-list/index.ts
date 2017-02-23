@@ -1,6 +1,7 @@
 import { IComponentOptions, IPromise } from 'angular';
 
 const template = require('./monitored-nodes-list.html');
+require('./monitored-nodes-list.scss');
 
 export class MonitoredNodesListComponent implements IComponentOptions {
   templateUrl: any;
@@ -29,11 +30,11 @@ export class MonitoredNodesListController {
     private NgTableParams: any) {}
   
   $onInit() {
-    this.status = this.NodeConstants.StatusBg;
+    this.status = this.NodeConstants.Status;
     this.promise = this.Nodes
       .list()
       .then((nodes: any) => {
-        this.nodes = nodes.filter((item: any) => item.configured);
+        this.nodes = nodes.filter((item: any) => item.configured !== false);
         this.tableParams = new this.NgTableParams({ count: 20}, { counts: [], dataset: this.nodes});
       });
   }
