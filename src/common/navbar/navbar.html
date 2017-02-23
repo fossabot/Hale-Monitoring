@@ -1,7 +1,7 @@
 <nav class="hg-navbar" ng-class="{'minimized': $ctrl.minimized}">
     <ul class="hg-navbar-nav">
       <li>
-        <a ng-click="$ctrl.toggleSize()" title="Toggle sidebar">
+        <a ng-click="$ctrl.minimized = !$ctrl.minimized" title="Toggle sidebar">
           <i class="fa fa-bars"></i>
         </a>
       </li>

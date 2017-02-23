@@ -1,8 +1,6 @@
-angular.module('hale.gui')
-  .config(AppRoutes);
+export default ['$urlRouterProvider', '$stateProvider', AppRouter];
 
-AppRoutes.$inject = [ '$urlRouterProvider', '$stateProvider' ];
-function AppRoutes($urlRouterProvider, $stateProvider) {
+function AppRouter($urlRouterProvider, $stateProvider) {
 
   $urlRouterProvider.otherwise('/nodes/monitored');
   $stateProvider
@@ -18,7 +16,7 @@ function AppRoutes($urlRouterProvider, $stateProvider) {
       }
     })
     .state('app.logout', {
-      onEnter: function(Auth) {
+      onEnter: function (Auth) {
         Auth.logout();
       }
     })
@@ -62,4 +60,5 @@ function AppRoutes($urlRouterProvider, $stateProvider) {
         }
       }
     });
+
 }

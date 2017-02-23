@@ -9,7 +9,4 @@ require('bootstrap/dist/css/bootstrap.css');
 require('font-awesome/css/font-awesome.css');
 require('angular-toastr/dist/angular-toastr.css');
 
-
-require('./sass/app.scss');
-
-require('./app.module.js');
+require('./app.module.ts');
