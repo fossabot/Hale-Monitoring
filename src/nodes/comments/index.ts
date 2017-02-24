@@ -14,6 +14,7 @@ export default class hgNodeComments implements IComponentOptions {
     }
     this.controller = [
       'Comments',
+      'Users',
       'toastr',
       hgNodeCommentsController
     ];
@@ -23,12 +24,17 @@ export default class hgNodeComments implements IComponentOptions {
 export class hgNodeCommentsController {
   hgNode: any;
   comments: any;
+  text: any;
+  user: any;
+
   constructor(
     private Comments: any,
+    private Users: any,
     private toastr: any) {}
 
   $onInit() {
     this.getComments();
+    this.getUser();
   }
 
   saveComment() {
@@ -37,6 +43,7 @@ export class hgNodeCommentsController {
       .then(_ => {
         this.toastr.success('Your comment has been saved');
         this.getComments();
+        this.text = '';
       });
   }
 
@@ -55,6 +62,13 @@ export class hgNodeCommentsController {
       .then((data) => {
         this.comments = data;
       });
-    ]
+  }
+
+  private getUser() {
+    this.Users
+      .getCurrent()
+      .then((user: any) => {
+        this.user = user;
+      });
   }
 }
