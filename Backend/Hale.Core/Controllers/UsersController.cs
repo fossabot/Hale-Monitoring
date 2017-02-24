@@ -12,6 +12,7 @@ using NLog;
 using Hale.Core.Contexts;
 using System.Linq;
 using System.Data.Entity;
+using System.Security.Claims;
 
 namespace Hale.Core.Controllers
 {
@@ -48,6 +49,22 @@ namespace Hale.Core.Controllers
                 return NotFound();
 
             return Ok(user);
+        }
+
+        /// <summary>
+        /// Get information about the currently logged in user
+        /// </summary>
+        /// <returns></returns>
+        [Authorize, HttpGet, Route("current")]
+        public IHttpActionResult GetCurrent()
+        {
+            var user = db.Accounts.Single(x => x.UserName == _currentUsername);
+            return Ok(new
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+            });
         }
 
         /// <summary>
@@ -104,6 +121,16 @@ namespace Hale.Core.Controllers
             catch (Exception x)
             {
                 return InternalServerError(x);
+            }
+        }
+
+
+        private string _currentUsername
+        {
+            get
+            {
+                return Request.GetOwinContext().Authentication.User.Identities.First().Claims
+                    .First(claim => claim.Type == ClaimsIdentity.DefaultNameClaimType).Value;
             }
         }
     }

@@ -58,6 +58,11 @@ namespace Hale.Core.Controllers
         }
 
         #endregion
+        /// <summary>
+        /// Creates a claim on successful sign in.
+        /// </summary>
+        /// <param name="attempt"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpPost]
         public IHttpActionResult Login([FromBody] LoginAttempt attempt)
