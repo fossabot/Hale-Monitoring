@@ -24,8 +24,10 @@ export default class hgNodeComments implements IComponentOptions {
 export class hgNodeCommentsController {
   hgNode: any;
   comments: any;
+
   text: any;
   user: any;
+
 
   constructor(
     private Comments: any,
@@ -70,5 +72,6 @@ export class hgNodeCommentsController {
       .then((user: any) => {
         this.user = user;
       });
+
   }
 }
