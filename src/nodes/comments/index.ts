@@ -23,6 +23,7 @@ export default class hgNodeComments implements IComponentOptions {
 export class hgNodeCommentsController {
   hgNode: any;
   comments: any;
+  text: string;
   constructor(
     private Comments: any,
     private toastr: any) {}
@@ -55,6 +56,5 @@ export class hgNodeCommentsController {
       .then((data) => {
         this.comments = data;
       });
-    ]
   }
 }
