@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { UIRouter } from 'ui-router-ng2';
-import Users from 'app/api/users';
+import { Users } from 'app/api/users';
 
 @Component({
-  selector: 'user-badge',
+  selector: 'app-user-badge',
   templateUrl: './user-badge.html',
   styleUrls: [ './user-badge.scss']
 })
-export default class UserBadge {
+export class UserBadgeComponent {
 
   user: any;
 

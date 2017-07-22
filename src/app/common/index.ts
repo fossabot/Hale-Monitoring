@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import UserBadge from './user-badge';
-import Navbar from './navbar';
+import { UserBadgeComponent } from './user-badge';
+import { NavbarComponent } from './navbar';
 
 @NgModule({
   imports: [
     BrowserModule,
   ],
   declarations: [
-    UserBadge,
-    Navbar,
+    UserBadgeComponent,
+    NavbarComponent,
   ],
 })
-export default class CommonModule {}
+export class CommonModule {}

@@ -8,7 +8,7 @@ import { environment as env }  from 'environments/environment';
 
 
 @Injectable()
-export default class Comments {
+export class Comments {
   private baseUrl: string = `${env.apiUrl}/hosts`;
   options: {[key: string]: any} = { withCredentials: true };
   constructor(private http: Http) {}

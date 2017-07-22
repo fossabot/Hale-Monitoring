@@ -8,7 +8,7 @@ import { Md5 } from 'ts-md5/dist/md5';
 import { environment as env }  from 'environments/environment';
 
 @Injectable()
-export default class Users {
+export class Users {
 
   private baseUrl: string = `${env.apiUrl}/users`;
   private options: {[key: string]: any} = { withCredentials: true};

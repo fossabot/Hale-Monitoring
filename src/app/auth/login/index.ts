@@ -2,16 +2,16 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { StateService } from 'ui-router-ng2';
 
-import Auth, { ICredentials } from 'app/api/auth';
+import { Auth, ICredentials } from 'app/api/auth';
 
 @Component({
-  selector: 'login',
+  selector: 'app-login',
   templateUrl: './login.html',
   styleUrls: [
     './login.scss'
   ]
 })
-export default class Login {
+export class Login {
 
   credentials: ICredentials;
 

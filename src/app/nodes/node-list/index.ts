@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
-import Nodes from 'app/api/nodes';
+import { Nodes } from 'app/api/nodes';
 
 @Component({
-  selector: 'node-list',
+  selector: 'app-node-list',
   templateUrl: './node-list.html',
   styleUrls: ['./node-list.scss'],
 })
-export default class NodeList {
+export class NodeListComponent {
   nodes: any[];
   status: {[key: number]: string};
 

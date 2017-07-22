@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 
-import Auth from './auth';
-import Comments from './comments';
-import Nodes from './nodes';
-import Users from './users';
+import { Auth } from './auth';
+import { Comments } from './comments';
+import { Nodes } from './nodes';
+import { Users } from './users';
 
 @NgModule({
   imports: [],
@@ -16,4 +16,4 @@ import Users from './users';
   declarations: [
   ]
 })
-export default class ApiModule {}
+export class ApiModule {}

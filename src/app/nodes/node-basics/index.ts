@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'node-basics',
+  selector: 'app-node-basics',
   templateUrl: './node-basics.html',
   styleUrls: [ './node-basics.scss']
 })
-export default class NodeBasics {
+export class NodeBasicsComponent {
   @Input() node: any;
 }

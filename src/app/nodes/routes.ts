@@ -3,11 +3,10 @@ import 'rxjs/add/operator/toPromise';
 import { Ng2StateDeclaration } from 'ui-router-ng2';
 import { Transition } from 'ui-router-ng2';
 
-import Nodes from 'app/api/nodes';
-import Navbar from 'app/common/navbar';
-import NodeList from './node-list';
-import Node from './node';
-
+import { Nodes } from 'app/api/nodes';
+import { NavbarComponent } from 'app/common/navbar';
+import { NodeListComponent } from './node-list';
+import { NodeComponent } from './node';
 
 export let NodesStates: Ng2StateDeclaration[] = [
   {
@@ -15,7 +14,7 @@ export let NodesStates: Ng2StateDeclaration[] = [
     name: 'app.hale.nodes',
     views: {
       'main@': {
-        component: NodeList
+        component: NodeListComponent
       }
     }
   },
@@ -24,7 +23,7 @@ export let NodesStates: Ng2StateDeclaration[] = [
     name: 'app.hale.node',
     views: {
       'main@': {
-        component: Node,
+        component: NodeComponent,
         bindings: { node: 'node' }
       }
     },
@@ -32,13 +31,15 @@ export let NodesStates: Ng2StateDeclaration[] = [
       {
         token: 'node',
         deps: [Transition, Nodes],
-        resolveFn: (trans, nodes) => {
-          const nodeId = trans.params().nodeId;
-          return nodes
-            .get(nodeId)
-            .toPromise();
-        }
+        resolveFn: resolveNode
       }
     ]
   }
 ];
+
+export function resolveNode(trans, nodes) {
+  const nodeId = trans.params().nodeId;
+  return nodes
+    .get(nodeId)
+    .toPromise();
+}

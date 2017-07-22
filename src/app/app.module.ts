@@ -6,13 +6,13 @@ import { UIView, UIRouterModule, UIRouter } from 'ui-router-ng2';
 
 import { AppComponent } from './app.component';
 
-import AuthModule from './auth';
-import ApiModule from './api';
-import CommonModule from './common';
-import NodesModule from './nodes';
+import { AuthModule } from './auth';
+import { ApiModule } from './api';
+import { CommonModule } from './common';
+import { NodesModule } from './nodes';
 
-import Auth from './api/auth';
-import Navbar from './common/navbar';
+import { Auth } from './api/auth';
+import { NavbarComponent } from './common/navbar';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import Navbar from './common/navbar';
     UIRouterModule.forRoot({
       states: [
         { name: 'app', abstract: true },
-        { name: 'app.hale', abstract: true, views: { 'nav@': { component: Navbar }}}
+        { name: 'app.hale', abstract: true, views: { 'nav@': { component: NavbarComponent }}}
       ],
       otherwise: { state: 'app.login' },
       useHash: true,

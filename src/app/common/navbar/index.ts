@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { UIRouter } from 'ui-router-ng2';
 
 @Component({
-  selector: 'navbar',
+  selector: 'app-navbar',
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.scss']
 })
 
-export default class Navbar {
+export class NavbarComponent {
   minimized: boolean;
   nav: {[key: string]: string}[];
 

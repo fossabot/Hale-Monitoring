@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'node',
+  selector: 'app-node',
   templateUrl: './node.html',
   styleUrls: ['./node.scss'],
 })
-export default class Node {
+export class NodeComponent {
   @Input() node: any;
 
   constructor() {}

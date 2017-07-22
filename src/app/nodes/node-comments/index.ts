@@ -1,17 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import Comments from 'app/api/comments';
-import Users from 'app/api/users';
-
-
+import { Comments } from 'app/api/comments';
+import { Users } from 'app/api/users';
 
 @Component({
-  selector: 'node-comments',
+  selector: 'app-node-comments',
   templateUrl: './node-comments.html',
   styleUrls: [ './node-comments.scss']
 })
-export default class NodeComments implements OnInit {
+export class NodeCommentsComponent implements OnInit {
   @Input() nodeId: number;
 
   comments: any;

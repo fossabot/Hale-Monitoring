@@ -6,7 +6,7 @@ import { environment as env }  from 'environments/environment';
 
 
 @Injectable()
-export default class Auth {
+export class Auth {
   private baseUrl: string = `${env.apiUrl}/authentication`;
   private options: {[key: string]: any} = { withCredentials: true };
 

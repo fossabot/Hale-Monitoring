@@ -1,6 +1,6 @@
 import 'rxjs/add/operator/map';
 
-import { Observable } from 'rxjs/observable';
+import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
@@ -8,7 +8,7 @@ import { environment as env }  from 'environments/environment';
 
 
 @Injectable()
-export default class Nodes {
+export class Nodes {
 
   private baseUrl: string = `${env.apiUrl}/hosts`;
   private options: {[key: string]: any} = { withCredentials: true };

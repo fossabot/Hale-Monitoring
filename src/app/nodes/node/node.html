@@ -7,16 +7,16 @@
           {{node.friendlyName}}
         </h3>
         <div class="hg-section">
-          <node-basics [node]="node">
-          </node-basics>
+          <app-node-basics [node]="node">
+          </app-node-basics>
         </div>
          <div class="hg-section">
-          <node-timestamps [node]="node">
-          </node-timestamps>
+          <app-node-timestamps [node]="node">
+          </app-node-timestamps>
         </div>
         <div class="hg-section">
-          <node-comments [nodeId]="node.id">
-          </node-comments>
+          <app-node-comments [nodeId]="node.id">
+          </app-node-comments>
         </div>
       </div>
     </div>

@@ -4,11 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NodesStates } from './routes';
 
-import Node from './node';
-import NodeBasics from './node-basics';
-import NodeTimestamps from './node-timestamps';
-import NodeList from './node-list';
-import NodeComments from './node-comments';
+import { NodeComponent } from './node';
+import { NodeBasicsComponent } from './node-basics';
+import { NodeTimestampsComponent } from './node-timestamps';
+import { NodeListComponent } from './node-list';
+import { NodeCommentsComponent } from './node-comments';
 
 @NgModule({
   imports: [
@@ -19,12 +19,12 @@ import NodeComments from './node-comments';
     })
   ],
   declarations: [
-    Node,
-    NodeBasics,
-    NodeTimestamps,
-    NodeList,
-    NodeComments,
+    NodeComponent,
+    NodeBasicsComponent,
+    NodeTimestampsComponent,
+    NodeListComponent,
+    NodeCommentsComponent,
   ],
 })
 
-export default class NodesModule {}
+export class NodesModule {}
