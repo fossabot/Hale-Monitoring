@@ -1,0 +1,47 @@
+<div [ngSwitch]="comments !== undefined">
+  <h4>
+    Comments
+  </h4>
+  <div *ngSwitchCase="true">
+    <div *ngFor="let comment of comments" style="margin-top:10px">
+      <div style="display: flex">
+          <div style="flex: initial;padding: 0px 10px 0 0">
+            <img [src]="getGravatarUrl(comment.user.email)" style="width:30px;height:30px;border-radius:4px">
+          </div>
+          <div style="flex: 1;border-left: 3px solid #eee;padding-left:10px;margin-left:10px;">
+            <div style="width: 100%; font-size: 12px;">
+              <div class="pull-right">
+                <i class="delete-toggle fa fa-fw fa-trash" (click)="deleteComment(comment.id)"></i>
+              </div>
+              {{comment.text}}
+              <div>
+                <small>
+                  <i>
+                    {{comment.timestamp | date: 'd MMM yyyy hh:MM:ss'}} by <b>{{comment.user.fullName}}</b>
+                  </i>
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div *ngSwitchCase="false">
+    There are currently no comments for this host.
+  </div>
+  <div style="margin-top:10px">
+        <div style="display: flex">
+          <div style="flex: initial; padding: 0px 10px 0 0" *ngIf="user">
+            <img [src]="getGravatarUrl(user.email)" style="width:30px;height:30px;border-radius:4px">
+          </div>
+          <div style="flex: 1;margin-left:10px;" class="text-right">
+            <form #comment="ngForm" (ngSubmit)="saveComment(comment)" novalidate>
+              <textarea class="form-control" name="text" type="text" rows="3" ngModel required></textarea>
+              <button class="btn btn-primary btn-sm" style="margin-top:10px">
+                Save Comment
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+</div>

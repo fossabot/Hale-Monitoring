@@ -1,0 +1,5 @@
+<span *ngIf="user">
+  <a (click)="doLogout()">
+    <img [src]="getGravatarUrl(user.email)">
+  </a>
+</span>

@@ -1,0 +1,43 @@
+<div style="margin-bottom: 20px">
+  <h4>
+    Timestamps
+  </h4>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group row">
+        <label class="col-md-5 col-form-label">
+          Created:
+        </label>
+        <div class="col-md-7 form-text">
+          {{node.created | date: 'd MMM yyyy' || '-'}}
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-5 col-form-label">
+          Created by
+        </label>
+        <div class="col-md-7">
+          {{node.createdBy || '-'}}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group row">
+        <label class="col-md-5 col-form-label">
+          Last modified
+        </label>
+        <div class="col-md-7">
+          {{node.modified | date: 'dd MMM yyyy' || '-'}}
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-5 col-form-label">
+          Modified by
+        </label>
+        <div class="col-md-7">
+          {{node.modifiedBy || '-'}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
