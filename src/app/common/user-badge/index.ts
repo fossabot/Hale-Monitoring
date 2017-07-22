@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UIRouter } from 'ui-router-ng2';
+import { UIRouter } from '@uirouter/angular';
 import { Users } from 'app/api/users';
 
 @Component({

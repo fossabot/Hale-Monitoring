@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { StateService } from 'ui-router-ng2';
+import { StateService } from '@uirouter/angular';
 
 import { Auth, ICredentials } from 'app/api/auth';
 

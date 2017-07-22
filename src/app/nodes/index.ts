@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { UIRouterModule} from 'ui-router-ng2';
+import { UIRouterModule} from '@uirouter/angular';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NodesStates } from './routes';

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { UIView, UIRouterModule, UIRouter, Transition } from 'ui-router-ng2';
+import { UIView, UIRouterModule, UIRouter, Transition } from '@uirouter/angular';
 import { FormsModule } from '@angular/forms';
-import { StatesModule } from 'ui-router-ng2';
+import { StatesModule } from '@uirouter/angular';
 import { Auth } from 'app/api/auth';
 import { Login } from './login';
 

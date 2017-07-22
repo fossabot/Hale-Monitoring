@@ -1,7 +1,7 @@
 import 'rxjs/add/operator/toPromise';
 
-import { Ng2StateDeclaration } from 'ui-router-ng2';
-import { Transition } from 'ui-router-ng2';
+import { Ng2StateDeclaration } from '@uirouter/angular';
+import { Transition } from '@uirouter/angular';
 
 import { Nodes } from 'app/api/nodes';
 import { NavbarComponent } from 'app/common/navbar';
