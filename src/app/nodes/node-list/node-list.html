@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="hg-content">
+        <table class="table table-hover table-striped" *ngIf="nodes">
+          <thead>
+            <tr>
+              <th></th>
+              <th>
+                Host Name
+              </th>
+              <th>
+                FQDN
+              </th>
+              <th>
+                Last Change
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let node of nodes">
+              <td style="width: 20px">
+                <div class="status-box" [ngClass]="getStatusString(node.status)"></div>
+              </td>
+              <td>
+                <a uiSref="app.hale.node" [uiParams]="{nodeId: node.id}">
+                  {{node.friendlyName}}
+                </a>
+              </td>
+              <td title="'FQDN'">
+                {{node.hostName}}
+              </td>
+              <td title="'Last Change'">
+                {{node.modified}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
