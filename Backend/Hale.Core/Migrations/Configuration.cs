@@ -2,13 +2,19 @@ namespace Hale.Core.Migrations
 {
     using Models.Nodes;
     using Models.Users;
+    using Models.Agent;
+    using Models.Modules;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using System.Collections.Generic;
+
+    using ModuleFunctionType = Lib.Modules.ModuleFunctionType;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Hale.Core.Contexts.HaleDBContext>
     {
+
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
@@ -202,6 +208,65 @@ namespace Hale.Core.Migrations
                 }
 
             );
+
+            var taskUpload = new AgentConfigSetTask()
+            {
+                Enabled = true,
+                Startup = true,
+                Interval = TimeSpan.FromMinutes(5),
+                Name = "uploadResults"
+            };
+
+            var taskPersist = new AgentConfigSetTask()
+            {
+                Enabled = true,
+                Startup = true,
+                Interval = TimeSpan.FromMinutes(2),
+                Name = "persistResults",
+            };
+
+            var taskHeartbeat = new AgentConfigSetTask()
+            {
+                Enabled = true,
+                Startup = true,
+                Interval = TimeSpan.FromMinutes(1),
+                Name = "sendHeartbeat",
+            };
+
+            var agentConfig = AgentConfigSet.Empty;
+
+            agentConfig.Identifier = "seed_config01";
+
+            agentConfig.Functions.Add(new AgentConfigSetFuncSettings()
+            {
+                Enabled = true,
+                Function = "default",
+                Module = new Module()
+                {
+                    Identifier = "com.itshale.core.memory",
+                    Version = new Version(1, 0, 0, 0),
+                     
+                },
+                Startup = true,
+                Targets = new List<string>() { "default" },
+                FunctionSettings = new List<AgentConfigSetFunctionSettings>()
+                {
+                    new AgentConfigSetFunctionSettings()
+                    {
+                        Target = "default",
+                        Key = null,
+                        Value = null
+                    }
+                },
+                Interval = TimeSpan.FromMinutes(10),
+                Type = ModuleFunctionType.Check
+            });
+
+            agentConfig.Tasks.Add(taskUpload);
+            agentConfig.Tasks.Add(taskPersist);
+            agentConfig.Tasks.Add(taskHeartbeat);
+
+            context.AgentConfigs.AddOrUpdate(ac => ac.Identifier, agentConfig);
         }
     }
 }

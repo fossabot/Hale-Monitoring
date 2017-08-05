@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using Hale.Lib.Config;
 using Hale.Lib.Modules;
 using Module = Hale.Core.Models.Modules.Module;
-#pragma warning disable 108,114
+using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+#pragma warning disable 108, 114
 
 namespace Hale.Core.Models.Agent
 {
@@ -13,12 +16,23 @@ namespace Hale.Core.Models.Agent
     public class AgentConfigSet
     {
         /// <summary>
-        /// TODO: Add text here
+        /// Databse row ID
         /// </summary>
         public int Id { get; set; }
-        
+
         /// <summary>
-        /// TODO: Add text here
+        /// Unique identifier for this configuration
+        /// </summary>
+        [StringLength(32), Index("IX_Identifier_Unique", IsUnique = true)]
+        public string Identifier { get; set; }
+
+        /// <summary>
+        /// A human-readable name for the configuration which will be displayed in UIs
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// TODO: Creation time
         /// </summary>
         public DateTimeOffset Created { get; set; } = DateTimeOffset.Now;
         
@@ -46,6 +60,12 @@ namespace Hale.Core.Models.Agent
         /// TODO: Add text here
         /// </summary>
         public List<AgentConfigSetTask> Tasks { get; set; }
+
+        public static AgentConfigSet Empty => new AgentConfigSet()
+        {
+            Functions = new List<AgentConfigSetFuncSettings>(),
+            Tasks = new List<AgentConfigSetTask>(),
+        };
     }
 
     /// <summary>
@@ -57,6 +77,8 @@ namespace Hale.Core.Models.Agent
         /// TODO: Add text here
         /// </summary>
         public int Id { get; set; }
+
+        public string Name { get; set; }
     }
 
     /// <summary>
@@ -73,7 +95,7 @@ namespace Hale.Core.Models.Agent
         /// <summary>
         /// TODO: Add text here
         /// </summary>
-        public ModuleFunctionType Type;
+        public ModuleFunctionType Type { get; set; }
 
         /// <summary>
         /// TODO: Add text here
