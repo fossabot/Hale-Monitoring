@@ -15,8 +15,8 @@ namespace Hale.Core.Migrations
             RenameTable(name: "dbo.Users", newName: "Accounts");
             MoveTable(name: "dbo.AccountDetails", newSchema: "User");
             MoveTable(name: "dbo.Accounts", newSchema: "User");
-            DropForeignKey("dbo.UserDetails", "UserId", "dbo.Users");
-            DropIndex("User.AccountDetails", new[] { "UserId" });
+
+            //DropIndex("User.AccountDetails", new[] { "UserId" });
             AddColumn("User.AccountDetails", "Account_Id", c => c.Int());
             CreateIndex("User.AccountDetails", "Account_Id");
             AddForeignKey("User.AccountDetails", "Account_Id", "User.Accounts", "Id");
@@ -29,7 +29,7 @@ namespace Hale.Core.Migrations
             DropIndex("User.AccountDetails", new[] { "Account_Id" });
             DropColumn("User.AccountDetails", "Account_Id");
             CreateIndex("User.AccountDetails", "UserId");
-            AddForeignKey("dbo.UserDetails", "UserId", "dbo.Users", "Id", cascadeDelete: true);
+
             MoveTable(name: "User.Accounts", newSchema: "dbo");
             MoveTable(name: "User.AccountDetails", newSchema: "dbo");
             RenameTable(name: "dbo.Accounts", newName: "Users");

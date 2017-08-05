@@ -40,9 +40,9 @@ namespace Hale.Core.Migrations
                         AgentConfigSet_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("Modules.AgentConfigSetCheckActions", t => t.CriticalAction_Id)
+                .ForeignKey("Modules.AgentConfigSetCheckActions", t => t.CriticalAction_Id, name: "FK_AgentConfigActionCritical")
                 .ForeignKey("Modules.Modules", t => t.Module_Id)
-                .ForeignKey("Modules.AgentConfigSetCheckActions", t => t.WarningAction_Id)
+                .ForeignKey("Modules.AgentConfigSetCheckActions", t => t.WarningAction_Id, name: "FK_AgentConfigActionWarning")
                 .ForeignKey("Modules.AgentConfigSets", t => t.AgentConfigSet_Id)
                 .Index(t => t.CriticalAction_Id)
                 .Index(t => t.Module_Id)
