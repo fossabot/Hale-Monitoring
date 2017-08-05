@@ -29,7 +29,7 @@ namespace Hale.Core.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            var now = DateTime.Now;
+            var now = DateTimeOffset.Now;
 
             context.Accounts.AddOrUpdate(
                 u => u.UserName,

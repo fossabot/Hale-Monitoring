@@ -62,7 +62,7 @@ namespace Hale.Core.Models.Users
         /// TODO: Add text here
         /// </summary>
         [IgnoreDataMember]
-        public DateTime? PasswordChanged { get; set; }
+        public DateTimeOffset? PasswordChanged { get; set; }
 
         /// <summary>
         /// TODO: Add text here
@@ -77,7 +77,7 @@ namespace Hale.Core.Models.Users
         /// <summary>
         /// Corresponds to the table column User.Created
         /// </summary>
-        public DateTime Created { get; set; } = DateTime.Now;
+        public DateTimeOffset Created { get; set; } = DateTimeOffset.Now;
 
         /// <summary>
         /// Corresponds to the table column User.CreatedBy (FK Security.Users.Id)
@@ -87,7 +87,7 @@ namespace Hale.Core.Models.Users
         /// <summary>
         /// Corresponds to the table column User.Changed
         /// </summary>
-        public DateTime? Modified { get; set; }
+        public DateTimeOffset? Modified { get; set; }
 
         /// <summary>
         /// Corresponds to the table column User.ChangedBy (FK Security.Users.Id)

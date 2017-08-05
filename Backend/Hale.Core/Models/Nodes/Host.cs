@@ -58,12 +58,12 @@ namespace Hale.Core.Models.Nodes
         /// <summary>
         ///  Corresponds to the table column Hosts.LastSeen
         /// </summary>
-        public DateTime? LastConnected { get; set; }
+        public DateTimeOffset? LastConnected { get; set; }
 
         /// <summary>
         /// Corresponds to the table column Hosts.Updated
         /// </summary>
-        public DateTime Modified { get; set; }
+        public DateTimeOffset? Modified { get; set; }
 
         /// <summary>
         /// The account who made the most recent modification on the host
@@ -73,7 +73,7 @@ namespace Hale.Core.Models.Nodes
         /// <summary>
         /// Corresponds to the table column Hosts.Added
         /// </summary>
-        public DateTime Created { get; set; }
+        public DateTimeOffset Created { get; set; } = DateTimeOffset.Now;
 
         /// <summary>
         /// The account who originally created the host

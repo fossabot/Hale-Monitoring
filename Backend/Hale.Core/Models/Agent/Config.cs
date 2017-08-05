@@ -20,7 +20,7 @@ namespace Hale.Core.Models.Agent
         /// <summary>
         /// TODO: Add text here
         /// </summary>
-        public DateTime Created { get; set; } = DateTime.Now;
+        public DateTimeOffset Created { get; set; } = DateTimeOffset.Now;
         
         /// <summary>
         /// TODO: Add text here
@@ -30,7 +30,7 @@ namespace Hale.Core.Models.Agent
         /// <summary>
         /// TODO: Add text here
         /// </summary>
-        public DateTime? Modified { get; set; }
+        public DateTimeOffset? Modified { get; set; }
 
         /// <summary>
         /// TODO: Add text here

@@ -39,7 +39,7 @@ namespace Hale.Core.Models.Modules
         /// <summary>
         /// TODO: Add text here
         /// </summary>
-        public DateTime ExecutionTime { get; set; }
+        public DateTimeOffset ExecutionTime { get; set; }
         
         /// <summary>
         /// TODO: Add text here
