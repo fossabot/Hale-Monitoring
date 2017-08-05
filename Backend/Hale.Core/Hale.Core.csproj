@@ -28,7 +28,7 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
-    <AssemblyVersion>1.0.17204.687</AssemblyVersion>
+    <AssemblyVersion>1.0.17217.726</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -258,6 +258,7 @@
   <ItemGroup>
     <Compile Include="Config\ConfigurationExtensions.cs" />
     <Compile Include="Config\EnvironmentConfig.cs" />
+    <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Database\HaleDBContext.cs" />
     <Compile Include="Database\HaleDBConvention.cs" />
     <Compile Include="Config\AgentSection.cs" />
@@ -316,6 +317,26 @@
     <Compile Include="Migrations\201707230951139_SyncUpMisc.Designer.cs">
       <DependentUpon>201707230951139_SyncUpMisc.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708050905404_ConfigLayoutUpdate.cs" />
+    <Compile Include="Migrations\201708050905404_ConfigLayoutUpdate.Designer.cs">
+      <DependentUpon>201708050905404_ConfigLayoutUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708050935319_AddMissingFunctionTypeEnum.cs" />
+    <Compile Include="Migrations\201708050935319_AddMissingFunctionTypeEnum.Designer.cs">
+      <DependentUpon>201708050935319_AddMissingFunctionTypeEnum.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708051422449_SwitchToUTCDates.cs" />
+    <Compile Include="Migrations\201708051422449_SwitchToUTCDates.Designer.cs">
+      <DependentUpon>201708051422449_SwitchToUTCDates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708051443038_AddConfigIdentAttribs.cs" />
+    <Compile Include="Migrations\201708051443038_AddConfigIdentAttribs.Designer.cs">
+      <DependentUpon>201708051443038_AddConfigIdentAttribs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708051528524_EntityYoureDrivingMeInsane.cs" />
+    <Compile Include="Migrations\201708051528524_EntityYoureDrivingMeInsane.Designer.cs">
+      <DependentUpon>201708051528524_EntityYoureDrivingMeInsane.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Agent\Config.cs" />
     <Compile Include="Models\Messages\LoginAttempt.cs" />
     <Compile Include="Models\Messages\NewNodeComment.cs" />
@@ -371,6 +392,7 @@
       <DependentUpon>201608102302414_UniqueUsername.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Utils\ConfigSerializer.cs" />
     <Compile Include="Utils\MsiInterop.cs" />
     <Compile Include="Utils\ExceptionHandlingAttribute.cs" />
     <Compile Include="Utils\StringResult.cs" />
@@ -452,6 +474,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707230951139_SyncUpMisc.resx">
       <DependentUpon>201707230951139_SyncUpMisc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708050905404_ConfigLayoutUpdate.resx">
+      <DependentUpon>201708050905404_ConfigLayoutUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708050935319_AddMissingFunctionTypeEnum.resx">
+      <DependentUpon>201708050935319_AddMissingFunctionTypeEnum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708051422449_SwitchToUTCDates.resx">
+      <DependentUpon>201708051422449_SwitchToUTCDates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708051443038_AddConfigIdentAttribs.resx">
+      <DependentUpon>201708051443038_AddConfigIdentAttribs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708051528524_EntityYoureDrivingMeInsane.resx">
+      <DependentUpon>201708051528524_EntityYoureDrivingMeInsane.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="nemesis.yaml" />
     <None Include="NLog.xsd">
