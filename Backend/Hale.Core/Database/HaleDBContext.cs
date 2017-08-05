@@ -66,17 +66,17 @@ namespace Hale.Core.Contexts
         /// TODO: Add text here
         /// </summary>
         public virtual DbSet<Function> Functions { get; set; }
-        
+
         /// <summary>
         /// TODO: Add text here
         /// </summary>
         public virtual DbSet<Result> Results { get; set; }
-        
+
         /// <summary>
         /// TODO: Add text here
         /// </summary>
         public virtual DbSet<InfoRecord> InfoRecords { get; set; }
-        
+
         /// <summary>
         /// TODO: Add text here
         /// </summary>
@@ -89,6 +89,16 @@ namespace Hale.Core.Contexts
         /// TODO: Add text here
         /// </summary>
         public virtual DbSet<AgentConfigSet> AgentConfigs { get; set; }
+
+        public virtual DbSet<AgentConfigSetTask> AgentConfigSetTasks { get;set;}
+
+        public virtual DbSet<AgentConfigSetFunctionSettings> AgentConfigSetFunctionSettings { get;set; }
+
+        public virtual DbSet<AgentConfigSetFuncSettings> AgentConfigSetFuncSettings { get;set; }
+
+        public virtual DbSet<AgentConfigSetCheckAction> AgentConfigSetCheckActions { get;set; }
+
+
 
         #endregion
 
