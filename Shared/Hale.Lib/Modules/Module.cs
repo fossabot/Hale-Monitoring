@@ -13,35 +13,16 @@ namespace Hale.Lib.Modules
         /// <summary>
         /// Module name, if not overriden it is extracted from the assembly FileDescription
         /// </summary>
-        public virtual string Name
-        {
-            get
-            {
-                var fvi = FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location);
-                return fvi.FileDescription;
-            }
-        }
+        public abstract string Name { get; }
 
         /// <summary>
         /// Module author, if not overriden it is extracted from the assembly CompanyName
         /// </summary>
-        public virtual string Author
-        {
-            get
-            {
-                var fvi = FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location);
-                return fvi.CompanyName;
-            }
-        }
-
+        public virtual string Author => "";
         /// <summary>
         /// Module version, returns assembly version if not overridden
         /// </summary>
-        public virtual Version Version {
-            get {
-                return Assembly.GetEntryAssembly().GetName().Version;
-            }
-        }
+        public virtual Version Version => new Version();
 
         /// <summary>
         /// Module target platform

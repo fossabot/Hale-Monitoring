@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
-    <AssemblyVersion>1.0.17217.18</AssemblyVersion>
+    <AssemblyVersion>.</AssemblyVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -109,14 +109,13 @@
   </Target>
   -->
   <!-- Condition="Exists('..\..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" -->
-  <Import Project="..\..\packages\MSBuildTasks.1.5.0.235\tools\MSBuild.Community.Tasks.Targets"  />
+  <Import Project="..\..\packages\MSBuildTasks.1.5.0.235\tools\MSBuild.Community.Tasks.Targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\MSBuildTasks.1.5.0.235\tools\MSBuild.Community.Tasks.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MSBuildTasks.1.5.0.235\tools\MSBuild.Community.Tasks.Targets'))" />
   </Target>
-
   <PropertyGroup>
     <Major>1</Major>
     <Minor>0</Minor>
@@ -125,7 +124,5 @@
     <Title>Hale.Lib</Title>
     <Description>Hale.Lib</Description>
   </PropertyGroup>
-
   <Import Project="..\..\BuildVersion.xml" Condition="Exists('..\..\BuildVersion.xml')" />
-  
 </Project>

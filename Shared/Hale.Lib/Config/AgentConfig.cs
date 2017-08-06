@@ -75,6 +75,9 @@ namespace Hale.Lib.Config
             if (acr.Actions != null)
                 ac.LoadSerializedActions(acr);
 
+            ac.Modules = acr.Modules;
+            ac.Tasks = acr.Tasks;
+
             return ac;
         }
 

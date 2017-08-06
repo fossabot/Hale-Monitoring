@@ -18,7 +18,7 @@ using Hale.Core.Models.Users;
 namespace Hale.Core.Controllers
 {
     [RoutePrefix("api/v1/configs")]
-    public class ConfigController : ApiController
+    public class ConfigController : ProtectedApiController
     {
 
         private Expression<Func<Account, UserSummaryDTO>> CreateUserSummaryDTO = account => new UserSummaryDTO
@@ -40,8 +40,6 @@ namespace Hale.Core.Controllers
         }
         #endregion
 
-
-        //[Authorize]
         [Route()]
         [ResponseType(typeof(List<AgentConfigSet>))]
         [AcceptVerbs("GET")]
@@ -68,9 +66,6 @@ namespace Hale.Core.Controllers
             return Ok(configList);
         }
 
-
-
-        //[Authorize]
         [Route("{id}")]
         [ResponseType(typeof(List<AgentConfigSet>))]
         [AcceptVerbs("GET")]
@@ -86,6 +81,14 @@ namespace Hale.Core.Controllers
             var serializedConfig = ConfigSerializer.SerializeAgentConfig(agentConfig);
 
             return Ok(serializedConfig);
+        }
+
+        [HttpPost, Route("{id}")]
+        public IHttpActionResult Update(int id, [FromBody]ConfigSourceDTO configSource)
+        {
+            _log.Info($"Got save for #{id}:\n{configSource.Body}");
+
+            return Ok();
         }
 
     }

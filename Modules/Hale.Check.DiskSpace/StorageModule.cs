@@ -12,15 +12,11 @@ namespace Hale.Modules
     public sealed class DiskSpaceCheck: Module, ICheckProvider, IInfoProvider
     {
 
-        public new string Name { get; } = "Storage";
-
-        public new string Author { get; } = "Hale Project";
-
-        public override string Identifier { get; } = "com.itshale.core.storage";
-
-        public override string Platform { get; } = "Windows";
-
-        public new decimal TargetApi { get; } = 1.2M;
+        public override string Name => "Storage Module";
+        public override string Author => "Hale Project";
+        public override string Identifier => "com.itshale.core.storage";
+        public override string Platform => "Windows";
+        public override decimal TargetApi => 1.2M;
 
         Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
             = new Dictionary<string, ModuleFunction>();

@@ -18,10 +18,10 @@ namespace Hale.Modules
     public class CpuModule : Module, ICheckProvider, IInfoProvider
     {
 
-        public override string Name { get; } = "CPU Usage";
-        public override string Platform { get; } = "Windows";
-        public override decimal TargetApi { get; } = 1.2M;
-        public override string Identifier { get; } = "com.itshale.core.cpu";
+        public override string Name => "CPU Module";
+        public override string Platform => "Windows";
+        public override decimal TargetApi => 1.2M;
+        public override string Identifier => "com.itshale.core.cpu";
 
         Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
             = new Dictionary<string, ModuleFunction>();

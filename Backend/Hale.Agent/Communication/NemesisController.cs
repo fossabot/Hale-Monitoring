@@ -115,6 +115,7 @@ namespace Hale.Agent.Communication
 
         public Guid[] UploadResults(ResultRecordChunk records)
         {
+            if (records.Count < 1) return new Guid[0];
             var req = new JsonRpcRequest()
             {
                 Method = "uploadResults",

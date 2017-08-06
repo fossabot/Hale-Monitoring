@@ -18,7 +18,7 @@ namespace Hale.Agent.Modules
             var resultStorage = ServiceProvider.GetService<IResultStorage>();
             if (resultStorage == null) return;
 
-            var records = resultStorage.Fetch(10);
+            var records = resultStorage.Fetch(20);
             var uploaded = nemesis.UploadResults(records);
 
             if (uploaded != null)

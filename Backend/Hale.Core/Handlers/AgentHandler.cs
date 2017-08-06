@@ -344,20 +344,16 @@ namespace Hale.Core.Handlers
         private Result ConvertToResult(IModuleResultRecord record, ModuleResult moduleResult,
             Host host, Function function, Models.Modules.Module module, string target)
         {
-            //var check = (Check)function;                 //      \
-            //var checkDetail = (CheckDetail)detail;       // Hack: Until database has support for other function types
-            //var checkResult = (CheckResult)moduleResult; //      /
             Result result = new Result()
             {
                 HostId = host.Id,
                 FunctionId = function.Id,
                 ModuleId = module.Id,
 
-                Exception = (moduleResult.ExecutionException != null) ? moduleResult.ExecutionException.Message : "",
+                Exception = !moduleResult.RanSuccessfully ? moduleResult.ExecutionException.Message : null,
                                                                     //CheckException does not contain the same fields as the Core Entity.
                 ExecutionTime = record.CompletionTime,
                 Message = moduleResult.Message,
-                //ResultType = GetCheckResultType(checkResult), // Hack: Fix when GitHub Issue #3 in Hale-Lib is resolved.
                 Target = target
 
             };

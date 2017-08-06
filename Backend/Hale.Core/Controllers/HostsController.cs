@@ -16,7 +16,7 @@ namespace Hale.Core.Controllers
     /// TODO: Add text here
     /// </summary>
     [RoutePrefix("api/v1/hosts")]
-    public class HostsController : ApiController
+    public class HostsController : ProtectedApiController
     {
         #region Constructors and declarations
         private readonly Logger _log;
@@ -36,7 +36,6 @@ namespace Hale.Core.Controllers
         /// TODO: Add text here
         /// </summary>
         /// <returns></returns>
-        [Authorize]
         [Route()]
         [ResponseType(typeof(List<Host>))]
         [AcceptVerbs("GET")]
@@ -51,7 +50,6 @@ namespace Hale.Core.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Authorize]
         [Route("{id}")]
         [ResponseType(typeof(Host))]
         [AcceptVerbs("GET")]
@@ -80,7 +78,6 @@ namespace Hale.Core.Controllers
         /// <param name="id"></param>
         /// <param name="hostToSave"></param>
         /// <returns></returns>
-        [Authorize]
         [Route("{id}")]
         [ResponseType(typeof(Host))]
         [HttpPost]
@@ -120,7 +117,6 @@ namespace Hale.Core.Controllers
         /// </summary>
         /// <param name="id">The id of the node</param>
         /// <returns></returns>
-        [Authorize]
         [Route("{id}/comments")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetComments(int id)
