@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Target Name="Version">
-    <Script Language="C#" Code="public static string ScriptMain() { var n=DateTime.Now; return n.ToString(&quot;yy&quot;)+n.DayOfYear; }" Imports="System">
-      <Output TaskParameter="ReturnValue" PropertyName="Build" />
-    </Script>
     <GitVersion LocalPath="$(MSBuildProjectDirectory)">
       <Output TaskParameter="CommitHash" PropertyName="Revision" />
     </GitVersion>
+    <Script Language="C#" Code="public static string ScriptMain() { var n=System.DateTime.Now; return n.ToString(&quot;yy&quot;)+n.DayOfYear; }" Imports="System">
+      <Output TaskParameter="ReturnValue" PropertyName="Build" />
+    </Script>
     <Message Text="Build: $(Build)" />
     <Message Text="Revision: $(Revision)" />
     <AssemblyInfo CodeLanguage="CS" OutputFile="Properties\AssemblyInfo.cs" AssemblyTitle="$(Title)" AssemblyDescription="$(Description)" AssemblyCompany="Hale Project" AssemblyProduct="Hale Monitoring" AssemblyCopyright="Copyright © 2017, Hale Project" ComVisible="false" CLSCompliant="true" AssemblyInformationalVersion="$(Major).$(Minor).$(Build).$(Revision)" AssemblyVersion="$(Major).$(Minor).$(Build)" AssemblyFileVersion="$(Major).$(Minor).$(Build)" />
