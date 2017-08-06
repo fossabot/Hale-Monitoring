@@ -1,0 +1,15 @@
+<div class="dev-button">
+  <div *ngIf="!production">
+    <div class="hg-content">
+      <span id="devButton" class="clickable" (click)="isCollapsed = !isCollapsed">
+        <i class="fa fa-fw" [ngClass]="!isCollapsed ? 'fa-caret-down' : 'fa-caret-right'"></i> Debug
+      </span>
+      <div id="collapsable" [ngClass]="{'transparent': isCollapsed}">
+        <div [innerHtml]="text"></div>
+        <div *ngIf="jsonText" class="json-outlet">
+          <pre>{{jsonText}}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

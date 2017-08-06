@@ -1,5 +1,13 @@
-<span *ngIf="user">
-  <a (click)="doLogout()">
-    <img [src]="getGravatarUrl(user.email)">
-  </a>
-</span>
+<div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown" *ngIf="user">
+  <img [src]="getGravatarUrl(user.email)" ngbDropdownToggle>
+   <div class="dropdown-menu" aria-labelledby="dropdownManual" style="right:0;left:auto">
+    <a class="dropdown-item" uiSref="app.hale.admin.edit-profile">
+      <i class="fa fa-fw fa-pencil-square-o"></i>
+      Edit profile
+    </a>
+    <button class="dropdown-item" (click)="doLogout()">
+      <i class="fa fa-fw fa-sign-out"></i>
+      Logout
+    </button>
+  </div>
+</div>

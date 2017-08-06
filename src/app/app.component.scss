@@ -1,0 +1,50 @@
+#loader {
+  display: none;
+  overflow: hidden;
+  width: 100vw;
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  background: rgba(0,0,0,0.2);
+  z-index: 100000;
+  &.visible {
+    display: block;
+  }
+  .content {
+    width: 150px;
+    height: 100px;
+    position: absolute;
+    top: calc(50vh - 50px);
+    left: calc(50vw - 75px);
+    .dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      position: absolute;
+      left: calc(50% - 1rem);
+      top: calc(50% - 1rem);
+      content: '.';
+      background: rgba(0,0,0,0.01);
+      border-radius: 100%;
+    }
+    .dot-1 { left: calc(10% - 1rem); animation: move-dot 2.5s infinite; animation-delay: 0s   }
+    .dot-2 { left: calc(30% - 1rem); animation: move-dot 2.5s infinite; animation-delay: 0.2s }
+    .dot-3 { left: calc(50% - 1rem); animation: move-dot 2.5s infinite; animation-delay: 0.4s }
+    .dot-4 { left: calc(70% - 1rem); animation: move-dot 2.5s infinite; animation-delay: 0.6s }
+    .dot-5 { left: calc(90% - 1rem); animation: move-dot 2.5s infinite; animation-delay: 0.8s }
+
+    @keyframes move-dot {
+      0%, 20% {
+        transform: translateY(0rem);
+      }
+      50%,80% {
+        transform: translateY(-1rem) scale(2);
+        box-shadow: 0 0 1rem rgba(103, 58, 183 ,1);
+      }
+      75% {
+        background: rgba(103, 58, 183,0.8);
+      }
+    }
+  }
+}

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { Auth } from './auth';
 import { Comments } from './comments';
+import { Configs } from './configs';
 import { Nodes } from './nodes';
 import { Users } from './users';
 
@@ -12,6 +13,7 @@ import { Users } from './users';
     Comments,
     Nodes,
     Users,
+    Configs,
   ],
   declarations: [
   ]

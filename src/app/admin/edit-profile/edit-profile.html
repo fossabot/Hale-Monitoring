@@ -1,0 +1,25 @@
+<form *ngIf="user">
+  <div class="form-group">
+    <label for="username">
+      Username
+    </label>
+    <input type="text" name="username" class="form-control" [(ngModel)]="user.userName" disabled>
+  </div>
+  <div class="form-group">
+    <label for="username">
+      Email
+    </label>
+    <input type="email" name="email" class="form-control" [(ngModel)]="user.email">
+  </div>
+  <div class="form-group">
+    <label for="fullname">
+      Name
+    </label>
+    <input type="text" name="fullname" class="form-control" [(ngModel)]="user.fullName">
+  </div>
+  <div class="text-right">
+    <button class="btn btn-primary">
+      Submit
+    </button>
+  </div>
+</form>

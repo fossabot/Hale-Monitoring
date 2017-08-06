@@ -14,7 +14,7 @@ export class NavbarComponent {
   constructor(private uiRouter: UIRouter) {
     this.nav = [
       { state: 'app.hale.nodes', title: 'Nodes'},
-      { state: 'app.hale.nodes', title: 'Admin'},
+      { state: 'app.hale.configs', title: 'Configs'},
     ];
   }
 

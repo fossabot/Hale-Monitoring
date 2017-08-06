@@ -28,16 +28,22 @@
                   {{node.friendlyName}}
                 </a>
               </td>
-              <td title="'FQDN'">
+              <td>
                 {{node.hostName}}
               </td>
-              <td title="'Last Change'">
-                {{node.modified}}
+              <td>
+                {{node.modified | date: 'd MMM yyyy hh:mm:ss'}}
               </td>
             </tr>
           </tbody>
         </table>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <app-dev-button [json]="nodes" *ngIf="nodes">
+      </app-dev-button>
     </div>
   </div>
 </div>

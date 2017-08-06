@@ -40,3 +40,13 @@ body {
 .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
    background-color: #fcfcfc;
 }
+.hg-content {
+  margin-top: 20px;
+  background: #fff;
+  padding: 20px;
+  font-size: 12px;
+}
+
+.clickable {
+  cursor: pointer;
+}

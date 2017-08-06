@@ -1,0 +1,23 @@
+.hg-content {
+  margin-top: 20px;
+  background: #fff;
+  padding: 20px;
+  font-size: 12px;
+  table {
+    width: 100%;
+    thead {
+      text-align: left;
+      th {
+        border-top: 0;
+      }
+    }
+  }
+  .date-person-cell {
+    img {
+      width: 1.5em;
+      border-radius: 5px;
+      vertical-align: top;
+      margin-right: 5px;
+    }
+  }
+}
