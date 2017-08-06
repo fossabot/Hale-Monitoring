@@ -13,6 +13,7 @@ namespace Hale.Lib
 {
     public abstract class Scheduler
     {
+        [CLSCompliant(false)]
         protected ILogger _log = LogManager.GetLogger("Scheduler");
 
         public Dictionary<TimeSpan, List<TaskBase>> ScheduleTasks =
@@ -20,6 +21,7 @@ namespace Hale.Lib
 
         public ConcurrentQueue<QueuedTask> TaskQueue = new ConcurrentQueue<QueuedTask>();
 
+        [CLSCompliant(false)]
         protected int _taskWorkerCount = 5; // NM: should move to config @hardcoded
 
         protected List<BackgroundWorker> TaskWorkerPool = new List<BackgroundWorker>();
@@ -61,7 +63,7 @@ namespace Hale.Lib
 
         public void Start()
         {
-            _updateQueue();
+            updateQueue();
             _stopping = false;
 
             // NM: Perhaps some thread-safety should be added @ts @fixme
@@ -124,7 +126,7 @@ namespace Hale.Lib
             }
         }
         
-        protected void _updateQueue()
+        protected void updateQueue()
         {
             if (TaskTimers.Count > 0)
             {

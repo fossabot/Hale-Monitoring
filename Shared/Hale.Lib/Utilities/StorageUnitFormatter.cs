@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hale.Lib.Utilities
 {
+    [CLSCompliant(false)]
     public static class StorageUnitFormatter
     {
         public static string HumanizeStorageUnit(ulong p)

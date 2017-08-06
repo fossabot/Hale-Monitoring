@@ -9,6 +9,7 @@ namespace Hale.Lib.Modules
     [Serializable]
     public abstract class ModuleSettingsBase
     {
+        [CLSCompliant(false)]
         protected Dictionary<string, string> _raw = new Dictionary<string, string>();
 
         public string Module { get; set; }
