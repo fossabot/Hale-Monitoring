@@ -21,7 +21,7 @@ namespace Hale.Lib.Config
         public Dictionary<string, AgentConfigTask> Tasks { get; set; } = new Dictionary<string, AgentConfigTask>();
     }
 
-    class AgentConfigRaw: AgentConfigBase
+    internal class AgentConfigRaw: AgentConfigBase
     {
         public Dictionary<string, Dictionary<string, object>> Checks { get; set; }
             = new Dictionary<string, Dictionary<string, object>>();

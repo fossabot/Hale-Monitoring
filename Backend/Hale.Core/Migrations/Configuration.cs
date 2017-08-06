@@ -254,8 +254,8 @@ namespace Hale.Core.Migrations
                     new AgentConfigSetFunctionSettings()
                     {
                         Target = "default",
-                        Key = null,
-                        Value = null
+                        Key = "foo",
+                        Value = "bar"
                     }
                 },
                 Interval = TimeSpan.FromMinutes(10),
