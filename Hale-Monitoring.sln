@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Backend", "1. Backend", "{0768DEEE-4D7A-41C2-939A-92F24724720C}"
 EndProject
@@ -279,5 +279,13 @@ Global
 		{F31C06C1-DD56-4BE0-8092-13F1497A9587} = {0768DEEE-4D7A-41C2-939A-92F24724720C}
 		{19ACF1DC-F01C-4C2F-9791-8C75DB4E70BE} = {0768DEEE-4D7A-41C2-939A-92F24724720C}
 		{CF1E1001-E40F-40A8-B1E3-29FEB471B2BD} = {E1EF2A14-563C-4C83-91A2-8A16A00AFDCA}
+	EndGlobalSection
+	GlobalSection(AutomaticVersions) = postSolution
+		UpdateAssemblyVersion = True
+		UpdateAssemblyFileVersion = True
+		UpdateAssemblyInfoVersion = True
+		AssemblyVersionSettings = None.None.None.None
+		AssemblyFileVersionSettings = None.None.None.None
+		AssemblyInfoVersionSettings = None.None.None.None
 	EndGlobalSection
 EndGlobal
