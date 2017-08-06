@@ -14,15 +14,12 @@ namespace Hale.Modules
     public sealed class UptimeCheck: Module, IInfoProvider
     {
 
-        public new string Name { get; } = "Power";
-
-        public new string Author { get; } = "hale project";
-
-        public override string Identifier { get; } = "com.itshale.core.power";
-
-        public override string Platform { get; } = "Windows";
-
-        public new decimal TargetApi { get; } = 1.2M;
+        public override string Name => "Power";
+        public override string Author => "hale project";
+        public override string Identifier => "com.itshale.core.power";
+        public override string Platform => "Windows";
+        public override decimal TargetApi => 1.2M;
+        public override Version Version => new Version(0, 1, 1);
 
         Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
             = new Dictionary<string, ModuleFunction>();

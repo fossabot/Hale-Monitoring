@@ -6,6 +6,7 @@ using Hale.Lib.Modules.Checks;
 using Hale.Lib.Modules.Info;
 using Hale.Lib.Utilities;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using NLog;
 using System;
@@ -53,6 +54,8 @@ namespace Hale.Agent.Modules
             var encoding = new UTF8Encoding(false);
             //var formatter = new BinaryFormatter();
             var js = new Newtonsoft.Json.JsonSerializer();
+            js.Converters.Add(new VersionConverter());
+             
             while (_records.Count > 0)
             {
                 var resultFile = Path.Combine(_resultsPath, Guid.NewGuid().ToString("N") + ".json");
@@ -72,6 +75,7 @@ namespace Hale.Agent.Modules
             var records = new ResultRecordChunk();
 
             var js = new Newtonsoft.Json.JsonSerializer();
+            js.Converters.Add(new VersionConverter());
 
             foreach (var file in Directory.GetFiles(_resultsPath)) {
                 if (records.Count >= maxRecords) break;

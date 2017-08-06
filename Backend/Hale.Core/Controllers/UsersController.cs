@@ -21,19 +21,10 @@ namespace Hale.Core.Controllers
     /// TODO: Add text here
     /// </summary>
     [RoutePrefix("api/v1/users")]
-    public class UsersController : ApiController
+    public class UsersController : ProtectedApiController
     {
-        #region Constructors and declarations
-        private readonly Logger _log;
-        private readonly HaleDBContext db;
 
-        internal UsersController() : this(new HaleDBContext()) { }
-        internal UsersController(HaleDBContext context)
-        {
-            db = context;
-            _log = LogManager.GetCurrentClassLogger();   
-        }
-        #endregion
+        private readonly Logger _log = LogManager.GetCurrentClassLogger();
         
         /// <summary>
         /// TODO: Add text here
@@ -43,7 +34,7 @@ namespace Hale.Core.Controllers
         [Authorize, HttpGet, Route("{id}")]
         public IHttpActionResult Get(int id)
         {
-            var user = db.Accounts.FirstOrDefault(u => u.Id == id);
+            var user = _db.Accounts.FirstOrDefault(u => u.Id == id);
 
             if (user == null)
                 return NotFound();
@@ -58,7 +49,7 @@ namespace Hale.Core.Controllers
         [Authorize, HttpGet, Route("current")]
         public IHttpActionResult GetCurrent()
         {
-            var user = db.Accounts.Single(x => x.UserName == _currentUsername);
+            var user = _db.Accounts.Single(x => x.UserName == _currentUsername);
             return Ok(new
             {
                 Id = user.Id,
@@ -74,7 +65,7 @@ namespace Hale.Core.Controllers
         [Authorize, HttpGet, Route("")]
         public IHttpActionResult List()
         {
-            return Ok(db.Accounts.ToList());
+            return Ok(_db.Accounts.ToList());
         }
 
         /// <summary>
@@ -85,7 +76,7 @@ namespace Hale.Core.Controllers
         [Authorize, HttpPost, Route("")]
         public IHttpActionResult Create([FromBody] CreateAccountRequest userRequest)
         {
-            if (db.Accounts.Any(x => x.UserName == userRequest.UserName))
+            if (_db.Accounts.Any(x => x.UserName == userRequest.UserName))
                 return InternalServerError();
             else
             {
@@ -96,8 +87,8 @@ namespace Hale.Core.Controllers
                     FullName = userRequest.FullName
                 };
 
-                db.Accounts.Add(user);
-                db.SaveChanges();
+                _db.Accounts.Add(user);
+                _db.SaveChanges();
 
                 return Ok();
             }
@@ -113,8 +104,8 @@ namespace Hale.Core.Controllers
         public IHttpActionResult Update(int id, [FromBody]Account user)
         {
             try {
-                db.Accounts.Attach(user);
-                db.SaveChanges();
+                _db.Accounts.Attach(user);
+                _db.SaveChanges();
 
                 return Ok();
             }

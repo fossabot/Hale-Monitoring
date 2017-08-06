@@ -254,7 +254,9 @@
     <Compile Include="Config\ConfigurationExtensions.cs" />
     <Compile Include="Config\EnvironmentConfig.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
+    <Compile Include="Controllers\NodeResultDTO.cs" />
     <Compile Include="Controllers\ProtectedApiController.cs" />
+    <Compile Include="Controllers\NodesResultsController.cs" />
     <Compile Include="Models\ConfigSourceDTO.cs" />
     <Compile Include="Models\UserSummaryDTO.cs" />
     <Compile Include="Models\ConfigSummaryDTO.cs" />
@@ -397,7 +399,7 @@
     <Compile Include="Utils\StringResult.cs" />
     <Compile Include="Handlers\ApiHandler.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
-    <Compile Include="Controllers\HostsController.cs" />
+    <Compile Include="Controllers\NodesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="HaleCoreService.cs">
       <SubType>Component</SubType>

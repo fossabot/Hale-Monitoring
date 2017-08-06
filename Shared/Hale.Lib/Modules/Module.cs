@@ -22,7 +22,7 @@ namespace Hale.Lib.Modules
         /// <summary>
         /// Module version, returns assembly version if not overridden
         /// </summary>
-        public virtual Version Version => new Version();
+        public abstract Version Version { get; }
 
         /// <summary>
         /// Module target platform

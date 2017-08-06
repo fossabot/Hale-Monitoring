@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.Converters;
 
 namespace Hale.Lib.JsonRpc
 {
@@ -24,8 +25,14 @@ namespace Hale.Lib.JsonRpc
 
         public byte[] Serialize()
         {
-            string jsonstring = JsonConvert.SerializeObject(this, JsonRpcDefaults.SerializerSettings);
-            return JsonRpcDefaults.Encoding.GetBytes(jsonstring);
+            var js = new JsonSerializer();
+            js.Converters.Add(new VersionConverter());
+            var sb = new StringBuilder();
+            using (var sw = new StringWriter(sb))
+            {
+                js.Serialize(sw, this);
+            }
+            return JsonRpcDefaults.Encoding.GetBytes(sb.ToString());
         }
 
         public static JsonRpcRequest FromJsonString(string jsonstring)
@@ -66,7 +73,15 @@ namespace Hale.Lib.JsonRpc
 
         public static JsonRpcResponse FromJsonString(string jsonString)
         {
-            return JsonConvert.DeserializeObject<JsonRpcResponse>(jsonString);
+            var js = new JsonSerializer();
+            js.Converters.Add(new VersionConverter());
+
+            using (var sr = new StringReader(jsonString))
+            {
+                var jtr = new JsonTextReader(sr);
+                return js.Deserialize<JsonRpcResponse>(jtr);
+            }
+            
         }
 
         public static JsonRpcResponse FromJsonStream(Stream stream)

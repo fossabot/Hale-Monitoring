@@ -21,24 +21,14 @@ namespace Hale.Core.Controllers
     public class ConfigController : ProtectedApiController
     {
 
+        private readonly Logger _log = LogManager.GetCurrentClassLogger();
+
         private Expression<Func<Account, UserSummaryDTO>> CreateUserSummaryDTO = account => new UserSummaryDTO
         {
             Id = account.Id,
             FullName = account.FullName,
             Email = account.Email,
         };
-
-        #region Constructors and declarations
-        private readonly ILogger _log;
-        private readonly HaleDBContext _db;
-
-        internal ConfigController() : this(new HaleDBContext()) { }
-        internal ConfigController(HaleDBContext context)
-        {
-            _db = context;
-            _log = LogManager.GetCurrentClassLogger();
-        }
-        #endregion
 
         [Route()]
         [ResponseType(typeof(List<AgentConfigSet>))]

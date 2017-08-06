@@ -8,13 +8,13 @@ namespace Hale.Alerts
 {
     public class SimpleHaleAlert : Hale.Lib.Modules.Module, IAlertProvider
     {
-        public new string Name { get; } = "Simple Alert";
+        public override string Name { get; } = "Simple Alert";
 
-        public new string Author { get; } = "Hale Project";
+        public override string Author { get; } = "Hale Project";
 
         public override string Identifier { get; } = "com.itshale.core.simplealert";
 
-        public new Version Version { get; } = new Version(0, 1, 1);
+        public override Version Version { get; } = new Version(0, 1, 1);
 
         public override string Platform { get; } = "Windows";
 

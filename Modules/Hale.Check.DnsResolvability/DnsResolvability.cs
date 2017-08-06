@@ -22,12 +22,12 @@ namespace Hale.Checks
     public sealed class DnsResolvability: Module, ICheckProvider, IInfoProvider
     {
 
-        public new string Name              { get; } = "DNS Resolvability Test";
-        public new string Author            { get; } = "Hale Project";
-        public override string Identifier   { get; } = "com.itshale.core.paging";
-        public new Version Version          { get; } = new Version (0, 1, 1);
-        public override string Platform     { get; } = "Windows";
-        public new decimal TargetApi        { get; } = 1.2M;
+        public override string Name => "DNS Resolvability Test";
+        public override string Author => "Hale Project";
+        public override string Identifier => "com.itshale.core.paging";
+        public override Version Version => new Version (0, 1, 1);
+        public override string Platform => "Windows";
+        public override decimal TargetApi => 1.2M;
 
         Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
             = new Dictionary<string, ModuleFunction>();
