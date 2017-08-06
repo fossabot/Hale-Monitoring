@@ -12,8 +12,8 @@ namespace Hale.Lib
     public class NemesisConfig
     {
         public string Hostname { get; set; }
-        public ushort SendPort { get; set; }
-        public ushort ReceivePort { get; set; }
+        public int SendPort { get; set; }
+        public int ReceivePort { get; set; }
         public bool UseEncryption { get; set; }
         public Guid Id { get; set; }
         public TimeSpan HeartBeatInterval { get; set; }
