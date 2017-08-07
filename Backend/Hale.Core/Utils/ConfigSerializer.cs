@@ -106,21 +106,13 @@ namespace Hale.Core.Utils
                 }
             }
 
-            var ys = new Serializer(namingConvention: new CamelCaseNamingConvention());
+            var ys = new SerializerBuilder()
+                .WithNamingConvention(new CamelCaseNamingConvention())
+                .Build();
 
-            return StreamToString(sw => ys.Serialize(sw, config));
+            return ys.Serialize(config);
 
 
-        }
-
-        private static string StreamToString(Action<TextWriter> func)
-        {
-            var sb = new StringBuilder();
-            using (var sw = new StringWriter(sb))
-            {
-                func(sw);
-            }
-            return sb.ToString();
         }
     }
 

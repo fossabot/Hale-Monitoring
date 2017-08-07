@@ -12,7 +12,7 @@ namespace Hale.Core.Config
 
         public static CoreConfig Load(string filename)
         {
-
+            return default(CoreConfig);
         }
 
         public void Save(string filename)

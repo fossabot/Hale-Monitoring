@@ -14,7 +14,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
-    <AssemblyVersion>1.0.17218.736</AssemblyVersion>
+    <AssemblyVersion>1.0.17219.744</AssemblyVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -72,10 +72,6 @@
     <Reference Include="Humanizer, Version=2.1.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Humanizer.Core.2.1.0\lib\netstandard1.0\Humanizer.dll</HintPath>
-    </Reference>
-    <Reference Include="JsonApiNet, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\JsonApiNet.2.0.1.0\lib\net45\JsonApiNet.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="libnemesis, Version=4.0.16331.224, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -145,24 +141,14 @@
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NJsonApi, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NJsonApi.1.1.0.1\lib\net45\NJsonApi.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NJsonApi.Common, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NJsonApi.1.1.0.1\lib\net45\NJsonApi.Common.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NLog.4.3.5\lib\net45\NLog.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\NLog.4.4.11\lib\net45\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="Npgsql, Version=3.2.4.1, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Npgsql.3.2.4.1\lib\net45\Npgsql.dll</HintPath>
+    <Reference Include="Npgsql, Version=3.2.5.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Npgsql.3.2.5\lib\net45\Npgsql.dll</HintPath>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -246,9 +232,8 @@
       <HintPath>..\..\packages\WebActivatorEx.2.1.0\lib\net40\WebActivatorEx.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="YamlDotNet, Version=3.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\YamlDotNet.3.9.0\lib\net35\YamlDotNet.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="YamlDotNet, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\YamlDotNet.4.2.1\lib\net35\YamlDotNet.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

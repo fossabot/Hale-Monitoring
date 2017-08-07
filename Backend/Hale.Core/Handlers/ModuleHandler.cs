@@ -111,8 +111,9 @@ namespace Hale.Core.Handlers
         public ModuleInfo GetModuleInfo(string modulePath)
         {
             var manifestPath = Path.Combine(modulePath, "manifest.yaml");
-            var yd = new YamlDotNet.Serialization.Deserializer(
-                namingConvention: new CamelCaseNamingConvention());
+            var yd = new YamlDotNet.Serialization.DeserializerBuilder()
+                .WithNamingConvention(new CamelCaseNamingConvention())
+                .Build();
             
             try
             {

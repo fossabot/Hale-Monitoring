@@ -7,6 +7,8 @@ using Hale.Agent.Config;
 using Hale.Agent.Modules;
 using Hale.Lib.Utilities;
 using Hale.Lib.Config;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace Hale.Agent
 {
@@ -81,8 +83,10 @@ namespace Hale.Agent
             {
                 _log.Warn("No configuration file has been fetched. Creating an empty one.");
                 //return;
-                
-                var serializer = new YamlDotNet.Serialization.Serializer(namingConvention: new YamlDotNet.Serialization.NamingConventions.CamelCaseNamingConvention());
+
+                var serializer = new SerializerBuilder()
+                    .WithNamingConvention(new CamelCaseNamingConvention())
+                    .Build();
                 using (StreamWriter writer = new StreamWriter(env.ConfigFile))
                 {
                     serializer.Serialize(writer, new AgentConfig());

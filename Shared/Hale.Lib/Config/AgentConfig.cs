@@ -57,7 +57,9 @@ namespace Hale.Lib.Config
 
             using (StreamReader sr = File.OpenText(file))
             {
-                Deserializer ds = new Deserializer(namingConvention: new CamelCaseNamingConvention());
+                Deserializer ds = new DeserializerBuilder()
+                .WithNamingConvention(new CamelCaseNamingConvention())
+                .Build();
                 acr = ds.Deserialize<AgentConfigRaw>(sr);
             }
 

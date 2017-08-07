@@ -18,17 +18,23 @@ namespace Hale.Lib
         public Guid Id { get; set; }
         public TimeSpan HeartBeatInterval { get; set; }
 
+        private static INamingConvention NamingConvention => new CamelCaseNamingConvention();
+
         public static NemesisConfig LoadFromFile(string file) 
         {
             using (var reader = File.OpenText(file))
             {
-                Deserializer deserializer = new Deserializer(namingConvention: new CamelCaseNamingConvention());
+                Deserializer deserializer = new DeserializerBuilder()
+                .WithNamingConvention(NamingConvention)
+                .Build();
                 return deserializer.Deserialize<NemesisConfig>(reader);
             }
         }
         public void SaveToFile(string file)
         {
-            var serializer = new Serializer(namingConvention: new CamelCaseNamingConvention());
+            var serializer = new SerializerBuilder()
+                .WithNamingConvention(NamingConvention)
+                .Build();
             using (StreamWriter writer = new StreamWriter(File.OpenWrite(file)))
             {
                 serializer.Serialize(writer, this);
