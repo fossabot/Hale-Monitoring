@@ -53,7 +53,7 @@ namespace Hale.Core.Config
 
         public static string AffirmFilePath(string file)
         {
-            Path.GetDirectoryName(file);
+            AffirmPath(Path.GetDirectoryName(file));
             return file;
         }
     }

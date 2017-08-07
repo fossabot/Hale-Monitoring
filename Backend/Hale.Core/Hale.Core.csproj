@@ -253,6 +253,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\ConfigurationExtensions.cs" />
+    <Compile Include="Config\CoreConfig.cs" />
     <Compile Include="Config\EnvironmentConfig.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\ProtectedApiController.cs" />
