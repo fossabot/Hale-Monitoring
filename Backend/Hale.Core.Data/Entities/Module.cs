@@ -34,7 +34,7 @@ namespace Hale.Core.Data.Entities
         /// </summary>
         public int Major {
             set { updateVersion( major: value ); }
-            get { return Version.Major; }
+            get { return Version?.Major ?? 0; }
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Hale.Core.Data.Entities
         /// </summary>
         public int Minor {
             set { updateVersion( minor: value ); }
-            get { return Version.Minor; }
+            get { return Version?.Minor ?? 0; }
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Hale.Core.Data.Entities
         /// </summary>
         public int Revision {
             set { updateVersion( revision: value ); }
-            get { return Version.Revision; }
+            get { return Version?.Revision ?? 0; }
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Hale.Core.Data.Entities
         {
             if (major.HasValue) _major = major;
             if (minor.HasValue) _minor = minor;
-            if (revision.HasValue) _revision = revision;
+            if (revision.HasValue && revision.Value >= 0) _revision = revision;
 
             if (_major.HasValue && _minor.HasValue && _revision.HasValue)
                 Version = new Version(_major.Value, _minor.Value, 0, _revision.Value);
