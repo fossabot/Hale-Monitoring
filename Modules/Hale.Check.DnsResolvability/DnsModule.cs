@@ -19,10 +19,10 @@ namespace Hale.Checks
     /// <summary>
     /// All checks need to realize the interface ICheck.
     /// </summary>
-    public sealed class DnsResolvability: Module, ICheckProvider, IInfoProvider
+    public sealed class DnsModule: Module, ICheckProvider, IInfoProvider
     {
 
-        public override string Name => "DNS Resolvability Test";
+        public override string Name => "DNS Module";
         public override string Author => "Hale Project";
         public override string Identifier => "com.itshale.core.paging";
         public override Version Version => new Version (0, 1, 1);
