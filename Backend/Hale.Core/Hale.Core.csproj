@@ -315,14 +315,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Hale.Core.Data\Hale.Core.Data.csproj">
-      <Project>{0e7a15f8-64cd-4021-a321-28d4f8e2cea3}</Project>
-      <Name>Hale.Core.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Hale.Core.Model\Hale.Core.Model.csproj">
-      <Project>{3c9ea9d8-7ccd-415f-add1-04a528295dd8}</Project>
-      <Name>Hale.Core.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Shared\Hale.Lib.ModuleLoader\Hale.Lib.ModuleLoader.csproj">
       <Project>{a9904f35-66fa-4296-92e3-15fa49d9cf1d}</Project>
       <Name>Hale.Lib.ModuleLoader</Name>

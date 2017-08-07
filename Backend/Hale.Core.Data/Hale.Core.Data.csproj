@@ -61,7 +61,7 @@
     <Compile Include="Migrations\Configuration.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Shared\Hale.Lib\Hale.Lib.csproj">
+    <ProjectReference Include="..\..\Shared\Hale.Lib\Hale.Lib.csproj">
       <Project>{cf1e1001-e40f-40a8-b1e3-29feb471b2bd}</Project>
       <Name>Hale.Lib</Name>
     </ProjectReference>

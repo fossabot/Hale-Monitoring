@@ -57,9 +57,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Lib", "Shared\Hale.Lib\Hale.Lib.csproj", "{CF1E1001-E40F-40A8-B1E3-29FEB471B2BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Core.Data", "Hale.Core.Data\Hale.Core.Data.csproj", "{0E7A15F8-64CD-4021-A321-28D4F8E2CEA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Core.Data", "Backend\Hale.Core.Data\Hale.Core.Data.csproj", "{0E7A15F8-64CD-4021-A321-28D4F8E2CEA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Core.Model", "Hale.Core.Model\Hale.Core.Model.csproj", "{3C9EA9D8-7CCD-415F-ADD1-04A528295DD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.Core.Model", "Backend\Hale.Core.Model\Hale.Core.Model.csproj", "{3C9EA9D8-7CCD-415F-ADD1-04A528295DD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
