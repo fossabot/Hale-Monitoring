@@ -48,7 +48,9 @@ namespace Hale.Core.Controllers
         [HttpPost, Route("{id}")]
         public IHttpActionResult Update(int id, [FromBody]ConfigSourceDTO configSource)
         {
-            _log.Info($"Got save for #{id}:\n{configSource.Body}");
+            _log.Info($"Got save for #{id}!");
+            var changes = _configService.SaveSerialized(id, configSource.Body, _currentUsername);
+            _log.Info($"Wrote {changes} change(s).");
             return Ok();
         }
 

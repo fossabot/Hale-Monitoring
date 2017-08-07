@@ -7,5 +7,6 @@ namespace Hale.Core.Model.Interfaces
     {
         string GetConfigById(int id);
         IList<ConfigSummaryDTO> List();
+        int SaveSerialized(int id, string serialized, string currentUsername);
     }
 }
