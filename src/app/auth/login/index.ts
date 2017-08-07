@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { StateService } from '@uirouter/angular';
 
 import { Auth, ICredentials } from 'app/api/auth';
+import { NotificationsService } from "angular2-notifications";
 
 @Component({
   selector: 'app-login',
@@ -17,13 +18,15 @@ export class Login {
 
   constructor(
     private auth: Auth,
-    private stateService: StateService) {}
+    private stateService: StateService,
+    private notifications: NotificationsService) {}
 
   doLogin(form: NgForm): void {
-    this.auth.login(form.value)
+    this.auth
+      .login(form.value)
       .subscribe(
         () => { this.stateService.transitionTo('app.hale.nodes') },
-        (error: any) => { console.log(error)}
+        (error: any) => { this.notifications.error('Login failed', 'Check your credentials.'); }
       );
   }
 }

@@ -38,13 +38,13 @@ export let ConfigStates: Ng2StateDeclaration[] = [
   }
 ];
 
-export function resolveConfig(trans, configs) {
+export function resolveConfig(trans: Transition, configs: Configs) {
   const configId = trans.params().id;
   return configs
     .get(configId)
     .toPromise();
 }
 
-export function resolveConfigId(trans) {
+export function resolveConfigId(trans: Transition) {
   return trans.params().id;
 }

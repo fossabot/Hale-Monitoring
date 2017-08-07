@@ -8,7 +8,7 @@
         <label class="col-md-5 col-form-label">
         Host Name
       </label>
-        <div class="col-md-7 form-text">
+        <div class="col-md-7 ellipsis">
           {{node.hostName}}
         </div>
       </div>
@@ -16,15 +16,15 @@
         <label class="col-md-5 col-form-label">
       Operating System
     </label>
-        <div class="col-md-7">
-          {{node.os || 'Unknown' }}
+        <div class="col-md-7 ellipsis">
+          {{node.operatingSystem || 'Unknown' }}
         </div>
       </div>
       <div class="form-group row">
         <label class="col-md-5 col-form-label">
       Type
       </label>
-        <div class="col-md-7">
+        <div class="col-md-7 ellipsis">
           {{node.type || 'Unknown' }}
         </div>
       </div>
@@ -32,7 +32,7 @@
         <label class="col-md-5 col-form-label">
       IP Address
     </label>
-        <div class="col-md-7">
+        <div class="col-md-7 ellipsis">
           {{node.ip}}
         </div>
       </div>
@@ -42,7 +42,7 @@
         <label class="col-md-5 col-form-label">
       Last Seen
     </label>
-        <div class="col-md-7">
+        <div class="col-md-7 ellipsis">
           {{node.lastSeen || 'Unknown' }}
         </div>
       </div>
@@ -50,7 +50,7 @@
         <label class="col-md-5 col-form-label">
       Last Status Change
     </label>
-        <div class="col-md-7">
+        <div class="col-md-7 ellipsis">
           {{node.lastChange || 'Unknown' }}
         </div>
       </div>
@@ -58,7 +58,7 @@
         <label class="col-md-5 col-form-label">
       Owner
     </label>
-        <div class="col-md-7">
+        <div class="col-md-7 ellipsis">
           {{node.owner || 'Unknown' }}
         </div>
       </div>

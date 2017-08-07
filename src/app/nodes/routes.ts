@@ -37,7 +37,7 @@ export let NodesStates: Ng2StateDeclaration[] = [
   }
 ];
 
-export function resolveNode(trans, nodes) {
+export function resolveNode(trans: Transition, nodes: Nodes) {
   const nodeId = trans.params().nodeId;
   return nodes
     .get(nodeId)

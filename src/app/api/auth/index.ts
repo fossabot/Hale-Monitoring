@@ -30,6 +30,18 @@ export class Auth {
     return this.http
       .get(this.baseUrl, this.options);
   }
+
+  changePassword(oldPassword: string, newPassword: string): Observable<any> {
+    return this.http
+      .post(
+        `${this.baseUrl}/change-password`,
+        {
+          oldPassword: oldPassword,
+          newPassword: newPassword
+        },
+        this.options
+      );
+  }
 }
 
 export interface ICredentials {

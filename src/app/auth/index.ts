@@ -39,8 +39,6 @@ export function doLogout(trans: Transition) {
     .injector()
     .get(Auth)
     .logout()
-    .subscribe(
-    _ => trans.router.stateService.transitionTo('app.login')
-    );
+    .subscribe(() => trans.router.stateService.transitionTo('app.login'));
   ;
 }

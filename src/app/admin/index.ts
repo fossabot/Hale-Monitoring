@@ -8,16 +8,23 @@ import { AdminMenuComponent } from './admin-menu';
 import { ChangePasswordComponent } from './change-password';
 import { EditProfileComponent } from './edit-profile';
 
+import { CommonModule } from "app/common";
+import { ValidatePasswordDirective } from './validate-password';
+import { ValidateEqualsDirective } from "app/admin/validate-equals";
+
 @NgModule({
   declarations: [
     AdminComponent,
     AdminMenuComponent,
     ChangePasswordComponent,
     EditProfileComponent,
+    ValidatePasswordDirective,
+    ValidateEqualsDirective,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    CommonModule,
     UIRouterModule.forChild({
       states: [
         {

@@ -13,6 +13,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "4.3.1",
     "@angular/cli": "^1.2.3",
     "@angular/common": "^4.3.1",
     "@angular/compiler": "^4.3.1",
@@ -25,6 +26,7 @@
     "@angular/router": "^4.3.1",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.28",
     "@uirouter/angular": "^1.0.0-beta.7",
+    "angular2-notifications": "^0.7.7",
     "bootstrap": "^4.0.0-alpha.6",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",

@@ -5,6 +5,7 @@ import { Comments } from './comments';
 import { Configs } from './configs';
 import { Nodes } from './nodes';
 import { Users } from './users';
+import { Results } from './results';
 
 @NgModule({
   imports: [],
@@ -14,6 +15,7 @@ import { Users } from './users';
     Nodes,
     Users,
     Configs,
+    Results,
   ],
   declarations: [
   ]

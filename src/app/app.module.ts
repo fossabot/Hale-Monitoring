@@ -1,11 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { UIView, UIRouterModule, UIRouter } from '@uirouter/angular';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AppComponent } from './app.component';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
+import { AppComponent } from './app.component';
 import { AdminModule } from './admin';
 import { AuthModule } from './auth';
 import { ApiModule } from './api';
@@ -29,6 +32,8 @@ import { TransitionService } from '@uirouter/angular';
     ConfigsModule,
     NodesModule,
     BrowserModule,
+    BrowserAnimationsModule,
+    SimpleNotificationsModule.forRoot(),
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
@@ -57,7 +62,7 @@ export class AppModule {
 }
 
 export function configureAppRouter(router: UIRouter) {
-    let criteria = { entering: (state) => state.anon === undefined }
+    let criteria = { entering: (state: any) => state.anon === undefined }
     router.transitionService.onBefore(criteria, (transition) => {
       let $state = transition.router.stateService;
       let auth = transition.injector().get(Auth);

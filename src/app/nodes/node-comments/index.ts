@@ -83,7 +83,7 @@ export class NodeCommentsComponent implements OnInit {
     // TODO: Show toastr -SA 2017-07-22
   }
 
-  getGravatarUrl(email): string {
+  getGravatarUrl(email: string): string {
     return this.Users.getGravatarUrl(email);
   }
 
