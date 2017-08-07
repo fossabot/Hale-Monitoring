@@ -12,7 +12,8 @@ namespace Hale.Lib.Modules
         [CLSCompliant(false)]
         protected Dictionary<string, string> _raw = new Dictionary<string, string>();
 
-        public string Module { get; set; }
+        [YamlDotNet.Serialization.YamlMember(serializeAs:typeof(string))]
+        public VersionedIdentifier Module { get; set; }
 
         public string Function { get; set; } = "default";
 
@@ -39,7 +40,7 @@ namespace Hale.Lib.Modules
 
         public virtual void ParseRaw()
         {
-            Module = _raw["module"];
+            Module = VersionedIdentifier.Parse(_raw["module"]);
             Interval = _raw.ContainsKey("interval") ? TimeSpan.Parse(_raw["interval"]) : TimeSpan.FromMinutes(10);
             Enabled = _raw.ContainsKey("enabled") ? bool.Parse(_raw["enabled"]) : true;
             Startup = _raw.ContainsKey("startup") ? bool.Parse(_raw["startup"]) : false;

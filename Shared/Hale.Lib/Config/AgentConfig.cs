@@ -23,23 +23,23 @@ namespace Hale.Lib.Config
 
     internal class AgentConfigRaw: AgentConfigBase
     {
-        public Dictionary<string, Dictionary<string, object>> Checks { get; set; }
-            = new Dictionary<string, Dictionary<string, object>>();
+        public List<Dictionary<string, object>> Checks { get; set; }
+            = new List<Dictionary<string, object>>();
 
-        public Dictionary<string, Dictionary<string, object>> Info { get; set; }
-            = new Dictionary<string, Dictionary<string, object>>();
+        public List<Dictionary<string, object>> Info { get; set; }
+            = new List<Dictionary<string, object>>();
 
-        public Dictionary<string, Dictionary<string, object>> Actions { get; set; }
-            = new Dictionary<string, Dictionary<string, object>>();
+        public List<Dictionary<string, object>> Actions { get; set; }
+            = new List<Dictionary<string, object>>();
     }
 
     public class AgentConfig: AgentConfigBase
     {
-        public Dictionary<string, CheckSettings> Checks { get; set; }
+        public List<CheckSettings> Checks { get; set; }
 
-        public Dictionary<string, InfoSettings> Info { get; set; }
+        public List<InfoSettings> Info { get; set; }
 
-        public Dictionary<string, ActionSettings> Actions { get; set; }
+        public List<ActionSettings> Actions { get; set; }
 
 
 
@@ -51,17 +51,24 @@ namespace Hale.Lib.Config
 
         static readonly NumberFormatInfo nfi = new NumberFormatInfo() { NumberDecimalSeparator = "." };
 
-        public static AgentConfig LoadFromFile(string file)
-        {
-            AgentConfigRaw acr;
-
-            using (StreamReader sr = File.OpenText(file))
-            {
-                Deserializer ds = new DeserializerBuilder()
+        static Deserializer Deserializer => new DeserializerBuilder()
                 .WithNamingConvention(new CamelCaseNamingConvention())
                 .Build();
-                acr = ds.Deserialize<AgentConfigRaw>(sr);
+
+        public static AgentConfig LoadFromFile(string file)
+        {
+            using (StreamReader sr = File.OpenText(file))
+            {
+                return Load(Deserializer.Deserialize<AgentConfigRaw>(sr));
             }
+        }
+
+        public static AgentConfig LoadFromString(string input)
+            => Load(Deserializer.Deserialize<AgentConfigRaw>(input));
+
+        internal static AgentConfig Load(AgentConfigRaw acr)
+        {
+
 
             CheckAgentConfigForNull(acr);
 
@@ -85,9 +92,9 @@ namespace Hale.Lib.Config
 
         private AgentConfig InitializeAgentConfigLists()
         {
-            Checks = new Dictionary<string, CheckSettings>();
-            Info = new Dictionary<string, InfoSettings>();
-            Actions = new Dictionary<string, ActionSettings>();
+            Checks = new List<CheckSettings>();
+            Info = new List<InfoSettings>();
+            Actions = new List<ActionSettings>();
             return this;
         }
 
@@ -130,15 +137,15 @@ namespace Hale.Lib.Config
         {
             foreach (var action in acr.Actions)
             {
-                var actionProperties = GetProperties(action.Value);
+                var actionProperties = GetProperties(action);
                 var actionSettings = new ActionSettings(actionProperties);
                 actionSettings.TargetSettings = new Dictionary<string, Dictionary<string, string>>();
                 var targetSettings = new Dictionary<string, string>();
-                foreach (var target in GetTargets(action.Value))
+                foreach (var target in GetTargets(action))
                     actionSettings.TargetSettings.Add(target.Key, targetSettings);
                 actionSettings.ParseRaw();
 
-                Actions.Add(action.Key, actionSettings);
+                Actions.Add(actionSettings);
             }
         }
 
@@ -146,15 +153,15 @@ namespace Hale.Lib.Config
         {
             foreach (var info in acr.Info)
             {
-                var infoProperties = GetProperties(info.Value);
+                var infoProperties = GetProperties(info);
                 var infoSettings = new InfoSettings(infoProperties);
                 infoSettings.TargetSettings = new Dictionary<string, Dictionary<string, string>>();
                 var targetSettings = new Dictionary<string, string>();
-                foreach (var target in GetTargets(info.Value))
+                foreach (var target in GetTargets(info))
                     infoSettings.TargetSettings.Add(target.Key, targetSettings);
                 infoSettings.ParseRaw();
 
-                Info.Add(info.Key, infoSettings);
+                Info.Add(infoSettings);
             }
         }
 
@@ -162,17 +169,17 @@ namespace Hale.Lib.Config
         {
             foreach (var check in acr.Checks)
             {
-                var checkProperties = GetProperties(check.Value);
+                var checkProperties = GetProperties(check);
                 var checkSettings = new CheckSettings(checkProperties);
                 checkSettings.TargetSettings = new Dictionary<string, Dictionary<string, string>>();
-                checkSettings.Actions = GetActions(check.Value);
-                checkSettings.Thresholds = GetThresholds(check.Value);
+                checkSettings.Actions = GetActions(check);
+                checkSettings.Thresholds = GetThresholds(check);
                 var targetSettings = new Dictionary<string, string>();
-                foreach (var target in GetTargets(check.Value))
+                foreach (var target in GetTargets(check))
                     checkSettings.TargetSettings.Add(target.Key, targetSettings);
                 checkSettings.ParseRaw();
 
-                Checks.Add(check.Key, checkSettings);
+                Checks.Add(checkSettings);
             }
         }
 
@@ -186,19 +193,20 @@ namespace Hale.Lib.Config
 
         private static CheckThresholds GetThresholds(Dictionary<string, object> input)
         {
+            var ct = new CheckThresholds() { Warning = 0.5F, Critical = 1.0F };
             if (input.ContainsKey("thresholds"))
             {
                 var td = (IDictionary)input["thresholds"];
-                return new CheckThresholds()
-                {
-                    Critical = Single.Parse(td["critical"].ToString(), nfi),
-                    Warning = Single.Parse(td["warning"].ToString(), nfi)
-                };
+
+                if (td.Contains("critical"))
+                    ct.Critical = Single.Parse(td["critical"].ToString(), nfi);
+
+                if (td.Contains("warning"))
+                    ct.Warning = Single.Parse(td["warning"].ToString(), nfi);
+
             }
-            else
-            {
-                return new CheckThresholds() { Warning = 0.5F, Critical = 1.0F };
-            }
+            return ct;
+
         }
 
         private static CheckActions GetActions(Dictionary<string, object> input)
@@ -209,8 +217,8 @@ namespace Hale.Lib.Config
         static Dictionary<string, Dictionary<string, string>> GetTargets(Dictionary<string, object> input)
         {
             var targets = new Dictionary<string, Dictionary<string, string>>();
-            if (input.ContainsKey("targets")) {
-                foreach(DictionaryEntry kvpTarget in (IDictionary)input["targets"])
+            if (input.ContainsKey("targetSettings")) {
+                foreach(DictionaryEntry kvpTarget in (IDictionary)input["targetSettings"])
                 {
                     Dictionary<string, string> targetSettings = new Dictionary<string, string>();
                     if(kvpTarget.Value != null)

@@ -43,6 +43,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
+    <Reference Include="System.ValueTuple, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.3.1\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -92,6 +95,7 @@
     <Compile Include="Scheduler.cs" />
     <Compile Include="Utilities\ServiceProvider.cs" />
     <Compile Include="Utilities\StorageUnitFormatter.cs" />
+    <Compile Include="Utilities\StringParserExtensions.cs" />
     <Compile Include="Utilities\TimeSpanFormatter.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -11,6 +11,9 @@ using ModuleFunctionType = Hale.Lib.Modules.ModuleFunctionType;
 using YamlDotNet.Serialization.NamingConventions;
 using System.IO;
 using Hale.Core.Data.Entities;
+using Hale.Core.Data.Contexts;
+using System.Linq;
+using Hale.Lib.Modules;
 
 namespace Hale.Core.Utils
 {
@@ -37,71 +40,67 @@ namespace Hale.Core.Utils
 
             foreach(var func in agentConfig.Functions)
             {
-                var dummyName = "func" + dummyNameInt++;
-                switch (func.Type) {
-                    case ModuleFunctionType.Action:
+                
+                void SetFunctionSettings(ModuleSettingsBase ms)
+                {
+                    
+                    ms.Function = func.Function;
+                    ms.Enabled = func.Enabled;
+                    ms.Interval = func.Interval;
+                    ms.Module = new VersionedIdentifier(func.Module.Identifier, func.Module.Version);
+                    ms.Startup = func.Startup;
 
-                        var actionSettings = new ActionSettings()
+                    
+
+                    foreach (var fs in func.FunctionSettings)
+                    {
+                        if (!ms.TargetSettings.ContainsKey(fs.Target))
                         {
-                            Function = func.Function,
-                            Enabled = func.Enabled,
-                            Interval = func.Interval,
-                            Module = func.Module.Identifier,
-                            Startup = func.Startup,
-
-                        };
-
-                        foreach(var target in func.Targets)
-                        {
-                            var targetSettings = func.FunctionSettings.GetTargetDictionary(target);
-                            actionSettings.TargetSettings.Add(target, targetSettings);
+                            ms.TargetSettings.Add(fs.Target, new Dictionary<string, string>());
                         }
 
-                        config.Actions.Add(dummyName, actionSettings);
+                        ms.TargetSettings[fs.Target].Add(fs.Key, fs.Value);
+                    }
+                }
+
+                CheckAction SerializeCheckAction(AgentConfigSetCheckAction ca)
+                    => ca == null ? null : new CheckAction()
+                    {
+                        Action = ca.Action,
+                        Module = ca.Module,
+                        Target = ca.Target
+                    };
+
+                switch (func.Type) {
+                    case ModuleFunctionType.Check:
+                        var checkSettings = new CheckSettings();
+                        SetFunctionSettings(checkSettings);
+
+                        checkSettings.Actions = new CheckActions()
+                        {
+                            Critical = SerializeCheckAction(func.CriticalAction),
+                            Warning = SerializeCheckAction(func.WarningAction),
+                        };
+
+                        checkSettings.Thresholds = new CheckThresholds()
+                        {
+                            Critical = func.CriticalThreshold,
+                            Warning = func.WarningThreshold,
+                        };
+
+                        config.Checks.Add(checkSettings);
                         break;
 
-                    case ModuleFunctionType.Check:
-                        var checkSettings = new CheckSettings()
-                        {
-                            Function = func.Function,
-                            Enabled = func.Enabled,
-                            Interval = func.Interval,
-                            Module = func.Module.Identifier,
-                            Startup = func.Startup,
-
-                        };
-
-                        foreach (var fs in func.FunctionSettings)
-                        {
-                            if(!checkSettings.TargetSettings.ContainsKey(fs.Target))
-                            {
-                                checkSettings.TargetSettings.Add(fs.Target, new Dictionary<string, string>());
-                            }
-
-                            checkSettings.TargetSettings[fs.Target].Add(fs.Key, fs.Value);
-                        }
-
-                        config.Checks.Add(dummyName, checkSettings);
+                    case ModuleFunctionType.Action:
+                        var actionSettings = new ActionSettings();
+                        SetFunctionSettings(actionSettings);
+                        config.Actions.Add(actionSettings);
                         break;
 
                     case ModuleFunctionType.Info:
-                        var infoSettings = new InfoSettings()
-                        {
-                            Function = func.Function,
-                            Enabled = func.Enabled,
-                            Interval = func.Interval,
-                            Module = func.Module.Identifier,
-                            Startup = func.Startup,
-
-                        };
-
-                        foreach (var target in func.Targets)
-                        {
-                            var targetSettings = func.FunctionSettings.GetTargetDictionary(target);
-                            infoSettings.TargetSettings.Add(target, targetSettings);
-                        }
-
-                        config.Info.Add(dummyName, infoSettings);
+                        var infoSettings = new InfoSettings();
+                        SetFunctionSettings(infoSettings);
+                        config.Info.Add(infoSettings);
                         break;
                 }
             }
@@ -114,23 +113,7 @@ namespace Hale.Core.Utils
 
 
         }
+
     }
 
-    static class ListExtensions
-    {
-        public static Dictionary<string, string> GetTargetDictionary(this List<AgentConfigSetFunctionSettings> list, string target)
-        {
-            var dict = new Dictionary<string, string>();
-            
-            foreach(var fs in list)
-            {
-                if(fs.Target == target)
-                {
-                    dict.Add(fs.Key, fs.Value);
-                }
-            }
-
-            return dict;
-        }
-    }
 }
