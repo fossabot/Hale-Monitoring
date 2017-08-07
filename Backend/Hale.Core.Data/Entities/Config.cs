@@ -125,12 +125,6 @@ namespace Hale.Core.Data.Entities
         /// </summary>
         public bool Startup { get; set; } = false;
 
-
-        /// <summary>
-        /// TODO: Add text here
-        /// </summary>
-        public List<string> Targets { get; set; }
-
         /// <summary>
         /// TODO: Add text here
         /// </summary>

@@ -244,7 +244,6 @@ namespace Hale.Core.Data.Migrations
 
                 },
                 Startup = true,
-                Targets = new List<string>() { "default" },
                 FunctionSettings = new List<AgentConfigSetFunctionSettings>()
                 {
                     new AgentConfigSetFunctionSettings()
