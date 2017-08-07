@@ -19,6 +19,7 @@ namespace Hale.Modules
         public override string Identifier => "com.itshale.core.service";
         public override string Platform => "Windows";
         public override decimal TargetApi => 1.2M;
+        public override Version Version => new Version(0, 1, 1);
 
         Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
             = new Dictionary<string, ModuleFunction>();

@@ -2,10 +2,8 @@
 using System.ComponentModel;
 using System.Configuration;
 using System.IO;
-using System.Net;
 using System.ServiceProcess;
 using Hale.Core.Config;
-using Hale.Core.Contexts;
 using Hale.Core.Handlers;
 using NLog;
 using Hale.Lib.Utilities;

@@ -1,9 +1,8 @@
-﻿using Hale.Core.Contexts;
-using Hale.Core.Models.Modules;
+﻿using Hale.Core.Model.Interfaces;
+using Hale.Core.Services;
 using NLog;
 using System.Linq;
 using System.Web.Http;
-using System.Data.Entity;
 
 namespace Hale.Core.Controllers
 {
@@ -14,30 +13,24 @@ namespace Hale.Core.Controllers
     public class NodesResultsController: ProtectedApiController
     {
         private readonly Logger _log = LogManager.GetCurrentClassLogger();
+        private readonly INodeResultsService _nodeResultsService;
+
+        public NodesResultsController(): this(new NodeResultsService()) { }
+        public NodesResultsController(INodeResultsService nodeResultsService)
+        {
+            _nodeResultsService = nodeResultsService;
+        }
 
         /// <summary>
         /// Lists the latest result for all functions connected to a node.
         /// </summary>
-        /// <param name="nodeId"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("{id}/results")]
         public IHttpActionResult List(int id)
         {
-            _db.Database.Log = s => System.Diagnostics.Debug.Write(s);
-            var results = _db.Results
-                .GroupBy(x => new { x.HostId, x.FunctionId, x.Target})
-                .Select(x => x.OrderByDescending(r => r.ExecutionTime).FirstOrDefault())
-                .Select(x => new NodeResultDTO {
-                    NodeId = x.HostId,
-                    FunctionId = x.FunctionId,
-                    FriendlyName = _db.Modules.FirstOrDefault(r => r.Id == x.ModuleId).Identifier + ": " + _db.Functions.FirstOrDefault(r => r.Id == x.FunctionId).Name,
-                    Target = x.Target,
-                })
-                .ToList();
-
-
-            return Ok(results);
+            var nodeResults = _nodeResultsService.List(id);
+            return Ok(nodeResults);
         }
 
         /// <summary>

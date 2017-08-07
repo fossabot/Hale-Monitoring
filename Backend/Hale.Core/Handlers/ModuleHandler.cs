@@ -1,14 +1,12 @@
-﻿using Hale.Core.Contexts;
+﻿using Hale.Core.Data.Contexts;
 using Hale.Lib.ModuleLoader;
 using Hale.Lib.Modules;
 using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YamlDotNet.Serialization.NamingConventions;
+using Module = Hale.Core.Data.Entities.Module;
 
 namespace Hale.Core.Handlers
 {
@@ -48,8 +46,8 @@ namespace Hale.Core.Handlers
             foreach (var fn in mi.ActionFunctions) {
                 try
                 {
-                    var mf = new Models.Modules.Function();
-                    mf.Type = Models.Modules.FunctionType.Action;
+                    var mf = new Data.Entities.Function();
+                    mf.Type = Data.Entities.FunctionType.Action;
                     mf.Name = fn;
                     mf.ModuleId = me.Id;
                     _db.Functions.Add(mf);
@@ -65,8 +63,8 @@ namespace Hale.Core.Handlers
             {
                 try
                 {
-                    var mf = new Models.Modules.Function();
-                    mf.Type = Models.Modules.FunctionType.Check;
+                    var mf = new Data.Entities.Function();
+                    mf.Type = Data.Entities.FunctionType.Check;
                     mf.Name = fn;
                     mf.ModuleId = me.Id;
                     _db.Functions.Add(mf);
@@ -82,8 +80,8 @@ namespace Hale.Core.Handlers
             {
                 try
                 {
-                    var mf = new Models.Modules.Function();
-                    mf.Type = Models.Modules.FunctionType.Info;
+                    var mf = new Data.Entities.Function();
+                    mf.Type = Data.Entities.FunctionType.Info;
                     mf.Name = fn;
                     mf.ModuleId = me.Id;
                     _db.Functions.Add(mf);
@@ -211,9 +209,9 @@ namespace Hale.Core.Handlers
             }
         }
 
-        public Models.Modules.Module GetModuleEntity()
+        public Module GetModuleEntity()
         {
-            return new Models.Modules.Module() { Version = Version, Identifier = Identifier };
+            return new Module() { Version = Version, Identifier = Identifier };
         }
     }
 

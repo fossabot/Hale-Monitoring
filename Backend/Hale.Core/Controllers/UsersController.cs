@@ -1,41 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
-using Hale.Core.Models;
 using Hale.Core.Models.Users;
-using Hale.Core.Handlers;
-using Hale.Core.Utils;
 using NLog;
-using Hale.Core.Contexts;
 using System.Linq;
-using System.Data.Entity;
 using System.Security.Claims;
+using Hale.Core.Data.Entities;
+using Hale.Core.Model.Interfaces;
+using Hale.Core.Services;
+using Hale.Core.Model.Models;
 
 namespace Hale.Core.Controllers
 {
-    
-    /// <summary>
-    /// TODO: Add text here
-    /// </summary>
     [RoutePrefix("api/v1/users")]
     public class UsersController : ProtectedApiController
     {
 
         private readonly Logger _log = LogManager.GetCurrentClassLogger();
-        
+        private readonly IUserService _userService;
+
+        public UsersController() : this(new UserService()) { }
+        public UsersController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         /// <summary>
-        /// TODO: Add text here
+        /// Get details about a specific user by user id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Authorize, HttpGet, Route("{id}")]
+        [Authorize]
+        [HttpGet]
+        [Route("{id}")]
         public IHttpActionResult Get(int id)
         {
-            var user = _db.Accounts.FirstOrDefault(u => u.Id == id);
-
+            var user = _userService.GetUserById(id);
             if (user == null)
                 return NotFound();
 
@@ -46,83 +46,51 @@ namespace Hale.Core.Controllers
         /// Get information about the currently logged in user
         /// </summary>
         /// <returns></returns>
-        [Authorize, HttpGet, Route("current")]
+        [Authorize]
+        [HttpGet]
+        [Route("current")]
         public IHttpActionResult GetCurrent()
         {
-            var user = _db.Accounts.Single(x => x.UserName == _currentUsername);
-            return Ok(new
-            {
-                Id = user.Id,
-                UserName = user.UserName,
-                Email = user.Email,
-            });
+            var currentUser = _userService.GetUserByUserName(_currentUsername);
+            return Ok(currentUser);
         }
 
         /// <summary>
-        /// TODO: Add text here
+        /// Get a list of users with reduced user details.
         /// </summary>
         /// <returns></returns>
-        [Authorize, HttpGet, Route("")]
+        [Authorize]
+        [HttpGet]
+        [Route("")]
         public IHttpActionResult List()
         {
-            return Ok(_db.Accounts.ToList());
+            var userList = _userService.List();
+            return Ok(userList);
         }
 
         /// <summary>
-        /// TODO: Add text here
+        /// Create a new user
         /// </summary>
         /// <param name="userRequest"></param>
         /// <returns></returns>
         [Authorize, HttpPost, Route("")]
         public IHttpActionResult Create([FromBody] CreateAccountRequest userRequest)
         {
-            if (_db.Accounts.Any(x => x.UserName == userRequest.UserName))
-                return InternalServerError();
-            else
-            {
-                var user = new Account
-                {
-                    UserName = userRequest.UserName,
-                    Password = BCrypt.Net.BCrypt.HashPassword(userRequest.Password, 5),
-                    FullName = userRequest.FullName
-                };
-
-                _db.Accounts.Add(user);
-                _db.SaveChanges();
-
-                return Ok();
-            }
+            _userService.CreateUser(userRequest);
+            return Ok();
         }
 
         /// <summary>
-        /// TODO: Add text here
+        /// Update a user
         /// </summary>
         /// <param name="id"></param>
         /// <param name="user"></param>
         /// <returns></returns>
         [Authorize, HttpPatch, Route("{id}")]
-        public IHttpActionResult Update(int id, [FromBody]Account user)
+        public IHttpActionResult Update(int id, [FromBody]UserDTO user)
         {
-            try {
-                _db.Accounts.Attach(user);
-                _db.SaveChanges();
-
-                return Ok();
-            }
-            catch (Exception x)
-            {
-                return InternalServerError(x);
-            }
-        }
-
-
-        private string _currentUsername
-        {
-            get
-            {
-                return Request.GetOwinContext().Authentication.User.Identities.First().Claims
-                    .First(claim => claim.Type == ClaimsIdentity.DefaultNameClaimType).Value;
-            }
+            _userService.UpdateUser(id, user, _currentUsername);
+            return Ok();
         }
     }
 }

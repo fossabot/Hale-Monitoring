@@ -1,9 +1,7 @@
-﻿using Hale.Core.Contexts;
-using System;
-using System.Collections.Generic;
+﻿using Hale.Core.Data.Contexts;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Http;
+using System.Security.Claims;
 using System.Web.Http;
 
 namespace Hale.Core.Controllers
@@ -14,12 +12,14 @@ namespace Hale.Core.Controllers
     [Authorize]
     public abstract class ProtectedApiController : ApiController
     {
-        protected readonly HaleDBContext _db;
-
-        internal ProtectedApiController() : this(new HaleDBContext()) { }
-        internal ProtectedApiController(HaleDBContext context)
-        {
-            _db = context;
-        }
+        internal string _currentUsername => Request
+            .GetOwinContext()
+            .Authentication
+            .User
+            .Identities
+            .First()
+            .Claims
+            .First(claim => claim.Type == ClaimsIdentity.DefaultNameClaimType)
+            .Value;
     }
 }

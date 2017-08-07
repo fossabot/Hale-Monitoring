@@ -3,9 +3,6 @@ using Hale.Lib.Modules;
 using Hale.Lib.Modules.Checks;
 using Hale.Lib.Utilities;
 using Hale.Core.Config;
-using Hale.Core.Contexts;
-using Hale.Core.Models.Modules;
-using Hale.Core.Models.Nodes;
 using Hale.Core.Utils;
 using Newtonsoft.Json.Linq;
 using NLog;
@@ -20,6 +17,9 @@ using System.Linq;
 using Hale.Lib.Modules.Info;
 using Hale.Lib;
 using System.Text;
+using Hale.Core.Data.Entities;
+using Module = Hale.Core.Data.Entities.Module;
+using Hale.Core.Data.Contexts;
 
 namespace Hale.Core.Handlers
 {
@@ -270,7 +270,7 @@ namespace Hale.Core.Handlers
         private Result ResolveToResultEntity(string target, IModuleResultRecord record, ModuleResult moduleResult, Guid nodeId)
         {
             var _tl = new TraceLogger("Result::Resolve");
-            Host host = ResolveHost(nodeId);
+            Node host = ResolveHost(nodeId);
             _tl.Trace("Host");
             var module = ResolveModule(record);
             _tl.Trace("Module");
@@ -282,7 +282,7 @@ namespace Hale.Core.Handlers
             return result;
         }
 
-        private Models.Modules.Module ResolveModule(IModuleResultRecord record)
+        private Hale.Core.Data.Entities.Module ResolveModule(IModuleResultRecord record)
         {
             var v = record.Module.Version;
             var module = _db.Modules.SingleOrDefault(m => 
@@ -293,7 +293,7 @@ namespace Hale.Core.Handlers
             );
             if(module == null)
             {
-                module = _db.Modules.Add(new Models.Modules.Module()
+                module = _db.Modules.Add(new Data.Entities.Module()
                 {
                     Version = v,
                     Identifier = record.Module.Identifier
@@ -304,7 +304,7 @@ namespace Hale.Core.Handlers
             return module;
         }
 
-        private Function ResolveModuleFunction(IModuleResultRecord record, Models.Modules.Module module)
+        private Function ResolveModuleFunction(IModuleResultRecord record, Data.Entities.Module module)
         {
             int ft = 0;
 
@@ -342,7 +342,7 @@ namespace Hale.Core.Handlers
         }
 
         private Result ConvertToResult(IModuleResultRecord record, ModuleResult moduleResult,
-            Host host, Function function, Models.Modules.Module module, string target)
+            Node host, Function function, Data.Entities.Module module, string target)
         {
             Result result = new Result()
             {
@@ -360,9 +360,9 @@ namespace Hale.Core.Handlers
             return result;
         }
 
-        private Host ResolveHost(Guid guid)
+        private Node ResolveHost(Guid guid)
         {
-            return _db.Hosts.SingleOrDefault(h => h.Guid == guid);
+            return _db.Nodes.SingleOrDefault(h => h.Guid == guid);
         }
 
         private int GetCheckResultType(CheckResult result)
@@ -428,7 +428,7 @@ namespace Hale.Core.Handlers
                 sbNics.AppendLine("   " + string.Join(", ", nic.Addresses));
             }
 
-            _db.Hosts.Add(new Host()
+            _db.Nodes.Add(new Node()
             {
                 Configured = false,
                 HostName = agentId.Hostname,
@@ -467,7 +467,7 @@ namespace Hale.Core.Handlers
                     */
                     Result = "UnknownGUID"
                 };
-            Host host = _db.Hosts.Find(_hostGuidsToIds[nodeId]);
+            Node host = _db.Nodes.Find(_hostGuidsToIds[nodeId]);
             host.Status = (int)Status.Ok;
 
             _db.SaveChanges();
@@ -480,7 +480,7 @@ namespace Hale.Core.Handlers
 
         public void GenerateRsaKeys()
         {
-            var hosts = _db.Hosts.ToList();
+            var hosts = _db.Nodes.ToList();
 
             ValidateHostKeyDirectory(_agentKeyStorePath);
             hosts.ForEach(host =>
@@ -489,7 +489,7 @@ namespace Hale.Core.Handlers
             });
         }
 
-        private void CreateKeystore(string hostKeysPath, Host host)
+        private void CreateKeystore(string hostKeysPath, Node host)
         {
             // Hack: Stores agent keys as XML as well as in database for easier development @fixme @security -NM
             // Todo: Write a proper keystore with database as sole backend
@@ -500,7 +500,7 @@ namespace Hale.Core.Handlers
             }
             if(host.RsaKey == null) // Hack: Since we dont want to generate new keys even if the database has been cleaned right now -NM
             {
-                host = _db.Hosts.Attach(host);
+                host = _db.Nodes.Attach(host);
                 host.RsaKey = xfks.PrivateKey.Key;
 
                 _db.SaveChanges();
@@ -525,7 +525,7 @@ namespace Hale.Core.Handlers
         {
             _hostGuidsToIds.Clear();
 
-            var hosts = _db.Hosts.ToList();
+            var hosts = _db.Nodes.ToList();
             hosts.ForEach(host =>
             {
                 // Todo: Handle concurrent dictionary better -NM

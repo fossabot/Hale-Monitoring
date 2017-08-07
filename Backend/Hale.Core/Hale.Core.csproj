@@ -12,6 +12,9 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <AssemblyVersion>1.0.17218.736</AssemblyVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,11 +27,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
-    <AssemblyVersion>1.0.17218.736</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,7 +39,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\WebApiSwagger.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\Hale.Core.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -254,145 +255,26 @@
     <Compile Include="Config\ConfigurationExtensions.cs" />
     <Compile Include="Config\EnvironmentConfig.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
-    <Compile Include="Controllers\NodeResultDTO.cs" />
     <Compile Include="Controllers\ProtectedApiController.cs" />
     <Compile Include="Controllers\NodesResultsController.cs" />
-    <Compile Include="Models\ConfigSourceDTO.cs" />
-    <Compile Include="Models\UserSummaryDTO.cs" />
-    <Compile Include="Models\ConfigSummaryDTO.cs" />
-    <Compile Include="Database\HaleDBContext.cs" />
-    <Compile Include="Database\HaleDBConvention.cs" />
     <Compile Include="Config\AgentSection.cs" />
     <Compile Include="Config\ApiSection.cs" />
     <Compile Include="Config\AppConfig.cs" />
     <Compile Include="Config\DatabaseSection.cs" />
-    <Compile Include="Migrations\201608110031064_SchemaAndRenames.cs" />
-    <Compile Include="Migrations\201608110031064_SchemaAndRenames.Designer.cs">
-      <DependentUpon>201608110031064_SchemaAndRenames.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608131326525_AddNodesSchemaAndHosts.cs" />
-    <Compile Include="Migrations\201608131326525_AddNodesSchemaAndHosts.Designer.cs">
-      <DependentUpon>201608131326525_AddNodesSchemaAndHosts.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608131417256_PluralSchemasAddModules.cs" />
-    <Compile Include="Migrations\201608131417256_PluralSchemasAddModules.Designer.cs">
-      <DependentUpon>201608131417256_PluralSchemasAddModules.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608131705380_HostNullableLastConnected.cs" />
-    <Compile Include="Migrations\201608131705380_HostNullableLastConnected.Designer.cs">
-      <DependentUpon>201608131705380_HostNullableLastConnected.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608141440054_AddInfoRecord.cs" />
-    <Compile Include="Migrations\201608141440054_AddInfoRecord.Designer.cs">
-      <DependentUpon>201608141440054_AddInfoRecord.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608141511284_AddCheckRecords.cs" />
-    <Compile Include="Migrations\201608141511284_AddCheckRecords.Designer.cs">
-      <DependentUpon>201608141511284_AddCheckRecords.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608151708331_AddAgentConfigSet.cs" />
-    <Compile Include="Migrations\201608151708331_AddAgentConfigSet.Designer.cs">
-      <DependentUpon>201608151708331_AddAgentConfigSet.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611261105192_UpdateAgentSchemas.cs" />
-    <Compile Include="Migrations\201611261105192_UpdateAgentSchemas.Designer.cs">
-      <DependentUpon>201611261105192_UpdateAgentSchemas.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611270903328_AddAgentConfiguredStatus.cs" />
-    <Compile Include="Migrations\201611270903328_AddAgentConfiguredStatus.Designer.cs">
-      <DependentUpon>201611270903328_AddAgentConfiguredStatus.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611271503313_AddAgentHostIdentification.cs" />
-    <Compile Include="Migrations\201611271503313_AddAgentHostIdentification.Designer.cs">
-      <DependentUpon>201611271503313_AddAgentHostIdentification.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611272004298_AddModifiedAndConfiguredByToHost.cs" />
-    <Compile Include="Migrations\201611272004298_AddModifiedAndConfiguredByToHost.Designer.cs">
-      <DependentUpon>201611272004298_AddModifiedAndConfiguredByToHost.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201702192117235_AddCommentsAndEmail.cs" />
-    <Compile Include="Migrations\201702192117235_AddCommentsAndEmail.Designer.cs">
-      <DependentUpon>201702192117235_AddCommentsAndEmail.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707230951139_SyncUpMisc.cs" />
-    <Compile Include="Migrations\201707230951139_SyncUpMisc.Designer.cs">
-      <DependentUpon>201707230951139_SyncUpMisc.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708050905404_ConfigLayoutUpdate.cs" />
-    <Compile Include="Migrations\201708050905404_ConfigLayoutUpdate.Designer.cs">
-      <DependentUpon>201708050905404_ConfigLayoutUpdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708050935319_AddMissingFunctionTypeEnum.cs" />
-    <Compile Include="Migrations\201708050935319_AddMissingFunctionTypeEnum.Designer.cs">
-      <DependentUpon>201708050935319_AddMissingFunctionTypeEnum.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708051422449_SwitchToUTCDates.cs" />
-    <Compile Include="Migrations\201708051422449_SwitchToUTCDates.Designer.cs">
-      <DependentUpon>201708051422449_SwitchToUTCDates.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708051443038_AddConfigIdentAttribs.cs" />
-    <Compile Include="Migrations\201708051443038_AddConfigIdentAttribs.Designer.cs">
-      <DependentUpon>201708051443038_AddConfigIdentAttribs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708051528524_EntityYoureDrivingMeInsane.cs" />
-    <Compile Include="Migrations\201708051528524_EntityYoureDrivingMeInsane.Designer.cs">
-      <DependentUpon>201708051528524_EntityYoureDrivingMeInsane.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Agent\Config.cs" />
-    <Compile Include="Models\Messages\LoginAttempt.cs" />
-    <Compile Include="Models\Messages\NewNodeComment.cs" />
-    <Compile Include="Models\Modules\CheckRecord.cs" />
-    <Compile Include="Models\Modules\InfoRecord.cs" />
-    <Compile Include="Models\Modules\Module.cs" />
-    <Compile Include="Models\Modules\Function.cs" />
-    <Compile Include="Models\Modules\Result.cs" />
-    <Compile Include="Models\Nodes\HostComment.cs" />
-    <Compile Include="Models\Users\CreateAccountRequest.cs" />
     <Compile Include="Handlers\ModuleHandler.cs" />
     <Compile Include="Handlers\Scheduler.CreateDistPackages.cs" />
     <Compile Include="Handlers\Scheduler.cs" />
     <Compile Include="Handlers\SqlHandler.cs" />
-    <Compile Include="Models\Modules\Checks\Check.cs" />
-    <Compile Include="Models\Modules\Checks\CheckDetail.cs" />
-    <Compile Include="Models\Modules\Checks\Metric.cs" />
-    <Compile Include="Models\Modules\Checks\Result.cs" />
-    <Compile Include="Models\Nodes\Host.cs" />
-    <Compile Include="Models\Nodes\HostDetail.cs" />
-    <Compile Include="Models\Nodes\HostResponseWrapper.cs" />
-    <Compile Include="Models\Nodes\Status.cs" />
-    <Compile Include="Models\Users\Account.cs" />
-    <Compile Include="Models\Users\AccountDetail.cs" />
-    <Compile Include="Models\Shared\Metadata.cs" />
     <Compile Include="Formatting\JsonAPI.cs" />
     <Compile Include="Formatting\JsonAPIContractResolver.cs" />
     <Compile Include="Formatting\JsonAPIMediaTypeFormatter.cs" />
     <Compile Include="Handlers\AgentDistHandler.cs" />
     <Compile Include="Handlers\AgentHandler.cs" />
-    <Compile Include="Migrations\201608101900197_InitialCreate.cs" />
-    <Compile Include="Migrations\201608101900197_InitialCreate.Designer.cs">
-      <DependentUpon>201608101900197_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608101912190_UserFix.cs" />
-    <Compile Include="Migrations\201608101912190_UserFix.Designer.cs">
-      <DependentUpon>201608101912190_UserFix.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608101934329_UserFix2.cs" />
-    <Compile Include="Migrations\201608101934329_UserFix2.Designer.cs">
-      <DependentUpon>201608101934329_UserFix2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608101938153_UserFix3.cs" />
-    <Compile Include="Migrations\201608101938153_UserFix3.Designer.cs">
-      <DependentUpon>201608101938153_UserFix3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608101947251_AddUserDetails.cs" />
-    <Compile Include="Migrations\201608101947251_AddUserDetails.Designer.cs">
-      <DependentUpon>201608101947251_AddUserDetails.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608102302414_UniqueUsername.cs" />
-    <Compile Include="Migrations\201608102302414_UniqueUsername.Designer.cs">
-      <DependentUpon>201608102302414_UniqueUsername.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Services\ConfigService.cs" />
+    <Compile Include="Services\HaleBaseService.cs" />
+    <Compile Include="Services\NodeResultsService.cs" />
+    <Compile Include="Services\NodesService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Utils\ConfigSerializer.cs" />
     <Compile Include="Utils\MsiInterop.cs" />
     <Compile Include="Utils\ExceptionHandlingAttribute.cs" />
@@ -419,78 +301,6 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Migrations\201608101900197_InitialCreate.resx">
-      <DependentUpon>201608101900197_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608101912190_UserFix.resx">
-      <DependentUpon>201608101912190_UserFix.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608101934329_UserFix2.resx">
-      <DependentUpon>201608101934329_UserFix2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608101938153_UserFix3.resx">
-      <DependentUpon>201608101938153_UserFix3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608101947251_AddUserDetails.resx">
-      <DependentUpon>201608101947251_AddUserDetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608102302414_UniqueUsername.resx">
-      <DependentUpon>201608102302414_UniqueUsername.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608110031064_SchemaAndRenames.resx">
-      <DependentUpon>201608110031064_SchemaAndRenames.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608131326525_AddNodesSchemaAndHosts.resx">
-      <DependentUpon>201608131326525_AddNodesSchemaAndHosts.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608131417256_PluralSchemasAddModules.resx">
-      <DependentUpon>201608131417256_PluralSchemasAddModules.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608131705380_HostNullableLastConnected.resx">
-      <DependentUpon>201608131705380_HostNullableLastConnected.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608141440054_AddInfoRecord.resx">
-      <DependentUpon>201608141440054_AddInfoRecord.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608141511284_AddCheckRecords.resx">
-      <DependentUpon>201608141511284_AddCheckRecords.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608151708331_AddAgentConfigSet.resx">
-      <DependentUpon>201608151708331_AddAgentConfigSet.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611261105192_UpdateAgentSchemas.resx">
-      <DependentUpon>201611261105192_UpdateAgentSchemas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611270903328_AddAgentConfiguredStatus.resx">
-      <DependentUpon>201611270903328_AddAgentConfiguredStatus.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611271503313_AddAgentHostIdentification.resx">
-      <DependentUpon>201611271503313_AddAgentHostIdentification.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611272004298_AddModifiedAndConfiguredByToHost.resx">
-      <DependentUpon>201611272004298_AddModifiedAndConfiguredByToHost.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201702192117235_AddCommentsAndEmail.resx">
-      <DependentUpon>201702192117235_AddCommentsAndEmail.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707230951139_SyncUpMisc.resx">
-      <DependentUpon>201707230951139_SyncUpMisc.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708050905404_ConfigLayoutUpdate.resx">
-      <DependentUpon>201708050905404_ConfigLayoutUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708050935319_AddMissingFunctionTypeEnum.resx">
-      <DependentUpon>201708050935319_AddMissingFunctionTypeEnum.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708051422449_SwitchToUTCDates.resx">
-      <DependentUpon>201708051422449_SwitchToUTCDates.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708051443038_AddConfigIdentAttribs.resx">
-      <DependentUpon>201708051443038_AddConfigIdentAttribs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708051528524_EntityYoureDrivingMeInsane.resx">
-      <DependentUpon>201708051528524_EntityYoureDrivingMeInsane.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="nemesis.yaml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
@@ -510,6 +320,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Hale.Core.Data\Hale.Core.Data.csproj">
+      <Project>{0e7a15f8-64cd-4021-a321-28d4f8e2cea3}</Project>
+      <Name>Hale.Core.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Hale.Core.Model\Hale.Core.Model.csproj">
+      <Project>{3c9ea9d8-7ccd-415f-add1-04a528295dd8}</Project>
+      <Name>Hale.Core.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Shared\Hale.Lib.ModuleLoader\Hale.Lib.ModuleLoader.csproj">
       <Project>{a9904f35-66fa-4296-92e3-15fa49d9cf1d}</Project>
       <Name>Hale.Lib.ModuleLoader</Name>
@@ -519,6 +337,7 @@
       <Name>Hale.Lib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent Condition=" '$(OS)' != 'Unix' ">forfiles /P "$(SolutionDir)packages\Humanizer.1.37.7\lib\portable-win+net40+sl50+wp8+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10" /c "cmd /c if @isdir==TRUE rmdir /s/q @file" &amp;&amp; EXIT /B 0</PreBuildEvent>

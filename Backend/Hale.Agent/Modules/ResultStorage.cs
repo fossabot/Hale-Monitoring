@@ -1,5 +1,4 @@
 ﻿using Hale.Agent.Config;
-using Hale.Agent.Core;
 using Hale.Lib.Modules;
 using Hale.Lib.Modules.Actions;
 using Hale.Lib.Modules.Checks;
@@ -12,10 +11,7 @@ using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Hale.Agent.Modules
 {
@@ -23,7 +19,6 @@ namespace Hale.Agent.Modules
     class ResultStorage: IResultStorage, IDisposable
     {
         string _resultsPath;
-        string _queuePath;
 
         ILogger _log = LogManager.GetLogger("ResultStorage");
 

@@ -6,12 +6,12 @@ using WindowsInstaller;
 using NLog;
 using Piksel.Nemesis.Security;
 using Hale.Core.Config;
-using Hale.Core.Models.Nodes;
 using Hale.Lib.Utilities;
 using System.Configuration;
 using System.Reflection;
-using Hale.Core.Contexts;
 using System.Linq;
+using Hale.Core.Data.Entities;
+using Hale.Core.Data.Contexts;
 
 namespace Hale.Core.Handlers
 {
@@ -52,10 +52,10 @@ namespace Hale.Core.Handlers
 
         internal void CreatePackages(bool force = false)
         {
-            var hosts = _db.Hosts.ToList();
+            var hosts = _db.Nodes.ToList();
 
             // NM: @todo @performance @blocking make this threaded?
-            foreach(Host host in hosts)
+            foreach(Node host in hosts)
             {
                 CreatePackage(host, force);
             }
@@ -96,7 +96,7 @@ namespace Hale.Core.Handlers
             return me;
         }
 
-        private void CreatePackage(Host host, bool force = false)
+        private void CreatePackage(Node host, bool force = false)
         {
             var hostDistPath = Path.Combine(_distPath, host.Guid.ToString());
 
@@ -255,7 +255,7 @@ namespace Hale.Core.Handlers
                 throw new Exception(message: $"Error: {me.ToString()}");
         }
 
-        private string GenerateNemesisConfig(Host host)
+        private string GenerateNemesisConfig(Node host)
         {
             string nemesisConfig;
             string configPath = Path.Combine(_distPath, "common", "nemesis.yaml");
@@ -317,7 +317,7 @@ namespace Hale.Core.Handlers
                 throw new Exception(message: $"Error: {me.ToString()}");
         }
 
-        private void SetAgentKeys(Host host, int hMsi)
+        private void SetAgentKeys(Node host, int hMsi)
         {
             
             _log.Debug("Setting agent keys...");
@@ -329,7 +329,7 @@ namespace Hale.Core.Handlers
             
         }
 
-        private void SetAgentGuid(Host host, int hMsi)
+        private void SetAgentGuid(Node host, int hMsi)
         {
             _log.Debug("Setting agent GUID...");
             MsiError me = _updateProperty(hMsi, "HALE_AGENT_GUID", host.Guid.ToString());

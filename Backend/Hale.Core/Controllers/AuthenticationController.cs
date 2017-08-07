@@ -1,16 +1,11 @@
-﻿using System.Net;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
 using Hale.Core.Models.Messages;
-using Hale.Core.Models.Users;
 using Microsoft.Owin.Security;
-using Newtonsoft.Json;
 using NLog;
-using Microsoft.Owin;
-using Hale.Core.Models.Shared;
-using Hale.Core.Contexts;
 using System.Linq;
+using Hale.Core.Data.Contexts;
 
 namespace Hale.Core.Controllers
 {

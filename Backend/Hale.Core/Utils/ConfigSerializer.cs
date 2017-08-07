@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Hale.Core.Models.Agent;
 using Hale.Lib.Config;
 using Hale.Lib.Modules.Actions;
 using Hale.Lib.Modules.Checks;
 using Hale.Lib.Modules.Info;
-using YamlDotNet;
 using YamlDotNet.Serialization;
 
 using ModuleFunctionType = Hale.Lib.Modules.ModuleFunctionType;
 using YamlDotNet.Serialization.NamingConventions;
 using System.IO;
+using Hale.Core.Data.Entities;
 
 namespace Hale.Core.Utils
 {
