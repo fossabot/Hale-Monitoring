@@ -63,6 +63,10 @@
       <Project>{cf1e1001-e40f-40a8-b1e3-29feb471b2bd}</Project>
       <Name>Hale.Lib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Hale.Core.Data\Hale.Core.Data.csproj">
+      <Project>{0e7a15f8-64cd-4021-a321-28d4f8e2cea3}</Project>
+      <Name>Hale.Core.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Enums\" />

@@ -323,6 +323,14 @@
       <Project>{cf1e1001-e40f-40a8-b1e3-29feb471b2bd}</Project>
       <Name>Hale.Lib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Hale.Core.Data\Hale.Core.Data.csproj">
+      <Project>{0e7a15f8-64cd-4021-a321-28d4f8e2cea3}</Project>
+      <Name>Hale.Core.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hale.Core.Model\Hale.Core.Model.csproj">
+      <Project>{3c9ea9d8-7ccd-415f-add1-04a528295dd8}</Project>
+      <Name>Hale.Core.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
