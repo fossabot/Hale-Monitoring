@@ -55,7 +55,7 @@ namespace Hale.Core.Handlers
 
             private void ConfigureFrontend(IAppBuilder app)
             {
-                var _api = ServiceProvider.GetServiceCritical<System.Configuration.Configuration>().Api();
+                var _api = ServiceProvider.GetServiceCritical<CoreConfig>().Api;
                 if (String.IsNullOrEmpty(_api.FrontendRoot) || !Directory.Exists(_api.FrontendRoot))
                     return;
 

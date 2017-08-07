@@ -33,14 +33,14 @@ namespace Hale.Core.Handlers
         private readonly string _coreKeyFilePath;
         private XMLFileKeyStore _xmlFileKeyStore;
 
-        private readonly AgentSection _agentConfig;
+        private readonly CoreConfig.AgentSection _agentConfig;
         private readonly Dictionary<Guid, int> _hostGuidsToIds = new Dictionary<Guid, int>();
 
         private readonly HaleDBContext _db = new HaleDBContext();
 
         public AgentHandler()
         {
-            var agentConfig = ServiceProvider.GetServiceCritical<Configuration>().Agent();
+            var agentConfig = ServiceProvider.GetServiceCritical<CoreConfig>().Agent;
 
             string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
 

@@ -9,12 +9,12 @@ namespace Hale.Core.Handlers
     internal partial class ApiHandler
     {
         private readonly Logger _log;
-        private readonly ApiSection _apiSection;
+        private readonly CoreConfig.ApiSection _apiSection;
 
         public ApiHandler()
         {
             _log = LogManager.GetCurrentClassLogger();
-            _apiSection = ServiceProvider.GetServiceCritical<System.Configuration.Configuration>().Api();
+            _apiSection = ServiceProvider.GetServiceCritical<CoreConfig>().Api;
 
             TryToStartListening();
         }

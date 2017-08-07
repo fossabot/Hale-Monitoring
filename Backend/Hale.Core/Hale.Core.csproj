@@ -259,6 +259,7 @@
     <Compile Include="Services\NodesService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Utils\ConfigSerializer.cs" />
+    <Compile Include="Utils\IPAdressYamlTypeConverter.cs" />
     <Compile Include="Utils\MsiInterop.cs" />
     <Compile Include="Utils\ExceptionHandlingAttribute.cs" />
     <Compile Include="Handlers\ApiHandler.cs" />

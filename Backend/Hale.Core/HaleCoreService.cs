@@ -18,7 +18,7 @@ namespace Hale.Core
     {
         private readonly Logger _log;
         private AgentHandler _agentHandler;
-        private Configuration _config;
+        private CoreConfig _config;
 
         private EnvironmentConfig _env;
 
@@ -36,7 +36,7 @@ namespace Hale.Core
             _env = new EnvironmentConfig();
             _env.DataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\Hale\Core\";
             _env.AgentDistPath = Path.Combine(_env.DataPath, "dist");
-            _env.ConfigFile = Path.Combine(_env.DataPath, "HaleCore.config");
+            _env.ConfigFile = Path.Combine(_env.DataPath, "HaleCore.yaml");
             ServiceProvider.SetService(_env);
 
         }
@@ -57,6 +57,19 @@ namespace Hale.Core
             
             _log.Info("Reading configuration...");
 
+            if (File.Exists(_env.ConfigFile))
+            {
+                _log.Info($"Loaded configuration from '{ _env.ConfigFile}'.");
+                _config = CoreConfig.Load(_env.ConfigFile);
+            }
+            else
+            {
+                _log.Warn($"No configuration file present! Writing new file with defaults to '{_env.ConfigFile}'.");
+                _config = CoreConfig.Default;
+                _config.Save(_env.ConfigFile);
+            }
+
+            /*
             AppConfig.Change(_env.ConfigFile);
             _config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
@@ -65,6 +78,7 @@ namespace Hale.Core
             DatabaseSection.ValidateSection(_config);
             AgentSection.ValidateSection(_config);
             SaveConfigToFileIfMissing();
+            */
 
             ServiceProvider.SetService(_config);
 
@@ -124,20 +138,6 @@ namespace Hale.Core
         {
             _log.Info("Creating API Handler instance...");
             ApiHandler apiHandler = new ApiHandler();
-        }
-
-
-        private void SaveConfigToFileIfMissing()
-        {
-            if (!_config.HasFile)
-            {
-                _log.Warn($"No configuration file present! Writing new file with defaults to '{_config.FilePath}'.");
-                _config.Save(ConfigurationSaveMode.Modified);
-            }
-            else
-            {
-                _log.Info($"Loaded configuration from '{ _config.FilePath}'.");
-            }
         }
 
         /// <summary>
