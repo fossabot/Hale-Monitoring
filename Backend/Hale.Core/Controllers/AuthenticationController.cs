@@ -34,7 +34,7 @@ namespace Hale.Core.Controllers
         #endregion
         #region Private Methods
 
-        private void CreateUserClaims(LoginAttempt attempt)
+        private void CreateUserClaims(LoginAttemptDTO attempt)
         {
             Request
                 .GetOwinContext()
@@ -60,7 +60,7 @@ namespace Hale.Core.Controllers
         /// <returns></returns>
         [Route("")]
         [HttpPost]
-        public IHttpActionResult Login([FromBody] LoginAttempt attempt)
+        public IHttpActionResult Login([FromBody] LoginAttemptDTO attempt)
         {
             var user = _db.Accounts.FirstOrDefault(x => x.UserName == attempt.Username);
             if (user == null)

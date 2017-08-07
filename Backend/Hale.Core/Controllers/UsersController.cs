@@ -74,7 +74,7 @@ namespace Hale.Core.Controllers
         /// <param name="userRequest"></param>
         /// <returns></returns>
         [Authorize, HttpPost, Route("")]
-        public IHttpActionResult Create([FromBody] CreateAccountRequest userRequest)
+        public IHttpActionResult Create([FromBody] CreateAccountRequestDTO userRequest)
         {
             _userService.CreateUser(userRequest);
             return Ok();

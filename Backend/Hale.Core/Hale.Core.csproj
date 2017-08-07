@@ -39,7 +39,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Hale.Core.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\WebApiSwagger.XML</DocumentationFile>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -261,13 +261,10 @@
     <Compile Include="Config\ApiSection.cs" />
     <Compile Include="Config\AppConfig.cs" />
     <Compile Include="Config\DatabaseSection.cs" />
+    <Compile Include="Handlers\ApiHandler.Startup.cs" />
     <Compile Include="Handlers\ModuleHandler.cs" />
     <Compile Include="Handlers\Scheduler.CreateDistPackages.cs" />
     <Compile Include="Handlers\Scheduler.cs" />
-    <Compile Include="Handlers\SqlHandler.cs" />
-    <Compile Include="Formatting\JsonAPI.cs" />
-    <Compile Include="Formatting\JsonAPIContractResolver.cs" />
-    <Compile Include="Formatting\JsonAPIMediaTypeFormatter.cs" />
     <Compile Include="Handlers\AgentDistHandler.cs" />
     <Compile Include="Handlers\AgentHandler.cs" />
     <Compile Include="Services\ConfigService.cs" />
@@ -278,7 +275,6 @@
     <Compile Include="Utils\ConfigSerializer.cs" />
     <Compile Include="Utils\MsiInterop.cs" />
     <Compile Include="Utils\ExceptionHandlingAttribute.cs" />
-    <Compile Include="Utils\StringResult.cs" />
     <Compile Include="Handlers\ApiHandler.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\NodesController.cs" />
@@ -291,7 +287,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\SqlMapper.cs" />
     <Compile Include="Utils\TraceLogger.cs" />
   </ItemGroup>
   <ItemGroup>

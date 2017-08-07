@@ -9,7 +9,7 @@ namespace Hale.Core.Models.Messages
     /// <summary>
     /// TODO: Add text here
     /// </summary>
-    public class LoginAttempt
+    public class LoginAttemptDTO
     {
         /// <summary>
         /// Username provided from a frontend login attempt

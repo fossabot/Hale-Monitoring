@@ -11,7 +11,7 @@ namespace Hale.Core.Services
 {
     public class UserService : HaleBaseService, IUserService
     {
-        public void CreateUser(CreateAccountRequest newUser)
+        public void CreateUser(CreateAccountRequestDTO newUser)
         {
             if (_db.Accounts.Any(x => x.UserName == newUser.UserName))
             {

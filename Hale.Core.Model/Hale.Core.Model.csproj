@@ -51,8 +51,8 @@
     <Compile Include="Models\NodeDTO.cs" />
     <Compile Include="Models\NodeResultDTO.cs" />
     <Compile Include="Models\NodeSummaryDTO.cs" />
-    <Compile Include="Models\Requests\CreateAccountRequest.cs" />
-    <Compile Include="Models\Requests\LoginAttempt.cs" />
+    <Compile Include="Models\Requests\CreateAccountRequestDTO.cs" />
+    <Compile Include="Models\Requests\LoginAttemptDTO.cs" />
     <Compile Include="Models\Requests\NewCommentDTO.cs" />
     <Compile Include="Models\UserDTO.cs" />
     <Compile Include="Models\UserSummaryDTO.cs" />

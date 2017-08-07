@@ -11,7 +11,7 @@ namespace Hale.Core.Model.Interfaces
         UserDTO GetUserById(int id);
         UserDTO GetUserByUserName(string userName);
         IList<UserSummaryDTO> List();
-        void CreateUser(CreateAccountRequest newUser);
+        void CreateUser(CreateAccountRequestDTO newUser);
         void UpdateUser(int id, UserDTO user, string currentUsername);
     }
 }

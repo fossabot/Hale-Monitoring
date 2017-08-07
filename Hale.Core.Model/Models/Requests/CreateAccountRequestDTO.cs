@@ -9,7 +9,7 @@ namespace Hale.Core.Models.Users
     /// <summary>
     /// TODO: Add text here
     /// </summary>
-    public class CreateAccountRequest
+    public class CreateAccountRequestDTO
     {
         /// <summary>
         /// TODO: Add text here
