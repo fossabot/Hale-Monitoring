@@ -24,7 +24,7 @@ namespace Hale.Checks
 
         public override string Name => "DNS Module";
         public override string Author => "Hale Project";
-        public override string Identifier => "com.itshale.core.paging";
+        public override string Identifier => "com.itshale.core.dns";
         public override Version Version => new Version (0, 1, 1);
         public override string Platform => "Windows";
         public override decimal TargetApi => 1.2M;
