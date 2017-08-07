@@ -6,6 +6,7 @@ using Microsoft.Owin.Security;
 using NLog;
 using System.Linq;
 using Hale.Core.Data.Contexts;
+using Hale.Core.Model.Models;
 
 namespace Hale.Core.Controllers
 {
@@ -53,6 +54,17 @@ namespace Hale.Core.Controllers
         }
 
         #endregion
+
+        internal string _currentUsername => Request
+            .GetOwinContext()
+            .Authentication
+            .User
+            .Identities
+            .First()
+            .Claims
+            .First(claim => claim.Type == ClaimsIdentity.DefaultNameClaimType)
+            .Value;
+
         /// <summary>
         /// Creates a claim on successful sign in.
         /// </summary>
@@ -103,7 +115,24 @@ namespace Hale.Core.Controllers
             return Ok();
         }
 
+        [Route("change-password")]
+        [HttpPost]
+        [Authorize]
+        public IHttpActionResult ChangePassword(PasswordDTO passwordChange)
+        {
+            var user = _db.Accounts.Single(x => x.UserName == _currentUsername);
+            var passwordAccepted = BCrypt.Net.BCrypt.Verify(passwordChange.oldPassword, user.Password);
 
+            if (!passwordAccepted)
+                return Unauthorized();
+
+            var newPassword = BCrypt.Net.BCrypt.HashPassword(passwordChange.newPassword, 5);
+
+            user.Password = newPassword;
+            _db.SaveChanges();
+
+            return Ok();
+        }
 
     }
 }

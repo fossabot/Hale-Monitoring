@@ -56,6 +56,7 @@
     <Compile Include="Models\Requests\NewCommentDTO.cs" />
     <Compile Include="Models\UserDTO.cs" />
     <Compile Include="Models\UserSummaryDTO.cs" />
+    <Compile Include="Models\PasswordDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

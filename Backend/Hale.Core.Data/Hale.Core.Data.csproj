@@ -58,6 +58,10 @@
     <Compile Include="Migrations\201708062356425_Init.Designer.cs">
       <DependentUpon>201708062356425_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708071429240_AddAdminPropertyForUsers.cs" />
+    <Compile Include="Migrations\201708071429240_AddAdminPropertyForUsers.Designer.cs">
+      <DependentUpon>201708071429240_AddAdminPropertyForUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +106,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201708062356425_Init.resx">
       <DependentUpon>201708062356425_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708071429240_AddAdminPropertyForUsers.resx">
+      <DependentUpon>201708071429240_AddAdminPropertyForUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
