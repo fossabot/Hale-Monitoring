@@ -48,26 +48,22 @@ namespace Hale.Agent.Modules
 
             //_verifyChecks(config.Checks);
 
-            foreach (var kvpCheck in config.Checks)
+            foreach (var check in config.Checks)
             {
-                var check = kvpCheck.Value;
-
                 var task = new ModuleTask();
                 task.Function = check.Check;
-                task.Module = check.Module;
+                task.Module = check.Module.ToString();
                 task.FunctionType = ModuleFunctionType.Check;
                 task.Settings = check;
 
                 ScheduleTask(task, check.Interval);
             }
 
-            foreach (var kvpInfo in config.Info)
+            foreach (var info in config.Info)
             {
-                var info = kvpInfo.Value;
-
                 var task = new ModuleTask();
                 task.Function = info.Info;
-                task.Module = info.Module;
+                task.Module = info.Module.ToString();
                 task.FunctionType = ModuleFunctionType.Info;
                 task.Settings = info;
 
@@ -77,13 +73,11 @@ namespace Hale.Agent.Modules
                 ScheduleTask(task, info.Interval);
             }
 
-            foreach (var kvpAction in config.Actions)
+            foreach (var action in config.Actions)
             {
-                var action = kvpAction.Value;
-
                 var task = new ModuleTask();
                 task.Function = action.Action;
-                task.Module = action.Module;
+                task.Module = action.Module.ToString();
                 task.FunctionType = ModuleFunctionType.Action;
                 task.Settings = action;
 
