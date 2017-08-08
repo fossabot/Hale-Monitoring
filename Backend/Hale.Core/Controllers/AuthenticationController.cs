@@ -7,6 +7,8 @@ using NLog;
 using System.Linq;
 using Hale.Core.Data.Contexts;
 using Hale.Core.Model.Models;
+using Hale.Core.Model.Interfaces;
+using Hale.Core.Services;
 
 namespace Hale.Core.Controllers
 {
@@ -17,43 +19,15 @@ namespace Hale.Core.Controllers
     public class AuthenticationController : ApiController
     {
 
-        #region Constructors and declarations
         private readonly Logger      _log;
-        private readonly HaleDBContext _db;
+        private readonly IAuthService _authService;
 
-        internal AuthenticationController() : this(new HaleDBContext()) { }
-
-        /// <summary>
-        /// TODO: Add text here
-        /// </summary>
-        /// <param name="context"></param>
-        public AuthenticationController(HaleDBContext context)
+        public AuthenticationController() : this(new AuthService()) { }
+        public AuthenticationController(IAuthService authService)
         {
             _log = LogManager.GetCurrentClassLogger();
-            _db = context;
+            _authService = authService;
         }
-        #endregion
-        #region Private Methods
-
-        private void CreateUserClaims(LoginAttemptDTO attempt)
-        {
-            Request
-                .GetOwinContext()
-                .Authentication
-                .SignIn(
-                    new AuthenticationProperties()
-                    {
-                        IsPersistent = attempt.Persistent
-                    },
-                    new ClaimsIdentity(
-                        new[] {
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, "User"),
-                new Claim(ClaimsIdentity.DefaultNameClaimType, attempt.Username)
-                        }, "HaleCoreAuth")
-                    );
-        }
-
-        #endregion
 
         internal string _currentUsername => Request
             .GetOwinContext()
@@ -74,19 +48,13 @@ namespace Hale.Core.Controllers
         [HttpPost]
         public IHttpActionResult Login([FromBody] LoginAttemptDTO attempt)
         {
-            var user = _db.Accounts.FirstOrDefault(x => x.UserName == attempt.Username);
-            if (user == null)
-                return Unauthorized();
-
-            var passwordAccepted = BCrypt.Net.BCrypt.Verify(attempt.Password, user.Password);
+            var passwordAccepted = _authService.Authorize(attempt.Username, attempt.Password);
 
             if (!passwordAccepted)
                 return Unauthorized();
 
-            else {
-                CreateUserClaims(attempt);
-                return Ok();
-            }
+            CreateUserClaims(attempt);
+            return Ok();
         }
 
         /// <summary>
@@ -120,18 +88,30 @@ namespace Hale.Core.Controllers
         [Authorize]
         public IHttpActionResult ChangePassword(PasswordDTO passwordChange)
         {
-            var user = _db.Accounts.Single(x => x.UserName == _currentUsername);
-            var passwordAccepted = BCrypt.Net.BCrypt.Verify(passwordChange.oldPassword, user.Password);
+            var passwordAccepted = _authService.Authorize(_currentUsername, passwordChange.oldPassword);
 
             if (!passwordAccepted)
                 return Unauthorized();
 
-            var newPassword = BCrypt.Net.BCrypt.HashPassword(passwordChange.newPassword, 5);
-
-            user.Password = newPassword;
-            _db.SaveChanges();
-
+            _authService.ChangePassword(_currentUsername, passwordChange.newPassword);
             return Ok();
+        }
+
+        private void CreateUserClaims(LoginAttemptDTO attempt)
+        {
+            var claims = new[]
+            {
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, "User"),
+                new Claim(ClaimsIdentity.DefaultNameClaimType, attempt.Username)
+            };
+
+            Request
+                .GetOwinContext()
+                .Authentication
+                .SignIn(
+                    new AuthenticationProperties() { IsPersistent = attempt.Persistent },
+                    new ClaimsIdentity(claims, "HaleCoreAuth")
+                );
         }
 
     }

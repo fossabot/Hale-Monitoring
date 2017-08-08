@@ -17,5 +17,6 @@ namespace Hale.Core.Model.Models
         public Account ModifiedBy { get; set; }
         public IList<AccountDetail> AccountDetails { get; set; }
         public string UserName { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

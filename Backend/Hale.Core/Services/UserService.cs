@@ -45,7 +45,8 @@ namespace Hale.Core.Services
                     CreatedBy = _db.Accounts.FirstOrDefault(a => a.Id == x.CreatedBy),
                     Modified = x.Modified,
                     ModifiedBy = _db.Accounts.FirstOrDefault(a => a.Id == x.ModifiedBy),
-                    AccountDetails = _db.AccountDetails.Where(ad => ad.UserId == x.Id).ToList()
+                    AccountDetails = _db.AccountDetails.Where(ad => ad.UserId == x.Id).ToList(),
+                    IsAdmin = x.IsAdmin
                 })
                 .FirstOrDefault();
         }
@@ -63,7 +64,12 @@ namespace Hale.Core.Services
                 {
                     Id = x.Id,
                     Email = x.Email,
-                    FullName = x.FullName
+                    UserName = x.UserName,
+                    FullName = x.FullName,
+                    Modified = x.Modified,
+                    ModifiedBy = _db.Accounts.Select(a => new UserBasicsDTO { Id = a.Id, Email = a.Email, FullName = a.FullName }).FirstOrDefault(a => a.Id == x.ModifiedBy),
+                    Created = x.Created,
+                    CreatedBy = _db.Accounts.Select(a => new UserBasicsDTO { Id = a.Id, Email = a.Email, FullName = a.FullName }).FirstOrDefault(a => a.Id == x.CreatedBy),
                 })
                 .ToList();
         }

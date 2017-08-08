@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IAuthService.cs" />
     <Compile Include="Interfaces\IConfigService.cs" />
     <Compile Include="Interfaces\INodeResultsService.cs" />
     <Compile Include="Interfaces\INodesService.cs" />
@@ -55,6 +56,8 @@
     <Compile Include="Models\Requests\CreateAccountRequestDTO.cs" />
     <Compile Include="Models\Requests\LoginAttemptDTO.cs" />
     <Compile Include="Models\Requests\NewCommentDTO.cs" />
+    <Compile Include="Models\TitleIdDTO.cs" />
+    <Compile Include="Models\UserBasicsDTO.cs" />
     <Compile Include="Models\UserDTO.cs" />
     <Compile Include="Models\UserSummaryDTO.cs" />
     <Compile Include="Models\PasswordDTO.cs" />
@@ -72,9 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Enums\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
