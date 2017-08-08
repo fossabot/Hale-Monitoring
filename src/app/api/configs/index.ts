@@ -33,7 +33,7 @@ export class Configs {
     return this.http
       .post(
         `${this.baseUrl}/${id}`,
-        config,
+        { body: config },
         this.options
       );
   }
