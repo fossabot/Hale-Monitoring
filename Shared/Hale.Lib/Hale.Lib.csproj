@@ -60,7 +60,7 @@
     <Compile Include="AgentIdentification.cs" />
     <Compile Include="Modules\Attributes\CheckFunctionAttribute.cs" />
     <Compile Include="Modules\Attributes\HaleModuleAttribute.cs" />
-    <Compile Include="Modules\Attributes\ReturnUnit.cs" />
+    <Compile Include="Modules\Attributes\ReturnUnitAttribute.cs" />
     <Compile Include="Modules\UnitType.cs" />
     <Compile Include="Utilities\ComputerInfo.cs" />
     <Compile Include="Config\AgentConfig.cs" />
