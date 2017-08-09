@@ -9,12 +9,14 @@ using Hale.Lib.Modules;
 using Hale.Lib.Modules.Checks;
 using Hale.Lib.Modules.Info;
 using Module = Hale.Lib.Modules.Module;
+using Hale.Lib.Modules.Attributes;
 
 namespace Hale.Modules
 {
     /// <summary>
     /// All checks need to realize the interface ICheck.
     /// </summary>
+    [HaleModule("com.itshale.core.cpu")]
     public class CpuModule : Module, ICheckProvider, IInfoProvider
     {
 
@@ -27,6 +29,8 @@ namespace Hale.Modules
         Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
             = new Dictionary<string, ModuleFunction>();
 
+        [CheckFunction(Default = true, Identifier = "usage")]
+        [ReturnUnit("CpuUsage", UnitType.Percent, Name = "CPU Usage", Description = "Percent of CPU time spent non-idle")]
         public CheckResult DefaultCheck(CheckSettings settings)
         {
             CheckResult cr = new CheckResult();
@@ -87,6 +91,9 @@ namespace Hale.Modules
             return cr;
         }
 
+        [CheckFunction(Identifier = "performance", Name = "CPU Performance", Description="")]
+        [ReturnUnit("CpuPerformance", UnitType.Percent, Name = "CPU Performance", 
+            Description = "How many percent of the CPUs maximum performance it's running at")]
         public CheckResult PerformanceCheck(CheckSettings settings)
         {
             CheckResult cr = new CheckResult();
@@ -147,6 +154,7 @@ namespace Hale.Modules
 
         }
 
+        [InfoFunction(Default = true)]
         public InfoFunctionResult DefaultInfo(InfoSettings settings)
         {
             var result = new InfoFunctionResult();
