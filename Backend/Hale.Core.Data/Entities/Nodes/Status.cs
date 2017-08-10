@@ -1,5 +1,5 @@
 ﻿#pragma warning disable 1591
-namespace Hale.Core.Data.Entities
+namespace Hale.Core.Data.Entities.Nodes
 {
     /// <summary>
     /// Represents the possible values for the table column Nodes.Hosts.Status

@@ -1,4 +1,5 @@
 ﻿using Hale.Core.Data.Contexts;
+using Hale.Core.Data.Entities.Modules;
 using Hale.Lib.ModuleLoader;
 using Hale.Lib.Modules;
 using NLog;
@@ -7,7 +8,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using YamlDotNet.Serialization.NamingConventions;
-using Module = Hale.Core.Data.Entities.Module;
+
+using EModule = Hale.Core.Data.Entities.Modules.Module;
 
 namespace Hale.Core.Handlers
 {
@@ -34,7 +36,7 @@ namespace Hale.Core.Handlers
             _log.Info($"Adding module <{mi.Module}>, {mi.Functions[ModuleFunctionType.Action].Count} action-, "+
                 $"{mi.Functions[ModuleFunctionType.Info].Count} info- and {mi.Functions[ModuleFunctionType.Check].Count} check-functions.");
 
-            Module me = _db.Modules.FirstOrDefault(m =>
+            EModule me = _db.Modules.FirstOrDefault(m =>
                     m.Major == mi.Module.Version.Major &&
                     m.Minor == mi.Module.Version.Minor &&
                     m.Revision == mi.Module.Version.Revision &&
@@ -45,7 +47,7 @@ namespace Hale.Core.Handlers
             {
                 try
                 {
-                    me = _db.Modules.Add(new Module()
+                    me = _db.Modules.Add(new EModule()
                 {
                     Major = mi.Module.Version.Major,
                     Minor = mi.Module.Version.Minor,
@@ -65,11 +67,13 @@ namespace Hale.Core.Handlers
                 foreach (var fn in funcType.Value) {
                     try
                     {
-                        var mf = new Data.Entities.Function()
+                        var mf = new Function()
                         {
                             Type = funcType.Key,
                             Name = fn.Value.Name,
-                            ModuleId = me.Id
+                            Identifier = fn.Key,
+                            Description = fn.Value.Description,
+                            Module = me
                         };
                         _db.Functions.Add(mf);
                     }
@@ -199,9 +203,9 @@ namespace Hale.Core.Handlers
             }
         }
 
-        public Module GetModuleEntity()
+        public EModule GetModuleEntity()
         {
-            return new Module() { Version = Version, Identifier = Identifier };
+            return new EModule() { Version = Version, Identifier = Identifier };
         }
     }
 

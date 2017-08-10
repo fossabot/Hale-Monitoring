@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Hale.Core.Data.Entities
+namespace Hale.Core.Data.Entities.Nodes
 {
     public class Node
     {

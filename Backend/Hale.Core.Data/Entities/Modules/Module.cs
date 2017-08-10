@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hale.Core.Data.Entities
+namespace Hale.Core.Data.Entities.Modules
 {
     /// <summary>
     /// 

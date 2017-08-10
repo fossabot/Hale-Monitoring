@@ -2,12 +2,17 @@ namespace Hale.Core.Data.Migrations
 {
     using Hale.Core.Data.Contexts;
     using Hale.Core.Data.Entities;
+    using Hale.Core.Data.Entities.Agent;
+    using Hale.Core.Data.Entities.Nodes;
+    using Hale.Core.Data.Entities.Users;
     using Hale.Lib.Modules;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+
+    using EModule = Entities.Modules.Module;
 
     internal sealed class Configuration : DbMigrationsConfiguration<HaleDBContext>
     {
@@ -255,11 +260,11 @@ namespace Hale.Core.Data.Migrations
 
             agentConfig.Identifier = "seed_config01";
 
-            agentConfig.Functions.Add(new AgentConfigSetFuncSettings()
+            agentConfig.Functions.Add(new AgentConfigSetFunctions()
             {
                 Enabled = true,
                 Function = "default",
-                Module = new Entities.Module()
+                Module = new EModule()
                 {
                     Identifier = "com.itshale.core.memory",
                     Version = new Version(1, 0, 0, 0),

@@ -42,18 +42,22 @@
   <ItemGroup>
     <Compile Include="Database\HaleDBContext.cs" />
     <Compile Include="Database\HaleDBConvention.cs" />
-    <Compile Include="Entities\Account.cs" />
-    <Compile Include="Entities\AccountDetail.cs" />
-    <Compile Include="Entities\CheckRecord.cs" />
-    <Compile Include="Entities\Config.cs" />
-    <Compile Include="Entities\Function.cs" />
-    <Compile Include="Entities\Node.cs" />
-    <Compile Include="Entities\NodeComment.cs" />
-    <Compile Include="Entities\NodeDetail.cs" />
-    <Compile Include="Entities\InfoRecord.cs" />
-    <Compile Include="Entities\Module.cs" />
-    <Compile Include="Entities\Result.cs" />
-    <Compile Include="Entities\Status.cs" />
+    <Compile Include="Entities\Agent\AgentConfigSet.cs" />
+    <Compile Include="Entities\Agent\AgentConfigSetCheckAction.cs" />
+    <Compile Include="Entities\Agent\AgentConfigSetFunctions.cs" />
+    <Compile Include="Entities\Agent\AgentConfigSetFunctionSettings.cs" />
+    <Compile Include="Entities\Users\Account.cs" />
+    <Compile Include="Entities\Users\AccountDetail.cs" />
+    <Compile Include="Entities\Modules\CheckRecord.cs" />
+    <Compile Include="Entities\Agent\AgentConfigSetTask.cs" />
+    <Compile Include="Entities\Modules\Function.cs" />
+    <Compile Include="Entities\Nodes\Node.cs" />
+    <Compile Include="Entities\Nodes\NodeComment.cs" />
+    <Compile Include="Entities\Nodes\NodeDetail.cs" />
+    <Compile Include="Entities\Modules\InfoRecord.cs" />
+    <Compile Include="Entities\Modules\Module.cs" />
+    <Compile Include="Entities\Modules\Result.cs" />
+    <Compile Include="Entities\Nodes\Status.cs" />
     <Compile Include="Migrations\201708062356425_Init.cs" />
     <Compile Include="Migrations\201708062356425_Init.Designer.cs">
       <DependentUpon>201708062356425_Init.cs</DependentUpon>
@@ -65,6 +69,14 @@
     <Compile Include="Migrations\201708101604391_UpdateModuleFunctionType.cs" />
     <Compile Include="Migrations\201708101604391_UpdateModuleFunctionType.Designer.cs">
       <DependentUpon>201708101604391_UpdateModuleFunctionType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708101703304_UpdateModuleToRefAndAddThresholdsAndMissingCols.cs" />
+    <Compile Include="Migrations\201708101703304_UpdateModuleToRefAndAddThresholdsAndMissingCols.Designer.cs">
+      <DependentUpon>201708101703304_UpdateModuleToRefAndAddThresholdsAndMissingCols.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708101728582_RevertSchemaNames.cs" />
+    <Compile Include="Migrations\201708101728582_RevertSchemaNames.Designer.cs">
+      <DependentUpon>201708101728582_RevertSchemaNames.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
   </ItemGroup>
@@ -116,6 +128,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708101604391_UpdateModuleFunctionType.resx">
       <DependentUpon>201708101604391_UpdateModuleFunctionType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708101703304_UpdateModuleToRefAndAddThresholdsAndMissingCols.resx">
+      <DependentUpon>201708101703304_UpdateModuleToRefAndAddThresholdsAndMissingCols.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708101728582_RevertSchemaNames.resx">
+      <DependentUpon>201708101728582_RevertSchemaNames.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

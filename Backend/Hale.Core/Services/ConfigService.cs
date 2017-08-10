@@ -1,4 +1,5 @@
-﻿using Hale.Core.Data.Entities;
+﻿using Hale.Core.Data.Entities.Agent;
+using Hale.Core.Data.Entities.Users;
 using Hale.Core.Model.Interfaces;
 using Hale.Core.Model.Models;
 using Hale.Core.Models;
@@ -9,6 +10,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+
+using EModule = Hale.Core.Data.Entities.Modules.Module;
 
 namespace Hale.Core.Services
 {
@@ -76,9 +79,9 @@ namespace Hale.Core.Services
                 act.Startup = task.Value.Startup;
             }
 
-            AgentConfigSetFuncSettings UpdateFunction(ModuleSettingsBase ms, IEnumerable<AgentConfigSetFuncSettings> fs)
+            AgentConfigSetFunctions UpdateFunction(ModuleSettingsBase ms, IEnumerable<AgentConfigSetFunctions> fs)
             {
-                AgentConfigSetFuncSettings func;
+                AgentConfigSetFunctions func;
                 var candidates = fs.Where(
                     c => c.Module != null && 
                     c.Module.Identifier == ms.Module.Identifier &&
@@ -100,7 +103,7 @@ namespace Hale.Core.Services
                     //_db.AgentConfigSetFuncSettings.RemoveRange(candidates);
 
                     // Create new entity
-                    func = new AgentConfigSetFuncSettings()
+                    func = new AgentConfigSetFunctions()
                     {
                         Function = ms.Function,
                         Type = ModuleFunctionType.Check,
@@ -113,7 +116,7 @@ namespace Hale.Core.Services
                             )
 
                             // FIXME: We probably shouldn't allow saving a configuration file with an unknown module identifier or version
-                            ?? new Data.Entities.Module
+                            ?? new EModule
                             {
                                 Identifier = ms.Module.Identifier,
                                 Version = ms.Module.Version
@@ -132,7 +135,7 @@ namespace Hale.Core.Services
                 return func;
             }
 
-            var updatedFuncs = new List<AgentConfigSetFuncSettings>();
+            var updatedFuncs = new List<AgentConfigSetFunctions>();
 
             var checks = configSet?.Functions.Where(f => f.Type == ModuleFunctionType.Check);
             foreach(var check in newConfig.Checks)

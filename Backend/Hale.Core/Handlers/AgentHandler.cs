@@ -18,8 +18,11 @@ using Hale.Lib.Modules.Info;
 using Hale.Lib;
 using System.Text;
 using Hale.Core.Data.Entities;
-using Module = Hale.Core.Data.Entities.Module;
 using Hale.Core.Data.Contexts;
+
+using EModule = Hale.Core.Data.Entities.Modules.Module;
+using Hale.Core.Data.Entities.Modules;
+using Hale.Core.Data.Entities.Nodes;
 
 namespace Hale.Core.Handlers
 {
@@ -282,7 +285,7 @@ namespace Hale.Core.Handlers
             return result;
         }
 
-        private Hale.Core.Data.Entities.Module ResolveModule(IModuleResultRecord record)
+        private EModule ResolveModule(IModuleResultRecord record)
         {
             var v = record.Module.Version;
             var module = _db.Modules.SingleOrDefault(m => 
@@ -293,7 +296,7 @@ namespace Hale.Core.Handlers
             );
             if(module == null)
             {
-                module = _db.Modules.Add(new Data.Entities.Module()
+                module = _db.Modules.Add(new EModule()
                 {
                     Version = v,
                     Identifier = record.Module.Identifier
@@ -304,11 +307,11 @@ namespace Hale.Core.Handlers
             return module;
         }
 
-        private Function ResolveModuleFunction(IModuleResultRecord record, Data.Entities.Module module)
+        private Function ResolveModuleFunction(IModuleResultRecord record, EModule module)
         {
             var func = _db.Functions.SingleOrDefault(f =>
                 f.Name == record.Function &&
-                f.ModuleId == module.Id &&
+                f.Module == module &&
                 f.Type == record.FunctionType
             );
 
@@ -318,7 +321,7 @@ namespace Hale.Core.Handlers
                 func = _db.Functions.Add(new Function()
                 {
                     Name = record.Function,
-                    ModuleId = module.Id,
+                    Module = module,
                     Type = record.FunctionType
                 });
                 _log.Warn($"Added missing module function '{record.Module.ToString()}[{record.FunctionType}]{record.Function}' to database.");
@@ -332,14 +335,13 @@ namespace Hale.Core.Handlers
         }
 
         private Result ConvertToResult(IModuleResultRecord record, ModuleResult moduleResult,
-            Node host, Function function, Data.Entities.Module module, string target)
+            Node host, Function function, EModule module, string target)
         {
             Result result = new Result()
             {
                 HostId = host.Id,
                 FunctionId = function.Id,
                 ModuleId = module.Id,
-
                 Exception = !moduleResult.RanSuccessfully ? moduleResult.ExecutionException.Message : null,
                                                                     //CheckException does not contain the same fields as the Core Entity.
                 ExecutionTime = record.CompletionTime,
@@ -347,6 +349,13 @@ namespace Hale.Core.Handlers
                 Target = target
 
             };
+
+            if(moduleResult is CheckResult checkResult)
+            {
+                result.AboveCritical = checkResult.Critical;
+                result.AboveWarning = checkResult.Warning;
+            }
+
             return result;
         }
 

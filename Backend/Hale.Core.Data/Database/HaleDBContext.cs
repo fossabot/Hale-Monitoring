@@ -1,6 +1,10 @@
 namespace Hale.Core.Data.Contexts
 {
     using Hale.Core.Data.Entities;
+    using Hale.Core.Data.Entities.Agent;
+    using Hale.Core.Data.Entities.Modules;
+    using Hale.Core.Data.Entities.Nodes;
+    using Hale.Core.Data.Entities.Users;
     using System.Data.Entity;
 
     /// <summary>
@@ -87,7 +91,7 @@ namespace Hale.Core.Data.Contexts
 
         public virtual DbSet<AgentConfigSetFunctionSettings> AgentConfigSetFunctionSettings { get;set; }
 
-        public virtual DbSet<AgentConfigSetFuncSettings> AgentConfigSetFuncSettings { get;set; }
+        public virtual DbSet<AgentConfigSetFunctions> AgentConfigSetFuncSettings { get;set; }
 
         public virtual DbSet<AgentConfigSetCheckAction> AgentConfigSetCheckActions { get;set; }
 

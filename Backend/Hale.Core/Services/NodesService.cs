@@ -6,6 +6,7 @@ using Hale.Core.Data.Entities;
 using System;
 using System.Collections.Generic;
 using Hale.Core.Models.Messages;
+using Hale.Core.Data.Entities.Nodes;
 
 namespace Hale.Core.Services
 {

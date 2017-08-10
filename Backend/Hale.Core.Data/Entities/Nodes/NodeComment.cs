@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Hale.Core.Data.Entities.Users;
+using System;
 
-namespace Hale.Core.Data.Entities
+namespace Hale.Core.Data.Entities.Nodes
 {
     public class NodeComment
     {

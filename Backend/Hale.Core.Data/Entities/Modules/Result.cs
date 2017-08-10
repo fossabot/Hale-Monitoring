@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hale.Core.Data.Entities
+namespace Hale.Core.Data.Entities.Modules
 {
     /// <summary>
     /// TODO: Add text here
@@ -50,5 +50,9 @@ namespace Hale.Core.Data.Entities
         /// TODO: Add text here
         /// </summary>
         public string Exception { get; set; }
+
+        public bool AboveWarning { get; set; }
+
+        public bool AboveCritical { get; set; }
     }
 }

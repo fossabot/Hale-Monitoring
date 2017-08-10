@@ -7,6 +7,7 @@ using Hale.Core.Data.Entities;
 using Hale.Core.Model.Interfaces;
 using Hale.Core.Services;
 using Hale.Core.Model.Models;
+using Hale.Core.Data.Entities.Nodes;
 
 namespace Hale.Core.Controllers
 {

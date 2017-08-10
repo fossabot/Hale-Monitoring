@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hale.Core.Data.Entities
+namespace Hale.Core.Data.Entities.Modules
 {
     /// <summary>
     /// 
@@ -21,7 +21,11 @@ namespace Hale.Core.Data.Entities
         /// 
         /// </summary>
         public string Name { get; set; }
-        
+
+        public string Identifier { get; set; }
+
+        public string Description { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -30,7 +34,7 @@ namespace Hale.Core.Data.Entities
         /// <summary>
         /// 
         /// </summary>
-        public int ModuleId { get; set; }
+        public Module Module { get; set; }
     }
 
     /*

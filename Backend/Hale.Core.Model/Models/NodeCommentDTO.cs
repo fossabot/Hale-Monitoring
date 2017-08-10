@@ -1,5 +1,7 @@
 ﻿using System;
 using Hale.Core.Data.Entities;
+using Hale.Core.Data.Entities.Nodes;
+using Hale.Core.Data.Entities.Users;
 
 namespace Hale.Core.Model.Models
 {

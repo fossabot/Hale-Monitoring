@@ -8,10 +8,10 @@ using Hale.Core.Utils;
 using Hale.Lib.Modules;
 using System.Linq.Expressions;
 using System;
-using Hale.Core.Data.Entities;
 using Hale.Core.Models;
 using Hale.Core.Model.Interfaces;
 using Hale.Core.Services;
+using Hale.Core.Data.Entities.Agent;
 
 namespace Hale.Core.Controllers
 {

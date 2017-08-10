@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hale.Core.Data.Entities.Nodes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

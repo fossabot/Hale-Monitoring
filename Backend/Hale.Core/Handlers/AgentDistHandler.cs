@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Linq;
 using Hale.Core.Data.Entities;
 using Hale.Core.Data.Contexts;
+using Hale.Core.Data.Entities.Nodes;
 
 namespace Hale.Core.Handlers
 {

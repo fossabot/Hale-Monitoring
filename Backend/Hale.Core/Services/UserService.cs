@@ -5,7 +5,7 @@ using System.Linq;
 using Hale.Core.Models;
 using System.Collections.Generic;
 using Hale.Core.Models.Users;
-using Hale.Core.Data.Entities;
+using Hale.Core.Data.Entities.Users;
 
 namespace Hale.Core.Services
 {

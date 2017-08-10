@@ -1,26 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#pragma warning disable 108, 114
 
-namespace Hale.Core.Data.Entities
+namespace Hale.Core.Data.Entities.Agent
 {
     /// <summary>
     /// TODO: Add text here
     /// </summary>
-    public class CheckRecord
+    public class AgentConfigSetFunctionSettings
     {
         /// <summary>
         /// TODO: Add text here
         /// </summary>
         public int Id { get; set; }
-        
-        /// <summary>
-        /// TODO: Add text here
-        /// </summary>
-        public Result Result { get; set; }
-        
+
         /// <summary>
         /// TODO: Add text here
         /// </summary>
@@ -29,6 +20,11 @@ namespace Hale.Core.Data.Entities
         /// <summary>
         /// TODO: Add text here
         /// </summary>
-        public double Value { get; set; }
+        public string Value { get; set; }
+        
+        /// <summary>
+        /// TODO: Add text here
+        /// </summary>
+        public string Target { get; set; }
     }
 }

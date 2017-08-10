@@ -14,6 +14,7 @@ using Hale.Core.Data.Entities;
 using Hale.Core.Data.Contexts;
 using System.Linq;
 using Hale.Lib.Modules;
+using Hale.Core.Data.Entities.Agent;
 
 namespace Hale.Core.Utils
 {
@@ -32,11 +33,6 @@ namespace Hale.Core.Utils
                     Startup = task.Startup
                 });
             }
-
-            // TODO: Use proper keys or remove keys
-            // Should we just skip the function identifiers/names? 
-            // They are only used as keys in the config anyway -NM 2017-08-05
-            var dummyNameInt = 0;
 
             foreach(var func in agentConfig.Functions)
             {
