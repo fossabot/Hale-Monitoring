@@ -1,5 +1,6 @@
 ﻿using Hale.Core.Data.Entities;
 using Hale.Core.Model.Interfaces;
+using Hale.Core.Model.Models;
 using Hale.Core.Models;
 using Hale.Core.Utils;
 using Hale.Lib.Modules;
@@ -13,7 +14,7 @@ namespace Hale.Core.Services
 {
     public class ConfigService: HaleBaseService, IConfigService
     {
-        private Expression<Func<Account, UserSummaryDTO>> CreateUserSummaryDTO = account => new UserSummaryDTO
+        private Expression<Func<Account, UserBasicsDTO>> CreateUserSummaryDTO = account => new UserBasicsDTO
         {
             Id = account.Id,
             FullName = account.FullName,

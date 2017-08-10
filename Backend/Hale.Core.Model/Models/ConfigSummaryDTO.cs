@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hale.Core.Model.Models;
+using System;
 
 namespace Hale.Core.Models
 {
@@ -13,8 +14,8 @@ namespace Hale.Core.Models
         public int ActionCount { get; set; }
         public int InfoCount { get; set; }
         public DateTimeOffset? Modified { get; set; }
-        public UserSummaryDTO ModifiedBy { get; set; }
+        public UserBasicsDTO ModifiedBy { get; set; }
         public DateTimeOffset Created { get; set; }
-        public UserSummaryDTO CreatedBy { get; set; }
+        public UserBasicsDTO CreatedBy { get; set; }
     }
 }

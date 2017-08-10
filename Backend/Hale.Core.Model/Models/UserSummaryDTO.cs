@@ -32,6 +32,8 @@ namespace Hale.Core.Models
         public UserBasicsDTO ModifiedBy { get; set; }
         public DateTimeOffset Created { get; set; }
         public UserBasicsDTO CreatedBy { get; set; }
+        public bool Activated { get; set; }
+        public bool Enabled { get; set; }
     }
 
 }

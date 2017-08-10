@@ -5,10 +5,10 @@ using Hale.Core.Models.Messages;
 using Microsoft.Owin.Security;
 using NLog;
 using System.Linq;
-using Hale.Core.Data.Contexts;
 using Hale.Core.Model.Models;
 using Hale.Core.Model.Interfaces;
 using Hale.Core.Services;
+using System.Collections.Generic;
 
 namespace Hale.Core.Controllers
 {
@@ -21,12 +21,14 @@ namespace Hale.Core.Controllers
 
         private readonly Logger      _log;
         private readonly IAuthService _authService;
+        private readonly IUserService _userService;
 
-        public AuthenticationController() : this(new AuthService()) { }
-        public AuthenticationController(IAuthService authService)
+        public AuthenticationController() : this(new AuthService(), new UserService()) { }
+        public AuthenticationController(IAuthService authService, IUserService userService)
         {
             _log = LogManager.GetCurrentClassLogger();
             _authService = authService;
+            _userService = userService;
         }
 
         internal string _currentUsername => Request
@@ -49,11 +51,18 @@ namespace Hale.Core.Controllers
         public IHttpActionResult Login([FromBody] LoginAttemptDTO attempt)
         {
             var passwordAccepted = _authService.Authorize(attempt.Username, attempt.Password);
-
             if (!passwordAccepted)
                 return Unauthorized();
 
             CreateUserClaims(attempt);
+            return Ok();
+        }
+
+        [Route("admin")]
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IHttpActionResult AdminStatus()
+        {
             return Ok();
         }
 
@@ -83,6 +92,18 @@ namespace Hale.Core.Controllers
             return Ok();
         }
 
+        [Route("activate")]
+        [HttpPost]
+        public IHttpActionResult Activate([FromBody]ActivationAttemptDTO attempt) 
+        {
+            var gotActivated = _authService.Activate(attempt);
+
+            if (!gotActivated)
+                return Unauthorized(); // this is up for debate. any better suggestion? -SA 2017-08-10
+
+            return Ok();
+        }
+
         [Route("change-password")]
         [HttpPost]
         [Authorize]
@@ -99,11 +120,15 @@ namespace Hale.Core.Controllers
 
         private void CreateUserClaims(LoginAttemptDTO attempt)
         {
-            var claims = new[]
+            var user = _userService.GetUserByUserName(attempt.Username);
+            var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, "User"),
                 new Claim(ClaimsIdentity.DefaultNameClaimType, attempt.Username)
             };
+
+            if (user.IsAdmin)
+                claims.Add(new Claim(ClaimsIdentity.DefaultRoleClaimType, "Admin"));
 
             Request
                 .GetOwinContext()

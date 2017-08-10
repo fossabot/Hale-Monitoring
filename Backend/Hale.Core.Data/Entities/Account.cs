@@ -35,9 +35,16 @@ namespace Hale.Core.Data.Entities
         [IgnoreDataMember]
         public DateTimeOffset? PasswordChanged { get; set; }
 
+        [DefaultValue(false)]
         public bool Activated { get; set; }
+
+        [DefaultValue(false)]
         public bool IsAdmin { get; set; }
+
+        [DefaultValue(true)]
         public bool Enabled { get; set; }
+
+
         public DateTimeOffset Created { get; set; } = DateTimeOffset.Now;
         public int? CreatedBy { get; set; }
         public DateTimeOffset? Modified { get; set; }

@@ -29,13 +29,35 @@ namespace Hale.Core.Data.Migrations
                     Email = "simon.aronsson@outlook.com",
                     FullName = "Test User 01",
                     Password = BCrypt.Net.BCrypt.HashPassword("test01", 5),
-                    IsAdmin = true
+                    IsAdmin = true,
+                    Enabled = true,
+                    Activated = true,
                 },
                 new Account {
                     UserName = "test02",
                     Email = "nils@piksel.se",
                     FullName = "Test User 02",
-                    Password = BCrypt.Net.BCrypt.HashPassword("test02", 5)
+                    Password = BCrypt.Net.BCrypt.HashPassword("test02", 5),
+                    Enabled = true,
+                    Activated = true,
+                },
+                new Account
+                {
+                    UserName = "test03",
+                    Email = "foo@bar.com",
+                    FullName = "Test User 03",
+                    Password = BCrypt.Net.BCrypt.HashPassword("test03", 5),
+                    Enabled = true,
+                    Activated = false,
+                },
+                new Account
+                {
+                    UserName = "test04",
+                    Email = "foobar@acmegroup.com",
+                    FullName = "Test User 04",
+                    Password = BCrypt.Net.BCrypt.HashPassword("test04", 5),
+                    Enabled = false,
+                    Activated = true,
                 }
             );
 

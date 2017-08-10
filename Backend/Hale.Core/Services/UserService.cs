@@ -11,7 +11,7 @@ namespace Hale.Core.Services
 {
     public class UserService : HaleBaseService, IUserService
     {
-        public void CreateUser(CreateAccountRequestDTO newUser)
+        public void CreateUser(CreateAccountRequestDTO newUser, UserDTO currentUser)
         {
             if (_db.Accounts.Any(x => x.UserName == newUser.UserName))
             {
@@ -22,7 +22,12 @@ namespace Hale.Core.Services
             {
                 UserName = newUser.UserName,
                 Password = BCrypt.Net.BCrypt.HashPassword(newUser.Password, 5),
-                FullName = newUser.FullName
+                FullName = newUser.FullName,
+                Email = newUser.Email,
+                Activated = false,
+                Enabled = true,
+                Created = DateTimeOffset.UtcNow,
+                CreatedBy = currentUser.Id
             };
 
             _db.Accounts.Add(user);
@@ -70,6 +75,8 @@ namespace Hale.Core.Services
                     ModifiedBy = _db.Accounts.Select(a => new UserBasicsDTO { Id = a.Id, Email = a.Email, FullName = a.FullName }).FirstOrDefault(a => a.Id == x.ModifiedBy),
                     Created = x.Created,
                     CreatedBy = _db.Accounts.Select(a => new UserBasicsDTO { Id = a.Id, Email = a.Email, FullName = a.FullName }).FirstOrDefault(a => a.Id == x.CreatedBy),
+                    Enabled = x.Enabled,
+                    Activated = x.Activated
                 })
                 .ToList();
         }
@@ -87,12 +94,17 @@ namespace Hale.Core.Services
 
             account.Email = user.Email;
             account.FullName = user.FullName;
-            account.Modified = user.Modified;
+            account.Modified = DateTimeOffset.UtcNow;
             account.ModifiedBy = currentUser.Id;
             account.Activated = user.Activated;
             account.AccountDetails = user.AccountDetails;
-
+            account.Enabled = user.Enabled;
             _db.SaveChanges();
+        }
+
+        public bool GetUsernameAvailable(string username)
+        {
+            return !_db.Accounts.Any(x => x.UserName == username);
         }
     }
 }

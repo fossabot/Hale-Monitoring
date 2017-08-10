@@ -42,11 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\HaleUnauthorizedException.cs" />
     <Compile Include="Interfaces\IAuthService.cs" />
     <Compile Include="Interfaces\IConfigService.cs" />
     <Compile Include="Interfaces\INodeResultsService.cs" />
     <Compile Include="Interfaces\INodesService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Models\ActivationAttemptDTO.cs" />
     <Compile Include="Models\ConfigSourceDTO.cs" />
     <Compile Include="Models\ConfigSummaryDTO.cs" />
     <Compile Include="Models\NodeCommentDTO.cs" />

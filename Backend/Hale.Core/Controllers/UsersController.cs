@@ -25,12 +25,19 @@ namespace Hale.Core.Controllers
             _userService = userService;
         }
 
+        [HttpGet]
+        [Route("available")]
+        public IHttpActionResult CheckIfAvailable(string username)
+        {
+            
+            return Ok(_userService.GetUsernameAvailable(username));
+        }
+
         /// <summary>
         /// Get details about a specific user by user id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Authorize]
         [HttpGet]
         [Route("{id}")]
         public IHttpActionResult Get(int id)
@@ -46,7 +53,6 @@ namespace Hale.Core.Controllers
         /// Get information about the currently logged in user
         /// </summary>
         /// <returns></returns>
-        [Authorize]
         [HttpGet]
         [Route("current")]
         public IHttpActionResult GetCurrent()
@@ -59,7 +65,6 @@ namespace Hale.Core.Controllers
         /// Get a list of users with reduced user details.
         /// </summary>
         /// <returns></returns>
-        [Authorize]
         [HttpGet]
         [Route("")]
         public IHttpActionResult List()
@@ -73,12 +78,17 @@ namespace Hale.Core.Controllers
         /// </summary>
         /// <param name="userRequest"></param>
         /// <returns></returns>
-        [Authorize, HttpPost, Route("")]
+        [Route("")]
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult Create([FromBody] CreateAccountRequestDTO userRequest)
         {
-            _userService.CreateUser(userRequest);
+            var currentUser = _userService.GetUserByUserName(_currentUsername);
+            _userService.CreateUser(userRequest, currentUser);
             return Ok();
         }
+
+        
 
         /// <summary>
         /// Update a user
@@ -86,11 +96,14 @@ namespace Hale.Core.Controllers
         /// <param name="id"></param>
         /// <param name="user"></param>
         /// <returns></returns>
-        [Authorize, HttpPatch, Route("{id}")]
+        [HttpPatch]
+        [Route("{id}")]
         public IHttpActionResult Update(int id, [FromBody]UserDTO user)
         {
             _userService.UpdateUser(id, user, _currentUsername);
             return Ok();
         }
+
+        
     }
 }
