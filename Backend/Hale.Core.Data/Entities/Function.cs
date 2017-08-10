@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hale.Lib.Modules;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,7 @@ namespace Hale.Core.Data.Entities
         /// <summary>
         /// 
         /// </summary>
-        public int Type { get; set; }
+        public ModuleFunctionType Type { get; set; }
         
         /// <summary>
         /// 
@@ -32,6 +33,7 @@ namespace Hale.Core.Data.Entities
         public int ModuleId { get; set; }
     }
 
+    /*
     /// <summary>
     /// 
     /// </summary>
@@ -62,4 +64,5 @@ namespace Hale.Core.Data.Entities
         /// </summary>
         public static int Info = 3;
     }
+    */
 }

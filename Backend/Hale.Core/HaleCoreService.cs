@@ -36,6 +36,7 @@ namespace Hale.Core
             _env = new EnvironmentConfig();
             _env.DataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\Hale\Core\";
             _env.AgentDistPath = Path.Combine(_env.DataPath, "dist");
+            _env.ModulePath = Path.Combine(_env.DataPath, "modules");
             _env.ConfigFile = Path.Combine(_env.DataPath, "HaleCore.yaml");
             ServiceProvider.SetService(_env);
 
@@ -83,7 +84,7 @@ namespace Hale.Core
             ServiceProvider.SetService(_config);
 
 #if DEBUG
-            //LaunchModuleHandler();
+            LaunchModuleHandler();
             LaunchCoreInstances();
 #else
             LaunchCoreInstances();
@@ -94,9 +95,7 @@ namespace Hale.Core
         {
             ModuleHandler moduleHandler = new ModuleHandler();
 
-            moduleHandler.ScanForModules(Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
-                @"Hale\Agent\Modules\"));
+            moduleHandler.ScanForModules(_env.ModulePath);
 
         }
 

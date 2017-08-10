@@ -10,6 +10,8 @@ using Hale.Lib.Modules.Alerts;
 using Hale.Lib.Modules.Actions;
 using Hale.Lib.Modules.Info;
 using HaleModule= Hale.Lib.Modules.Module;
+using System.Linq;
+using Hale.Lib.Modules.Attributes;
 
 namespace Hale.Lib.ModuleLoader
 {
@@ -46,6 +48,39 @@ namespace Hale.Lib.ModuleLoader
             {
                 module = null;
                 return null;
+            }
+
+            foreach(var ta in type.CustomAttributes.Where(ca => ca.AttributeType == typeof(HaleModuleAttribute)))
+            {
+                _log.Debug($"[{ta.AttributeType.Name}]");
+                foreach(var ca in ta.ConstructorArguments)
+                {
+                    _log.Debug($"  Constructor Argument <{ca.ArgumentType.Name}> = {ca.Value}");
+                }
+                foreach (var na in ta.NamedArguments)
+                {
+                    _log.Debug($"  Named Argument <{na.TypedValue.ArgumentType.Name}> {na.MemberName} = {na.TypedValue.Value}");
+                }
+            }
+
+            foreach(var mm in type.GetMethods())
+            {
+                if (mm.IsSpecialName) continue;
+
+                _log.Debug($"Public method \"{mm.Name}\"");
+                foreach(var ma in mm.CustomAttributes)
+                {
+                    if (!typeof(ModuleFunctionAttribute).IsAssignableFrom(ma.AttributeType)) continue;
+                    _log.Debug($"[{ma.AttributeType.Name}]");
+                    foreach (var ca in ma.ConstructorArguments)
+                    {
+                        _log.Debug($"  Constructor Argument <{ca.ArgumentType.Name}> = {ca.Value}");
+                    }
+                    foreach (var na in ma.NamedArguments)
+                    {
+                        _log.Debug($"  Named Argument <{na.TypedValue.ArgumentType.Name}> {na.MemberName} = {na.TypedValue.Value}");
+                    }
+                }
             }
 
             var instance = Activator.CreateInstance(type);
@@ -110,72 +145,98 @@ namespace Hale.Lib.ModuleLoader
 
         public ModuleRuntimeInfo GetModuleInfo(string dll)
         {
+            var mri = ModuleRuntimeInfo.Empty;
+
             InitLogging();
-            var dict = new Dictionary<ModuleFunctionType, List<string>>(4);
-            var checkList = new List<string>();
-            var infoList = new List<string>();
-            var actionList = new List<string>();
-            var alertList = new List<string>();
 
-            dict.Add(ModuleFunctionType.Check, checkList);
-            dict.Add(ModuleFunctionType.Info, infoList);
-            dict.Add(ModuleFunctionType.Action, actionList);
-            dict.Add(ModuleFunctionType.Alert, alertList);
+            var assembly = Assembly.LoadFile(dll);
+
+            var type = assembly.ExportedTypes
+                .SingleOrDefault(t => t.CustomAttributes.Where(ca => ca.AttributeType == typeof(HaleModuleAttribute)).Count() > 0);
 
 
-            HaleModule checkModule;
-            var check = GetProvider<ICheckProvider>(dll, out checkModule);
-            if (check != null)
+            if (type == null)
             {
-                check.InitializeCheckProvider(new CheckSettings());
-                foreach (var name in check.Functions.Keys)
+                throw new Exception("Assembly does not contain a valid Module class");
+            }
+
+            foreach (var typeAttribute in type.GetCustomAttributes())
+            {
+                switch (typeAttribute)
+
                 {
-                    if (name.IndexOf("check_") == 0)
-                        checkList.Add(name.Substring("check_".Length));
+                    case HaleModuleAttribute ca:
+                        mri.Module = new VersionedIdentifier(ca.Identifier, ca.Version);
+                        break;
+                    case HaleModuleNameAttribute ca:
+                        mri.Name = ca.Name;
+                        break;
+                    case HaleModuleDescriptionAttribute ca:
+                        mri.Description = ca.Description;
+                        break;
+                    case HaleModuleAuthorAttribute ca:
+                        mri.Author = ca.Author;
+                        mri.Organization = ca.Organization;
+                        break;
                 }
             }
 
-
-            HaleModule infoModule;
-            var info = GetProvider<IInfoProvider>(dll, out infoModule);
-            if (info != null)
+            foreach (var mm in type.GetMethods())
             {
-                info.InitializeInfoProvider(new InfoSettings());
-                foreach (var name in info.Functions.Keys)
+                if (mm.IsSpecialName) continue;
+
+                var mfri = new ModuleFunctionRuntimeInfo();
+                List<string> idents = new List<string>();
+                ModuleFunctionType functype = ModuleFunctionType.None;
+
+                foreach (var ma in mm.GetCustomAttributes())
                 {
-                    if (name.IndexOf("info_") == 0)
-                        infoList.Add(name.Substring("info_".Length));
+
+                    switch (ma)
+                    {
+                        case ModuleFunctionAttribute ca:
+
+                            if (!string.IsNullOrEmpty(ca.Identifier))
+                                idents.Add(ca.Identifier);
+                            if (ca.Default)
+                                idents.Add("default");
+                            mfri.Name = ca.Name;
+                            mfri.Description = ca.Description;
+                            functype = ca.Type;
+                            break;
+
+                        case ReturnUnitAttribute ca:
+                            mfri.Returns.Add(ca.Identifier, new ModuleFunctionReturnRuntimeInfo()
+                            {
+                                Description = ca.Description,
+                                Name = ca.Name,
+                                Precision = ca.Precision,
+                                Type = ca.Type
+                            });
+                            break;
+                    }
+
                 }
+
+                if (functype == ModuleFunctionType.None) continue;
+
+                _log.Debug($"Found module function <{functype}> \"{mm.Name}\" ({string.Join(", ", idents)}) => [{string.Join(", ", mfri.Returns.Keys)}] ");
+
+                foreach (var ident in idents)
+                {
+                    if (mri.Functions[functype].ContainsKey(ident))
+                    {
+                        throw new Exception("Two module functions of the same type cannot use the same identifier");
+                    }
+                    else
+                    {
+                        mri.Functions[functype].Add(ident, mfri);
+                    }
+                }
+
             }
 
-            HaleModule actionModule;
-            var action = GetProvider<IActionProvider>(dll, out actionModule);
-            if (action != null)
-            {
-                action.InitializeActionProvider(new ActionSettings());
-                foreach (var name in action.Functions.Keys)
-                {
-                    if (name.IndexOf("action_") == 0)
-                        actionList.Add(name.Substring("action_".Length));
-                }
-            }
-
-            HaleModule alertModule;
-            var alert = GetProvider<IAlertProvider>(dll, out alertModule);
-            if (alert != null)
-            {
-                alert.InitializeAlertProvider(new AlertSettings());
-                foreach (var name in alert.Functions.Keys)
-                {
-                    if (name.IndexOf("alert_") == 0)
-                        alertList.Add(name.Substring("alert_".Length));
-                }
-            }
-
-            // Todo: handle no valid function providers -NM 2016-01-19
-            HaleModule module = checkModule ?? infoModule ?? actionModule ?? alertModule;
-
-            return new ModuleRuntimeInfo() { Functions = dict, Module = new VersionedIdentifier(module) };
+            return mri;
         }
 
     }

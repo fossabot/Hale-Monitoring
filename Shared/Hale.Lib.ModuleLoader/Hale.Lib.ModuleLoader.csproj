@@ -52,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModuleDomain.cs" />
+    <Compile Include="ModuleFunctionReturnRuntimeInfo.cs" />
+    <Compile Include="ModuleFunctionRuntimeInfo.cs" />
     <Compile Include="ModuleLoader.cs" />
     <Compile Include="ModuleRuntimeInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

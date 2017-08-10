@@ -44,6 +44,12 @@ namespace Hale.Core.Config
             set { _nemesisKeyFile = AffirmFilePath(value); }
         }
 
+        string _modulePath;
+        public string ModulePath {
+            get { return _modulePath; }
+            set { _modulePath = AffirmFilePath(value); }
+        }
+
         public static string AffirmPath(string path)
         {
             if (!Directory.Exists(path))

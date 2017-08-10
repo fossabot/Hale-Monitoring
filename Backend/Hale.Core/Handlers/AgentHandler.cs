@@ -306,20 +306,10 @@ namespace Hale.Core.Handlers
 
         private Function ResolveModuleFunction(IModuleResultRecord record, Data.Entities.Module module)
         {
-            int ft = 0;
-
-            switch (record.FunctionType)
-            {
-                case ModuleFunctionType.Action: ft = FunctionType.Action; break;
-                case ModuleFunctionType.Check: ft = FunctionType.Check; break;
-                case ModuleFunctionType.Info: ft = FunctionType.Info; break;
-                default: throw new Exception("Unknown function type");
-            }
-
             var func = _db.Functions.SingleOrDefault(f =>
                 f.Name == record.Function &&
                 f.ModuleId == module.Id &&
-                f.Type == ft
+                f.Type == record.FunctionType
             );
 
             // Todo: Decide if we really want to add all module functions that are missing to the database here -NM 2016-08-13
@@ -329,7 +319,7 @@ namespace Hale.Core.Handlers
                 {
                     Name = record.Function,
                     ModuleId = module.Id,
-                    Type = ft
+                    Type = record.FunctionType
                 });
                 _log.Warn($"Added missing module function '{record.Module.ToString()}[{record.FunctionType}]{record.Function}' to database.");
 

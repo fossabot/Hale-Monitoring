@@ -19,6 +19,7 @@ namespace Hale.Lib.Modules.Attributes
         public string Name { get; set; }
         public string Description { get; set; }
         public UnitType Type { get; set; }
+        public string Precision { get; set; }
 
         public string Identifier { get; internal set; }
 

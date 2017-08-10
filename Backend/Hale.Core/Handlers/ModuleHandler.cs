@@ -5,6 +5,7 @@ using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using YamlDotNet.Serialization.NamingConventions;
 using Module = Hale.Core.Data.Entities.Module;
 
@@ -21,80 +22,73 @@ namespace Hale.Core.Handlers
             foreach(var file in scanDir(scanPath))
             {
                 var shortPath = file.Replace(scanPath, "");
-                _log.Debug($" - Found manifest at \"{shortPath}\".");
-                var mi = GetModuleInfo(Path.GetDirectoryName(file));
-                if(mi != null)
-                    AddModule(mi);
+                _log.Debug($" - Found module at \"{shortPath}\".");
+                var mri = ModuleLoader.GetModuleInfo(Path.GetFileName(file), Path.GetDirectoryName(file));
+                if(mri != null)
+                    AddModule(mri);
             }
         }
 
-        private void AddModule(ModuleInfo mi)
+        private void AddModule(ModuleRuntimeInfo mi)
         {
-            _log.Info($"Adding module <{mi}>, {mi.ActionFunctions.Count} action-, {mi.InfoFunctions.Count} info- and {mi.CheckFunctions.Count} check-functions.");
+            _log.Info($"Adding module <{mi.Module}>, {mi.Functions[ModuleFunctionType.Action].Count} action-, "+
+                $"{mi.Functions[ModuleFunctionType.Info].Count} info- and {mi.Functions[ModuleFunctionType.Check].Count} check-functions.");
 
-            var me = mi.GetModuleEntity();
+            Module me = _db.Modules.FirstOrDefault(m =>
+                    m.Major == mi.Module.Version.Major &&
+                    m.Minor == mi.Module.Version.Minor &&
+                    m.Revision == mi.Module.Version.Revision &&
+                    m.Identifier == mi.Module.Identifier);
+                
 
-            try {
-                _db.Modules.Add(me);
-            }
-            catch (Exception x)
+            if(me == null)
             {
-                _log.Warn($"Could not add module <{mi}> to database: {x.Message}");
-                return;
-            }
-
-            foreach (var fn in mi.ActionFunctions) {
                 try
                 {
-                    var mf = new Data.Entities.Function();
-                    mf.Type = Data.Entities.FunctionType.Action;
-                    mf.Name = fn;
-                    mf.ModuleId = me.Id;
-                    _db.Functions.Add(mf);
+                    me = _db.Modules.Add(new Module()
+                {
+                    Major = mi.Module.Version.Major,
+                    Minor = mi.Module.Version.Minor,
+                    Revision = mi.Module.Version.Revision,
+                    Identifier = mi.Module.Identifier
+                });
                 }
                 catch (Exception x)
                 {
-                    _log.Warn($"Could not add module function <{mi}>::{fn} to database: {x.Message}");
+                    _log.Warn($"Could not add module <{mi}> to database: {x.Message}");
                     return;
                 }
             }
 
-            foreach (var fn in mi.CheckFunctions)
-            {
-                try
-                {
-                    var mf = new Data.Entities.Function();
-                    mf.Type = Data.Entities.FunctionType.Check;
-                    mf.Name = fn;
-                    mf.ModuleId = me.Id;
-                    _db.Functions.Add(mf);
-                }
-                catch (Exception x)
-                {
-                    _log.Warn($"Could not add module function <{mi}>::{fn} to database: {x.Message}");
-                    return;
+
+            foreach (var funcType in mi.Functions) {
+                foreach (var fn in funcType.Value) {
+                    try
+                    {
+                        var mf = new Data.Entities.Function()
+                        {
+                            Type = funcType.Key,
+                            Name = fn.Value.Name,
+                            ModuleId = me.Id
+                        };
+                        _db.Functions.Add(mf);
+                    }
+                    catch (Exception x)
+                    {
+                        _log.Warn($"Could not add module function <{mi}>::{fn} to database: {x.Message}");
+                        return;
+                    }
                 }
             }
 
-            foreach (var fn in mi.InfoFunctions)
-            {
-                try
-                {
-                    var mf = new Data.Entities.Function();
-                    mf.Type = Data.Entities.FunctionType.Info;
-                    mf.Name = fn;
-                    mf.ModuleId = me.Id;
-                    _db.Functions.Add(mf);
-                }
-                catch (Exception x)
-                {
-                    _log.Warn($"Could not add module function <{mi}>::{fn} to database: {x.Message}");
-                    return;
-                }
-            }
 
             _db.SaveChanges();
 
+        }
+
+        internal void ScanForModules(object modulePath)
+        {
+            throw new NotImplementedException();
         }
 
         private string[] scanDir(string scanPath)
@@ -102,7 +96,7 @@ namespace Hale.Core.Handlers
             List<string> files = new List<string>();
             foreach (var dir in Directory.GetDirectories(scanPath))
             {
-                files.AddRange(Directory.GetFiles(dir, "manifest.yaml"));
+                files.AddRange(Directory.GetFiles(dir, "HaleModule*CPU.dll"));
                 files.AddRange(scanDir(dir));
             }
             return files.ToArray();
@@ -110,29 +104,20 @@ namespace Hale.Core.Handlers
 
         public ModuleInfo GetModuleInfo(string modulePath)
         {
-            var manifestPath = Path.Combine(modulePath, "manifest.yaml");
-            var yd = new YamlDotNet.Serialization.DeserializerBuilder()
-                .WithNamingConvention(new CamelCaseNamingConvention())
-                .Build();
             
             try
             {
-                _log.Debug($"Parsing manifest {manifestPath}...");
-                ModuleInfo mi;
-                using (var fs = File.OpenRead(manifestPath))
-                {
-                    var sr = new StreamReader(fs);
-                    var manifest = yd.Deserialize<ModuleManifest>(sr);
-                    mi = ModuleInfo.FromManifest(manifest);
-                }
-                mi.ModulePath = modulePath;
-                _log.Debug($"Retrieving runtime info from \"{mi.Manifest.Module.Filename}\"...");
-                mi.GetRuntimeInfo();
+
+                var mi = new ModuleInfo();
+                mi.ModulePath = Path.GetDirectoryName(modulePath);
+
+                mi.GetRuntimeInfo(modulePath);
+                var mri = ModuleLoader.GetModuleInfo(Path.GetFileName(modulePath), Path.GetDirectoryName(modulePath));
                 return mi;
             }
             catch (Exception x)
             {
-                _log.Warn($"Error parsing manifest.yaml: {x.Message}");
+                _log.Warn($"Error probing module: {x.Message}");
             }
             return null;
         }
@@ -190,16 +175,20 @@ namespace Hale.Core.Handlers
 
         public void GetRuntimeInfo()
         {
-            var runtimePath = Path.Combine(ModulePath, Manifest.Module.Filename);
+            GetRuntimeInfo(Path.Combine(ModulePath, Manifest.Module.Filename));
+        }
+
+        public void GetRuntimeInfo(string runtimePath)
+        {
             if (File.Exists(runtimePath))
             {
-                var mri = ModuleLoader.GetModuleInfo(Manifest.Module.Filename, ModulePath);
+                var mri = ModuleLoader.GetModuleInfo(Path.GetFileName(runtimePath), Path.GetDirectoryName(runtimePath));
                 Runtime = mri.Module;
                 if (Module == null)
                     Module = mri.Module;
-                CheckFunctions = mri.Functions[ModuleFunctionType.Check];
-                InfoFunctions = mri.Functions[ModuleFunctionType.Info];
-                ActionFunctions = mri.Functions[ModuleFunctionType.Action];
+                CheckFunctions = mri.Functions[ModuleFunctionType.Check].Keys.ToList();
+                InfoFunctions = mri.Functions[ModuleFunctionType.Info].Keys.ToList();
+                ActionFunctions = mri.Functions[ModuleFunctionType.Action].Keys.ToList();
                 NeedsRuntimeInfo = false;
                 Valid = true;
             }
