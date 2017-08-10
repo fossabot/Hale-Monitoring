@@ -16,7 +16,10 @@ namespace Hale.Modules
     /// <summary>
     /// All checks need to realize the interface ICheck.
     /// </summary>
-    [HaleModule("com.itshale.core.cpu")]
+    [HaleModule("com.itshale.core.cpu", 0, 1, 1)]
+    [HaleModuleName("CPU Module")]
+    [HaleModuleDescription("CPU functions")]
+    [HaleModuleAuthor("Hale Project")]
     public class CpuModule : Module, ICheckProvider, IInfoProvider
     {
 
