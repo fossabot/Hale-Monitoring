@@ -1,8 +1,8 @@
-import { Directive, Attribute } from '@angular/core';
+import { Directive, Attribute, Input } from '@angular/core';
 import { NG_VALIDATORS, AbstractControl, Validator } from '@angular/forms';
 
 @Directive({
-  selector: '[validateEquals]',
+  selector: '[appValidateEquals]',
   providers: [{
     provide: NG_VALIDATORS,
     useExisting: ValidateEqualsDirective,
@@ -10,18 +10,17 @@ import { NG_VALIDATORS, AbstractControl, Validator } from '@angular/forms';
   }]
 })
 export class ValidateEqualsDirective implements Validator {
-  constructor(
-    @Attribute('validateEquals') public validateEquals: string,
-    @Attribute('reverse') public reverse: string) {}
+  @Input() appValidateEquals: any;
+  constructor(@Attribute('reverse') public reverse: string) {}
   validate(control: AbstractControl): {[key: string]: any} {
     const val = control.value;
-    const cmp = control.root.get(this.validateEquals);
+    const cmp = this.appValidateEquals.control;
 
     const isReverse = this.reverse === 'true';
 
     if (isReverse) {
       const areEqual = cmp.value === val;
-      if (areEqual) {
+      if (areEqual && cmp.errors) {
         delete cmp.errors['notEqual'];
         if (!Object.keys(cmp.errors).length) {
           cmp.setErrors(null);

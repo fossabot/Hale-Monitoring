@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import { environment as env }  from 'environments/environment';
+import { environment as env } from 'environments/environment';
 
 
 @Injectable()
@@ -31,6 +31,20 @@ export class Auth {
       .get(this.baseUrl, this.options);
   }
 
+  checkAdmin(): Observable<any> {
+    return this.http
+      .get(`${this.baseUrl}/admin`, this.options);
+  }
+
+  activate(attempt: IActivationAttempt): Observable<any> {
+    return this.http
+      .post(
+        `${this.baseUrl}/activate`,
+        attempt,
+        this.options
+      );
+  }
+
   changePassword(oldPassword: string, newPassword: string): Observable<any> {
     return this.http
       .post(
@@ -42,6 +56,12 @@ export class Auth {
         this.options
       );
   }
+}
+
+export interface IActivationAttempt {
+  username: string;
+  activationPassword: string;
+  newPassword: string;
 }
 
 export interface ICredentials {

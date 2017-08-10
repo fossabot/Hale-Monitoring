@@ -2,7 +2,7 @@ import { Directive } from '@angular/core';
 import { NG_VALIDATORS, AbstractControl, Validator } from '@angular/forms';
 
 @Directive({
-  selector: '[validatePassword]',
+  selector: '[appValidatePassword]',
   providers: [{
     provide: NG_VALIDATORS,
     useExisting: ValidatePasswordDirective,
@@ -12,7 +12,7 @@ import { NG_VALIDATORS, AbstractControl, Validator } from '@angular/forms';
 export class ValidatePasswordDirective implements Validator {
   validate(contol: AbstractControl): {[key: string]: any} {
     const isValid = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(contol.value);
-    console.log(isValid);
+    console.log(isValid, 'YOO');
     return !isValid
       ? { invalidPassword: true }
       : null;

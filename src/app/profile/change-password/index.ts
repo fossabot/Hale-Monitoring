@@ -4,7 +4,7 @@ import { Auth } from 'app/api/auth';
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({
-  selector: 'change-password',
+  selector: 'app-change-password',
   templateUrl: './change-password.html',
   styleUrls: [ './change-password.scss'],
 })

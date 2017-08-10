@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Configs } from 'app/api/configs';
-import { Users } from "app/api/users";
+import { Users } from 'app/api/users';
 
 @Component({
   selector: 'app-config-list',

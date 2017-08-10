@@ -4,5 +4,10 @@ node_js:
 
 cache: yarn
 
+before-_install:
+  - npm install -g yarn --cache-min 9999999
+install:
+  - yarn
 script:
-  - npm run build
+  - yarn lint
+  - yarn build

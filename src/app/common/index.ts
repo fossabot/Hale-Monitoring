@@ -7,6 +7,9 @@ import { FormsModule } from '@angular/forms';
 import { UserBadgeComponent } from './user-badge';
 import { NavbarComponent } from './navbar';
 import { DevButtonComponent } from './dev-button';
+import { ValidatePasswordDirective } from './validate-password';
+import { ValidateEqualsDirective } from './validate-equals';
+import { ValidateUsernameDirective } from './validate-username';
 
 @NgModule({
   imports: [
@@ -19,9 +22,15 @@ import { DevButtonComponent } from './dev-button';
     UserBadgeComponent,
     NavbarComponent,
     DevButtonComponent,
+    ValidatePasswordDirective,
+    ValidateEqualsDirective,
+    ValidateUsernameDirective,
   ],
   exports: [
-    DevButtonComponent
+    DevButtonComponent,
+    ValidatePasswordDirective,
+    ValidateEqualsDirective,
+    ValidateUsernameDirective,
   ]
 })
 export class CommonModule {

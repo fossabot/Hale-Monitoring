@@ -1,0 +1,7 @@
+#collapsable {
+    height: 100%;
+    &.transparent {
+      height: 0;
+      overflow-y: auto;
+    }
+}

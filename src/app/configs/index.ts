@@ -8,8 +8,8 @@ import { ConfigComponent } from './config';
 import { ConfigEditorComponent } from './config-editor';
 import { ConfigListComponent } from './config-list';
 import { CommonModule } from 'app/common';
-import { FormsModule } from "@angular/forms";
-import { AceEditorModule } from "ng2-ace-editor";
+import { FormsModule } from '@angular/forms';
+import { AceEditorModule } from 'ng2-ace-editor';
 
 @NgModule({
   imports: [

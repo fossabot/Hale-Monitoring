@@ -29,7 +29,7 @@ export class NodeCommentsComponent implements OnInit {
     this.Comments
       .get(this.nodeId)
       .subscribe((comments) => {
-        this.comments = comments
+        this.comments = comments;
       });
   }
 
@@ -58,7 +58,7 @@ export class NodeCommentsComponent implements OnInit {
   private handleSaveSuccess(): void {
     // TODO: Show toastr -SA 2017-07-22
     this.getComments();
-    this.text = ''
+    this.text = '';
   }
 
   private handleSaveError(): void {

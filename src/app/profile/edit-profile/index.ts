@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Users} from 'app/api/users';
 
 @Component({
-  selector: 'edit-profile',
+  selector: 'app-edit-profile',
   styleUrls: ['./edit-profile.scss'],
   templateUrl: './edit-profile.html',
 })
@@ -12,7 +12,9 @@ export class EditProfileComponent {
     this.users
       .getCurrent()
       .subscribe(
-        (user: IUser) => {this.user = user;}
+        (user: IUser) => {
+          this.user = user;
+        }
       );
   }
 }

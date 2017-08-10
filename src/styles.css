@@ -37,11 +37,17 @@ body {
   border-radius:2px;
 }
 
+.status-box.error {
+  background: #ff0000;
+}
 .status-box.warning {
   background: #ff8800;
 }
 .status-box.ok {
   background: #00aa88;
+}
+.status-box.ongoing {
+  background: #0088ff;
 }
 
 .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
@@ -54,6 +60,14 @@ body {
   font-size: 12px;
 }
 
+
 .clickable {
   cursor: pointer;
+}
+
+.date-person-cell img {
+  width: 1.5em;
+  border-radius: 5px;
+  vertical-align: top;
+  margin-right: 5px;
 }

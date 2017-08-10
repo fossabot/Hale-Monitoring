@@ -3,7 +3,7 @@ import 'rxjs/add/operator/toPromise';
 import { Ng2StateDeclaration, Transition } from '@uirouter/angular';
 import { ConfigComponent } from './config';
 import { ConfigListComponent } from './config-list';
-import { Configs } from "app/api/configs";
+import { Configs } from 'app/api/configs';
 
 export let ConfigStates: Ng2StateDeclaration[] = [
   {

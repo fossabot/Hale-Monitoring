@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { AceEditorDirective } from 'ng2-ace-editor';
 
 @Component({
-  selector: 'config-editor',
+  selector: 'app-config-editor',
   template: `<div ace-editor
     [(text)]="text"
     [mode]="'yaml'"
@@ -24,9 +24,9 @@ export class ConfigEditorComponent {
     this.configChange.emit(this.config);
   }
 
-  options:{[key:string]: any} = {
+  options: {[key: string]: any} = {
     printMargin: false,
     showInvisibles: true,
     maxLines: 100,
-  }
+  };
 }

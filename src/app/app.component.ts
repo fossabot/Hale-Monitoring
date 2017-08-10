@@ -12,5 +12,5 @@ export class AppComponent {
     pauseOnHover: true,
     clickToClose: true,
     animate: 'fromRight',
-  }
+  };
 }

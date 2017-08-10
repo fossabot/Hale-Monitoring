@@ -1,0 +1,86 @@
+<h5>
+  Create User
+</h5>
+<div class="row">
+  <div class="col-md-12">
+    <form #newUser="ngForm" (ngSubmit)="doCreate(newUser)">
+      <div class="form-group" [ngClass]="username?.value && username?.errors">
+        <label for="userName">
+          Username
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          name="userName"
+          #userName="ngModel"
+          ngModel
+          appValidateUsername
+          required>
+        <div>
+          <small class="text-danger" *ngIf="userName && userName.value && userName.errors?.usernameTaken">
+            Username is already taken
+          </small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">
+          Email
+        </label>
+        <input
+          type="email"
+          class="form-control"
+          name="email"
+          email
+          ngModel
+          required>
+      </div>
+      <div class="form-group">
+        <label for="fullName">
+          Full Name
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          name="fullName"
+          ngModel
+          required>
+      </div>
+      <div class="form-group" [ngClass]="{'has-danger': password.value && password.errors}">
+        <label for="password">
+          Password
+          <i
+            class="fa fa-question-circle text-primary"
+            ngbTooltip="Atleast eight characters, one lowercase, one uppercase, one number and one special character">
+          </i>
+        </label>
+        <input
+          type="password"
+          class="form-control"
+          name="password"
+          #password="ngModel"
+          ngModel
+          required
+          appValidatePassword
+          >
+        <div>
+          <small class="text-danger" *ngIf="password.value && password.errors && password.errors.invalidPassword">
+            Password is too weak.
+          </small>
+        </div>
+        <div>
+          <small>
+            The password you enter will only be used during account activation.
+          </small>
+        </div>
+      </div>
+      <div class="form-group text-right">
+        <button type="button" class="btn btn-default btn clickable" uiSref="app.hale.admin.users">
+          Cancel
+        </button>
+        <button type="submit" class="btn btn-primary btn clickable" [disabled]="!newUser.valid">
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

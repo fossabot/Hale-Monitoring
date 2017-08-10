@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UIRouter } from '@uirouter/angular';
 import { Users } from 'app/api/users';
 
@@ -9,20 +9,13 @@ import { Users } from 'app/api/users';
 })
 export class UserBadgeComponent {
 
-  user: any;
+  @Input() user: any;
 
   constructor(private Users: Users, private uiRouter: UIRouter) {
-    this.getUser();
-  }
-
-  private getUser(): void {
-    this.Users
-      .getCurrent()
-      .subscribe((user) => this.user = user);
   }
 
   getGravatarUrl(email: string) {
-    return this.Users.getGravatarUrl(email);
+    return this.Users.getGravatarUrl(email || '');
   }
 
   doLogout() {
