@@ -130,7 +130,35 @@ namespace Hale.Core.Services
                 func.Startup = ms.Startup;
 
                 // TODO: Serialize function target settings
-                //func.FunctionSettings
+                foreach(var ts in ms.TargetSettings)
+                {
+                    var target = ts.Key;
+                    foreach(var kv in ts.Value)
+                    {
+                        var tfs = func.FunctionSettings.FirstOrDefault(
+                            f => f.Key == kv.Key && f.Target == target
+                            ) ?? new AgentConfigSetFunctionSettings()
+                            {
+                                Target = target,
+                                Key = kv.Key
+                            };
+                        tfs.Value = kv.Value;
+
+                    }
+                }
+
+                var deletedtfs = new List<AgentConfigSetFunctionSettings>();
+
+                foreach(var tfs in func.FunctionSettings)
+                {
+                    if (!ms.TargetSettings.ContainsKey(tfs.Target) || 
+                        ms.TargetSettings[tfs.Target].ContainsKey(tfs.Key))
+                    {
+                        deletedtfs.Add(tfs);
+                    }
+                }
+
+                deletedtfs.ForEach(d => func.FunctionSettings.Remove(d));
 
                 return func;
             }
