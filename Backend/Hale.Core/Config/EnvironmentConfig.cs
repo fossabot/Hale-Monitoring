@@ -47,7 +47,7 @@ namespace Hale.Core.Config
         string _modulePath;
         public string ModulePath {
             get { return _modulePath; }
-            set { _modulePath = AffirmFilePath(value); }
+            set { _modulePath = AffirmPath(value); }
         }
 
         public static string AffirmPath(string path)
