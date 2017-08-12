@@ -7,11 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Hale.Lib.Modules;
 using Hale.Lib.Modules.Checks;
+using Hale.Lib.Modules.Attributes;
 
 namespace Hale.Modules
 {
     partial class ServiceModule
     {
+        [CheckFunction(Default = true, Identifier = "running")]
+        [ReturnUnit("status", UnitType.Custom, Name = "Status Code", Description = "Service status code")]
         public CheckFunctionResult ServiceRunningCheck(CheckSettings settings)
         {
             var cfr = new CheckFunctionResult();

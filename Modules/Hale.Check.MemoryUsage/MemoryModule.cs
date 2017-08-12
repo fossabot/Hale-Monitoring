@@ -11,13 +11,14 @@ using Hale.Lib.Modules.Checks;
 using Hale.Lib.Modules.Info;
 
 using static Hale.Lib.Utilities.StorageUnitFormatter;
-
+using Hale.Lib.Modules.Attributes;
 
 namespace Hale.Checks
 {
     /// <summary>
     /// All checks need to realize the interface ICheck.
     /// </summary>
+    [HaleModule("com.itshale.core.memory", 0, 1, 1)]
     public class MemoryModule : Module, ICheckProvider, IInfoProvider
     {
 
@@ -31,7 +32,9 @@ namespace Hale.Checks
         Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
             = new Dictionary<string, ModuleFunction>();
 
-
+        [CheckFunction(Default = true, Identifier = "usage")]
+        [ReturnUnit("freePercentage", UnitType.Percent, Name = "Free Relative")]
+        [ReturnUnit("freeBytes", UnitType.StorageUnit, Precision = "byte", Name = "Free Absolute")]
         public CheckResult DefaultCheck(CheckSettings settings)
         {
             CheckResult result = new CheckResult();
@@ -80,6 +83,8 @@ namespace Hale.Checks
             return result;
         }
 
+        [InfoFunction(Default = true, Identifier = "sizes")]
+        [ReturnUnit("size", UnitType.StorageUnit, Precision = "byte", Name = "Memory Size")]
         public InfoResult DefaultInfo(InfoSettings settings)
         {
             var result = new InfoResult();

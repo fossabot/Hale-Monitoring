@@ -6,9 +6,12 @@ using Hale.Lib.Modules;
 using Hale.Lib.Modules.Checks;
 using Hale.Lib.Modules.Info;
 using Hale.Lib.Utilities;
+using Hale.Lib.Modules.Attributes;
 
 namespace Hale.Modules
 {
+    [HaleModule("com.itshale.core.storage", 0, 1, 1)]
+    [HaleModuleName("Storage Module")]
     public sealed class DiskSpaceCheck: Module, ICheckProvider, IInfoProvider
     {
 

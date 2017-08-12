@@ -1,5 +1,6 @@
 ﻿using Hale.Lib.Modules;
 using Hale.Lib.Modules.Actions;
+using Hale.Lib.Modules.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ServiceProcess;
@@ -8,6 +9,7 @@ namespace Hale.Modules
 {
     partial class ServiceModule
     {
+        [ActionFunction(Identifier = "start")]
         public ActionFunctionResult StartServiceAction(ActionSettings settings)
         {
             var afr = new ActionFunctionResult();
@@ -27,6 +29,7 @@ namespace Hale.Modules
             return afr;
         }
 
+        [ActionFunction(Identifier = "stop")]
         public ActionFunctionResult StopServiceAction(ActionSettings settings)
         {
             var afr = new ActionFunctionResult();
@@ -46,6 +49,7 @@ namespace Hale.Modules
             return afr;
         }
 
+        [ActionFunction(Identifier = "restart")]
         public ActionFunctionResult RestartServiceAction(ActionSettings settings)
         {
             var afr = new ActionFunctionResult();

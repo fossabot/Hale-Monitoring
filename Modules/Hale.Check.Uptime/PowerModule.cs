@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using Hale.Lib.Modules;
 using Hale.Lib.Modules.Info;
 using static Hale.Lib.Utilities.TimeSpanFormatter;
+using Hale.Lib.Modules.Attributes;
 
 namespace Hale.Modules
 {
-    // Todo: Change this module to Power perhaps? -NM 2015-12-30
 
+    [HaleModule("com.itshale.core.power", 0, 1, 1)]
+    [HaleModuleName("Power Module")]
     public sealed class UptimeCheck: Module, IInfoProvider
     {
 
@@ -24,6 +26,8 @@ namespace Hale.Modules
         Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
             = new Dictionary<string, ModuleFunction>();
 
+        [InfoFunction(Default = true, Identifier = "uptime")]
+        [ReturnUnit("uptime", UnitType.Time, Precision = "second", Name = "Uptime in seconds")]
         public InfoResult DefaultInfo(InfoSettings settings)
         {
             var result = new InfoResult();
@@ -40,7 +44,7 @@ namespace Hale.Modules
                     uptime = TimeSpan.FromSeconds(_raw);
                 }
 
-                result.Items.Add("uptimeSeconds", _raw.ToString());
+                result.Items.Add("uptime", _raw.ToString());
 
                 result.Message = "Uptime: " + HumanizeTimeSpan(uptime);
 

@@ -7,11 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Hale.Lib.Modules;
 using Hale.Lib.Modules.Info;
+using Hale.Lib.Modules.Attributes;
 
 namespace Hale.Modules
 {
     partial class ServiceModule
     {
+        [InfoFunction(Identifier = "list", Default = true)]
         public InfoFunctionResult ListServicesInfo(InfoSettings settings)
         {
             var ifr = new InfoFunctionResult();

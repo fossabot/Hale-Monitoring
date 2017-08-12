@@ -9,9 +9,12 @@ using Hale.Lib.Modules.Checks;
 using Hale.Lib.Modules.Actions;
 using Hale.Lib.Modules.Info;
 using System.Management;
+using Hale.Lib.Modules.Attributes;
 
 namespace Hale.Modules
 {
+    [HaleModule("com.itshale.core.service", 0, 1, 1)]
+    [HaleModuleName("Service Module")]
     public partial class ServiceModule: Module, ICheckProvider, IInfoProvider, IActionProvider
     {
         public override string Name => "Service";
