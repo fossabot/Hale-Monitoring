@@ -41,6 +41,8 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\WebApiSwagger.XML</DocumentationFile>
     <NoWarn>1591</NoWarn>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\..\AnalysisRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -237,20 +239,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\ConfigurationExtensions.cs" />
     <Compile Include="Config\CoreConfig.cs" />
     <Compile Include="Config\EnvironmentConfig.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\ProtectedApiController.cs" />
     <Compile Include="Controllers\NodesResultsController.cs" />
-    <Compile Include="Config\AgentSection.cs" />
-    <Compile Include="Config\ApiSection.cs" />
-    <Compile Include="Config\AppConfig.cs" />
-    <Compile Include="Config\DatabaseSection.cs" />
     <Compile Include="Handlers\ApiHandler.Startup.cs" />
+    <Compile Include="Handlers\Scheduler\CoreScheduler.cs" />
+    <Compile Include="Handlers\Scheduler\InternalTask.cs" />
     <Compile Include="Handlers\ModuleHandler.cs" />
-    <Compile Include="Handlers\Scheduler.CreateDistPackages.cs" />
-    <Compile Include="Handlers\Scheduler.cs" />
+    <Compile Include="Handlers\Scheduler\QueuedInternalTask.cs" />
+    <Compile Include="Handlers\Scheduler\CoreScheduler.CreateDistPackages.cs" />
+    <Compile Include="Handlers\Scheduler\InternalTaskType.cs" />
     <Compile Include="Handlers\AgentDistHandler.cs" />
     <Compile Include="Handlers\AgentHandler.cs" />
     <Compile Include="Services\AuthService.cs" />
@@ -278,6 +278,7 @@
     <Compile Include="Utils\TraceLogger.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="AnalysisRules.ruleset" />
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
@@ -289,6 +290,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -320,7 +322,10 @@
       <Name>Hale.Core.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent Condition=" '$(OS)' != 'Unix' ">forfiles /P "$(SolutionDir)packages\Humanizer.1.37.7\lib\portable-win+net40+sl50+wp8+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10" /c "cmd /c if @isdir==TRUE rmdir /s/q @file" &amp;&amp; EXIT /B 0</PreBuildEvent>

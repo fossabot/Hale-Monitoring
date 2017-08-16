@@ -1,32 +1,31 @@
-﻿using Owin;
-using System.Web.Http;
-using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security;
-using System;
-using NLog;
-using Swashbuckle.Application;
-using Hale.Lib.Utilities;
-using Hale.Core.Config;
-using Microsoft.Owin.StaticFiles;
-using Microsoft.Owin.FileSystems;
-using System.IO;
-using Newtonsoft.Json.Serialization;
-using Microsoft.Owin.Cors;
-using System.Reflection;
-
-namespace Hale.Core.Handlers
+﻿namespace Hale.Core.Handlers
 {
+    using System;
+    using System.IO;
+    using System.Reflection;
+    using System.Web.Http;
+    using Hale.Core.Config;
+    using Hale.Lib.Utilities;
+    using Microsoft.Owin.Cors;
+    using Microsoft.Owin.FileSystems;
+    using Microsoft.Owin.Security;
+    using Microsoft.Owin.Security.Cookies;
+    using Microsoft.Owin.StaticFiles;
+    using Newtonsoft.Json.Serialization;
+    using NLog;
+    using Owin;
+    using Swashbuckle.Application;
+
     internal partial class ApiHandler
     {
-        private partial class Startup
+        internal class Startup
         {
-
-            private static ILogger _log = LogManager.GetLogger("Hale.Core.OwinStartup");
+            private static ILogger log = LogManager.GetLogger("Hale.Core.OwinStartup");
 
             public void Configuration(IAppBuilder appBuilder)
             {
                 var config = GetHttpConfiguration();
-                ConfigureFrontend(appBuilder);
+                this.ConfigureFrontend(appBuilder);
 
                 appBuilder
                     .UseCors(CorsOptions.AllowAll)
@@ -53,13 +52,20 @@ namespace Hale.Core.Handlers
                 return config;
             }
 
+            private static string GetAssemblyPath()
+            {
+                return Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            }
+
             private void ConfigureFrontend(IAppBuilder app)
             {
-                var _api = ServiceProvider.GetServiceCritical<CoreConfig>().Api;
-                if (String.IsNullOrEmpty(_api.FrontendRoot) || !Directory.Exists(_api.FrontendRoot))
+                var api = ServiceProvider.GetServiceCritical<CoreConfig>().Api;
+                if (string.IsNullOrEmpty(api.FrontendRoot) || !Directory.Exists(api.FrontendRoot))
+                {
                     return;
+                }
 
-                var pfs = new PhysicalFileSystem(_api.FrontendRoot);
+                var pfs = new PhysicalFileSystem(api.FrontendRoot);
                 var fso = new FileServerOptions()
                 {
                     EnableDefaultFiles = true,
@@ -71,17 +77,8 @@ namespace Hale.Core.Handlers
                 fso.EnableDirectoryBrowsing = true;
 #endif
                 app.UseFileServer(fso);
-                _log.Info($"Serving static content from '{Path.GetFullPath(_api.FrontendRoot)}'.");
-
-
-            }
-
-            private static string GetAssemblyPath()
-            {
-                return Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+                log.Info($"Serving static content from '{Path.GetFullPath(api.FrontendRoot)}'.");
             }
         }
-
-        
     }
 }

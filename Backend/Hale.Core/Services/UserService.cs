@@ -1,23 +1,23 @@
-﻿using System;
-using Hale.Core.Model.Interfaces;
-using Hale.Core.Model.Models;
-using System.Linq;
-using Hale.Core.Models;
-using System.Collections.Generic;
-using Hale.Core.Models.Users;
-using Hale.Core.Data.Entities.Users;
-
-namespace Hale.Core.Services
+﻿namespace Hale.Core.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Hale.Core.Data.Entities.Users;
+    using Hale.Core.Model.Interfaces;
+    using Hale.Core.Model.Models;
+    using Hale.Core.Models;
+    using Hale.Core.Models.Users;
+
     public class UserService : HaleBaseService, IUserService
     {
         public void CreateUser(CreateAccountRequestDTO newUser, UserDTO currentUser)
         {
-            if (_db.Accounts.Any(x => x.UserName == newUser.UserName))
+            if (this.Db.Accounts.Any(x => x.UserName == newUser.UserName))
             {
                 throw new ArgumentException();
             }
-            
+
             var user = new Account
             {
                 UserName = newUser.UserName,
@@ -30,13 +30,13 @@ namespace Hale.Core.Services
                 CreatedBy = currentUser.Id
             };
 
-            _db.Accounts.Add(user);
-            _db.SaveChanges();
+            this.Db.Accounts.Add(user);
+            this.Db.SaveChanges();
         }
 
         public UserDTO GetUserById(int id)
         {
-            return _db.Accounts
+            return this.Db.Accounts
                 .Where(x => x.Id == id)
                 .Select(x => new UserDTO
                 {
@@ -47,10 +47,10 @@ namespace Hale.Core.Services
                     Activated = x.Activated,
                     Enabled = x.Enabled,
                     Created = x.Created,
-                    CreatedBy = _db.Accounts.FirstOrDefault(a => a.Id == x.CreatedBy),
+                    CreatedBy = this.Db.Accounts.FirstOrDefault(a => a.Id == x.CreatedBy),
                     Modified = x.Modified,
-                    ModifiedBy = _db.Accounts.FirstOrDefault(a => a.Id == x.ModifiedBy),
-                    AccountDetails = _db.AccountDetails.Where(ad => ad.UserId == x.Id).ToList(),
+                    ModifiedBy = this.Db.Accounts.FirstOrDefault(a => a.Id == x.ModifiedBy),
+                    AccountDetails = this.Db.AccountDetails.Where(ad => ad.UserId == x.Id).ToList(),
                     IsAdmin = x.IsAdmin
                 })
                 .FirstOrDefault();
@@ -58,13 +58,13 @@ namespace Hale.Core.Services
 
         public UserDTO GetUserByUserName(string userName)
         {
-            var userId = _db.Accounts.Single(x => x.UserName == userName).Id;
-            return GetUserById(userId);
+            var userId = this.Db.Accounts.Single(x => x.UserName == userName).Id;
+            return this.GetUserById(userId);
         }
 
         public IList<UserSummaryDTO> List()
         {
-            return _db.Accounts
+            return this.Db.Accounts
                 .Select(x => new UserSummaryDTO
                 {
                     Id = x.Id,
@@ -72,9 +72,9 @@ namespace Hale.Core.Services
                     UserName = x.UserName,
                     FullName = x.FullName,
                     Modified = x.Modified,
-                    ModifiedBy = _db.Accounts.Select(a => new UserBasicsDTO { Id = a.Id, Email = a.Email, FullName = a.FullName }).FirstOrDefault(a => a.Id == x.ModifiedBy),
+                    ModifiedBy = this.Db.Accounts.Select(a => new UserBasicsDTO { Id = a.Id, Email = a.Email, FullName = a.FullName }).FirstOrDefault(a => a.Id == x.ModifiedBy),
                     Created = x.Created,
-                    CreatedBy = _db.Accounts.Select(a => new UserBasicsDTO { Id = a.Id, Email = a.Email, FullName = a.FullName }).FirstOrDefault(a => a.Id == x.CreatedBy),
+                    CreatedBy = this.Db.Accounts.Select(a => new UserBasicsDTO { Id = a.Id, Email = a.Email, FullName = a.FullName }).FirstOrDefault(a => a.Id == x.CreatedBy),
                     Enabled = x.Enabled,
                     Activated = x.Activated
                 })
@@ -84,13 +84,17 @@ namespace Hale.Core.Services
         public void UpdateUser(int id, UserDTO user, string currentUserName)
         {
             if (user.Id != id)
+            {
                 throw new ArgumentException();
+            }
 
-            var currentUser = GetUserByUserName(currentUserName);
-            var account = _db.Accounts.FirstOrDefault(x => x.Id == id);
+            var currentUser = this.GetUserByUserName(currentUserName);
+            var account = this.Db.Accounts.FirstOrDefault(x => x.Id == id);
 
             if (account == null)
+            {
                 throw new ArgumentException();
+            }
 
             account.Email = user.Email;
             account.FullName = user.FullName;
@@ -99,12 +103,12 @@ namespace Hale.Core.Services
             account.Activated = user.Activated;
             account.AccountDetails = user.AccountDetails;
             account.Enabled = user.Enabled;
-            _db.SaveChanges();
+            this.Db.SaveChanges();
         }
 
         public bool GetUsernameAvailable(string username)
         {
-            return !_db.Accounts.Any(x => x.UserName == username);
+            return !this.Db.Accounts.Any(x => x.UserName == username);
         }
     }
 }

@@ -1,21 +1,22 @@
-﻿using Hale.Core.Data.Contexts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hale.Core.Services
+﻿namespace Hale.Core.Services
 {
+    using Hale.Core.Data.Contexts;
+
     public abstract class HaleBaseService
     {
-        protected readonly HaleDBContext _db;
+        private readonly HaleDBContext db;
 
-        internal HaleBaseService() : this(new HaleDBContext()) { }
+        internal HaleBaseService()
+            : this(new HaleDBContext())
+        {
+        }
+
         internal HaleBaseService(HaleDBContext context)
         {
-            _db = context;
-            _db.Database.Log = s => System.Diagnostics.Debug.Write(s);
+            this.db = context;
+            this.db.Database.Log = s => System.Diagnostics.Debug.Write(s);
         }
+
+        internal HaleDBContext Db => this.Db;
     }
 }

@@ -1,20 +1,20 @@
-﻿using Hale.Core.Model.Interfaces;
-using Hale.Core.Model.Models;
-using System.Data.Entity;
-using System.Linq;
-using Hale.Core.Data.Entities;
-using System;
-using System.Collections.Generic;
-using Hale.Core.Models.Messages;
-using Hale.Core.Data.Entities.Nodes;
-
-namespace Hale.Core.Services
+﻿namespace Hale.Core.Services
 {
-    public class NodesService: HaleBaseService, INodesService
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+    using Hale.Core.Data.Entities;
+    using Hale.Core.Data.Entities.Nodes;
+    using Hale.Core.Model.Interfaces;
+    using Hale.Core.Model.Models;
+    using Hale.Core.Models.Messages;
+
+    public class NodesService : HaleBaseService, INodesService
     {
         public NodeDTO GetNodeById(int id)
         {
-            var node = _db.Nodes
+            var node = this.Db.Nodes
                 .Where(x => x.Id == id)
                 .Include(h => h.NodeDetails)
                 .Select(x => new NodeDTO
@@ -30,9 +30,9 @@ namespace Hale.Core.Services
                     Status = x.Status,
                     LastConnected = x.LastConnected,
                     Modified = x.Modified,
-                    ModifiedBy = _db.Accounts.FirstOrDefault(a => a.Id == x.ModifiedBy),
+                    ModifiedBy = this.Db.Accounts.FirstOrDefault(a => a.Id == x.ModifiedBy),
                     Created = x.Created,
-                    ConfiguredBy = _db.Accounts.FirstOrDefault(a => a.Id == x.ConfiguredBy),
+                    ConfiguredBy = this.Db.Accounts.FirstOrDefault(a => a.Id == x.ConfiguredBy),
                     Guid = x.Guid,
                     NodeDetails = x.NodeDetails,
                     Configured = x.Configured,
@@ -45,7 +45,7 @@ namespace Hale.Core.Services
 
         public IList<NodeSummaryDTO> List()
         {
-            var nodeSummaries = _db.Nodes
+            var nodeSummaries = this.Db.Nodes
                 .Include(h => h.NodeDetails)
                 .Select(x => new NodeSummaryDTO
                 {
@@ -62,11 +62,13 @@ namespace Hale.Core.Services
 
         public void Update(int id, NodeDTO nodeToSave, string currentUsername)
         {
-            var user = _db.Accounts.First(x => x.UserName == currentUsername);
-            var host = _db.Nodes.FirstOrDefault(x => x.Id == id);
+            var user = this.Db.Accounts.First(x => x.UserName == currentUsername);
+            var host = this.Db.Nodes.FirstOrDefault(x => x.Id == id);
 
             if (host == null)
+            {
                 throw new ArgumentException();
+            }
 
             host.FriendlyName = nodeToSave.FriendlyName;
             host.Domain = nodeToSave.Domain;
@@ -76,14 +78,14 @@ namespace Hale.Core.Services
             host.Configured = !nodeToSave.Blocked;
             host.Blocked = nodeToSave.Blocked;
 
-            _db.SaveChanges();
+            this.Db.SaveChanges();
         }
 
         public IList<NodeCommentDTO> GetComments(int id)
         {
-            var comments = _db.NodeComments
+            var comments = this.Db.NodeComments
                 .Include("User")
-                .Where((x => x.Node.Id == id))
+                .Where(x => x.Node.Id == id)
                 .Select(x => new NodeCommentDTO
                 {
                     Id = x.Id,
@@ -99,11 +101,13 @@ namespace Hale.Core.Services
 
         public void SaveComment(int id, NewCommentDTO newComment, string currentUsername)
         {
-            var user = _db.Accounts.First(x => x.UserName == currentUsername);
-            var node = _db.Nodes.FirstOrDefault(x => x.Id == id);
+            var user = this.Db.Accounts.First(x => x.UserName == currentUsername);
+            var node = this.Db.Nodes.FirstOrDefault(x => x.Id == id);
 
             if (node == null)
+            {
                 throw new ArgumentException();
+            }
 
             var comment = new NodeComment()
             {
@@ -113,19 +117,21 @@ namespace Hale.Core.Services
                 Node = node
             };
 
-            _db.NodeComments.Add(comment);
-            _db.SaveChanges();
+            this.Db.NodeComments.Add(comment);
+            this.Db.SaveChanges();
         }
 
         public void DeleteComment(int id, int commentId)
         {
-            var comment = _db.NodeComments.FirstOrDefault(x => x.Id == commentId);
+            var comment = this.Db.NodeComments.FirstOrDefault(x => x.Id == commentId);
 
             if (comment == null)
+            {
                 throw new ArgumentException();
+            }
 
-            _db.NodeComments.Remove(comment);
-            _db.SaveChanges();
+            this.Db.NodeComments.Remove(comment);
+            this.Db.SaveChanges();
         }
     }
 }

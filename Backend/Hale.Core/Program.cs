@@ -1,14 +1,14 @@
-﻿using System;
-using System.ServiceProcess;
-
-namespace Hale.Core
+﻿namespace Hale.Core
 {
-    static class Program
+    using System;
+    using System.ServiceProcess;
+
+    public static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static void Main()
+        public static void Main()
         {
 #if !DEBUG
             ServiceBase[] ServicesToRun;

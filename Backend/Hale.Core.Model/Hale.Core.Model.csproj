@@ -51,6 +51,7 @@
     <Compile Include="Models\ActivationAttemptDTO.cs" />
     <Compile Include="Models\ConfigSourceDTO.cs" />
     <Compile Include="Models\ConfigSummaryDTO.cs" />
+    <Compile Include="Models\ExceptionDTO.cs" />
     <Compile Include="Models\NodeCommentDTO.cs" />
     <Compile Include="Models\NodeDTO.cs" />
     <Compile Include="Models\NodeResultDTO.cs" />

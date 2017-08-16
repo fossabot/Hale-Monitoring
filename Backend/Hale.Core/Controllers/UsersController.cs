@@ -1,36 +1,38 @@
-﻿using System;
-using System.Net.Http;
-using System.Web.Http;
-using Hale.Core.Models.Users;
-using NLog;
-using System.Linq;
-using System.Security.Claims;
-using Hale.Core.Data.Entities;
-using Hale.Core.Model.Interfaces;
-using Hale.Core.Services;
-using Hale.Core.Model.Models;
-
-namespace Hale.Core.Controllers
+﻿namespace Hale.Core.Controllers
 {
+    using System;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Security.Claims;
+    using System.Web.Http;
+    using Hale.Core.Data.Entities;
+    using Hale.Core.Model.Interfaces;
+    using Hale.Core.Model.Models;
+    using Hale.Core.Models.Users;
+    using Hale.Core.Services;
+    using NLog;
+
     [RoutePrefix("api/v1/users")]
     public class UsersController : ProtectedApiController
     {
+        private readonly Logger log = LogManager.GetCurrentClassLogger();
+        private readonly IUserService userService;
 
-        private readonly Logger _log = LogManager.GetCurrentClassLogger();
-        private readonly IUserService _userService;
+        public UsersController()
+            : this(new UserService())
+        {
+        }
 
-        public UsersController() : this(new UserService()) { }
         public UsersController(IUserService userService)
         {
-            _userService = userService;
+            this.userService = userService;
         }
 
         [HttpGet]
         [Route("available")]
         public IHttpActionResult CheckIfAvailable(string username)
         {
-            
-            return Ok(_userService.GetUsernameAvailable(username));
+            return this.Ok(this.userService.GetUsernameAvailable(username));
         }
 
         /// <summary>
@@ -42,11 +44,13 @@ namespace Hale.Core.Controllers
         [Route("{id}")]
         public IHttpActionResult Get(int id)
         {
-            var user = _userService.GetUserById(id);
+            var user = this.userService.GetUserById(id);
             if (user == null)
-                return NotFound();
+            {
+                return this.NotFound();
+            }
 
-            return Ok(user);
+            return this.Ok(user);
         }
 
         /// <summary>
@@ -57,8 +61,8 @@ namespace Hale.Core.Controllers
         [Route("current")]
         public IHttpActionResult GetCurrent()
         {
-            var currentUser = _userService.GetUserByUserName(_currentUsername);
-            return Ok(currentUser);
+            var currentUser = this.userService.GetUserByUserName(this.CurrentUsername);
+            return this.Ok(currentUser);
         }
 
         /// <summary>
@@ -69,8 +73,8 @@ namespace Hale.Core.Controllers
         [Route("")]
         public IHttpActionResult List()
         {
-            var userList = _userService.List();
-            return Ok(userList);
+            var userList = this.userService.List();
+            return this.Ok(userList);
         }
 
         /// <summary>
@@ -83,12 +87,10 @@ namespace Hale.Core.Controllers
         [Authorize(Roles = "Admin")]
         public IHttpActionResult Create([FromBody] CreateAccountRequestDTO userRequest)
         {
-            var currentUser = _userService.GetUserByUserName(_currentUsername);
-            _userService.CreateUser(userRequest, currentUser);
-            return Ok();
+            var currentUser = this.userService.GetUserByUserName(this.CurrentUsername);
+            this.userService.CreateUser(userRequest, currentUser);
+            return this.Ok();
         }
-
-        
 
         /// <summary>
         /// Update a user
@@ -100,10 +102,8 @@ namespace Hale.Core.Controllers
         [Route("{id}")]
         public IHttpActionResult Update(int id, [FromBody]UserDTO user)
         {
-            _userService.UpdateUser(id, user, _currentUsername);
-            return Ok();
+            this.userService.UpdateUser(id, user, this.CurrentUsername);
+            return this.Ok();
         }
-
-        
     }
 }

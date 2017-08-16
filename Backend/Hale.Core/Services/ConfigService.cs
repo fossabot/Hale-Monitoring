@@ -1,23 +1,22 @@
-﻿using Hale.Core.Data.Entities.Agent;
-using Hale.Core.Data.Entities.Users;
-using Hale.Core.Model.Interfaces;
-using Hale.Core.Model.Models;
-using Hale.Core.Models;
-using Hale.Core.Utils;
-using Hale.Lib.Modules;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Linq.Expressions;
-
-using EModule = Hale.Core.Data.Entities.Modules.Module;
-
-namespace Hale.Core.Services
+﻿namespace Hale.Core.Services
 {
-    public class ConfigService: HaleBaseService, IConfigService
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using Hale.Core.Data.Entities.Agent;
+    using Hale.Core.Data.Entities.Users;
+    using Hale.Core.Model.Interfaces;
+    using Hale.Core.Model.Models;
+    using Hale.Core.Models;
+    using Hale.Core.Utils;
+    using Hale.Lib.Modules;
+    using EModule = Hale.Core.Data.Entities.Modules.Module;
+
+    public class ConfigService : HaleBaseService, IConfigService
     {
-        private Expression<Func<Account, UserBasicsDTO>> CreateUserSummaryDTO = account => new UserBasicsDTO
+        private Expression<Func<Account, UserBasicsDTO>> createUserSummaryDTO = account => new UserBasicsDTO
         {
             Id = account.Id,
             FullName = account.FullName,
@@ -26,7 +25,7 @@ namespace Hale.Core.Services
 
         public IList<ConfigSummaryDTO> List()
         {
-            var configs = _db.AgentConfigs
+            var configs = this.Db.AgentConfigs
                 .Include(c => c.Functions)
                 .Include(c => c.Tasks)
                 .Select(c => new ConfigSummaryDTO
@@ -37,16 +36,16 @@ namespace Hale.Core.Services
                     ActionCount = c.Functions.Where(x => x.Type == ModuleFunctionType.Action).Count(),
                     InfoCount = c.Functions.Where(x => x.Type == ModuleFunctionType.Info).Count(),
                     Modified = c.Modified,
-                    ModifiedBy = _db.Accounts.Where(a => a.Id == c.ModifiedBy).Select(CreateUserSummaryDTO).FirstOrDefault(),
+                    ModifiedBy = this.Db.Accounts.Where(a => a.Id == c.ModifiedBy).Select(this.createUserSummaryDTO).FirstOrDefault(),
                     Created = c.Created,
-                    CreatedBy = _db.Accounts.Where(a => a.Id == c.CreatedBy).Select(CreateUserSummaryDTO).FirstOrDefault(),
+                    CreatedBy = this.Db.Accounts.Where(a => a.Id == c.CreatedBy).Select(this.createUserSummaryDTO).FirstOrDefault(),
                 }).ToList();
             return configs;
         }
 
         public string GetConfigById(int id)
         {
-            var agentConfig = _db.AgentConfigs
+            var agentConfig = this.Db.AgentConfigs
                 .Include(c => c.Functions.Select(f => f.Module))
                 .Include(c => c.Functions.Select(f => f.FunctionSettings))
                 .Include(c => c.Tasks)
@@ -60,19 +59,19 @@ namespace Hale.Core.Services
         {
             var newConfig = Lib.Config.AgentConfig.LoadFromString(serialized);
 
-            var configSet = _db.AgentConfigs.Where(x => x.Id == id)
+            var configSet = this.Db.AgentConfigs.Where(x => x.Id == id)
                 .Include(cs => cs.Tasks)
                 .Include(cs => cs.Functions)
                 .FirstOrDefault();
 
-            var currentUser = _db.Accounts.First(x => x.UserName == currentUsername);
+            var currentUser = this.Db.Accounts.First(x => x.UserName == currentUsername);
 
             configSet.Modified = DateTime.Now;
             configSet.ModifiedBy = currentUser.Id;
 
-            foreach(var task in newConfig.Tasks)
+            foreach (var task in newConfig.Tasks)
             {
-                var act = configSet.Tasks?.FirstOrDefault(t => t.Name == task.Key) 
+                var act = configSet.Tasks?.FirstOrDefault(t => t.Name == task.Key)
                     ?? new AgentConfigSetTask() { Name = task.Key };
                 act.Enabled = task.Value.Enabled;
                 act.Interval = task.Value.Interval;
@@ -82,8 +81,8 @@ namespace Hale.Core.Services
             AgentConfigSetFunctions UpdateFunction(ModuleSettingsBase ms, IEnumerable<AgentConfigSetFunctions> fs)
             {
                 AgentConfigSetFunctions func;
-                var candidates = fs.Where(
-                    c => c.Module != null && 
+                var candidates = fs.Where(c =>
+                    c.Module != null &&
                     c.Module.Identifier == ms.Module.Identifier &&
                     c.Module.Version == ms.Module.Version &&
                     c.Function == ms.Function);
@@ -100,20 +99,18 @@ namespace Hale.Core.Services
 
                     // Clean up old references
                     // NOTE: Does not work as is as it will conflict with new rows -NM 2017-08-07
-                    //_db.AgentConfigSetFuncSettings.RemoveRange(candidates);
+                    // _db.AgentConfigSetFuncSettings.RemoveRange(candidates);
 
                     // Create new entity
                     func = new AgentConfigSetFunctions()
                     {
                         Function = ms.Function,
                         Type = ModuleFunctionType.Check,
-                        Module = _db.Modules.FirstOrDefault(
-                            m => m.Identifier == ms.Module.Identifier && 
+                        Module = this.Db.Modules.FirstOrDefault(
+                            m => m.Identifier == ms.Module.Identifier &&
                             m.Major == ms.Module.Version.Major &&
                             m.Minor == ms.Module.Version.Minor &&
-                            m.Revision == ms.Module.Version.Revision
-
-                            )
+                            m.Revision == ms.Module.Version.Revision)
 
                             // FIXME: We probably shouldn't allow saving a configuration file with an unknown module identifier or version
                             ?? new EModule
@@ -124,34 +121,31 @@ namespace Hale.Core.Services
                     };
                 }
 
-
                 func.Enabled = ms.Enabled;
                 func.Interval = ms.Interval;
                 func.Startup = ms.Startup;
 
                 // TODO: Serialize function target settings
-                foreach(var ts in ms.TargetSettings)
+                foreach (var ts in ms.TargetSettings)
                 {
                     var target = ts.Key;
-                    foreach(var kv in ts.Value)
+                    foreach (var kv in ts.Value)
                     {
                         var tfs = func.FunctionSettings.FirstOrDefault(
-                            f => f.Key == kv.Key && f.Target == target
-                            ) ?? new AgentConfigSetFunctionSettings()
+                            f => f.Key == kv.Key && f.Target == target) ?? new AgentConfigSetFunctionSettings()
                             {
                                 Target = target,
                                 Key = kv.Key
                             };
                         tfs.Value = kv.Value;
-
                     }
                 }
 
                 var deletedtfs = new List<AgentConfigSetFunctionSettings>();
 
-                foreach(var tfs in func.FunctionSettings)
+                foreach (var tfs in func.FunctionSettings)
                 {
-                    if (!ms.TargetSettings.ContainsKey(tfs.Target) || 
+                    if (!ms.TargetSettings.ContainsKey(tfs.Target) ||
                         ms.TargetSettings[tfs.Target].ContainsKey(tfs.Key))
                     {
                         deletedtfs.Add(tfs);
@@ -166,13 +160,13 @@ namespace Hale.Core.Services
             var updatedFuncs = new List<AgentConfigSetFunctions>();
 
             var checks = configSet?.Functions.Where(f => f.Type == ModuleFunctionType.Check);
-            foreach(var check in newConfig.Checks)
+            foreach (var check in newConfig.Checks)
             {
                 var func = UpdateFunction(check, checks);
 
                 AgentConfigSetCheckAction SetCheckAction(Lib.Modules.Checks.CheckAction ca)
-                { 
-                    return ca == null ? null : _db.AgentConfigSetCheckActions.FirstOrDefault(
+                {
+                    return ca == null ? null : this.Db.AgentConfigSetCheckActions.FirstOrDefault(
                     a => a.Module == ca.Module &&
                     a.Action == ca.Action) ?? new AgentConfigSetCheckAction()
                     {
@@ -189,7 +183,6 @@ namespace Hale.Core.Services
                 func.WarningThreshold = check.Thresholds.Warning;
 
                 updatedFuncs.Add(func);
-
             }
 
             var actions = configSet.Functions.Where(f => f.Type == ModuleFunctionType.Action);
@@ -208,7 +201,7 @@ namespace Hale.Core.Services
 
             configSet.Functions = updatedFuncs;
 
-            return _db.SaveChanges();
+            return this.Db.SaveChanges();
         }
     }
 }

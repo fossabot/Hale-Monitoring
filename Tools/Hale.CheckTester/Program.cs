@@ -288,7 +288,7 @@ namespace Hale.CheckTester
 
         private static void RunAlertTask(string name, List<string> targets, AlertSettings settings)
         {
-            var yds = new Deserializer(namingConvention: new YamlDotNet.Serialization.NamingConventions.CamelCaseNamingConvention());
+            var yds = new DeserializerBuilder().WithNamingConvention(new YamlDotNet.Serialization.NamingConventions.CamelCaseNamingConvention()).Build();
 
             settings.Message = "Foo and Bar is Baz!";
             settings.SourceModule = new VersionedIdentifier("com.example.dummy", new Version(1, 0, 16054, 99));

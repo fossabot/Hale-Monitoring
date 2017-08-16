@@ -1,12 +1,13 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http.Filters;
-
-namespace Hale.Core.Utils
+﻿namespace Hale.Core.Utils
 {
-    class ExceptionHandlingAttribute: ExceptionFilterAttribute
+    using System;
+    using System.Net;
+    using System.Net.Http;
+    using System.Web.Http.Filters;
+    using Hale.Core.Model.Models;
+    using Newtonsoft.Json;
+
+    public class ExceptionHandlingAttribute : ExceptionFilterAttribute
     {
         public override void OnException(HttpActionExecutedContext context)
         {
@@ -16,18 +17,11 @@ namespace Hale.Core.Utils
                     new ExceptionDTO
                     {
                         Message = context.Exception.Message,
-                        #if DEBUG
-                            StackTrace = context.Exception.StackTrace.Split(new string[] { Environment.NewLine }, StringSplitOptions.None)
-                        #endif
-                    }
-                ))
+#if DEBUG
+                        StackTrace = context.Exception.StackTrace.Split(new string[] { Environment.NewLine }, StringSplitOptions.None)
+#endif
+                    }))
             };
         }
-    }
-
-    public class ExceptionDTO
-    {
-        public string Message { get; set; }
-        public string[] StackTrace { get; set; }
     }
 }

@@ -1,0 +1,18 @@
+<<<<<<< HEAD:Backend/Hale.Core.Data/Entities/Nodes/Status.cs
+﻿#pragma warning disable 1591
+namespace Hale.Core.Data.Entities.Nodes
+=======
+﻿namespace Hale.Core.Data.Entities
+>>>>>>> cleanup and bug fixes:Backend/Hale.Core.Data/Entities/Status.cs
+{
+    /// <summary>
+    /// Represents the possible values for the table column Nodes.Hosts.Status
+    /// </summary>
+    public enum Status
+    {
+        Na = -1,
+        Ok = 0,
+        Warning = 1,
+        Error = 2
+    }
+}

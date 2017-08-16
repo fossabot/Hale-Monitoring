@@ -1,5 +1,6 @@
+#pragma warning disable
 /*
-	Copyright (C) 2004 Model Matter, Inc.  Distributed under the GNU Lesser License V2.1
+    Copyright(C) 2004 Model Matter, Inc.  Distributed under the GNU Lesser License V2.1
 
 	Purpose:	Windows Installer Support
 	Original Author:	Ian Schoen Mahr Mariano

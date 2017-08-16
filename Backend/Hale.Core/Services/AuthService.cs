@@ -1,47 +1,54 @@
-﻿using Hale.Core.Model.Exceptions;
-using Hale.Core.Model.Interfaces;
-using Hale.Core.Model.Models;
-using Hale.Core.Models.Messages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hale.Core.Services
+﻿namespace Hale.Core.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Hale.Core.Model.Exceptions;
+    using Hale.Core.Model.Interfaces;
+    using Hale.Core.Model.Models;
+    using Hale.Core.Models.Messages;
+
     public class AuthService : HaleBaseService, IAuthService
     {
         public bool Authorize(string username, string password)
         {
-            var user = _db.Accounts.FirstOrDefault(x => x.UserName == username);
+            var user = this.Db.Accounts.FirstOrDefault(x => x.UserName == username);
 
             if (user == null || !user.Activated || !user.Enabled)
+            {
                 return false;
+            }
 
-            return ValidatePassword(user.Password, password);
+            return this.ValidatePassword(user.Password, password);
         }
 
         public bool Activate(ActivationAttemptDTO attempt)
         {
-            var user = _db.Accounts.FirstOrDefault(x => x.UserName == attempt.Username);
+            var user = this.Db.Accounts.FirstOrDefault(x => x.UserName == attempt.Username);
 
             if (user == null || user.Activated || !user.Enabled)
+            {
                 return false;
-            if (!ValidatePassword(user.Password, attempt.ActivationPassword))
-                return false; 
+            }
+
+            if (!this.ValidatePassword(user.Password, attempt.ActivationPassword))
+            {
+                return false;
+            }
 
             user.Activated = true;
-            user.Password = CreateHash(attempt.NewPassword);
-            _db.SaveChanges();
+            user.Password = this.CreateHash(attempt.NewPassword);
+            this.Db.SaveChanges();
 
             return true;
         }
 
         public void ChangePassword(string userName, string newPassword)
         {
-            _db.Accounts.FirstOrDefault(x => x.UserName == userName).Password = CreateHash(newPassword);
-            _db.SaveChanges();
+            this.Db.Accounts.FirstOrDefault(x => x.UserName == userName).Password = this.CreateHash(newPassword);
+            this.Db.SaveChanges();
         }
 
         private bool ValidatePassword(string hash, string attempt)
@@ -53,7 +60,5 @@ namespace Hale.Core.Services
         {
             return BCrypt.Net.BCrypt.HashPassword(text, 5);
         }
-
-       
     }
 }

@@ -1,59 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hale.Core.Config
+﻿namespace Hale.Core.Config
 {
-    class EnvironmentConfig
+    using System.IO;
+
+    internal class EnvironmentConfig
     {
-        string _dataPath;
+        private string dataPath;
+        private string agentDistPath;
+        private string configFile;
+        private string nemesisConfigFile;
+        private string nemesisKeyFile;
+        private string modulePath;
+
         public string DataPath
         {
-            get { return _dataPath; }
-            set { _dataPath = AffirmPath(value); }
+            get { return this.dataPath; }
+            set { this.dataPath = AffirmPath(value); }
         }
 
-        string _agentDistPath;
         public string AgentDistPath
         {
-            get { return _agentDistPath; }
-            set { _agentDistPath = AffirmPath(value); }
+            get { return this.agentDistPath; }
+            set { this.agentDistPath = AffirmPath(value); }
         }
-        
-        string _configFile;
+
         public string ConfigFile
         {
-            get { return _configFile; }
-            set { _configFile = AffirmFilePath(value); }
+            get { return this.configFile; }
+            set { this.configFile = AffirmFilePath(value); }
         }
 
-        string _nemesisConfigFile;
         public string NemesisConfigFile
         {
-            get { return _nemesisConfigFile; }
-            set { _nemesisConfigFile = AffirmFilePath(value); }
+            get { return this.nemesisConfigFile; }
+            set { this.nemesisConfigFile = AffirmFilePath(value); }
         }
 
-        string _nemesisKeyFile;
         public string NemesisKeyFile
         {
-            get { return _nemesisKeyFile; }
-            set { _nemesisKeyFile = AffirmFilePath(value); }
+            get { return this.nemesisKeyFile; }
+            set { this.nemesisKeyFile = AffirmFilePath(value); }
         }
 
-        string _modulePath;
-        public string ModulePath {
-            get { return _modulePath; }
-            set { _modulePath = AffirmPath(value); }
+        public string ModulePath
+        {
+            get { return this.modulePath; }
+            set { this.modulePath = AffirmPath(value); }
         }
 
         public static string AffirmPath(string path)
         {
             if (!Directory.Exists(path))
+            {
                 Directory.CreateDirectory(path);
+            }
+
             return path;
         }
 

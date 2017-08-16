@@ -1,14 +1,17 @@
-﻿using Hale.Lib.Utilities;
-
-namespace Hale.Core.Handlers
+﻿namespace Hale.Core.Handlers.Scheduler
 {
-    partial class CoreScheduler
+    using Hale.Lib.Utilities;
+
+    internal partial class CoreScheduler
     {
-        private void createDistPackages()
+        private void CreateDistPackages()
         {
             var distHandler = ServiceProvider.GetService<AgentDistHandler>();
             if (distHandler == null)
+            {
                 return;
+            }
+
             distHandler.CreatePackages();
         }
     }

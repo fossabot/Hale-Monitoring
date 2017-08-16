@@ -1,24 +1,28 @@
-﻿using Hale.Core.Model.Interfaces;
-using Hale.Core.Services;
-using NLog;
-using System.Linq;
-using System.Web.Http;
-
-namespace Hale.Core.Controllers
+﻿namespace Hale.Core.Controllers
 {
+    using System.Linq;
+    using System.Web.Http;
+    using Hale.Core.Model.Interfaces;
+    using Hale.Core.Services;
+    using NLog;
+
     /// <summary>
     /// Handles requests regarding results for a given node.
     /// </summary>
     [RoutePrefix("api/v1/nodes")]
-    public class NodesResultsController: ProtectedApiController
+    public class NodesResultsController : ProtectedApiController
     {
-        private readonly Logger _log = LogManager.GetCurrentClassLogger();
-        private readonly INodeResultsService _nodeResultsService;
+        private readonly Logger log = LogManager.GetCurrentClassLogger();
+        private readonly INodeResultsService nodeResultsService;
 
-        public NodesResultsController(): this(new NodeResultsService()) { }
+        public NodesResultsController()
+            : this(new NodeResultsService())
+        {
+        }
+
         public NodesResultsController(INodeResultsService nodeResultsService)
         {
-            _nodeResultsService = nodeResultsService;
+            this.nodeResultsService = nodeResultsService;
         }
 
         /// <summary>
@@ -29,8 +33,8 @@ namespace Hale.Core.Controllers
         [Route("{id}/results")]
         public IHttpActionResult List(int id)
         {
-            var nodeResults = _nodeResultsService.List(id);
-            return Ok(nodeResults);
+            var nodeResults = this.nodeResultsService.List(id);
+            return this.Ok(nodeResults);
         }
 
         /// <summary>
@@ -43,7 +47,7 @@ namespace Hale.Core.Controllers
         [Route("{id}/results/{functionId}")]
         public IHttpActionResult Get(int nodeId, int functionId)
         {
-            return Ok();
+            return this.Ok();
         }
     }
 }

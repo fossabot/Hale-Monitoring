@@ -1,39 +1,43 @@
-﻿using NLog;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
-using System.Web.Http.Description;
-using System.Data.Entity;
-using Hale.Core.Utils;
-using Hale.Lib.Modules;
-using System.Linq.Expressions;
-using System;
-using Hale.Core.Models;
-using Hale.Core.Model.Interfaces;
-using Hale.Core.Services;
-using Hale.Core.Data.Entities.Agent;
-
-namespace Hale.Core.Controllers
+﻿namespace Hale.Core.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using System.Web.Http;
+    using System.Web.Http.Description;
+    using Hale.Core.Data.Entities.Agent;
+    using Hale.Core.Model.Interfaces;
+    using Hale.Core.Models;
+    using Hale.Core.Services;
+    using Hale.Core.Utils;
+    using Hale.Lib.Modules;
+    using NLog;
+
     [RoutePrefix("api/v1/configs")]
     public class ConfigController : ProtectedApiController
     {
+        private readonly Logger log = LogManager.GetCurrentClassLogger();
+        private readonly IConfigService configService;
 
-        private readonly Logger _log = LogManager.GetCurrentClassLogger();
-        private readonly IConfigService _configService;
-        public ConfigController(): this(new ConfigService()) { }
-        public ConfigController(IConfigService configService)
+        public ConfigController()
+            : this(new ConfigService())
         {
-            _configService = configService;
         }
 
-        [Route()]
+        public ConfigController(IConfigService configService)
+        {
+            this.configService = configService;
+        }
+
+        [Route]
         [ResponseType(typeof(List<AgentConfigSet>))]
         [AcceptVerbs("GET")]
         public IHttpActionResult List()
         {
-            var configList = _configService.List();
-            return Ok(configList);
+            var configList = this.configService.List();
+            return this.Ok(configList);
         }
 
         [Route("{id}")]
@@ -41,18 +45,18 @@ namespace Hale.Core.Controllers
         [AcceptVerbs("GET")]
         public IHttpActionResult Get(int id)
         {
-            var config = _configService.GetConfigById(id);
-            return Ok(config);
+            var config = this.configService.GetConfigById(id);
+            return this.Ok(config);
         }
 
-        [HttpPost, Route("{id}")]
+        [HttpPost]
+        [Route("{id}")]
         public IHttpActionResult Update(int id, [FromBody]ConfigSourceDTO configSource)
         {
-            _log.Info($"Got save for #{id}!");
-            var changes = _configService.SaveSerialized(id, configSource.Body, _currentUsername);
-            _log.Info($"Wrote {changes} change(s).");
-            return Ok();
+            this.log.Info($"Got save for #{id}!");
+            var changes = this.configService.SaveSerialized(id, configSource.Body, this.CurrentUsername);
+            this.log.Info($"Wrote {changes} change(s).");
+            return this.Ok();
         }
-
     }
 }

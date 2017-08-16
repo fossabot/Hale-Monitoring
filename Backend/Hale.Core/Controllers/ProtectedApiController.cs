@@ -1,18 +1,18 @@
-﻿using Hale.Core.Data.Contexts;
-using System.Linq;
-using System.Net.Http;
-using System.Security.Claims;
-using System.Web.Http;
-
-namespace Hale.Core.Controllers
+﻿namespace Hale.Core.Controllers
 {
+    using System.Linq;
+    using System.Net.Http;
+    using System.Security.Claims;
+    using System.Web.Http;
+    using Hale.Core.Data.Contexts;
+
     /// <summary>
     /// Base API Controller providing a db instance and auth protection.
     /// </summary>
     [Authorize]
     public abstract class ProtectedApiController : ApiController
     {
-        internal string _currentUsername => Request
+        internal string CurrentUsername => this.Request
             .GetOwinContext()
             .Authentication
             .User

@@ -1,24 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Hale.Lib.Config;
-using Hale.Lib.Modules.Actions;
-using Hale.Lib.Modules.Checks;
-using Hale.Lib.Modules.Info;
-using YamlDotNet.Serialization;
-
-using ModuleFunctionType = Hale.Lib.Modules.ModuleFunctionType;
-using YamlDotNet.Serialization.NamingConventions;
-using System.IO;
-using Hale.Core.Data.Entities;
-using Hale.Core.Data.Contexts;
-using System.Linq;
-using Hale.Lib.Modules;
-using Hale.Core.Data.Entities.Agent;
-
-namespace Hale.Core.Utils
+﻿namespace Hale.Core.Utils
 {
-    class ConfigSerializer
+    using System.Collections.Generic;
+    using Hale.Core.Data.Entities.Agent;
+    using Hale.Lib.Config;
+    using Hale.Lib.Modules;
+    using Hale.Lib.Modules.Actions;
+    using Hale.Lib.Modules.Checks;
+    using Hale.Lib.Modules.Info;
+    using YamlDotNet.Serialization;
+    using YamlDotNet.Serialization.NamingConventions;
+    using ModuleFunctionType = Hale.Lib.Modules.ModuleFunctionType;
+
+    internal class ConfigSerializer
     {
         internal static string SerializeAgentConfig(AgentConfigSet agentConfig)
         {
@@ -30,23 +23,19 @@ namespace Hale.Core.Utils
                 {
                     Enabled = task.Enabled,
                     Interval = task.Interval,
-                    Startup = task.Startup
+                    Startup = task.Startup,
                 });
             }
 
-            foreach(var func in agentConfig.Functions)
+            foreach (var func in agentConfig.Functions)
             {
-                
                 void SetFunctionSettings(ModuleSettingsBase ms)
                 {
-                    
                     ms.Function = func.Function;
                     ms.Enabled = func.Enabled;
                     ms.Interval = func.Interval;
                     ms.Module = new VersionedIdentifier(func.Module.Identifier, func.Module.Version);
                     ms.Startup = func.Startup;
-
-                    
 
                     foreach (var fs in func.FunctionSettings)
                     {
@@ -67,7 +56,8 @@ namespace Hale.Core.Utils
                         Target = ca.Target
                     };
 
-                switch (func.Type) {
+                switch (func.Type)
+                {
                     case ModuleFunctionType.Check:
                         var checkSettings = new CheckSettings();
                         SetFunctionSettings(checkSettings);
@@ -106,10 +96,6 @@ namespace Hale.Core.Utils
                 .Build();
 
             return ys.Serialize(config);
-
-
         }
-
     }
-
 }

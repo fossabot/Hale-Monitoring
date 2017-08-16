@@ -1,50 +1,33 @@
-﻿using NLog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hale.Core.Utils
+﻿namespace Hale.Core.Utils
 {
-    /// <summary>
-    /// 
-    /// </summary>
+    using System;
+    using NLog;
+
     public class TraceLogger
     {
-        ILogger _log;
-        DateTime _last;
+        private ILogger log;
+        private DateTime last;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
         public TraceLogger(string name)
         {
 #if DEBUG
-            _log = LogManager.GetLogger("TL:" + name);
-            _last = DateTime.Now;
+            this.log = LogManager.GetLogger("TL:" + name);
+            this.last = DateTime.Now;
 #endif
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="label"></param>
         public void Trace(string label)
         {
 #if DEBUG
-            _log.Trace(label + ": " + (DateTime.Now - _last).ToString("ss\\.ffff"));
-            _last = DateTime.Now;
+            this.log.Trace(label + ": " + (DateTime.Now - this.last).ToString("ss\\.ffff"));
+            this.last = DateTime.Now;
 #endif
         }
 
-        /// <summary>
-        /// </summary>
         public void Reset()
         {
 #if DEBUG
-            _last = DateTime.Now;
+            this.last = DateTime.Now;
 #endif
         }
     }

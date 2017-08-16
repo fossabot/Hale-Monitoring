@@ -1,37 +1,40 @@
-﻿using System.Net.Http;
-using System.Security.Claims;
-using System.Web.Http;
-using Hale.Core.Models.Messages;
-using Microsoft.Owin.Security;
-using NLog;
-using System.Linq;
-using Hale.Core.Model.Models;
-using Hale.Core.Model.Interfaces;
-using Hale.Core.Services;
-using System.Collections.Generic;
-
-namespace Hale.Core.Controllers
+﻿namespace Hale.Core.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Security.Claims;
+    using System.Web.Http;
+    using Hale.Core.Model.Interfaces;
+    using Hale.Core.Model.Models;
+    using Hale.Core.Models.Messages;
+    using Hale.Core.Services;
+    using Microsoft.Owin.Security;
+    using NLog;
+
     /// <summary>
     /// TODO: Add text here
     /// </summary>
     [RoutePrefix("api/v1/authentication")]
     public class AuthenticationController : ApiController
     {
+        private readonly Logger log;
+        private readonly IAuthService authService;
+        private readonly IUserService userService;
 
-        private readonly Logger      _log;
-        private readonly IAuthService _authService;
-        private readonly IUserService _userService;
-
-        public AuthenticationController() : this(new AuthService(), new UserService()) { }
-        public AuthenticationController(IAuthService authService, IUserService userService)
+        public AuthenticationController()
+            : this(new AuthService(), new UserService())
         {
-            _log = LogManager.GetCurrentClassLogger();
-            _authService = authService;
-            _userService = userService;
         }
 
-        internal string _currentUsername => Request
+        public AuthenticationController(IAuthService authService, IUserService userService)
+        {
+            this.log = LogManager.GetCurrentClassLogger();
+            this.authService = authService;
+            this.userService = userService;
+        }
+
+        internal string CurrentUsername => this.Request
             .GetOwinContext()
             .Authentication
             .User
@@ -50,12 +53,14 @@ namespace Hale.Core.Controllers
         [HttpPost]
         public IHttpActionResult Login([FromBody] LoginAttemptDTO attempt)
         {
-            var passwordAccepted = _authService.Authorize(attempt.Username, attempt.Password);
+            var passwordAccepted = this.authService.Authorize(attempt.Username, attempt.Password);
             if (!passwordAccepted)
-                return Unauthorized();
+            {
+                return this.Unauthorized();
+            }
 
-            CreateUserClaims(attempt);
-            return Ok();
+            this.CreateUserClaims(attempt);
+            return this.Ok();
         }
 
         [Route("admin")]
@@ -63,45 +68,47 @@ namespace Hale.Core.Controllers
         [Authorize(Roles = "Admin")]
         public IHttpActionResult AdminStatus()
         {
-            return Ok();
+            return this.Ok();
         }
 
         /// <summary>
         /// TODO: Add text here
         /// </summary>
         /// <returns></returns>
-        [Route()]
+        [Route]
         [HttpGet]
         [Authorize(Roles = "User")]
         public IHttpActionResult Status()
         {
-            return Ok();
+            return this.Ok();
         }
 
         /// <summary>
         /// TODO: Add text here
         /// </summary>
         /// <returns></returns>
-        [Route()]
+        [Route]
         [HttpDelete]
         [Authorize]
         public IHttpActionResult Logout()
         {
-            var context = Request.GetOwinContext();
+            var context = this.Request.GetOwinContext();
             context.Authentication.SignOut();
-            return Ok();
+            return this.Ok();
         }
 
         [Route("activate")]
         [HttpPost]
-        public IHttpActionResult Activate([FromBody]ActivationAttemptDTO attempt) 
+        public IHttpActionResult Activate([FromBody]ActivationAttemptDTO attempt)
         {
-            var gotActivated = _authService.Activate(attempt);
+            var gotActivated = this.authService.Activate(attempt);
 
             if (!gotActivated)
-                return Unauthorized(); // this is up for debate. any better suggestion? -SA 2017-08-10
+            {
+                return this.Unauthorized(); // this is up for debate. any better suggestion? -SA 2017-08-10
+            }
 
-            return Ok();
+            return this.Ok();
         }
 
         [Route("change-password")]
@@ -109,18 +116,20 @@ namespace Hale.Core.Controllers
         [Authorize]
         public IHttpActionResult ChangePassword(PasswordDTO passwordChange)
         {
-            var passwordAccepted = _authService.Authorize(_currentUsername, passwordChange.oldPassword);
+            var passwordAccepted = this.authService.Authorize(this.CurrentUsername, passwordChange.oldPassword);
 
             if (!passwordAccepted)
-                return Unauthorized();
+            {
+                return this.Unauthorized();
+            }
 
-            _authService.ChangePassword(_currentUsername, passwordChange.newPassword);
-            return Ok();
+            this.authService.ChangePassword(this.CurrentUsername, passwordChange.newPassword);
+            return this.Ok();
         }
 
         private void CreateUserClaims(LoginAttemptDTO attempt)
         {
-            var user = _userService.GetUserByUserName(attempt.Username);
+            var user = this.userService.GetUserByUserName(attempt.Username);
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, "User"),
@@ -128,16 +137,16 @@ namespace Hale.Core.Controllers
             };
 
             if (user.IsAdmin)
+            {
                 claims.Add(new Claim(ClaimsIdentity.DefaultRoleClaimType, "Admin"));
+            }
 
-            Request
+            this.Request
                 .GetOwinContext()
                 .Authentication
                 .SignIn(
                     new AuthenticationProperties() { IsPersistent = attempt.Persistent },
-                    new ClaimsIdentity(claims, "HaleCoreAuth")
-                );
+                    new ClaimsIdentity(claims, "HaleCoreAuth"));
         }
-
     }
 }

@@ -1,25 +1,44 @@
-﻿using Hale.Core.Utils;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using YamlDotNet.Serialization;
-
-namespace Hale.Core.Config
+﻿namespace Hale.Core.Config
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Hale.Core.Utils;
+    using YamlDotNet.Serialization;
+
     public class CoreConfig
     {
-        public AgentSection Agent { get; set; }
-        public ApiSection Api { get; set; }
-        public DatabaseSection Database { get; set; }
+        public static CoreConfig Default => new CoreConfig
+        {
+            Agent = new AgentSection()
+            {
+                SendPort = 8988,
+                ReceivePort = 8987,
+                Hostname = "localhost",
+                Ip = IPAddress.Loopback,
+                UseEncryption = true
+            },
+            Api = new ApiSection()
+            {
+                Host = "+",
+                Port = 8989,
+                Scheme = "http",
+                FrontendRoot = null,
+            },
+        };
 
-        private static INamingConvention NamingConvention 
+        public AgentSection Agent { get; set; }
+
+        public ApiSection Api { get; set; }
+
+        private static INamingConvention NamingConvention
             => new YamlDotNet.Serialization.NamingConventions.CamelCaseNamingConvention();
 
-        private static Encoding Encoding 
+        private static Encoding Encoding
             => new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
 
         public static CoreConfig Load(string filename)
@@ -27,6 +46,7 @@ namespace Hale.Core.Config
             var deserializer = new DeserializerBuilder()
                 .WithTypeConverter(new IPAdressYamlTypeConverter())
                 .WithNamingConvention(NamingConvention)
+                .IgnoreUnmatchedProperties() // TODO: decide if this is necessary -SA 2017-08-16
                 .Build();
 
             using (var sr = new StreamReader(filename, Encoding))
@@ -48,50 +68,28 @@ namespace Hale.Core.Config
             }
         }
 
-        public static CoreConfig Default => new CoreConfig
-        {
-            Agent = new AgentSection()
-            {
-                SendPort = 8988,
-                ReceivePort = 8987,
-                Hostname = "localhost",
-                Ip = IPAddress.Loopback,
-                UseEncryption = true
-            },
-            Api = new ApiSection()
-            {
-                Host = "+",
-                Port = 8989,
-                Scheme = "http",
-                FrontendRoot = null,
-            },
-            Database = new DatabaseSection()
-            {
-
-            }
-        };
-
         public class AgentSection
         {
             public int SendPort { get; set; }
+
             public int ReceivePort { get; set; }
+
             public string Hostname { get; set; }
+
             public IPAddress Ip { get; set; }
+
             public bool UseEncryption { get; set; }
         }
 
         public class ApiSection
         {
             public string Host { get; set; }
+
             public int Port { get; set; }
+
             public string Scheme { get; set; }
+
             public string FrontendRoot { get; set; }
         }
-
-        public class DatabaseSection
-        {
-
-        }
-
     }
 }
