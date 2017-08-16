@@ -11,6 +11,7 @@ namespace Hale.Core.Services
         public IList<NodeResultDTO> List(int id)
         {
             var results = _db.Results
+                .Where(x => x.HostId == id)
                 .GroupBy(x => new { x.HostId, x.FunctionId, x.Target })
                 .Select(x => x.OrderByDescending(r => r.ExecutionTime).FirstOrDefault())
                 .Select(x => new NodeResultDTO

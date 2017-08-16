@@ -1,4 +1,3 @@
-﻿#pragma warning disable 1591
 namespace Hale.Core.Data.Entities.Nodes
 {
     /// <summary>
