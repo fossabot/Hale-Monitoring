@@ -8,7 +8,7 @@
     {
         private Exception executionException;
 
-        #pragma warning disable CA1065 // Do not throw exception
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations", Justification = "We do not throw a new exception, only return it")]
         public Exception ExecutionException
         {
             get => this.executionException != null
@@ -16,7 +16,6 @@
             : this.executionException = new UnknownUnsuccessfulException();
             set => this.executionException = value;
         }
-        #pragma warning restore CA1065 // Do not throw exception
 
         public bool RanSuccessfully { get; set; }
 

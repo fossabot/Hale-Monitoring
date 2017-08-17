@@ -30,11 +30,11 @@ namespace	WindowsInstaller
 
 	#region	Constants
 	/// <summary>
-	/// Internal class containing constants for the <c>script</c> parameter of <see cref="MsiInterop.MsiAdvertiseProduct"/> or <see cref="MsiInterop.MsiAdvertiseProductEx"/>.
+	/// public class containing constants for the <c>script</c> parameter of <see cref="MsiInterop.MsiAdvertiseProduct"/> or <see cref="MsiInterop.MsiAdvertiseProductEx"/>.
 	/// This class cannot be inherited.
 	/// This class cannot be instantiated directly.
 	/// </summary>
-	sealed internal class	MsiAdvertiseProductFlag
+	sealed public class	MsiAdvertiseProductFlag
 	{
 		#region	Constants (Static Fields)
 		/// <summary>Set to advertise a per-machine installation of the product available to all users.</summary>
@@ -49,11 +49,11 @@ namespace	WindowsInstaller
 	}
 
 	/// <summary>
-	/// Internal class containing constants for an MSI database.
+	/// public class containing constants for an MSI database.
 	/// This class cannot be inherited.
 	/// This class cannot be instantiated directly.
 	/// </summary>
-	sealed internal class	MsiDatabaseTable
+	sealed public class	MsiDatabaseTable
 	{
 		#region	Constants
 		/// <summary>The _Columns table is a read-only system table that contains the column catalog. It lists the columns for all the tables. You can query this table to find out if a given column exists.</summary>
@@ -88,7 +88,7 @@ namespace	WindowsInstaller
 		/// <remarks>Please refer to the MSDN documentation for more information.</remarks>
 		public const string	AdminExecuteSequence = "AdminExecuteSequence";
 
-		/// <summary>The AdminUISequence table lists actions that the installer calls in sequence when the top-level ADMIN action is executed and the internal user interface level is set to full UI or reduced UI. The installer skips the actions in this table if the user interface level is set to basic UI or no UI.</summary>
+		/// <summary>The AdminUISequence table lists actions that the installer calls in sequence when the top-level ADMIN action is executed and the public user interface level is set to full UI or reduced UI. The installer skips the actions in this table if the user interface level is set to basic UI or no UI.</summary>
 		/// <remarks>Please refer to the MSDN documentation for more information.</remarks>
 		public const string	AdminUISequence = "AdminUISequence";
 
@@ -243,7 +243,7 @@ namespace	WindowsInstaller
 		/// <remarks>Please refer to the MSDN documentation for more information.</remarks>
 		public const string	InstallExecuteSequence = "InstallExecuteSequence";
 
-		/// <summary>The InstallUISequence table lists actions that are executed when the top-level INSTALL action is executed and the internal user interface level is set to full UI or reduced UI. The installer skips the actions in this table if the user interface level is set to basic UI or no UI.</summary>
+		/// <summary>The InstallUISequence table lists actions that are executed when the top-level INSTALL action is executed and the public user interface level is set to full UI or reduced UI. The installer skips the actions in this table if the user interface level is set to basic UI or no UI.</summary>
 		/// <remarks>Please refer to the MSDN documentation for more information.</remarks>
 		public const string	InstallUISequence = "InstallUISequence";
 
@@ -470,11 +470,11 @@ namespace	WindowsInstaller
 	}
 
 /// <summary>
-	/// Internal class containing constants for MSI installer properties.
+	/// public class containing constants for MSI installer properties.
 	/// This class cannot be inherited.
 	/// This class cannot be instantiated directly.
 	/// </summary>
-	sealed internal class	MsiInstallerProperty
+	sealed public class	MsiInstallerProperty
 	{
 		#region	Constants (Static Fields)
 		#region	Component Location
@@ -1072,7 +1072,7 @@ namespace	WindowsInstaller
 
 	#region	Enumerations
 	/// <summary>Bit-flags of extra advertisment options.</summary>
-	internal enum	MsiAdvertismentOptions : uint
+	public enum	MsiAdvertismentOptions : uint
 	{
 		/// <summary>No options.</summary>
 		None = 0,
@@ -1081,7 +1081,7 @@ namespace	WindowsInstaller
 	}
 
 	/// <summary>Enumeration of MSI assembly types.</summary>
-	internal enum	MsiAssemblyInfo : uint
+	public enum	MsiAssemblyInfo : uint
 	{
 		/// <summary>.Net assemblies</summary>
 		NetAssembly = 0,
@@ -1090,7 +1090,7 @@ namespace	WindowsInstaller
 	}
 
 	/// <summary>Enumeration of database persistence modes.</summary>
-	internal enum	MsiDbPersistMode
+	public enum	MsiDbPersistMode
 	{
 		/// <summary>database open read-only, no persistent changes</summary>
 		ReadOnly = 0,
@@ -1107,7 +1107,7 @@ namespace	WindowsInstaller
 	}
 
 	/// <summary>Enumeration of view column types to return from <see cref="MsiInterop.MsiViewGetColumnInfo"/>.</summary>
-	internal enum	MsiColInfoType : int
+	public enum	MsiColInfoType : int
 	{
 		/// <summary>Column names are returned.</summary>
 		Names = 0,
@@ -1116,7 +1116,7 @@ namespace	WindowsInstaller
 	}
 
 	/// <summary>Enumeration of MSI conditions.</summary>
-	internal enum	MsiCondition : int
+	public enum	MsiCondition : int
 	{
 		/// <summary>expression evaluates to False</summary>
 		False = 0,
@@ -1132,7 +1132,7 @@ namespace	WindowsInstaller
 	/// <summary>Bitflags for MSI control attributes.</summary>
 	/// <remarks>Please refer to the MSDN Windows Installer documentation for more information.</remarks>
 	[Flags]
-	internal enum	MsiControlAttribute : int
+	public enum	MsiControlAttribute : int
 	{
 		/// <summary>If the Visible Control bit is set, the control is visible on the dialog box. If this bit is not set, the control is hidden on the dialog box. The visible or hidden state of the Visible control attribute can be later changed by a Control Event.</summary>
 		Visible = 0x00000001,
@@ -1182,7 +1182,7 @@ namespace	WindowsInstaller
 
 		/// <summary>If this bit is set, the control shows all the volumes involved in the current installation plus all the removable volumes. If this bit is not set, the control lists volumes in the current installation.</summary>
 		RemovableVolume = 0x00010000,
-		/// <summary>If the FixedVolume Control bit is set, the control shows all the volumes involved in the current installation plus all the fixed internal hard drives. If this bit is not set, the control lists the volumes in the current installation.</summary>
+		/// <summary>If the FixedVolume Control bit is set, the control shows all the volumes involved in the current installation plus all the fixed public hard drives. If this bit is not set, the control lists the volumes in the current installation.</summary>
 		FixedVolume = 0x00020000,
 		/// <summary>If this bit is set, the control shows all the volumes involved in the current installation plus all the remote volumes. If this bit is not set, the control lists volumes in the current installation.</summary>
 		RemoteVolume = 0x00040000,
@@ -1229,7 +1229,7 @@ namespace	WindowsInstaller
 	}
 
 	/// <summary>Enumeration of MSI feature cost tree options.</summary>
-	internal enum	MsiCostTree : int
+	public enum	MsiCostTree : int
 	{
 		/// <summary>The feature only is included in the cost.</summary>
 		SelfOnly = 0,
@@ -1242,7 +1242,7 @@ namespace	WindowsInstaller
 	}
 
 	/// <summary>Enumeration of custom action types.</summary>
-	internal enum	MsiCustomActionType : int
+	public enum	MsiCustomActionType : int
 	{
 		// executable types
 
@@ -1308,7 +1308,7 @@ namespace	WindowsInstaller
 	}
 
 	/// <summary>Enumeration of MSI database errors.</summary>
-	internal enum	MsiDbError : int
+	public enum	MsiDbError : int
 	{
 		/// <summary>invalid argument</summary>
 		InvalidArg = -3,
@@ -1379,7 +1379,7 @@ namespace	WindowsInstaller
 	}
 
 	/// <summary>Enumeration of MSI database states.</summary>
-	internal enum	MsiDbState : int
+	public enum	MsiDbState : int
 	{
 		/// <summary>invalid database handle</summary>
 		Error = -1,
@@ -1392,7 +1392,7 @@ namespace	WindowsInstaller
 	/// <summary>Bitflags for MSI dialogs.</summary>
 	/// <remarks>Please refer to the MSDN Windows Installer documentation for more information.</remarks>
 	[Flags]
-	internal enum	MsiDialogStyle : int
+	public enum	MsiDialogStyle : int
 	{
 		/// <summary>If this bit is set the dialog is originally created as visible, otherwise it is hidden.</summary>
 		Visible = 1,
@@ -1420,8 +1420,8 @@ namespace	WindowsInstaller
 		Error = 65536,
 	}
 
-	/// <summary>Internal enumeration of Win32/MSI errors.</summary>
-	internal enum	MsiError : uint
+	/// <summary>public enumeration of Win32/MSI errors.</summary>
+	public enum	MsiError : uint
 	{
 		/// <summary>No error occured.</summary>
 		NoError = 0,
@@ -1559,7 +1559,7 @@ namespace	WindowsInstaller
 
 	/// <summary>Bit flags install feature attributes enumeration.</summary>
 	[Flags]
-	internal enum	MsiInstallFeatureAttribute : int
+	public enum	MsiInstallFeatureAttribute : int
 	{
 		/// <summary>FavorLocal</summary>
 		FavorLocal = (1 << 0),
@@ -1581,7 +1581,7 @@ namespace	WindowsInstaller
 	/// Bit-flags defining an MSI feature's install state.
 	/// </summary>
 	[Flags]
-	internal enum	MsiFeatureInstallState : int
+	public enum	MsiFeatureInstallState : int
 	{
 		/// <summary>The feature can be advertised.</summary>
 		Advertised = 2,
@@ -1596,7 +1596,7 @@ namespace	WindowsInstaller
 	}
 
 	/// <summary>Enumeration of MSI install levels.</summary>
-	internal enum	MsiInstallLevel : int
+	public enum	MsiInstallLevel : int
 	{
 		/// <summary>install authored default</summary>
 		Default = 0,
@@ -1608,7 +1608,7 @@ namespace	WindowsInstaller
 
 	/// <summary>Bit flags for use with <see cref="MsiInterop.MsiEnableLog"/> and <see cref="MsiInterop.MsiSetExternalUI"/>.</summary>
 	[Flags]
-	internal enum	MsiInstallLogMode : uint
+	public enum	MsiInstallLogMode : uint
 	{
 		/// <summary>None.</summary>
 		None = 0,
@@ -1658,7 +1658,7 @@ namespace	WindowsInstaller
 	/// <para>A default button:  MB_DEFBUTTON?, where MB_DEFBUTTON1 is the default</para>
 	/// <para>One of these flags an install message, no default.</para>
 	/// </summary>
-	internal enum	MsiInstallMessage : long
+	public enum	MsiInstallMessage : long
 	{
 		/// <summary>premature termination, possibly fatal OOM</summary>
 		FatalExit = 0x00000000,
@@ -1693,7 +1693,7 @@ namespace	WindowsInstaller
 	}
 
 	/// <summary>Enumeration of installation modes.</summary>
-	internal enum	MsiInstallMode : int
+	public enum	MsiInstallMode : int
 	{
 		/// <summary>skip source resolution</summary>
 		NoSourceResolution = -3,
@@ -1706,7 +1706,7 @@ namespace	WindowsInstaller
 	}
 
 	/// <summary>Enumeration of MSI install states.</summary>
-	internal enum	MsiInstallState : int
+	public enum	MsiInstallState : int
 	{
 		/// <summary>component disabled</summary>
 		NotUsed = -7,
@@ -1739,7 +1739,7 @@ namespace	WindowsInstaller
 	}
 
 	/// <summary>Enumeration of various MSI install types.</summary>
-	internal enum	MsiInstallType : int
+	public enum	MsiInstallType : int
 	{
 		/// <summary>set to indicate default behavior</summary>
 		Default = 0,
@@ -1749,8 +1749,8 @@ namespace	WindowsInstaller
 		SingleInstance =2,
 	}
 
-	/// <summary>Enumeration of internal MSI install UI levels.</summary>
-	internal enum	MsiInstallUILevel : uint
+	/// <summary>Enumeration of public MSI install UI levels.</summary>
+	public enum	MsiInstallUILevel : uint
 	{
 		/// <summary>UI level is unchanged</summary>
 		NoChange = 0,
@@ -1775,7 +1775,7 @@ namespace	WindowsInstaller
 	}
 
 	/// <summary>Flag attributes for <see cref="MsiInterop.MsiEnableLog"/>.</summary>
-	internal enum	MsiLogAttribute : int
+	public enum	MsiLogAttribute : int
 	{
 		/// <summary>If this value is set, the installer appends the existing log.</summary>
 		Append = (1 << 0),
@@ -1784,7 +1784,7 @@ namespace	WindowsInstaller
 	}
 
 	/// <summary>Enumeration of modification modes for <see cref="MsiInterop.MsiViewModify"/>.</summary>
-	internal enum	MsiModify : int
+	public enum	MsiModify : int
 	{
 		/// <summary>reposition to current record primary key</summary>
 		Seek =-1,
@@ -1817,7 +1817,7 @@ namespace	WindowsInstaller
 	/// <summary>
 	/// Possible flags for the <c>options</c> parameter of <see cref="MsiInterop.MsiOpenPackageEx"/>.
 	/// </summary>
-	internal enum	MsiOpenPackageFlags : uint
+	public enum	MsiOpenPackageFlags : uint
 	{
 		/// <summary>No options.</summary>
 		None = 0,
@@ -1827,7 +1827,7 @@ namespace	WindowsInstaller
 
 	/// <summary>Bit-flags for reinstallation.</summary>
 	[Flags]
-	internal enum	MsiReinstallMode : uint
+	public enum	MsiReinstallMode : uint
 	{
 		/// <summary>Reserved bit - currently ignored</summary>
 		Repair = 0x00000001,
@@ -1854,7 +1854,7 @@ namespace	WindowsInstaller
 	}
 
 	/// <summary>Enumeration of MSI run modes.</summary>
-	internal enum	MsiRunMode : int
+	public enum	MsiRunMode : int
 	{
 		/// <summary>admin mode install, else product install</summary>
 		Admin = 0,
@@ -1898,7 +1898,7 @@ namespace	WindowsInstaller
 
 	/// <summary>Bit-flag error conditions that should be suppressed when the transform is applied.</summary>
 	[Flags]
-	internal enum	MsiTransformError : int
+	public enum	MsiTransformError : int
 	{
 		/// <summary>None of the following conditions.</summary>
 		None = 0x00000000,
@@ -1919,7 +1919,7 @@ namespace	WindowsInstaller
 	}
 
 	/// <summary>Enumeration of MSI user states.</summary>
-	internal enum	MsiUserInfoState : int
+	public enum	MsiUserInfoState : int
 	{
 		/// <summary>return buffer overflow</summary>
 		MoreData = -3,
@@ -1935,7 +1935,7 @@ namespace	WindowsInstaller
 
 	/// <summary>Bit-flags for MSI validation.</summary>
 	[Flags]
-	internal enum	MsiValidationFlag : int
+	public enum	MsiValidationFlag : int
 	{
 		/// <summary>Validate no properties.</summary>
 		None = 0x00000000,
@@ -1965,7 +1965,7 @@ namespace	WindowsInstaller
 
 	/// <summary>Bit-flags of platform architectures.</summary>
 	[Flags]
-	internal enum	PlatformArchitecture : uint
+	public enum	PlatformArchitecture : uint
 	{
 		/// <summary>The current platform.</summary>
 		Current = 0,
@@ -1976,7 +1976,7 @@ namespace	WindowsInstaller
 	}
 
 	/// <summary>Enumeration of MSI summary stream information property ids.</summary>
-	internal enum	SummaryInformationStreamProperty : int
+	public enum	SummaryInformationStreamProperty : int
 	{
 		/// <summary>Codepage</summary>
 		Codepage = 1,
@@ -2017,7 +2017,7 @@ namespace	WindowsInstaller
 	/// <summary>
 	/// Enumeration of variant types.
 	/// </summary>
-	internal enum	VariantType : uint
+	public enum	VariantType : uint
 	{
 		Empty = 0,
 		Null = 1,
@@ -2061,7 +2061,7 @@ namespace	WindowsInstaller
 	#region	Structures
 	/// <summary>The <c>FILETIME</c> structure is a 64-bit value representing the number of 100-nanosecond intervals since January 1, 1601 (UTC).</summary>
 	[StructLayout(LayoutKind.Sequential)]
-	internal struct	FILETIME
+	public struct	FILETIME
 	{
 		/// <summary>Low-order part of the file time.</summary>
 		public uint	LowDateTime;
@@ -2075,12 +2075,12 @@ namespace	WindowsInstaller
 	/// <remarks>
 	/// The <c>messageType</c> parameter specifies a combination of one message box style, one message box icon type, one default button, and one installation message type.
 	/// </remarks>
-    internal delegate int MsiInstallUIHandler(Int32 context,
+    public delegate int MsiInstallUIHandler(Int32 context,
 		uint messageType, [MarshalAs(UnmanagedType.LPTStr)] string message);
 	#endregion	Delegates
 
 	/// <summary>
-	/// Internal class supporting direct MSI API.
+	/// public class supporting direct MSI API.
 	/// This class cannot be inherited.
 	/// This class cannot be instantiated directly.
 	/// </summary>
@@ -2092,7 +2092,7 @@ namespace	WindowsInstaller
 	/// for more information about the Windows Installer API.</para>
 	/// </remarks>
 	[SecurityPermission(SecurityAction.Demand, UnmanagedCode = true)]
-	sealed internal class	MsiInterop
+	sealed public class	MsiInterop
 	{
 		#region	Constants
 		private const string	MSI_LIB = "msi";
@@ -2812,7 +2812,7 @@ namespace	WindowsInstaller
 		extern static public MsiError	MsiReinstallProduct(string product,
 			MsiReinstallMode mode);
 
-		/// <summary>The <c>MsiSetExternalUI</c> function enables an external user-interface handler. This external UI handler is called before the normal internal user-interface handler. The external UI handler has the option to suppress the internal UI by returning a non-zero value to indicate that it has handled the messages.</summary>
+		/// <summary>The <c>MsiSetExternalUI</c> function enables an external user-interface handler. This external UI handler is called before the normal public user-interface handler. The external UI handler has the option to suppress the public UI by returning a non-zero value to indicate that it has handled the messages.</summary>
 		/// <param name="handler">The <see cref="MsiInstallUIHandler"/> handler delegate.</param>
 		/// <param name="filter">Specifies which messages to handle using the external message handler. If the external handler returns a non-zero result, then that message will not be sent to the UI, instead the message will be logged if logging has been enabled. See <see cref="MsiEnableLog"/>.</param>
 		/// <param name="context">Pointer to an application context that is passed to the callback function. This parameter can be used for error checking.</param>
@@ -2824,13 +2824,13 @@ namespace	WindowsInstaller
 			MsiInstallUIHandler handler, MsiInstallLogMode filter,
             Int32 context);
 
-		/// <summary>The <c>MsiSetInternalUI</c> function enables the installer's internal user interface. Then this user interface is used for all subsequent calls to user-interface-generating installer functions in this process.</summary>
+		/// <summary>The <c>MsiSetpublicUI</c> function enables the installer's public user interface. Then this user interface is used for all subsequent calls to user-interface-generating installer functions in this process.</summary>
 		/// <param name="level">Specifies the level of complexity of the user interface.</param>
 		/// <param name="parentWindow">Pointer to a window. This window becomes the owner of any user interface created. A pointer to the previous owner of the user interface is returned. If this parameter is <c>null</c>, the owner of the user interface does not change.</param>
 		/// <returns>The previous user interface level is returned. If an invalid <c>level</c> is passed, then <see cref="MsiInstallUILevel.NoChange"/> is returned.</returns>
 		/// <remarks>Please refer to the MSDN documentation for more information.</remarks>
 		[DllImport(MSI_LIB, CharSet = CharSet.Auto)]
-		extern static public MsiInstallUILevel	MsiSetInternalUI(MsiInstallUILevel level,
+		extern static public MsiInstallUILevel	MsiSetpublicUI(MsiInstallUILevel level,
 			ref Int32 parentWindow);
 
 		/// <summary>The <c>MsiSourceListAddSource</c> function adds to the list of valid network sources in the source list.</summary>
@@ -3404,7 +3404,7 @@ namespace	WindowsInstaller
 		/// <param name="record">Handle to the record.</param>
 		/// <param name="field">Specifies a field of the record.</param>
 		/// <returns>
-		/// <para>The <c>MsiRecordDataSize</c> function returns 0 if the field is null, nonexistent, or an internal object pointer. The function also returns 0 if the handle is not a valid record handle.</para>
+		/// <para>The <c>MsiRecordDataSize</c> function returns 0 if the field is null, nonexistent, or an public object pointer. The function also returns 0 if the handle is not a valid record handle.</para>
 		/// <para>If the data is in integer format, the function returns sizeof(int).</para>
 		/// <para>If the data is in string format, the function returns the character count (not including the null character).</para>
 		/// <para>If the data is in stream format, the function returns the byte count.</para>
@@ -3592,7 +3592,7 @@ namespace	WindowsInstaller
 		[DllImport(MSI_LIB, CharSet = CharSet.Auto)]
         extern static public MsiError MsiSetInstallLevel(Int32 install, int level);
 
-		/// <summary>The <c>MsiSetMode</c> function sets an internal engine Boolean state.</summary>
+		/// <summary>The <c>MsiSetMode</c> function sets an public engine Boolean state.</summary>
 		/// <param name="install">Handle to the installation provided to a DLL custom action or obtained through <see cref="MsiOpenPackage"/>, <see cref="MsiOpenPackageEx"/>, or <see cref="MsiOpenProduct"/>.</param>
 		/// <param name="mode">The <see cref="MsiRunMode"/>.  Only <see cref="MsiRunMode.RebootAtEnd"/> and <see cref="MsiRunMode.RebootNow"/> are supported.</param>
 		/// <param name="state">Specifies the state to set to <c>true</c> or <c>false</c>.</param>

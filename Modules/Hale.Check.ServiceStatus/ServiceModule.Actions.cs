@@ -161,23 +161,5 @@
 
             return result;
         }
-
-        private class ServiceCommandException : Exception
-        {
-            public ServiceCommandException()
-                : base()
-            {
-            }
-
-            public ServiceCommandException(string m)
-                : base(m)
-            {
-            }
-
-            public ServiceCommandException(string m, Exception x)
-                : base(m, x)
-            {
-            }
-        }
     }
 }

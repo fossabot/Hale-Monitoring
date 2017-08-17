@@ -21,8 +21,6 @@
 
         public new decimal TargetApi { get; } = 1.3M;
 
-        public Dictionary<string, ModuleFunction> Functions { get; set; } = new Dictionary<string, ModuleFunction>();
-
         public AlertFunctionResult DefaultAlert(AlertSettings settings)
         {
             var afr = new AlertFunctionResult();

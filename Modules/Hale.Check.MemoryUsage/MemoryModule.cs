@@ -29,7 +29,7 @@
 
         [CheckFunction(Default = true, Identifier = "usage")]
         [ReturnUnit("freePercentage", UnitType.Percent, Name = "Free Relative")]
-        [ReturnUnit("freeBytes", UnitType.StorageUnit, Precision = "byte", Name = "Free Absolute")]
+        [ReturnUnit("freeBytes", UnitType.StorageUnit, Precision = UnitTypeResolution.StorageUnit.Byte, Name = "Free Absolute")]
         public CheckResult DefaultCheck(CheckSettings settings)
         {
             CheckResult result = new CheckResult();

@@ -41,7 +41,7 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\WebApiSwagger.XML</DocumentationFile>
     <NoWarn>1591</NoWarn>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\..\AnalysisRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -261,7 +261,6 @@
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Utils\ConfigSerializer.cs" />
     <Compile Include="Utils\IPAdressYamlTypeConverter.cs" />
-    <Compile Include="Utils\MsiInterop.cs" />
     <Compile Include="Utils\ExceptionHandlingAttribute.cs" />
     <Compile Include="Handlers\ApiHandler.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
@@ -304,6 +303,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Hale.MsiInterop\Hale.MsiInterop.csproj">
+      <Project>{222dd828-376d-40e4-802e-b8137fd1a083}</Project>
+      <Name>Hale.MsiInterop</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Shared\Hale.Lib.ModuleLoader\Hale.Lib.ModuleLoader.csproj">
       <Project>{a9904f35-66fa-4296-92e3-15fa49d9cf1d}</Project>
       <Name>Hale.Lib.ModuleLoader</Name>

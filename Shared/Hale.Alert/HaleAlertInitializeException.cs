@@ -2,6 +2,7 @@
 {
     using System;
 
+    [Serializable]
     public class HaleAlertInitializeException : HaleAlertException
     {
         public HaleAlertInitializeException()
