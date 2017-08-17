@@ -1,67 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-
-using Config = System.Collections.Generic.Dictionary<string, string>; 
-
-namespace Hale.Alert
+﻿namespace Hale.Alert
 {
-    public class HaleAlertEmail: IHaleAlert
+    using System;
+    using System.Net.Mail;
+    using Config = System.Collections.Generic.Dictionary<string, string>;
+
+    public class HaleAlertEmail : IHaleAlert
     {
-        public string Name { get { return "Email"; } }
+        private readonly Version version = new Version(0, 1, 1);
 
-        readonly Version _version = new Version(0, 1, 1);
-        public Version Version { get { return _version; }  }
+        private Config config;
+        private SmtpClient smtp;
 
-        public decimal TargetApi { get { return 0.1M; } }
+        public string Name
+            => "Email";
+
+        public Version Version
+            => this.Version;
+
+        public decimal TargetApi
+            => 0.1M;
+
+        public string InitResponse { get; private set; }
 
         public bool Ready { get; private set; }
 
-        private Config _config;
-
-        SmtpClient smtp;
-
         public void Initialize(Config config)
         {
-            _config = config;
+            this.config = config;
             try
             {
-                var useSsl = (_config.ContainsKey("smtp_ssl") && bool.Parse(_config["smtp_ssl"]));
-                var smtpHost = _config["smtp_host"];
-                var smtpPort = int.Parse(_config["smtp_port"]);
+                var useSsl = this.config.ContainsKey("smtp_ssl") && bool.Parse(this.config["smtp_ssl"]);
+                var smtpHost = this.config["smtp_host"];
+                var smtpPort = int.Parse(this.config["smtp_port"]);
 
                 if (!useSsl)
                 {
                     string response;
                     if (!SmtpHelper.TestConnection(smtpHost, smtpPort, out response))
                     {
-                        InitResponse = response;
+                        this.InitResponse = response;
                         throw new HaleAlertInitializeException(new Exception("Cannot verify SMTP connection."));
                     }
 
-                    InitResponse = response;
+                    this.InitResponse = response;
                 }
 
-                smtp = new SmtpClient(smtpHost, smtpPort) {EnableSsl = useSsl};
+                this.smtp = new SmtpClient(smtpHost, smtpPort) { EnableSsl = useSsl };
 
-
-                Ready = true;
+                this.Ready = true;
             }
             catch (Exception x)
             {
                 throw new HaleAlertInitializeException(x);
             }
-
         }
-
-        public string InitResponse { get; private set; }
 
         public void Send(string message, string source, IHaleAlertRecipient[] recipients)
         {
-
         }
     }
 }

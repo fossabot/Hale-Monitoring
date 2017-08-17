@@ -1,60 +1,52 @@
-﻿using Hale.Agent.Config;
-using Hale.Lib.Modules;
-using Hale.Lib.Modules.Actions;
-using Hale.Lib.Modules.Checks;
-using Hale.Lib.Modules.Info;
-using Hale.Lib.Utilities;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
-using NLog;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-
-namespace Hale.Agent.Modules
+﻿namespace Hale.Agent.Modules
 {
-    // Todo: Rename class @todo -NM
-    class ResultStorage: IResultStorage, IDisposable
-    {
-        string _resultsPath;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Text;
+    using Hale.Agent.Config;
+    using Hale.Lib.Modules;
+    using Hale.Lib.Modules.Actions;
+    using Hale.Lib.Modules.Checks;
+    using Hale.Lib.Modules.Info;
+    using Hale.Lib.Modules.Results;
+    using Hale.Lib.Utilities;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
+    using Newtonsoft.Json.Linq;
+    using NLog;
 
-        ILogger _log = LogManager.GetLogger("ResultStorage");
+    // Todo: Rename class @todo -NM
+    internal class ResultStorage : IResultStorage, IDisposable
+    {
+        private readonly ILogger log = LogManager.GetLogger("ResultStorage");
+
+        private string resultsPath;
+
+        private Queue<IModuleResultRecord> records = new Queue<IModuleResultRecord>();
 
         public ResultStorage()
         {
-            var env = ServiceProvider.GetService<EnvironmentConfig>();
-            _resultsPath = env.ResultsPath;
-
-            //Load();
+            this.resultsPath = ServiceProvider.GetService<EnvironmentConfig>().ResultsPath;
         }
 
         public void Dispose()
-        {
-            Persist();
-        }
-
-        Queue<IModuleResultRecord> _records = new Queue<IModuleResultRecord>();
-
-
+            => this.Persist();
 
         public void StoreResult(IModuleResultRecord record)
-        {
-            _records.Enqueue(record);
-        }
+            => this.records.Enqueue(record);
 
         public void Persist()
         {
             var encoding = new UTF8Encoding(false);
-            //var formatter = new BinaryFormatter();
+
             var js = new Newtonsoft.Json.JsonSerializer();
             js.Converters.Add(new VersionConverter());
-             
-            while (_records.Count > 0)
+
+            while (this.records.Count > 0)
             {
-                var resultFile = Path.Combine(_resultsPath, Guid.NewGuid().ToString("N") + ".json");
-                var record =_records.Dequeue();
+                var resultFile = Path.Combine(this.resultsPath, Guid.NewGuid().ToString("N") + ".json");
+                var record = this.records.Dequeue();
                 using (var fs = File.OpenWrite(resultFile))
                 {
                     var sw = new StreamWriter(fs, encoding);
@@ -72,11 +64,16 @@ namespace Hale.Agent.Modules
             var js = new Newtonsoft.Json.JsonSerializer();
             js.Converters.Add(new VersionConverter());
 
-            foreach (var file in Directory.GetFiles(_resultsPath)) {
-                if (records.Count >= maxRecords) break;
+            foreach (var file in Directory.GetFiles(this.resultsPath))
+            {
+                if (records.Count >= maxRecords)
+                {
+                    break;
+                }
 
                 var guid = Guid.Parse(Path.GetFileNameWithoutExtension(file));
-                try {
+                try
+                {
                     using (var fs = File.OpenRead(file))
                     {
                         var sr = new StreamReader(fs, encoding);
@@ -85,20 +82,29 @@ namespace Hale.Agent.Modules
                         var functiontype = (ModuleFunctionType)((int)token.SelectToken("FunctionType"));
                         var jr = token.CreateReader();
                         ModuleResultRecord record = null;
+
                         if (functiontype == ModuleFunctionType.Check)
+                        {
                             record = js.Deserialize<CheckResultRecord>(jr);
+                        }
+
                         if (functiontype == ModuleFunctionType.Info)
+                        {
                             record = js.Deserialize<InfoResultRecord>(jr);
+                        }
+
                         if (functiontype == ModuleFunctionType.Action)
+                        {
                             record = js.Deserialize<ActionResultRecord>(jr);
+                        }
+
                         records.Add(guid, record);
                     }
                 }
                 catch (Exception x)
                 {
-                    _log.Warn(x, $"Could not open file \"{file}\": {x.Message}");
+                    this.log.Warn(x, $"Could not open file \"{file}\": {x.Message}");
                 }
-
             }
 
             return records;
@@ -106,15 +112,14 @@ namespace Hale.Agent.Modules
 
         public void Clear(Guid[] uploaded)
         {
-            foreach(var guid in uploaded)
+            foreach (var guid in uploaded)
             {
-                var file = Path.Combine(_resultsPath, guid.ToString("N") + ".json");
-                if(File.Exists(file))
+                var file = Path.Combine(this.resultsPath, guid.ToString("N") + ".json");
+                if (File.Exists(file))
                 {
                     File.Delete(file);
                 }
             }
-            
         }
     }
 }

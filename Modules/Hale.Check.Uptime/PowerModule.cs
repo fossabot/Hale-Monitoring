@@ -1,26 +1,26 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Hale.Lib.Modules;
-using Hale.Lib.Modules.Info;
-using static Hale.Lib.Utilities.TimeSpanFormatter;
-using Hale.Lib.Modules.Attributes;
-
-namespace Hale.Modules
+﻿namespace Hale.Modules
 {
+    using System;
+    using System.Collections.Generic;
+    using Hale.Lib.Modules;
+    using Hale.Lib.Modules.Attributes;
+    using Hale.Lib.Modules.Info;
+    using static Hale.Lib.Utilities.TimeSpanFormatter;
 
     [HaleModule("com.itshale.core.power", 0, 1, 1)]
     [HaleModuleName("Power Module")]
-    public sealed class UptimeCheck: Module, IInfoProvider
+    public sealed class PowerModule : Module, IInfoProvider
     {
-
         public override string Name => "Power";
+
         public override string Author => "hale project";
+
         public override string Identifier => "com.itshale.core.power";
+
         public override string Platform => "Windows";
+
         public override decimal TargetApi => 1.2M;
+
         public override Version Version => new Version(0, 1, 1);
 
         Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
@@ -32,19 +32,20 @@ namespace Hale.Modules
         {
             var result = new InfoResult();
 
-            try {
-                TimeSpan uptime = new TimeSpan();
+            try
+            {
+                TimeSpan uptime = default(TimeSpan);
 
-                float _raw;
+                float raw;
 
                 using (var utCounter = new System.Diagnostics.PerformanceCounter("System", "System Up Time"))
                 {
                     utCounter.NextValue();
-                    _raw = utCounter.NextValue();
-                    uptime = TimeSpan.FromSeconds(_raw);
+                    raw = utCounter.NextValue();
+                    uptime = TimeSpan.FromSeconds(raw);
                 }
 
-                result.Items.Add("uptime", _raw.ToString());
+                result.Items.Add("uptime", raw.ToString());
 
                 result.Message = "Uptime: " + HumanizeTimeSpan(uptime);
 
@@ -61,9 +62,8 @@ namespace Hale.Modules
 
         public void InitializeInfoProvider(InfoSettings settings)
         {
-            this.AddSingleResultInfoFunction(DefaultInfo);
-            this.AddSingleResultInfoFunction("uptime", DefaultInfo);
+            this.AddSingleResultInfoFunction(this.DefaultInfo);
+            this.AddSingleResultInfoFunction("uptime", this.DefaultInfo);
         }
-
     }
 }

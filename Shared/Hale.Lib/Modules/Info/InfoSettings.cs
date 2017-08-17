@@ -1,27 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hale.Lib.Modules.Info
+﻿namespace Hale.Lib.Modules.Info
 {
-    [Serializable]
-    public class InfoSettings: ModuleSettingsBase
-    {
-        public string Info { get; set; } = "default";
+    using System;
+    using System.Collections.Generic;
 
-        public InfoSettings() { }
+    [Serializable]
+    public class InfoSettings : ModuleSettingsBase
+    {
+        public InfoSettings()
+        {
+        }
+
         public InfoSettings(Dictionary<string, string> rawMap)
         {
-            _raw = rawMap;
+            this.Raw = rawMap;
         }
+
+        public string Info { get; set; } = "default";
 
         public override void ParseRaw()
         {
             base.ParseRaw();
-            Info = _raw.ContainsKey("info") ? _raw["info"] : "default";
+            this.Info = this.Raw.ContainsKey("info") ? this.Raw["info"] : "default";
         }
     }
-
 }

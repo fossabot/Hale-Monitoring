@@ -14,7 +14,7 @@
     using Piksel.Nemesis.Security;
     using WindowsInstaller;
 
-    internal class AgentDistHandler
+    internal class AgentDistHandler : IDisposable
     {
         private readonly HaleDBContext db = new HaleDBContext();
         private readonly ILogger log = LogManager.GetLogger("AgentDistHandler");
@@ -47,6 +47,11 @@
             this.coreSendPort = (ushort)agentConfig.SendPort;
             this.coreReceivePort = (ushort)agentConfig.ReceivePort;
             this.coreHostname = agentConfig.Hostname;
+        }
+
+        public void Dispose()
+        {
+            this.db.Dispose();
         }
 
         internal void CreatePackages(bool force = false)

@@ -4,7 +4,6 @@
     using System.Net.Http;
     using System.Security.Claims;
     using System.Web.Http;
-    using Hale.Core.Data.Contexts;
 
     /// <summary>
     /// Base API Controller providing a db instance and auth protection.

@@ -1,25 +1,21 @@
-﻿using System;
-using Hale.Agent;
-using NLog;
-using System.ServiceProcess;
-
-namespace Hale.Agent
+﻿namespace Hale.Agent
 {
-    class Program: MarshalByRefObject
+    using System;
+    using NLog;
+
+    public class Program : MarshalByRefObject
     {
-        static ILogger _log = LogManager.GetLogger("Main");
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        static void Main()
+        private static readonly ILogger Log = LogManager.GetLogger("Main");
+
+        private static void Main()
         {
 #if DEBUG
             Console.Title = "Hale Agent";
-            _log.Info("Starting Agent in Debug mode.");
+            Log.Info("Starting Agent in Debug mode.");
             HaleAgentService svc = new HaleAgentService();
             svc.StartDebug();
 #else
-            _log.Info("Starting Hale Agent in Service mode.");
+            Log.Info("Starting Hale Agent in Service mode.");
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
             { 
@@ -28,6 +24,5 @@ namespace Hale.Agent
             ServiceBase.Run(ServicesToRun);
 #endif
         }
-
     }
 }

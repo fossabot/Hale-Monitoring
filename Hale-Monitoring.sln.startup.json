@@ -1,0 +1,26 @@
+{
+  "Version": 3,
+  "ListAllProjects": false,
+  "MultiProjectConfigurations": {
+    "Core* + Agent": {
+      "Projects": {
+        "Hale.Agent": {
+          "StartProject": false
+        },
+        "Hale.Core": {
+          "StartProject": true
+        }
+      }
+    },
+    "Core + Agent*": {
+      "Projects": {
+        "Hale.Agent": {
+          "StartProject": true
+        },
+        "Hale.Core": {
+          "StartProject": false
+        }
+      }
+    }
+  }
+}

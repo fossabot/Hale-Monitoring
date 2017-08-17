@@ -1,30 +1,21 @@
-﻿using System;
-using System.Net;
-using Newtonsoft.Json;
-
-using GenericRequest = System.Collections.Generic.Dictionary<string, object>;
-
-// ReSharper disable once CheckNamespace
-namespace Hale.Alert.Pushbullet
+﻿namespace Hale.Alert.Pushbullet
 {
+    using System;
+    using System.Net;
+    using Newtonsoft.Json;
+    using GenericRequest = System.Collections.Generic.Dictionary<string, object>;
+
     public class PushbulletApi
     {
-        static readonly string URL_API_BASE = "https://api.pushbullet.com/";
-
-        //private readonly string _accessToken;
-
-        public PushbulletApi(string accessToken)
-        {
-            //_accessToken = accessToken;
-        }
+        private static readonly string UrlApiBase = "https://api.pushbullet.com/";
 
         public PushResponse Push(string title, string body, HaleAlertPushbulletRecipient recipient)
         {
             var request = new GenericRequest()
             {
-                {"title", title},
-                {"body", body},
-                {"type", "note"}
+                { "title", title },
+                { "body", body },
+                { "type", "note" }
             };
             switch (recipient.TargetType)
             {
@@ -40,14 +31,14 @@ namespace Hale.Alert.Pushbullet
                 case PushbulletPushTarget.Client:
                     request.Add("client_iden", recipient.Target);
                     break;
-
             }
-            return MakeRequest<PushResponse>("pushes", recipient.AccessToken, request);
+
+            return this.MakeRequest<PushResponse>("pushes", recipient.AccessToken, request);
         }
 
         public object MakeRequest(string route, string accessToken, object request = null, string version = "v2")
         {
-            return MakeRequest<object>(route, accessToken, request, version);
+            return this.MakeRequest<object>(route, accessToken, request, version);
         }
 
         public T MakeRequest<T>(string route, string accessToken, object request = null, string version = "v2")
@@ -57,17 +48,15 @@ namespace Hale.Alert.Pushbullet
             wc.Headers.Add(HttpRequestHeader.Authorization, "Bearer " + accessToken);
             wc.Headers.Add(HttpRequestHeader.ContentType, "application/json");
 
-            var uri = new Uri(string.Concat(URL_API_BASE, version, "/", route));
+            var uri = new Uri(string.Concat(UrlApiBase, version, "/", route));
 
             try
             {
-                string requestJson = request == null ? "" : JsonConvert.SerializeObject(request);
+                string requestJson = request == null ? string.Empty : JsonConvert.SerializeObject(request);
 
-                var responseJson = string.IsNullOrEmpty(requestJson) ? 
-                    wc.DownloadString(uri) : 
+                var responseJson = string.IsNullOrEmpty(requestJson) ?
+                    wc.DownloadString(uri) :
                     wc.UploadString(uri, requestJson);
-
-                //var responseJson = Encoding.UTF8.GetString(result);
 
                 return JsonConvert.DeserializeObject<T>(responseJson);
             }
@@ -84,7 +73,7 @@ namespace Hale.Alert.Pushbullet
                     5XX Server Error - Something went wrong on Pushbullet's side.
                  */
 
-                switch (((HttpWebResponse) x.Response).StatusCode)
+                switch (((HttpWebResponse)x.Response).StatusCode)
                 {
                     case HttpStatusCode.OK:
                         throw new Exception("Internal error. Success treated as exception.");
@@ -111,41 +100,6 @@ namespace Hale.Alert.Pushbullet
                         throw;
                 }
             }
-
         }
-    }
-
-    public class PushResponse
-    {
-        /*
-          "iden": "ubdpj29aOK0sKG",
-          "type": "note",
-          "title": "Note Title",
-          "body": "Note Body",
-          "created": 1399253701.9744401,
-          "modified": 1399253701.9746201,
-          "active": true,
-          "dismissed": false,
-          "sender_iden": "ubd",
-          "sender_email": "ryan@pushbullet.com",
-          "sender_email_normalized": "ryan@pushbullet.com",
-          "receiver_iden": "ubd",
-          "receiver_email": "ryan@pushbullet.com",
-          "receiver_email_normalized": "ryan@pushbullet.com"
-         */
-        public string Iden;
-        public string Type;
-        public string Title;
-        public string Body;
-        public double Created;
-        public double Modified;
-        public bool Active;
-        public bool Dismissed;
-        public string SenderIden;
-        public string SenderEmail;
-        public string SenderEmailNormalized;
-        public string ReceiverIden;
-        public string ReceiverEmail;
-        public string ReceiverEmailNormalized;
     }
 }

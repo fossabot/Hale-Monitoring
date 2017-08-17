@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hale.Lib.Modules.Attributes
+﻿namespace Hale.Lib.Modules.Attributes
 {
+    using System;
+
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
     public sealed class HaleModuleDescriptionAttribute : Attribute
     {
         public HaleModuleDescriptionAttribute(string description)
         {
-            Description = description;
+            this.Description = description;
         }
 
         public string Description { get; }

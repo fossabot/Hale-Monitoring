@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hale.Core.Data.Entities.Modules
+﻿namespace Hale.Core.Data.Entities.Modules
 {
+    using System;
+
     /// <summary>
     /// TODO: Add text here
     /// </summary>
@@ -40,7 +36,7 @@ namespace Hale.Core.Data.Entities.Modules
         /// TODO: Add text here
         /// </summary>
         public DateTimeOffset ExecutionTime { get; set; }
-        
+
         /// <summary>
         /// TODO: Add text here
         /// </summary>

@@ -1,13 +1,12 @@
 namespace Hale.Core.Data.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class Init : DbMigration
     {
         public override void Up()
         {
-            CreateTable(
+            this.CreateTable(
                 "Entities.AccountDetails",
                 c => new
                     {
@@ -20,8 +19,8 @@ namespace Hale.Core.Data.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("Entities.Accounts", t => t.Account_Id)
                 .Index(t => t.Account_Id);
-            
-            CreateTable(
+
+            this.CreateTable(
                 "Entities.Accounts",
                 c => new
                     {
@@ -41,8 +40,8 @@ namespace Hale.Core.Data.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.UserName, unique: true);
-            
-            CreateTable(
+
+            this.CreateTable(
                 "Entities.AgentConfigSets",
                 c => new
                     {
@@ -56,8 +55,8 @@ namespace Hale.Core.Data.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Identifier, unique: true, name: "IX_Identifier_Unique");
-            
-            CreateTable(
+
+            this.CreateTable(
                 "Entities.AgentConfigSetFuncSettings",
                 c => new
                     {
@@ -83,8 +82,8 @@ namespace Hale.Core.Data.Migrations
                 .Index(t => t.Module_Id)
                 .Index(t => t.WarningAction_Id)
                 .Index(t => t.AgentConfigSet_Id);
-            
-            CreateTable(
+
+            this.CreateTable(
                 "Entities.AgentConfigSetCheckActions",
                 c => new
                     {
@@ -94,8 +93,8 @@ namespace Hale.Core.Data.Migrations
                         Target = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
-            
-            CreateTable(
+
+            this.CreateTable(
                 "Entities.AgentConfigSetFunctionSettings",
                 c => new
                     {
@@ -108,8 +107,8 @@ namespace Hale.Core.Data.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("Entities.AgentConfigSetFuncSettings", t => t.AgentConfigSetFuncSettings_Id)
                 .Index(t => t.AgentConfigSetFuncSettings_Id);
-            
-            CreateTable(
+
+            this.CreateTable(
                 "Entities.Modules",
                 c => new
                     {
@@ -120,8 +119,8 @@ namespace Hale.Core.Data.Migrations
                         Revision = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
-            
-            CreateTable(
+
+            this.CreateTable(
                 "Entities.AgentConfigSetTasks",
                 c => new
                     {
@@ -135,8 +134,8 @@ namespace Hale.Core.Data.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("Entities.AgentConfigSets", t => t.AgentConfigSet_Id)
                 .Index(t => t.AgentConfigSet_Id);
-            
-            CreateTable(
+
+            this.CreateTable(
                 "Entities.CheckRecords",
                 c => new
                     {
@@ -148,8 +147,8 @@ namespace Hale.Core.Data.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("Entities.Results", t => t.Result_Id)
                 .Index(t => t.Result_Id);
-            
-            CreateTable(
+
+            this.CreateTable(
                 "Entities.Results",
                 c => new
                     {
@@ -163,8 +162,8 @@ namespace Hale.Core.Data.Migrations
                         Exception = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
-            
-            CreateTable(
+
+            this.CreateTable(
                 "Entities.Functions",
                 c => new
                     {
@@ -174,8 +173,8 @@ namespace Hale.Core.Data.Migrations
                         ModuleId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
-            
-            CreateTable(
+
+            this.CreateTable(
                 "Entities.InfoRecords",
                 c => new
                     {
@@ -187,8 +186,8 @@ namespace Hale.Core.Data.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("Entities.Results", t => t.Result_Id)
                 .Index(t => t.Result_Id);
-            
-            CreateTable(
+
+            this.CreateTable(
                 "Entities.NodeComments",
                 c => new
                     {
@@ -203,8 +202,8 @@ namespace Hale.Core.Data.Migrations
                 .ForeignKey("Entities.Accounts", t => t.User_Id)
                 .Index(t => t.Node_Id)
                 .Index(t => t.User_Id);
-            
-            CreateTable(
+
+            this.CreateTable(
                 "Entities.Nodes",
                 c => new
                     {
@@ -228,8 +227,8 @@ namespace Hale.Core.Data.Migrations
                         Blocked = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
-            
-            CreateTable(
+
+            this.CreateTable(
                 "Entities.NodeDetails",
                 c => new
                     {
@@ -242,52 +241,51 @@ namespace Hale.Core.Data.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("Entities.Nodes", t => t.Node_Id)
                 .Index(t => t.Node_Id);
-            
         }
-        
+
         public override void Down()
         {
-            DropForeignKey("Entities.NodeComments", "User_Id", "Entities.Accounts");
-            DropForeignKey("Entities.NodeComments", "Node_Id", "Entities.Nodes");
-            DropForeignKey("Entities.NodeDetails", "Node_Id", "Entities.Nodes");
-            DropForeignKey("Entities.InfoRecords", "Result_Id", "Entities.Results");
-            DropForeignKey("Entities.CheckRecords", "Result_Id", "Entities.Results");
-            DropForeignKey("Entities.AgentConfigSetTasks", "AgentConfigSet_Id", "Entities.AgentConfigSets");
-            DropForeignKey("Entities.AgentConfigSetFuncSettings", "AgentConfigSet_Id", "Entities.AgentConfigSets");
-            DropForeignKey("Entities.AgentConfigSetFuncSettings", "WarningAction_Id", "Entities.AgentConfigSetCheckActions");
-            DropForeignKey("Entities.AgentConfigSetFuncSettings", "Module_Id", "Entities.Modules");
-            DropForeignKey("Entities.AgentConfigSetFunctionSettings", "AgentConfigSetFuncSettings_Id", "Entities.AgentConfigSetFuncSettings");
-            DropForeignKey("Entities.AgentConfigSetFuncSettings", "CriticalAction_Id", "Entities.AgentConfigSetCheckActions");
-            DropForeignKey("Entities.AccountDetails", "Account_Id", "Entities.Accounts");
-            DropIndex("Entities.NodeDetails", new[] { "Node_Id" });
-            DropIndex("Entities.NodeComments", new[] { "User_Id" });
-            DropIndex("Entities.NodeComments", new[] { "Node_Id" });
-            DropIndex("Entities.InfoRecords", new[] { "Result_Id" });
-            DropIndex("Entities.CheckRecords", new[] { "Result_Id" });
-            DropIndex("Entities.AgentConfigSetTasks", new[] { "AgentConfigSet_Id" });
-            DropIndex("Entities.AgentConfigSetFunctionSettings", new[] { "AgentConfigSetFuncSettings_Id" });
-            DropIndex("Entities.AgentConfigSetFuncSettings", new[] { "AgentConfigSet_Id" });
-            DropIndex("Entities.AgentConfigSetFuncSettings", new[] { "WarningAction_Id" });
-            DropIndex("Entities.AgentConfigSetFuncSettings", new[] { "Module_Id" });
-            DropIndex("Entities.AgentConfigSetFuncSettings", new[] { "CriticalAction_Id" });
-            DropIndex("Entities.AgentConfigSets", "IX_Identifier_Unique");
-            DropIndex("Entities.Accounts", new[] { "UserName" });
-            DropIndex("Entities.AccountDetails", new[] { "Account_Id" });
-            DropTable("Entities.NodeDetails");
-            DropTable("Entities.Nodes");
-            DropTable("Entities.NodeComments");
-            DropTable("Entities.InfoRecords");
-            DropTable("Entities.Functions");
-            DropTable("Entities.Results");
-            DropTable("Entities.CheckRecords");
-            DropTable("Entities.AgentConfigSetTasks");
-            DropTable("Entities.Modules");
-            DropTable("Entities.AgentConfigSetFunctionSettings");
-            DropTable("Entities.AgentConfigSetCheckActions");
-            DropTable("Entities.AgentConfigSetFuncSettings");
-            DropTable("Entities.AgentConfigSets");
-            DropTable("Entities.Accounts");
-            DropTable("Entities.AccountDetails");
+            this.DropForeignKey("Entities.NodeComments", "User_Id", "Entities.Accounts");
+            this.DropForeignKey("Entities.NodeComments", "Node_Id", "Entities.Nodes");
+            this.DropForeignKey("Entities.NodeDetails", "Node_Id", "Entities.Nodes");
+            this.DropForeignKey("Entities.InfoRecords", "Result_Id", "Entities.Results");
+            this.DropForeignKey("Entities.CheckRecords", "Result_Id", "Entities.Results");
+            this.DropForeignKey("Entities.AgentConfigSetTasks", "AgentConfigSet_Id", "Entities.AgentConfigSets");
+            this.DropForeignKey("Entities.AgentConfigSetFuncSettings", "AgentConfigSet_Id", "Entities.AgentConfigSets");
+            this.DropForeignKey("Entities.AgentConfigSetFuncSettings", "WarningAction_Id", "Entities.AgentConfigSetCheckActions");
+            this.DropForeignKey("Entities.AgentConfigSetFuncSettings", "Module_Id", "Entities.Modules");
+            this.DropForeignKey("Entities.AgentConfigSetFunctionSettings", "AgentConfigSetFuncSettings_Id", "Entities.AgentConfigSetFuncSettings");
+            this.DropForeignKey("Entities.AgentConfigSetFuncSettings", "CriticalAction_Id", "Entities.AgentConfigSetCheckActions");
+            this.DropForeignKey("Entities.AccountDetails", "Account_Id", "Entities.Accounts");
+            this.DropIndex("Entities.NodeDetails", new[] { "Node_Id" });
+            this.DropIndex("Entities.NodeComments", new[] { "User_Id" });
+            this.DropIndex("Entities.NodeComments", new[] { "Node_Id" });
+            this.DropIndex("Entities.InfoRecords", new[] { "Result_Id" });
+            this.DropIndex("Entities.CheckRecords", new[] { "Result_Id" });
+            this.DropIndex("Entities.AgentConfigSetTasks", new[] { "AgentConfigSet_Id" });
+            this.DropIndex("Entities.AgentConfigSetFunctionSettings", new[] { "AgentConfigSetFuncSettings_Id" });
+            this.DropIndex("Entities.AgentConfigSetFuncSettings", new[] { "AgentConfigSet_Id" });
+            this.DropIndex("Entities.AgentConfigSetFuncSettings", new[] { "WarningAction_Id" });
+            this.DropIndex("Entities.AgentConfigSetFuncSettings", new[] { "Module_Id" });
+            this.DropIndex("Entities.AgentConfigSetFuncSettings", new[] { "CriticalAction_Id" });
+            this.DropIndex("Entities.AgentConfigSets", "IX_Identifier_Unique");
+            this.DropIndex("Entities.Accounts", new[] { "UserName" });
+            this.DropIndex("Entities.AccountDetails", new[] { "Account_Id" });
+            this.DropTable("Entities.NodeDetails");
+            this.DropTable("Entities.Nodes");
+            this.DropTable("Entities.NodeComments");
+            this.DropTable("Entities.InfoRecords");
+            this.DropTable("Entities.Functions");
+            this.DropTable("Entities.Results");
+            this.DropTable("Entities.CheckRecords");
+            this.DropTable("Entities.AgentConfigSetTasks");
+            this.DropTable("Entities.Modules");
+            this.DropTable("Entities.AgentConfigSetFunctionSettings");
+            this.DropTable("Entities.AgentConfigSetCheckActions");
+            this.DropTable("Entities.AgentConfigSetFuncSettings");
+            this.DropTable("Entities.AgentConfigSets");
+            this.DropTable("Entities.Accounts");
+            this.DropTable("Entities.AccountDetails");
         }
     }
 }

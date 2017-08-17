@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hale.Lib.Modules.Alerts
+﻿namespace Hale.Lib.Modules.Alerts
 {
+    using Hale.Lib.Modules.Results;
+
+    public delegate AlertFunctionResult AlertFunction(AlertSettings settings);
+
     public interface IAlertProvider : IModuleProviderBase
     {
         void InitializeAlertProvider(AlertSettings settings);
     }
-
-    public delegate AlertFunctionResult AlertFunction(AlertSettings settings);
 
     public static class AlertProviderExtensions
     {
@@ -32,6 +28,5 @@ namespace Hale.Lib.Modules.Alerts
         {
             alertProvider.AddAlertFunction("default", func);
         }
-
     }
 }

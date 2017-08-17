@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hale.Lib.Modules.Exceptions
+﻿namespace Hale.Lib.Modules.Exceptions
 {
+    using System;
+    using System.Runtime.Serialization;
+
     [Serializable]
-    public class UnknownUnsuccessfulException: Exception
+    public class UnknownUnsuccessfulException : Exception
     {
-        public UnknownUnsuccessfulException(): 
-            base("The function did not run successfully, but no exception was provided.")
+        private const string ExceptionMessage = "The function did not run successfully, but no exception was provided.";
+
+        public UnknownUnsuccessfulException()
+            : base(ExceptionMessage)
         {
-           
         }
 
-        public UnknownUnsuccessfulException(SerializationInfo si, StreamingContext sc): this()
+        public UnknownUnsuccessfulException(SerializationInfo si, StreamingContext sc)
+            : base(si, sc)
         {
         }
     }

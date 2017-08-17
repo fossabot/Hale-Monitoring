@@ -116,14 +116,14 @@
         [Authorize]
         public IHttpActionResult ChangePassword(PasswordDTO passwordChange)
         {
-            var passwordAccepted = this.authService.Authorize(this.CurrentUsername, passwordChange.oldPassword);
+            var passwordAccepted = this.authService.Authorize(this.CurrentUsername, passwordChange.OldPassword);
 
             if (!passwordAccepted)
             {
                 return this.Unauthorized();
             }
 
-            this.authService.ChangePassword(this.CurrentUsername, passwordChange.newPassword);
+            this.authService.ChangePassword(this.CurrentUsername, passwordChange.NewPassword);
             return this.Ok();
         }
 

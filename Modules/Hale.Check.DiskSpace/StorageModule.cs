@@ -1,34 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using Hale.Lib.Modules;
-using Hale.Lib.Modules.Checks;
-using Hale.Lib.Modules.Info;
-using Hale.Lib.Utilities;
-using Hale.Lib.Modules.Attributes;
-
-namespace Hale.Modules
+﻿namespace Hale.Modules
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Text;
+    using Hale.Lib.Modules;
+    using Hale.Lib.Modules.Attributes;
+    using Hale.Lib.Modules.Checks;
+    using Hale.Lib.Modules.Info;
+    using Hale.Lib.Modules.Results;
+    using Hale.Lib.Utilities;
+
     [HaleModule("com.itshale.core.storage", 0, 1, 1)]
     [HaleModuleName("Storage Module")]
-    public sealed class DiskSpaceCheck: Module, ICheckProvider, IInfoProvider
+    public sealed class StorageModule : Module, ICheckProvider, IInfoProvider
     {
+        public StorageModule()
+        {
+        }
 
         public override string Name => "Storage Module";
+
         public override string Author => "Hale Project";
+
         public override string Identifier => "com.itshale.core.storage";
+
         public override string Platform => "Windows";
+
         public override decimal TargetApi => 1.2M;
+
         public override Version Version => new Version(0, 1, 1, 0);
 
         Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
             = new Dictionary<string, ModuleFunction>();
-
-        public DiskSpaceCheck()
-        {
-
-        }
 
         public CheckFunctionResult CheckUsage(CheckSettings settings)
         {
@@ -42,10 +46,10 @@ namespace Hale.Modules
 
                 foreach (DriveInfo drive in drives)
                 {
-                    var driveName = drive.Name.ToLower().Replace(":\\", "");
+                    var driveName = drive.Name.ToLower().Replace(":\\", string.Empty);
                     if (settings.Targetless || settings.Targets.Contains(driveName))
                     {
-                        float diskPercentage = ((float)drive.TotalFreeSpace / drive.TotalSize);
+                        float diskPercentage = (float)drive.TotalFreeSpace / drive.TotalSize;
 
                         var cr = new CheckResult();
                         cr.Target = driveName;
@@ -78,6 +82,7 @@ namespace Hale.Modules
                         }
                     }
                 }
+
                 result.Message = $"Retrieved space usage for {result.CheckResults.Count} drive(s).";
                 result.RanSuccessfully = true;
             }
@@ -100,14 +105,14 @@ namespace Hale.Modules
 
         public void InitializeCheckProvider(CheckSettings settings)
         {
-            this.AddCheckFunction(CheckUsage);
-            this.AddCheckFunction("usage", CheckUsage);
+            this.AddCheckFunction(this.CheckUsage);
+            this.AddCheckFunction("usage", this.CheckUsage);
         }
 
         public void InitializeInfoProvider(InfoSettings settings)
         {
-            this.AddInfoFunction(InfoListVolumes);
-            this.AddInfoFunction("list", InfoListVolumes);
+            this.AddInfoFunction(this.InfoListVolumes);
+            this.AddInfoFunction("list", this.InfoListVolumes);
         }
     }
 }

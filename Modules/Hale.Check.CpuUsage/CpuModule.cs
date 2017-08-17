@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading;
-using System.Management;
-using System.Reflection;
-using Hale.Lib.Modules;
-using Hale.Lib.Modules.Checks;
-using Hale.Lib.Modules.Info;
-using Module = Hale.Lib.Modules.Module;
-using Hale.Lib.Modules.Attributes;
-
-namespace Hale.Modules
+﻿namespace Hale.Modules
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Management;
+    using System.Threading;
+    using Hale.Lib.Modules;
+    using Hale.Lib.Modules.Attributes;
+    using Hale.Lib.Modules.Checks;
+    using Hale.Lib.Modules.Info;
+    using Hale.Lib.Modules.Results;
+    using Module = Hale.Lib.Modules.Module;
+
     /// <summary>
     /// All checks need to realize the interface ICheck.
     /// </summary>
@@ -22,11 +22,14 @@ namespace Hale.Modules
     [HaleModuleAuthor("Hale Project")]
     public class CpuModule : Module, ICheckProvider, IInfoProvider
     {
-
         public override string Name => "CPU Module";
+
         public override string Platform => "Windows";
+
         public override decimal TargetApi => 1.2M;
+
         public override string Identifier => "com.itshale.core.cpu";
+
         public override Version Version => new Version(0, 1, 1);
 
         Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
@@ -61,10 +64,14 @@ namespace Hale.Modules
                     float sample = cpuCounter.NextValue();
 
                     if (sample > sampleMax)
+                    {
                         sampleMax = sample;
+                    }
 
                     if (sample < sampleMin)
+                    {
                         sampleMin = sample;
+                    }
 
                     sampleSum += sample;
                     Thread.Sleep(sampleDelay + (i * 10));
@@ -75,7 +82,7 @@ namespace Hale.Modules
 
                 float cpuPercentage = (sampleSum / numSamples) / 100;
 
-                cr.RawValues.Add( new DataPoint("CpuUsage", cpuPercentage) );
+                cr.RawValues.Add(new DataPoint("CpuUsage", cpuPercentage));
 
                 cr.SetThresholds(cpuPercentage, settings.Thresholds);
 
@@ -83,8 +90,7 @@ namespace Hale.Modules
 
                 cr.RanSuccessfully = true;
             }
-
-            catch(Exception x)
+            catch (Exception x)
             {
                 cr.ExecutionException = x;
                 cr.RanSuccessfully = false;
@@ -95,8 +101,7 @@ namespace Hale.Modules
         }
 
         [CheckFunction(Identifier = "performance", Name = "CPU Performance", Description="")]
-        [ReturnUnit("CpuPerformance", UnitType.Percent, Name = "CPU Performance", 
-            Description = "How many percent of the CPUs maximum performance it's running at")]
+        [ReturnUnit("CpuPerformance", UnitType.Percent, Name = "CPU Performance", Description = "How many percent of the CPUs maximum performance it's running at")]
         public CheckResult PerformanceCheck(CheckSettings settings)
         {
             CheckResult cr = new CheckResult();
@@ -124,14 +129,19 @@ namespace Hale.Modules
                 float sample = cpuCounter.NextValue();
 
                 if (sample > sampleMax)
-                    sampleMax = sample;
+                    {
+                        sampleMax = sample;
+                    }
 
-                if (sample < sampleMin)
-                    sampleMin = sample;
+                    if (sample < sampleMin)
+                    {
+                        sampleMin = sample;
+                    }
 
-                sampleSum += sample;
+                    sampleSum += sample;
                 Thread.Sleep(sampleDelay + (i * 10));
             }
+
                 sampleMax /= 100;
                 sampleMin /= 100;
 
@@ -145,7 +155,6 @@ namespace Hale.Modules
 
                 cr.RanSuccessfully = true;
             }
-
             catch (Exception x)
             {
                 cr.ExecutionException = x;
@@ -154,7 +163,6 @@ namespace Hale.Modules
             }
 
             return cr;
-
         }
 
         [InfoFunction(Default = true)]
@@ -163,8 +171,8 @@ namespace Hale.Modules
             var result = new InfoFunctionResult();
             try
             {
-                var cpus = GetCPUProperties(new byte[] { }, new[] { "MaxClockSpeed", "NumberOfLogicalProcessors", "NumberOfCores", "Name", "Manufacturer" });
-                foreach(var cpu in cpus)
+                var cpus = this.GetCPUProperties(new byte[] { }, new[] { "MaxClockSpeed", "NumberOfLogicalProcessors", "NumberOfCores", "Name", "Manufacturer" });
+                foreach (var cpu in cpus)
                 {
                     result.InfoResults.Add(cpu.Key.ToString(), new InfoResult()
                     {
@@ -172,6 +180,7 @@ namespace Hale.Modules
                         Items = cpu.Value
                     });
                 }
+
                 result.Message = "Successfully retrieved default CPU info.";
                 result.RanSuccessfully = true;
             }
@@ -184,9 +193,21 @@ namespace Hale.Modules
             return result;
         }
 
-        Dictionary<byte, Dictionary<string, string>> GetCPUProperties(byte[] targets, string[] filter)
+        public void InitializeCheckProvider(CheckSettings settings)
         {
-            var cpus = new Dictionary<byte,Dictionary<string, string>>();
+            this.AddSingleResultCheckFunction(this.DefaultCheck);
+            this.AddSingleResultCheckFunction("usage", this.DefaultCheck);
+            this.AddSingleResultCheckFunction("performance", this.PerformanceCheck);
+        }
+
+        public void InitializeInfoProvider(InfoSettings settings)
+        {
+            this.AddInfoFunction(this.DefaultInfo);
+        }
+
+        private Dictionary<byte, Dictionary<string, string>> GetCPUProperties(byte[] targets, string[] filter)
+        {
+            var cpus = new Dictionary<byte, Dictionary<string, string>>();
 
             var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_Processor");
             var moc = searcher.Get();
@@ -199,25 +220,20 @@ namespace Hale.Modules
                 foreach (var p in mo.Properties)
                 {
                     if (p.Value != null && filter.Contains(p.Name))
+                    {
                         items.Add(p.Name, p.Value.ToString().TrimEnd());
+                    }
                 }
-                if(targets.Length == 0 || targets.Contains(cpuId))
+
+                if (targets.Length == 0 || targets.Contains(cpuId))
+                {
                     cpus.Add(cpuId, items);
+                }
+
                 cpuId++;
             }
+
             return cpus;
-        }
-
-        public void InitializeCheckProvider(CheckSettings settings)
-        {
-            this.AddSingleResultCheckFunction(DefaultCheck);
-            this.AddSingleResultCheckFunction("usage", DefaultCheck);
-            this.AddSingleResultCheckFunction("performance", PerformanceCheck);
-        }
-
-        public void InitializeInfoProvider(InfoSettings settings)
-        {
-            this.AddInfoFunction(DefaultInfo);
         }
     }
 }

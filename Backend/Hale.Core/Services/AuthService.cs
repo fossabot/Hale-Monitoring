@@ -1,14 +1,8 @@
 ﻿namespace Hale.Core.Services
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Hale.Core.Model.Exceptions;
     using Hale.Core.Model.Interfaces;
     using Hale.Core.Model.Models;
-    using Hale.Core.Models.Messages;
 
     public class AuthService : HaleBaseService, IAuthService
     {

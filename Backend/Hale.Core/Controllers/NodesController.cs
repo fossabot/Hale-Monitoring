@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Web.Http;
     using System.Web.Http.Description;
-    using Hale.Core.Data.Entities;
     using Hale.Core.Data.Entities.Nodes;
     using Hale.Core.Model.Interfaces;
     using Hale.Core.Model.Models;

@@ -1,13 +1,18 @@
-﻿using Hale.Lib.Modules;
-using System;
-
-namespace Hale.Agent.Modules
+﻿namespace Hale.Agent.Modules
 {
+    using System;
+    using Hale.Agent.Scheduler;
+    using Hale.Lib.Modules;
+    using Hale.Lib.Modules.Results;
+
     internal interface IResultStorage
     {
         void StoreResult(IModuleResultRecord record);
+
         void Persist();
+
         ResultRecordChunk Fetch(int maxRecords);
+
         void Clear(Guid[] uploaded);
     }
 

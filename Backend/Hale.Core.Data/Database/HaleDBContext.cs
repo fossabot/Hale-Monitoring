@@ -1,19 +1,20 @@
 namespace Hale.Core.Data.Contexts
 {
-    using Hale.Core.Data.Entities;
+    using System.Data.Entity;
+    using System.Runtime.InteropServices;
     using Hale.Core.Data.Entities.Agent;
     using Hale.Core.Data.Entities.Modules;
     using Hale.Core.Data.Entities.Nodes;
     using Hale.Core.Data.Entities.Users;
-    using System.Data.Entity;
 
     /// <summary>
     /// TODO: Add text here.
     /// </summary>
+    [ComVisible(false)]
     public class HaleDBContext : DbContext
     {
-
         /// <summary>
+        /// Initializes a new instance of the <see cref="HaleDBContext"/> class.
         /// Default constructor for UserContext. Sets the connection string used to \"HaleDB\".
         /// </summary>
         public HaleDBContext()
@@ -21,8 +22,6 @@ namespace Hale.Core.Data.Contexts
         {
         }
 
-
-        #region Users
         /// <summary>
         /// A DBSet used for persisting Accounts to the UserContext.
         /// </summary>
@@ -32,9 +31,6 @@ namespace Hale.Core.Data.Contexts
         /// A DBSet used for persisting AccountDetails to the UserContext.
         /// </summary>
         public virtual DbSet<AccountDetail> AccountDetails { get; set; }
-
-        #endregion
-        #region Nodes
 
         /// <summary>
         /// TODO: Add text here.
@@ -50,9 +46,6 @@ namespace Hale.Core.Data.Contexts
         /// TODO: Add text here.
         /// </summary>
         public virtual DbSet<NodeComment> NodeComments { get; set; }
-
-        #endregion
-        #region Modules
 
         /// <summary>
         /// TODO: Add text here
@@ -79,28 +72,21 @@ namespace Hale.Core.Data.Contexts
         /// </summary>
         public virtual DbSet<CheckRecord> CheckRecords { get; set; }
 
-        #endregion
-        #region AgentConfig
-
         /// <summary>
         /// TODO: Add text here
         /// </summary>
         public virtual DbSet<AgentConfigSet> AgentConfigs { get; set; }
 
-        public virtual DbSet<AgentConfigSetTask> AgentConfigSetTasks { get;set;}
+        public virtual DbSet<AgentConfigSetTask> AgentConfigSetTasks { get; set; }
 
-        public virtual DbSet<AgentConfigSetFunctionSettings> AgentConfigSetFunctionSettings { get;set; }
+        public virtual DbSet<AgentConfigSetFunctionSettings> AgentConfigSetFunctionSettings { get; set; }
 
-        public virtual DbSet<AgentConfigSetFunctions> AgentConfigSetFuncSettings { get;set; }
+        public virtual DbSet<AgentConfigSetFunctions> AgentConfigSetFuncSettings { get; set; }
 
-        public virtual DbSet<AgentConfigSetCheckAction> AgentConfigSetCheckActions { get;set; }
-
-
-
-        #endregion
+        public virtual DbSet<AgentConfigSetCheckAction> AgentConfigSetCheckActions { get; set; }
 
         /// <summary>
-        /// Sets the default schema for this contextg to \"User.\"
+        /// Sets the default schema for this context to "User."
         /// </summary>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -108,6 +94,4 @@ namespace Hale.Core.Data.Contexts
             base.OnModelCreating(modelBuilder);
         }
     }
-
-
 }

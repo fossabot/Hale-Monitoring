@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-
-namespace Hale.Lib
+﻿namespace Hale.Lib
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Sockets;
+
     public static class Networking
     {
-        public static string GetHostName() {
+        public static string GetHostName()
+        {
             return Dns.GetHostName();
         }
 
@@ -19,11 +20,12 @@ namespace Hale.Lib
             host.AddressList.ToList().ForEach(ip =>
             {
                 if (ip.AddressFamily == type)
+                {
                     addresses.Add(ip.ToString());
+                }
             });
 
             return addresses;
         }
     }
-
 }

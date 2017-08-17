@@ -1,36 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure.Pluralization;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hale.Core.Data.Contexts
+﻿namespace Hale.Core.Data.Contexts
 {
-    /// <summary>
-    /// TODO: Add text here
-    /// </summary>
-    public class HaleDBConvention: Convention
+    using System.Data.Entity.Infrastructure.Pluralization;
+    using System.Data.Entity.ModelConfiguration.Conventions;
+    using System.Runtime.InteropServices;
+
+    [ComVisible(false)]
+    public class HaleDBConvention : Convention
     {
-        /// <summary>
-        /// TODO: Add text here
-        /// </summary>
         public HaleDBConvention()
         {
             IPluralizationService ps =
                 new EnglishPluralizationService();
 
-
-            Types().Configure(
+            this.Types().Configure(
                 c => c.ToTable(
-                    // Table name is the pluralized name of the class
                     ps.Pluralize(c.ClrType.Name),
-
-                    // Schema name is the name of the container namespace
-                    c.ClrType.Namespace.Substring(c.ClrType.Namespace.LastIndexOf('.') + 1)
-                )
-            );
+                    c.ClrType.Namespace.Substring(c.ClrType.Namespace.LastIndexOf('.') + 1)));
         }
     }
 }

@@ -1,36 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Hale.Lib;
-using Hale.Lib.Modules;
-using Hale.Lib.Modules.Checks;
-using Hale.Lib.Modules.Info;
-
-using static Hale.Lib.Utilities.StorageUnitFormatter;
-
-
-namespace Hale.Checks
+﻿namespace Hale.Checks
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using Hale.Lib.Modules;
+    using Hale.Lib.Modules.Checks;
+    using Hale.Lib.Modules.Info;
+
     /// <summary>
     /// All checks need to realize the interface ICheck.
     /// </summary>
-    public class PagingUsage: Module, ICheckProvider, IInfoProvider
+    public class PagingUsage : Module, ICheckProvider, IInfoProvider
     {
-
         public override string Name => "Page File";
+
         public override string Author => "Hale Project";
+
         public override string Identifier => "com.itshale.core.paging";
-        public override Version Version => new Version (0, 1, 1);
+
+        public override Version Version => new Version(0, 1, 1);
+
         public override string Platform => "Windows";
+
         public override decimal TargetApi => 1.2M;
 
         Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
             = new Dictionary<string, ModuleFunction>();
-
 
         public CheckResult DefaultCheck(CheckSettings settings)
         {
@@ -42,8 +37,7 @@ namespace Hale.Checks
                 {
                     CounterName = "% Usage",
                     CategoryName = "Paging File",
-                    InstanceName =  "_Total"
-                   
+                    InstanceName = "_Total"
                 };
 
                 pagefileUsagePercent.NextValue();
@@ -53,7 +47,6 @@ namespace Hale.Checks
                 result.Message = $"Paging File Usage: {usagePercent}% of total";
                 result.RawValues.Add(new DataPoint() { DataType = "usagePercent", Value = usagePercent });
                 result.RanSuccessfully = true;
-
             }
             catch (Exception e)
             {
@@ -74,15 +67,14 @@ namespace Hale.Checks
 
         public void InitializeCheckProvider(CheckSettings settings)
         {
-            this.AddSingleResultCheckFunction(DefaultCheck);
-            this.AddSingleResultCheckFunction("usage", DefaultCheck);
+            this.AddSingleResultCheckFunction(this.DefaultCheck);
+            this.AddSingleResultCheckFunction("usage", this.DefaultCheck);
         }
 
         public void InitializeInfoProvider(InfoSettings settings)
         {
-            this.AddSingleResultInfoFunction(DefaultInfo);
-            this.AddSingleResultInfoFunction("sizes", DefaultInfo);
+            this.AddSingleResultInfoFunction(this.DefaultInfo);
+            this.AddSingleResultInfoFunction("sizes", this.DefaultInfo);
         }
-
     }
 }

@@ -1,26 +1,21 @@
 namespace Hale.Core.Data.Migrations
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity.Migrations;
     using Hale.Core.Data.Contexts;
-    using Hale.Core.Data.Entities;
     using Hale.Core.Data.Entities.Agent;
     using Hale.Core.Data.Entities.Nodes;
     using Hale.Core.Data.Entities.Users;
     using Hale.Lib.Modules;
-    using System;
-    using System.Collections.Generic;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
     using EModule = Entities.Modules.Module;
 
     internal sealed class Configuration : DbMigrationsConfiguration<HaleDBContext>
     {
-
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
-            ContextKey = "Hale.Core.Contexts.HaleDBModel";
+            this.AutomaticMigrationsEnabled = false;
+            this.ContextKey = "Hale.Core.Contexts.HaleDBModel";
         }
 
         protected override void Seed(HaleDBContext context)
@@ -29,7 +24,8 @@ namespace Hale.Core.Data.Migrations
 
             context.Accounts.AddOrUpdate(
                 u => u.UserName,
-                new Account {
+                new Account
+                {
                     UserName = "test01",
                     Email = "simon.aronsson@outlook.com",
                     FullName = "Test User 01",
@@ -38,7 +34,8 @@ namespace Hale.Core.Data.Migrations
                     Enabled = true,
                     Activated = true,
                 },
-                new Account {
+                new Account
+                {
                     UserName = "test02",
                     Email = "nils@piksel.se",
                     FullName = "Test User 02",
@@ -63,8 +60,7 @@ namespace Hale.Core.Data.Migrations
                     Password = BCrypt.Net.BCrypt.HashPassword("test04", 5),
                     Enabled = false,
                     Activated = true,
-                }
-            );
+                });
 
             context.Nodes.AddOrUpdate(
                 h => h.Guid,
@@ -228,9 +224,7 @@ namespace Hale.Core.Data.Migrations
                     Domain = "domain.com",
                     Configured = false,
                     OperatingSystem = "Microsoft Windows NT 10.0.14393.0"
-                }
-
-            );
+                });
 
             var taskUpload = new AgentConfigSetTask()
             {
@@ -268,7 +262,6 @@ namespace Hale.Core.Data.Migrations
                 {
                     Identifier = "com.itshale.core.memory",
                     Version = new Version(1, 0, 0, 0),
-
                 },
                 Startup = true,
                 FunctionSettings = new List<AgentConfigSetFunctionSettings>()

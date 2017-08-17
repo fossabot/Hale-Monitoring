@@ -1,6 +1,5 @@
 ﻿namespace Hale.Core.Controllers
 {
-    using System.Linq;
     using System.Web.Http;
     using Hale.Core.Model.Interfaces;
     using Hale.Core.Services;

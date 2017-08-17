@@ -1,7 +1,6 @@
 ﻿namespace Hale.Core
 {
     using System;
-    using System.ServiceProcess;
 
     public static class Program
     {

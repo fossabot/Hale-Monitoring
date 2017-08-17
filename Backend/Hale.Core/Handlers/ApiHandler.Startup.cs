@@ -1,6 +1,5 @@
 ﻿namespace Hale.Core.Handlers
 {
-    using System;
     using System.IO;
     using System.Reflection;
     using System.Web.Http;

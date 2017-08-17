@@ -1,20 +1,18 @@
-﻿using System;
-using System.ComponentModel;
-using System.Threading;
-using Hale.Agent.Config;
-using Hale.Lib.JsonRpc;
-using NLog;
-using Piksel.Nemesis;
-using Hale.Lib;
-
-namespace Hale.Agent.Communication
+﻿namespace Hale.Agent.Communication
 {
+    using System;
+    using System.ComponentModel;
+    using System.Threading;
+    using Hale.Lib;
+    using Hale.Lib.JsonRpc;
+    using NLog;
+    using Piksel.Nemesis;
+
     internal class NemesisHeartbeatWorker
     {
         private NemesisConfig config;
         private BackgroundWorker worker;
         private NemesisNode node;
-        
 
         public NemesisHeartbeatWorker(NemesisConfig config, NemesisNode node)
         {
@@ -24,26 +22,27 @@ namespace Hale.Agent.Communication
 
         public void Start()
         {
-            worker = new BackgroundWorker();
-            worker.DoWork += new DoWorkEventHandler(DoWork);
-            worker.RunWorkerAsync(config);
+            this.worker = new BackgroundWorker();
+            this.worker.DoWork += new DoWorkEventHandler(this.DoWork);
+            this.worker.RunWorkerAsync(this.config);
         }
+
         public void DoWork(object sender, DoWorkEventArgs e)
         {
-            var _config = (NemesisConfig)e.Argument;
-            var _worker = (BackgroundWorker)sender;
-            var _lastRun = DateTime.MinValue;
+            var config = (NemesisConfig)e.Argument;
+            var worker = (BackgroundWorker)sender;
+            var lastRun = DateTime.MinValue;
 
-            ILogger _log = LogManager.GetLogger("NemesisHeartbeat");
+            ILogger log = LogManager.GetLogger("NemesisHeartbeat");
 
             while (true)
             {
-                if (!_worker.CancellationPending)
+                if (!worker.CancellationPending)
                 {
-                    if (DateTime.Now - _lastRun > config.HeartBeatInterval)
+                    if (DateTime.Now - lastRun > this.config.HeartBeatInterval)
                     {
-                        _log.Debug("Sending heartbeat to Core...");
-                        _lastRun = DateTime.Now;
+                        log.Debug("Sending heartbeat to Core...");
+                        lastRun = DateTime.Now;
 
                         var req = new JsonRpcRequest()
                         {
@@ -52,14 +51,13 @@ namespace Hale.Agent.Communication
 
                         try
                         {
-                            var res = node.SendCommand(JsonRpcDefaults.Encoding.GetString(req.Serialize()));
-                            _log.Debug("Got response: {0}", res.Result);
+                            var res = this.node.SendCommand(JsonRpcDefaults.Encoding.GetString(req.Serialize()));
+                            log.Debug("Got response: {0}", res.Result);
                         }
                         catch (Exception x)
                         {
-                            _log.Error("Error when sending heartbeat: {0}", x.Message);
+                            log.Error("Error when sending heartbeat: {0}", x.Message);
                         }
-
                     }
                     else
                     {
@@ -68,9 +66,10 @@ namespace Hale.Agent.Communication
                 }
             }
         }
+
         public void Stop()
         {
-            worker.CancelAsync();
+            this.worker.CancelAsync();
         }
     }
 }

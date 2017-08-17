@@ -1,173 +1,162 @@
-﻿using NLog;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Timers = System.Threading;
-
-namespace Hale.Lib
+﻿namespace Hale.Lib
 {
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Threading;
+    using NLog;
+    using Timers = System.Threading;
+
     public abstract class Scheduler
     {
-        [CLSCompliant(false)]
-        protected ILogger _log = LogManager.GetLogger("Scheduler");
-
-        public Dictionary<TimeSpan, List<TaskBase>> ScheduleTasks =
-            new Dictionary<TimeSpan, List<TaskBase>>();
-
-        public ConcurrentQueue<QueuedTask> TaskQueue = new ConcurrentQueue<QueuedTask>();
-
-        [CLSCompliant(false)]
-        protected int _taskWorkerCount = 5; // NM: should move to config @hardcoded
-
-        protected List<BackgroundWorker> TaskWorkerPool = new List<BackgroundWorker>();
-
-        public Dictionary<TimeSpan, Timers.Timer> TaskTimers = new Dictionary<TimeSpan, Timers.Timer>();
-
-        bool _stopping = false;
-
-        protected abstract void RunTask(QueuedTask queuedTask);
+        private bool stopping = false;
 
         public Scheduler()
         {
-
         }
 
-        public void ScheduleTask(TaskBase task, TimeSpan interval)
-        {
-            if (!ScheduleTasks.ContainsKey(interval))
-            {
-                ScheduleTasks.Add(interval, new List<TaskBase>());
-            }
-            ScheduleTasks[interval].Add(task);
-        }
+        public Dictionary<TimeSpan, List<TaskBase>> ScheduleTasks { get; } = new Dictionary<TimeSpan, List<TaskBase>>();
 
-        protected void PrintTasks() { 
-#if DEBUG
-            _log.Debug("Scheduled tasks:");
-            foreach (var interval in ScheduleTasks)
-            {
+        public ConcurrentQueue<QueuedTask> TaskQueue { get; } = new ConcurrentQueue<QueuedTask>();
 
-                _log.Debug("  {0}", interval.Key.ToString());
-                foreach (var task in interval.Value)
-                {
-                    _log.Debug($"    {task}");
-                }
-            }
-#endif
-        }
+        public Dictionary<TimeSpan, Timers.Timer> TaskTimers { get; } = new Dictionary<TimeSpan, Timers.Timer>();
+
+        [CLSCompliant(false)]
+        protected ILogger Log { get; } = LogManager.GetLogger("Scheduler");
+
+        [CLSCompliant(false)]
+        protected int TaskWorkerCount => 5; // NM: should move to config @hardcoded
+
+        protected List<BackgroundWorker> TaskWorkerPool { get; } = new List<BackgroundWorker>();
 
         public void Start()
         {
-            updateQueue();
-            _stopping = false;
+            this.UpdateQueue();
+            this.stopping = false;
 
             // NM: Perhaps some thread-safety should be added @ts @fixme
-            var _thread = new Thread(() =>
+            var thread = new Thread(() =>
             {
-                while (TaskWorkerPool.Count < _taskWorkerCount)
+                while (this.TaskWorkerPool.Count < this.TaskWorkerCount)
                 {
                     var bw = new BackgroundWorker();
-                    bw.DoWork += (s, e) => RunTask((QueuedTask)(e.Argument));
-                    TaskWorkerPool.Add(bw);
+                    bw.DoWork += (s, e) => this.RunTask((QueuedTask)e.Argument);
+                    this.TaskWorkerPool.Add(bw);
                 }
 
-                while (!_stopping) // @ts?
+                // @ts?
+                while (!this.stopping)
                 {
-                    if (TaskQueue.Count > 0)
+                    if (this.TaskQueue.Count > 0)
                     {
-                        var worker = TaskWorkerPool.FirstOrDefault(bw => !bw.IsBusy);
+                        var worker = this.TaskWorkerPool.FirstOrDefault(bw => !bw.IsBusy);
                         if (worker != null)
                         {
                             QueuedTask task;
-                            if (TaskQueue.TryDequeue(out task))
+                            if (this.TaskQueue.TryDequeue(out task))
                             {
                                 worker.RunWorkerAsync(task);
                             }
                             else
                             {
-                                _log.Debug("Queue is locked by another thread.");
-                                Thread.Sleep(200); // NM: Shortest wait when Queue is thread-locked @hardcoded 
+                                this.Log.Debug("Queue is locked by another thread.");
+                                Thread.Sleep(200); // NM: Shortest wait when Queue is thread-locked @hardcoded
                                 continue;
                             }
                         }
                         else
                         {
-                            _log.Debug("Pool is busy.");
+                            this.Log.Debug("Pool is busy.");
                             Thread.Sleep(1000); // NM: Waiting shorter time if pool is busy @hardcoded
                             continue;
                         }
                     }
                     else
                     {
-                        //_log.Debug("Nothing queued.");
+                        // _log.Debug("Nothing queued.");
                         Thread.Sleep(5000); // NM: Waiting longer time if nothing is queued @hardcoded
                         continue;
                     }
                 }
             });
-            _thread.Start();
-
+            thread.Start();
         }
 
         public void Stop(bool force = false)
         {
-            _stopping = true;
+            this.stopping = true;
             if (force)
             {
-                foreach (var bw in TaskWorkerPool)
+                foreach (var bw in this.TaskWorkerPool)
                 {
                     bw.CancelAsync();
                 }
             }
         }
-        
-        protected void updateQueue()
+
+        public void ScheduleTask(TaskBase task, TimeSpan interval)
         {
-            if (TaskTimers.Count > 0)
+            if (!this.ScheduleTasks.ContainsKey(interval))
             {
-                foreach (var timer in TaskTimers)
+                this.ScheduleTasks.Add(interval, new List<TaskBase>());
+            }
+
+            this.ScheduleTasks[interval].Add(task);
+        }
+
+        protected abstract void RunTask(QueuedTask queuedTask);
+
+        protected void PrintTasks()
+        {
+#if DEBUG
+            this.Log.Debug("Scheduled tasks:");
+            foreach (var interval in this.ScheduleTasks)
+            {
+                this.Log.Debug("  {0}", interval.Key.ToString());
+                foreach (var task in interval.Value)
+                {
+                    this.Log.Debug($"    {task}");
+                }
+            }
+#endif
+        }
+
+        protected void UpdateQueue()
+        {
+            if (this.TaskTimers.Count > 0)
+            {
+                foreach (var timer in this.TaskTimers)
                 {
                     timer.Value.Dispose();
                 }
-                TaskTimers.Clear();
 
+                this.TaskTimers.Clear();
             }
 
-            foreach (var kvpCheckTask in ScheduleTasks)
+            foreach (var kvpCheckTask in this.ScheduleTasks)
             {
                 try
                 {
-                    TimerCallback tcb = new TimerCallback(OnElapsedTime);
-                    var timer = new Timer(tcb, kvpCheckTask.Value, 
-                        kvpCheckTask.Key, kvpCheckTask.Key);
+                    TimerCallback tcb = new TimerCallback(this.OnElapsedTime);
+                    var timer = new Timer(tcb, kvpCheckTask.Value, kvpCheckTask.Key, kvpCheckTask.Key);
 
-                    TaskTimers.Add(kvpCheckTask.Key, timer);
+                    this.TaskTimers.Add(kvpCheckTask.Key, timer);
                 }
                 catch (Exception x)
                 {
-                    _log.Error($"Could not add Task interval {kvpCheckTask.Key}: {x.Message}");
+                    this.Log.Error($"Could not add Task interval {kvpCheckTask.Key}: {x.Message}");
                 }
             }
-
-        }
-
-        private void OnElapsedTime(Object stateInfo)
-        {
-            var tasks = stateInfo as List<TaskBase>;
-            EnqueueTasks(tasks);
         }
 
         protected void EnqueueTasks(List<TaskBase> tasks)
         {
-            _log.Debug($"Enqueueing {tasks.Count} task(s).");
+            this.Log.Debug($"Enqueueing {tasks.Count} task(s).");
             foreach (var task in tasks)
             {
-                EnqueueTask(task);
+                this.EnqueueTask(task);
             }
         }
 
@@ -175,37 +164,23 @@ namespace Hale.Lib
         {
             var queuedTask = task.ToQueued();
 
-            if (TaskQueue.Contains(queuedTask))
+            if (this.TaskQueue.Contains(queuedTask))
             {
                 // Todo: Handle dead-locked tasks @todo -NM
-                _log.Warn($"Skipping task {task}, previous task not completed.");
+                this.Log.Warn($"Skipping task {task}, previous task not completed.");
             }
             else
             {
                 queuedTask.Added = DateTime.Now;
-                TaskQueue.Enqueue(queuedTask);
-                _log.Debug($"Enqueued task {task}.");
+                this.TaskQueue.Enqueue(queuedTask);
+                this.Log.Debug($"Enqueued task {task}.");
             }
         }
-    }
 
-    public abstract class TaskBase
-    {
-        public abstract QueuedTask ToQueued();
-    }
-
-    public class QueuedTask : IEquatable<QueuedTask>
-    {
-        public bool Equals(QueuedTask other)
+        private void OnElapsedTime(object stateInfo)
         {
-            // Hack: Makes the comparision between QueuedTasks depend solely on the underlying CheckTask
-            // so that TaskQueue.Contains() works correctly -NM
-            return other.Id == this.Id;
+            var tasks = stateInfo as List<TaskBase>;
+            this.EnqueueTasks(tasks);
         }
-        public virtual string Id { get; set; }
-        public DateTime Added;
-        public DateTime Started;
-        public DateTime Completed;
     }
-
 }

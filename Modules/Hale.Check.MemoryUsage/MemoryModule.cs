@@ -1,36 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Hale.Lib;
-using Hale.Lib.Modules;
-using Hale.Lib.Modules.Checks;
-using Hale.Lib.Modules.Info;
-
-using static Hale.Lib.Utilities.StorageUnitFormatter;
-using Hale.Lib.Modules.Attributes;
-
-namespace Hale.Checks
+﻿namespace Hale.Checks
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using Hale.Lib.Modules;
+    using Hale.Lib.Modules.Attributes;
+    using Hale.Lib.Modules.Checks;
+    using Hale.Lib.Modules.Info;
+    using static Hale.Lib.Utilities.StorageUnitFormatter;
+
     /// <summary>
     /// All checks need to realize the interface ICheck.
     /// </summary>
     [HaleModule("com.itshale.core.memory", 0, 1, 1)]
     public class MemoryModule : Module, ICheckProvider, IInfoProvider
     {
-
         public override string Name => "Memory Module";
-        public override string Author => "Hale Project";
-        public override string Identifier => "com.itshale.core.memory";
-        public override Version Version => new Version (0, 1, 1);
-        public override string Platform => "Windows";
-        public override decimal TargetApi => 1.2M;
 
-        Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
-            = new Dictionary<string, ModuleFunction>();
+        public override string Author => "Hale Project";
+
+        public override string Identifier => "com.itshale.core.memory";
+
+        public override Version Version => new Version(0, 1, 1);
+
+        public override string Platform => "Windows";
+
+        public override decimal TargetApi => 1.2M;
 
         [CheckFunction(Default = true, Identifier = "usage")]
         [ReturnUnit("freePercentage", UnitType.Percent, Name = "Free Relative")]
@@ -51,18 +46,17 @@ namespace Hale.Checks
 
                 float freePercentage = 1.0F - (ramPercentage.NextValue() / 100.0F);
 
-
                 var ci = new Microsoft.VisualBasic.Devices.ComputerInfo();
 
                 ulong memoryTotal = ci.TotalPhysicalMemory;
 
                 // Note: ci.AvailablePhysicalMemory does not return "accurate" data -NM
-                //ulong memoryFree = ci.AvailablePhysicalMemory;
+                // ulong memoryFree = ci.AvailablePhysicalMemory;
 
                 // Hack: Using this calculated approximation for now. -NM
-                ulong memoryFree = (ulong) Math.Round(memoryTotal * (freePercentage));
+                ulong memoryFree = (ulong)Math.Round(memoryTotal * freePercentage);
 
-                result.Message = $"RAM Usage: {HumanizeStorageUnit(memoryFree)}free of total {HumanizeStorageUnit(memoryTotal)}({(freePercentage).ToString("P1")})";
+                result.Message = $"RAM Usage: {HumanizeStorageUnit(memoryFree)}free of total {HumanizeStorageUnit(memoryTotal)}({freePercentage.ToString("P1")})";
 
                 // Raw value is percent of free RAM (0.0 .. 1.0)
                 result.RawValues.Add(new DataPoint() { DataType = "freePercentage", Value = freePercentage });
@@ -71,7 +65,6 @@ namespace Hale.Checks
                 result.SetThresholds(freePercentage, settings.Thresholds);
 
                 result.RanSuccessfully = true;
-
             }
             catch (Exception e)
             {
@@ -94,15 +87,14 @@ namespace Hale.Checks
 
         public void InitializeCheckProvider(CheckSettings settings)
         {
-            this.AddSingleResultCheckFunction(DefaultCheck);
-            this.AddSingleResultCheckFunction("usage", DefaultCheck);
+            this.AddSingleResultCheckFunction(this.DefaultCheck);
+            this.AddSingleResultCheckFunction("usage", this.DefaultCheck);
         }
 
         public void InitializeInfoProvider(InfoSettings settings)
         {
-            this.AddSingleResultInfoFunction(DefaultInfo);
-            this.AddSingleResultInfoFunction("sizes", DefaultInfo);
+            this.AddSingleResultInfoFunction(this.DefaultInfo);
+            this.AddSingleResultInfoFunction("sizes", this.DefaultInfo);
         }
-
     }
 }

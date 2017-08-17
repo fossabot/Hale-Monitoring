@@ -1,18 +1,12 @@
 ﻿namespace Hale.Core.Controllers
 {
-    using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
-    using System.Linq;
-    using System.Linq.Expressions;
     using System.Web.Http;
     using System.Web.Http.Description;
     using Hale.Core.Data.Entities.Agent;
     using Hale.Core.Model.Interfaces;
     using Hale.Core.Models;
     using Hale.Core.Services;
-    using Hale.Core.Utils;
-    using Hale.Lib.Modules;
     using NLog;
 
     [RoutePrefix("api/v1/configs")]

@@ -1,16 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-#pragma warning disable 108, 114
+﻿#pragma warning disable 108, 114
 
 namespace Hale.Core.Data.Entities.Agent
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     /// <summary>
     /// TODO: Add text here
     /// </summary>
     public class AgentConfigSet
     {
+        public static AgentConfigSet Empty => new AgentConfigSet()
+        {
+            Functions = new List<AgentConfigSetFunctions>(),
+            Tasks = new List<AgentConfigSetTask>(),
+        };
+
         /// <summary>
         /// Databse row ID
         /// </summary>
@@ -19,7 +26,8 @@ namespace Hale.Core.Data.Entities.Agent
         /// <summary>
         /// Unique identifier for this configuration
         /// </summary>
-        [StringLength(32), Index("IX_Identifier_Unique", IsUnique = true)]
+        [StringLength(32)]
+        [Index("IX_Identifier_Unique", IsUnique = true)]
         public string Identifier { get; set; }
 
         /// <summary>
@@ -31,12 +39,12 @@ namespace Hale.Core.Data.Entities.Agent
         /// TODO: Creation time
         /// </summary>
         public DateTimeOffset Created { get; set; } = DateTimeOffset.Now;
-        
+
         /// <summary>
         /// TODO: Add text here
         /// </summary>
         public int? CreatedBy { get; set; }
-        
+
         /// <summary>
         /// TODO: Add text here
         /// </summary>
@@ -51,16 +59,10 @@ namespace Hale.Core.Data.Entities.Agent
         /// TODO: Add text here
         /// </summary>
         public List<AgentConfigSetFunctions> Functions { get; set; }
-        
+
         /// <summary>
         /// TODO: Add text here
         /// </summary>
         public List<AgentConfigSetTask> Tasks { get; set; }
-
-        public static AgentConfigSet Empty => new AgentConfigSet()
-        {
-            Functions = new List<AgentConfigSetFunctions>(),
-            Tasks = new List<AgentConfigSetTask>(),
-        };
     }
 }

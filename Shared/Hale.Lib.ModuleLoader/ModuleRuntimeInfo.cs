@@ -1,24 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hale.Lib.Modules;
-
-namespace Hale.Lib.ModuleLoader
+﻿namespace Hale.Lib.ModuleLoader
 {
+    using System;
+    using System.Collections.Generic;
+    using Hale.Lib.Modules;
+
     [Serializable]
     public class ModuleRuntimeInfo
     {
-        public Dictionary<ModuleFunctionType, Dictionary<string, ModuleFunctionRuntimeInfo>> Functions { get; set; }
-
-        public VersionedIdentifier Module { get; set; }
-
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Author { get; set; }
-        public string Organization { get; set; }
-
         public static ModuleRuntimeInfo Empty => new ModuleRuntimeInfo()
         {
             Functions = new Dictionary<ModuleFunctionType, Dictionary<string, ModuleFunctionRuntimeInfo>>()
@@ -29,5 +17,17 @@ namespace Hale.Lib.ModuleLoader
                 { ModuleFunctionType.Alert, new Dictionary<string, ModuleFunctionRuntimeInfo>() },
             }
         };
+
+        public Dictionary<ModuleFunctionType, Dictionary<string, ModuleFunctionRuntimeInfo>> Functions { get; set; }
+
+        public VersionedIdentifier Module { get; set; }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public string Author { get; set; }
+
+        public string Organization { get; set; }
     }
 }

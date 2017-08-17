@@ -1,13 +1,13 @@
-﻿using Hale.Lib.Modules;
-using Hale.Lib.Modules.Actions;
-using Hale.Lib.Modules.Attributes;
-using System;
-using System.Collections.Generic;
-using System.ServiceProcess;
-
-namespace Hale.Modules
+﻿namespace Hale.Modules
 {
-    partial class ServiceModule
+    using System;
+    using System.Collections.Generic;
+    using System.ServiceProcess;
+    using Hale.Lib.Modules.Actions;
+    using Hale.Lib.Modules.Attributes;
+    using Hale.Lib.Modules.Results;
+
+    public partial class ServiceModule
     {
         [ActionFunction(Identifier = "start")]
         public ActionFunctionResult StartServiceAction(ActionSettings settings)
@@ -20,7 +20,7 @@ namespace Hale.Modules
 
             foreach (var kvpTarget in settings.TargetSettings)
             {
-                var result = _serviceControlAction(settings, kvpTarget.Value, kvpTarget.Key, ServiceControllerStatus.Running, globalTimeout);
+                var result = this.ChangeServiceState(settings, kvpTarget.Value, kvpTarget.Key, ServiceControllerStatus.Running, globalTimeout);
                 afr.ActionResults.Add(kvpTarget.Key, result);
             }
 
@@ -40,7 +40,7 @@ namespace Hale.Modules
 
             foreach (var kvpTarget in settings.TargetSettings)
             {
-                var result = _serviceControlAction(settings, kvpTarget.Value, kvpTarget.Key, ServiceControllerStatus.Stopped, globalTimeout);
+                var result = this.ChangeServiceState(settings, kvpTarget.Value, kvpTarget.Key, ServiceControllerStatus.Stopped, globalTimeout);
                 afr.ActionResults.Add(kvpTarget.Key, result);
             }
 
@@ -61,10 +61,10 @@ namespace Hale.Modules
             foreach (var kvpTarget in settings.TargetSettings)
             {
                 var start = DateTime.Now;
-                var resultStop = _serviceControlAction(settings, kvpTarget.Value, kvpTarget.Key, ServiceControllerStatus.Stopped, globalTimeout);
+                var resultStop = this.ChangeServiceState(settings, kvpTarget.Value, kvpTarget.Key, ServiceControllerStatus.Stopped, globalTimeout);
                 if (resultStop.RanSuccessfully)
                 {
-                    var resultStart = _serviceControlAction(settings, kvpTarget.Value, kvpTarget.Key, ServiceControllerStatus.Running, globalTimeout);
+                    var resultStart = this.ChangeServiceState(settings, kvpTarget.Value, kvpTarget.Key, ServiceControllerStatus.Running, globalTimeout);
                     if (resultStart.RanSuccessfully)
                     {
                         afr.ActionResults.Add(kvpTarget.Key, new ActionResult()
@@ -92,7 +92,6 @@ namespace Hale.Modules
                         ExecutionException = resultStop.ExecutionException
                     });
                 }
-
             }
 
             afr.RanSuccessfully = true;
@@ -100,8 +99,7 @@ namespace Hale.Modules
             return afr;
         }
 
-        ActionResult _serviceControlAction(ActionSettings settings, Dictionary<string, string> targetSettings,
-            string target, ServiceControllerStatus newStatus, TimeSpan globalTimeout)
+        private ActionResult ChangeServiceState(ActionSettings settings, Dictionary<string, string> targetSettings, string target, ServiceControllerStatus newStatus, TimeSpan globalTimeout)
         {
             var result = new ActionResult();
             try
@@ -113,27 +111,44 @@ namespace Hale.Modules
                     new ServiceController(target, targetSettings["machine"]) :
                     new ServiceController(target);
                 var start = DateTime.Now;
-                if(newStatus == ServiceControllerStatus.Running)
+                if (newStatus == ServiceControllerStatus.Running)
+                {
                     sc.Start();
+                }
+
                 if (newStatus == ServiceControllerStatus.Stopped)
+                {
                     sc.Stop();
+                }
+
                 sc.WaitForStatus(newStatus, timeout);
                 var elapsed = DateTime.Now - start;
                 if (sc.Status == newStatus)
                 {
                     result.RanSuccessfully = true;
-                    if(newStatus == ServiceControllerStatus.Running)
+                    if (newStatus == ServiceControllerStatus.Running)
+                    {
                         result.Message = $"Service {target} was started successfully in {elapsed.TotalSeconds:f1} seconds.";
+                    }
+
                     if (newStatus == ServiceControllerStatus.Stopped)
+                    {
                         result.Message = $"Service {target} was stopped successfully in {elapsed.TotalSeconds:f1} seconds.";
+                    }
                 }
                 else
                 {
                     result.RanSuccessfully = false;
                     if (newStatus == ServiceControllerStatus.Running)
+                    {
                         result.Message = $"Service {target} failed to start, current status is {sc.Status.ToString()}.";
+                    }
+
                     if (newStatus == ServiceControllerStatus.Stopped)
+                    {
                         result.Message = $"Service {target} failed to stop, current status is {sc.Status.ToString()}.";
+                    }
+
                     result.ExecutionException = new ServiceCommandException("Timed out while waiting for service status.");
                 }
             }
@@ -143,15 +158,26 @@ namespace Hale.Modules
                 result.Message = x.Message;
                 result.RanSuccessfully = false;
             }
-            return result;
 
+            return result;
         }
 
-        class ServiceCommandException: Exception
+        private class ServiceCommandException : Exception
         {
-            public ServiceCommandException() : base() { }
-            public ServiceCommandException(string m): base(m) { }
-            public ServiceCommandException(string m, Exception x) : base(m, x) { }
+            public ServiceCommandException()
+                : base()
+            {
+            }
+
+            public ServiceCommandException(string m)
+                : base(m)
+            {
+            }
+
+            public ServiceCommandException(string m, Exception x)
+                : base(m, x)
+            {
+            }
         }
     }
 }

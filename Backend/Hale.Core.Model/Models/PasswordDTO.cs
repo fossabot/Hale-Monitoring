@@ -2,7 +2,8 @@
 {
     public class PasswordDTO
     {
-        public string oldPassword;
-        public string newPassword;
+        public string OldPassword { get; set; }
+
+        public string NewPassword { get; set; }
     }
 }

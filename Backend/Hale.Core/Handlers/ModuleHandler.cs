@@ -16,7 +16,7 @@
         Lzma, Deflate, Bzip2
     }
 
-    internal class ModuleHandler
+    internal class ModuleHandler : IDisposable
     {
         private ILogger log = LogManager.GetLogger("ModuleHandler");
         private HaleDBContext db = new HaleDBContext();
@@ -34,6 +34,11 @@
                     this.AddModule(mri);
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            this.db.Dispose();
         }
 
         private void AddModule(ModuleRuntimeInfo mi)

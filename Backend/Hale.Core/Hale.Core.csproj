@@ -278,7 +278,6 @@
     <Compile Include="Utils\TraceLogger.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="AnalysisRules.ruleset" />
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>

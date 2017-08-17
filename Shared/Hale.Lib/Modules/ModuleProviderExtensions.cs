@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hale.Lib.Modules
+﻿namespace Hale.Lib.Modules
 {
+    using System;
+
     public static class ModuleProviderExtensions
     {
-        public static ModuleFunctionResult ExecuteFunction(this IModuleProviderBase moduleProvider, string function,
-            ModuleSettingsBase settings, string functionType = "function")
+        public static ModuleFunctionResult ExecuteFunction(
+            this IModuleProviderBase moduleProvider,
+            string function,
+            ModuleSettingsBase settings,
+            string functionType = "function")
         {
             string functionPrefixed = $"{functionType}_{function}";
 

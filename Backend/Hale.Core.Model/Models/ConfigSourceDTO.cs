@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hale.Core.Models
+﻿namespace Hale.Core.Models
 {
     /// <summary>
     /// A YAML representation of a node config source paired with an ID
@@ -12,6 +6,7 @@ namespace Hale.Core.Models
     public class ConfigSourceDTO
     {
         public int Id { get; set; }
+
         public string Body { get; set; }
     }
 }

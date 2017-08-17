@@ -1,25 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hale.Lib.Modules.Checks
+﻿namespace Hale.Lib.Modules.Checks
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     [Serializable]
     public struct DataPoint
     {
-        public string DataType { get; set; }
-        public float Value { get; set; }
-        public DataPoint(string DataType, float Value)
+        public DataPoint(string dataType, float value)
         {
-            this.DataType = DataType;
-            this.Value = Value;
+            this.DataType = dataType;
+            this.Value = value;
         }
+
+        public string DataType { get; set; }
+
+        public float Value { get; set; }
 
         public override string ToString()
         {
-            return string.Concat(DataType, "=>", Value);
+            return string.Concat(this.DataType, "=>", this.Value);
         }
     }
 
@@ -30,12 +30,15 @@ namespace Hale.Lib.Modules.Checks
         {
             var sb = new StringBuilder();
             sb.Append("(");
-            for (int i = 0; i < Count; i++)
+            for (int i = 0; i < this.Count; i++)
             {
                 sb.Append(this[i]);
-                if (i < Count - 1)
+                if (i < this.Count - 1)
+                {
                     sb.Append(", ");
+                }
             }
+
             sb.Append(")");
             return sb.ToString();
         }

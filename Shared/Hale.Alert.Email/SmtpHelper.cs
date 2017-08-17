@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hale.Alert
+﻿namespace Hale.Alert
 {
+    using System;
+    using System.Net;
+    using System.Net.Sockets;
+    using System.Text;
+
     // Taken from http://stackoverflow.com/questions/372742/can-i-test-smtpclient-before-calling-client-send
     public static class SmtpHelper
     {
-
         /// <summary>
         /// test the smtp connection by sending a HELO command
         /// </summary>
         /// <param name="smtpServerAddress"></param>
         /// <param name="port"></param>
+        /// <param name="response"></param>
         public static bool TestConnection(string smtpServerAddress, int port, out string response)
         {
             IPAddress hostAddress = Dns.GetHostAddresses(smtpServerAddress)[0];
@@ -25,7 +22,7 @@ namespace Hale.Alert
             {
                 string responseConnect;
 
-                //try to connect and test the rsponse for code 220 = success
+                // try to connect and test the rsponse for code 220 = success
                 tcpSocket.Connect(endPoint);
                 if (!CheckResponse(tcpSocket, 220, out responseConnect))
                 {
@@ -68,6 +65,7 @@ namespace Hale.Alert
             {
                 System.Threading.Thread.Sleep(100);
             }
+
             byte[] responseArray = new byte[1024];
             socket.Receive(responseArray, 0, socket.Available, SocketFlags.None);
             string responseData = Encoding.ASCII.GetString(responseArray);
@@ -77,6 +75,7 @@ namespace Hale.Alert
             {
                 return true;
             }
+
             return false;
         }
     }

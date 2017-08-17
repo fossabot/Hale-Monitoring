@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using Hale.Lib.Modules;
-using Hale.Lib.Modules.Alerts;
-
-namespace Hale.Alerts
+﻿namespace Hale.Alerts
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Windows.Forms;
+    using Hale.Lib.Modules;
+    using Hale.Lib.Modules.Alerts;
+    using Hale.Lib.Modules.Results;
+
     public class SimpleHaleAlert : Hale.Lib.Modules.Module, IAlertProvider
     {
         public override string Name { get; } = "Simple Alert";
@@ -25,22 +26,28 @@ namespace Hale.Alerts
         public AlertFunctionResult DefaultAlert(AlertSettings settings)
         {
             var afr = new AlertFunctionResult();
-            foreach (var target in settings.Targets) {
+            foreach (var target in settings.Targets)
+            {
                 var result = new AlertResult();
-                var mbresult = MessageBox.Show(settings.Message, settings.SourceString, MessageBoxButtons.YesNoCancel,
-                    MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                var mbresult = MessageBox.Show(
+                    settings.Message,
+                    settings.SourceString,
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button1);
                 result.RanSuccessfully = true;
                 result.Message = $"{target} -> {mbresult.ToString()}";
                 result.Target = target;
                 afr.AlertResults.Add(target, result);
             }
+
             afr.RanSuccessfully = true;
             return afr;
         }
 
         public void InitializeAlertProvider(AlertSettings settings)
         {
-            this.AddAlertFunction(DefaultAlert);
+            this.AddAlertFunction(this.DefaultAlert);
         }
     }
 }

@@ -10,12 +10,12 @@
     using Hale.Core.Data.Contexts;
     using Hale.Core.Data.Entities.Modules;
     using Hale.Core.Data.Entities.Nodes;
-    using Hale.Core.Utils;
     using Hale.Lib;
     using Hale.Lib.JsonRpc;
     using Hale.Lib.Modules;
     using Hale.Lib.Modules.Checks;
     using Hale.Lib.Modules.Info;
+    using Hale.Lib.Modules.Results;
     using Hale.Lib.Utilities;
     using Newtonsoft.Json.Linq;
     using NLog;
@@ -23,7 +23,7 @@
     using Piksel.Nemesis.Security;
     using EModule = Hale.Core.Data.Entities.Modules.Module;
 
-    internal class AgentHandler
+    internal class AgentHandler : IDisposable
     {
         private readonly ILogger log;
         private readonly HaleDBContext db = new HaleDBContext();
@@ -37,26 +37,33 @@
 
         public AgentHandler()
         {
-            var agentConfig = ServiceProvider.GetServiceCritical<CoreConfig>().Agent;
-
-            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-
-            this.log = LogManager.GetLogger("Hale.Core.AgentHandler");
-
-            this.agentConfig = agentConfig;
-
-            if (agentConfig.UseEncryption)
+            try
             {
-                string keyRepoPath = Path.Combine(appDataPath, "Hale", "Core");
+                var agentConfig = ServiceProvider.GetServiceCritical<CoreConfig>().Agent;
 
-                this.coreKeyFilePath = Path.Combine(keyRepoPath, "core-keys.xml");
-                this.agentKeyStorePath = Path.Combine(keyRepoPath, "HostKeys");
+                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
 
-                this.LoadXmlFileKeyStore();
-                this.GenerateRsaKeys();
+                this.log = LogManager.GetLogger("Hale.Core.AgentHandler");
+
+                this.agentConfig = agentConfig;
+
+                if (agentConfig.UseEncryption)
+                {
+                    string keyRepoPath = Path.Combine(appDataPath, "Hale", "Core");
+
+                    this.coreKeyFilePath = Path.Combine(keyRepoPath, "core-keys.xml");
+                    this.agentKeyStorePath = Path.Combine(keyRepoPath, "HostKeys");
+
+                    this.LoadXmlFileKeyStore();
+                    this.GenerateRsaKeys();
+                }
+
+                this.LoadNemesisClient(agentConfig.UseEncryption);
             }
-
-            this.LoadNemesisClient(agentConfig.UseEncryption);
+            catch (Exception x)
+            {
+                this.log.Error(x, $"Failed to initialize Agent Handler: {x.Message}");
+            }
         }
 
         internal RSAKey PublicKey
@@ -65,6 +72,11 @@
             {
                 return this.nemesis.KeyStore.PublicKey;
             }
+        }
+
+        public void Dispose()
+        {
+            this.db.Dispose();
         }
 
         public void LoadKeys()

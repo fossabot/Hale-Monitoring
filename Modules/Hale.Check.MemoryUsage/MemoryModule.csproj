@@ -39,6 +39,10 @@
     <StartAction>Program</StartAction>
     <StartProgram>$(OutputPath)\..\..\..\..\..\Hale-DevTools\Hale-CheckTester\bin\Debug\Hale-CheckTester.exe</StartProgram>
     <StartArguments>-d Hale-Check-Memory-Usage.dll -p . -t local</StartArguments>
+    <CodeAnalysisRuleSet>..\..\AnalysisRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <NoWarn>1591</NoWarn>
+    <DocumentationFile>bin\Debug\HaleModule-Core-Memory.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="MemoryModule.cs" />
@@ -68,6 +72,10 @@
       <Project>{cf1e1001-e40f-40a8-b1e3-29feb471b2bd}</Project>
       <Name>Hale.Lib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

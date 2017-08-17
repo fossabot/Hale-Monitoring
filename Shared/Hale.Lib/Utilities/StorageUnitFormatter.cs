@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hale.Lib.Utilities
+﻿namespace Hale.Lib.Utilities
 {
+    using System;
+
     [CLSCompliant(false)]
     public static class StorageUnitFormatter
     {
@@ -54,7 +50,7 @@ namespace Hale.Lib.Utilities
             }
             else
             {
-                return (p.ToString() + "B ");
+                return p.ToString() + "B ";
             }
         }
     }

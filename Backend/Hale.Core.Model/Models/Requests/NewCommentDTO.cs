@@ -2,6 +2,6 @@
 {
     public class NewCommentDTO
     {
-        public string Text;
+        public string Text { get; set; }
     }
 }

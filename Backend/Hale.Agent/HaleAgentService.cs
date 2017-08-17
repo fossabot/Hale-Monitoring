@@ -1,20 +1,21 @@
-﻿using System;
-using System.ServiceProcess;
-using System.IO;
-using Hale.Agent.Communication;
-using NLog;
-using Hale.Agent.Config;
-using Hale.Agent.Modules;
-using Hale.Lib.Utilities;
-using Hale.Lib.Config;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
-
-namespace Hale.Agent
+﻿namespace Hale.Agent
 {
+    using System;
+    using System.IO;
+    using System.ServiceProcess;
+    using Hale.Agent.Communication;
+    using Hale.Agent.Config;
+    using Hale.Agent.Modules;
+    using Hale.Agent.Scheduler;
+    using Hale.Lib.Config;
+    using Hale.Lib.Utilities;
+    using NLog;
+    using YamlDotNet.Serialization;
+    using YamlDotNet.Serialization.NamingConventions;
+
     public partial class HaleAgentService : ServiceBase
     {
-        private ILogger _log = LogManager.GetLogger("Service");
+        private ILogger log = LogManager.GetLogger("Service");
 
         private AgentConfig config;
         private NemesisController nemesis;
@@ -24,91 +25,90 @@ namespace Hale.Agent
 
         public HaleAgentService()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
 #if DEBUG
         internal void StartDebug()
         {
-            OnStart(new string[] { "" });
-            
+            this.OnStart(new string[0]);
         }
 #endif
 
         protected override void OnStart(string[] args)
         {
-            env = new EnvironmentConfig();
-            env.DataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Hale", "Agent");
-            ServiceProvider.SetService<EnvironmentConfig>(env);
+            this.env = new EnvironmentConfig();
+            this.env.DataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Hale", "Agent");
+            ServiceProvider.SetService(this.env);
 
-            InitializeNemesis();
+            this.InitializeNemesis();
 
-            //UpdateConfiguration();
+            this.UpdateConfiguration();
 
-            LoadConfiguration();
-            InitializeResultStorage();
-            InitializeScheduler();
-        }
-
-        private void InitializeResultStorage()
-        {
-            _log.Info("Initializing Result Storage...");
-            env.ResultsPath = Path.Combine(env.DataPath, "Results");
-
-            resultStorage = new ResultStorage();
-            ServiceProvider.SetService(resultStorage);
-        }
-
-        private void InitializeNemesis()
-        {
-            _log.Info("Initializing Nemesis...");
-            env.NemesisConfigFile = Path.Combine(env.DataPath, "nemesis.yaml");
-            env.NemesisKeyFile = Path.Combine(env.DataPath, "agent-keys.xml");
-            nemesis = new NemesisController();
-            ServiceProvider.SetService(nemesis);
-        }
-
-
-        private void UpdateConfiguration()
-        {
-            _log.Info("Updating configuration...");
-            var config = nemesis.RetrieveString("getAgentConfig");
-        }
-
-        private void LoadConfiguration()
-        {
-            _log.Debug("Loading configuration...");
-            env.ConfigFile = Path.Combine(env.DataPath, "config.yaml");
-            if(!File.Exists(env.ConfigFile))
-            {
-                _log.Warn("No configuration file has been fetched. Creating an empty one.");
-                //return;
-
-                var serializer = new SerializerBuilder()
-                    .WithNamingConvention(new CamelCaseNamingConvention())
-                    .Build();
-                using (StreamWriter writer = new StreamWriter(env.ConfigFile))
-                {
-                    serializer.Serialize(writer, new AgentConfig());
-                }
-            }
-            config = AgentConfig.LoadFromFile(env.ConfigFile);
-            ServiceProvider.SetService(config);
-
-            _log.Debug("Configuration successfully loaded, found {0} checks.", config.Checks.Count);
-        }
-
-        private void InitializeScheduler()
-        {
-            _log.Info("Initializing Scheduler...");
-            scheduler = new AgentScheduler();
-            scheduler.Start();
+            this.LoadConfiguration();
+            this.InitializeResultStorage();
+            this.InitializeScheduler();
         }
 
         protected override void OnStop()
         {
-            scheduler.Stop();
-            nemesis.Stop();
+            this.scheduler.Stop();
+            this.nemesis.Stop();
+        }
+
+        private void InitializeResultStorage()
+        {
+            this.log.Info("Initializing Result Storage...");
+            this.env.ResultsPath = Path.Combine(this.env.DataPath, "Results");
+
+            this.resultStorage = new ResultStorage();
+            ServiceProvider.SetService(this.resultStorage);
+        }
+
+        private void InitializeNemesis()
+        {
+            this.log.Info("Initializing Nemesis...");
+            this.env.NemesisConfigFile = Path.Combine(this.env.DataPath, "nemesis.yaml");
+            this.env.NemesisKeyFile = Path.Combine(this.env.DataPath, "agent-keys.xml");
+            this.nemesis = new NemesisController();
+            ServiceProvider.SetService(this.nemesis);
+        }
+
+        private void UpdateConfiguration()
+        {
+            this.log.Info("Updating configuration...");
+
+            // var config = this.nemesis.RetrieveString("getAgentConfig");
+        }
+
+        private void LoadConfiguration()
+        {
+            this.log.Debug("Loading configuration...");
+            this.env.ConfigFile = Path.Combine(this.env.DataPath, "config.yaml");
+            if (!File.Exists(this.env.ConfigFile))
+            {
+                this.log.Warn("No configuration file has been fetched. Creating an empty one.");
+
+                var serializer = new SerializerBuilder()
+                    .WithNamingConvention(new CamelCaseNamingConvention())
+                    .Build();
+                using (StreamWriter writer = new StreamWriter(this.env.ConfigFile))
+                {
+                    serializer.Serialize(writer, new AgentConfig());
+                }
+            }
+
+            this.config = AgentConfig.LoadFromFile(this.env.ConfigFile);
+            ServiceProvider.SetService(this.config);
+
+            this.log.Debug("Configuration successfully loaded, found {0} checks.", this.config.Checks.Count);
+        }
+
+        private void InitializeScheduler()
+        {
+            this.log.Info("Initializing Scheduler...");
+            this.scheduler = new AgentScheduler();
+            this.scheduler.Start();
         }
     }
 }

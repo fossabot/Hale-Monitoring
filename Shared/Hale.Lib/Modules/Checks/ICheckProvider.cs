@@ -1,23 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hale.Lib.Modules.Checks
+﻿namespace Hale.Lib.Modules.Checks
 {
-    /// <summary>
-    /// Represents a Hale module with exposed check functions
-    /// </summary>
-    public interface ICheckProvider: IModuleProviderBase
-    {
-        /// <summary>
-        /// Sets up global check settings and exposes check functions
-        /// </summary>
-        /// <param name="settings"></param>
-        void InitializeCheckProvider(CheckSettings settings);
-    }
+    using Hale.Lib.Modules.Results;
 
     public delegate CheckFunctionResult CheckFunction(CheckSettings settings);
 
@@ -27,6 +10,18 @@ namespace Hale.Lib.Modules.Checks
     /// <param name="settings"></param>
     /// <returns></returns>
     public delegate CheckResult SingleResultCheckFunction(CheckSettings settings);
+
+    /// <summary>
+    /// Represents a Hale module with exposed check functions
+    /// </summary>
+    public interface ICheckProvider : IModuleProviderBase
+    {
+        /// <summary>
+        /// Sets up global check settings and exposes check functions
+        /// </summary>
+        /// <param name="settings"></param>
+        void InitializeCheckProvider(CheckSettings settings);
+    }
 
     /// <summary>
     /// Extensions to the interface that makes it easier to create hale modules.
@@ -98,6 +93,5 @@ namespace Hale.Lib.Modules.Checks
         {
             checkProvider.AddSingleResultCheckFunction("default", func);
         }
-
     }
 }

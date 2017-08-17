@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Config = System.Collections.Generic.Dictionary<string, string>; 
-
-// ReSharper disable once CheckNamespace
-namespace Hale.Alert
+﻿namespace Hale.Alert
 {
+    using System;
+    using Config = System.Collections.Generic.Dictionary<string, string>;
+
     public interface IHaleAlert
     {
         string Name { get; }

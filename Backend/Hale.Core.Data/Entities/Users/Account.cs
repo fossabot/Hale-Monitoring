@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.Serialization;
-
-namespace Hale.Core.Data.Entities.Users
+﻿namespace Hale.Core.Data.Entities.Users
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Runtime.Serialization;
+
     public class Account
     {
         [Key]
@@ -17,6 +17,7 @@ namespace Hale.Core.Data.Entities.Users
         public string UserName { get; set; }
 
         public string Email { get; set; }
+
         public string FullName { get; set; }
 
         [NotMapped]
@@ -44,13 +45,14 @@ namespace Hale.Core.Data.Entities.Users
         [DefaultValue(true)]
         public bool Enabled { get; set; }
 
-
         public DateTimeOffset Created { get; set; } = DateTimeOffset.Now;
+
         public int? CreatedBy { get; set; }
+
         public DateTimeOffset? Modified { get; set; }
+
         public int? ModifiedBy { get; set; }
+
         public IList<AccountDetail> AccountDetails { get; set; }
-
-
     }
 }

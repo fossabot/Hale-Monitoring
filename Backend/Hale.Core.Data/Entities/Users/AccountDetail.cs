@@ -1,7 +1,7 @@
-using Newtonsoft.Json;
-
 namespace Hale.Core.Data.Entities.Users
 {
+    using Newtonsoft.Json;
+
     /// <summary>
     /// Corresponds to the database table Security.AccountDetails
     /// </summary>

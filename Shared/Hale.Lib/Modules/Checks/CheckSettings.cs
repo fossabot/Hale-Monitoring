@@ -1,52 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hale.Lib.Modules.Checks
+﻿namespace Hale.Lib.Modules.Checks
 {
+    using System;
+    using System.Collections.Generic;
+
     [Serializable]
-    public class CheckSettings: ModuleSettingsBase
+    public class CheckSettings : ModuleSettingsBase
     {
+        public CheckSettings()
+        {
+        }
 
-        public CheckThresholds Thresholds { get; set; }
-        public CheckActions Actions { get; set; }
-
-        public string Check { get { return Function; } set { Function = value; } }
-
-        public CheckSettings() { }
         public CheckSettings(Dictionary<string, string> rawMap)
         {
-            _raw = rawMap;
+            this.Raw = rawMap;
+        }
+
+        public CheckThresholds Thresholds { get; set; }
+
+        public CheckActions Actions { get; set; }
+
+        public string Check
+        {
+            get { return this.Function; } set { this.Function = value; }
         }
 
         public override void ParseRaw()
         {
             base.ParseRaw();
-            Check = _raw.ContainsKey("check") ? _raw["check"] : "default";
+            this.Check = this.Raw.ContainsKey("check") ? this.Raw["check"] : "default";
         }
-    }
-
-    [Serializable]
-    public class CheckThresholds
-    {
-        public float Warning { get; set; }
-        public float Critical { get; set; }
-    }
-
-    [Serializable]
-    public class CheckActions
-    {
-        public CheckAction Warning { get; set; }
-        public CheckAction Critical { get; set; }
-    }
-
-    [Serializable]
-    public class CheckAction
-    {
-        public string Action { get; set; }
-        public string Module { get; set; }
-        public string Target { get; set; }
     }
 }

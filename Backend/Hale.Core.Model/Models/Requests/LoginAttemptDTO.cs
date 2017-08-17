@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hale.Core.Models.Messages
+﻿namespace Hale.Core.Models.Messages
 {
     /// <summary>
     /// TODO: Add text here

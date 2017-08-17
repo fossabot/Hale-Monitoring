@@ -1,17 +1,14 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Management;
-using System.Text;
-using System.Threading.Tasks;
-using Hale.Lib.Modules;
-using Hale.Lib.Modules.Info;
-using Hale.Lib.Modules.Attributes;
-
-namespace Hale.Modules
+﻿namespace Hale.Modules
 {
-    partial class ServiceModule
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Management;
+    using Hale.Lib.Modules.Attributes;
+    using Hale.Lib.Modules.Info;
+    using Hale.Lib.Modules.Results;
+
+    public partial class ServiceModule
     {
         [InfoFunction(Identifier = "list", Default = true)]
         public InfoFunctionResult ListServicesInfo(InfoSettings settings)
@@ -19,7 +16,7 @@ namespace Hale.Modules
             var ifr = new InfoFunctionResult();
             try
             {
-                foreach (var service in settings.Targetless ? _getAllServices() : _getServiceDetails(settings.Targets))
+                foreach (var service in settings.Targetless ? this.GetAllServices() : this.GetServiceDetails(settings.Targets))
                 {
                     ifr.InfoResults.Add(service.Key, new InfoResult()
                     {
@@ -27,6 +24,7 @@ namespace Hale.Modules
                         RanSuccessfully = true,
                     });
                 }
+
                 ifr.RanSuccessfully = true;
                 ifr.Message = $"Returned details for {ifr.InfoResults.Count} service(s).";
 
@@ -51,33 +49,38 @@ namespace Hale.Modules
                 ifr.RanSuccessfully = false;
                 ifr.FunctionException = x;
             }
+
             return ifr;
         }
 
-        #region WMI
-        private Dictionary<string, Dictionary<string, string>> _getServiceDetails(ICollection<string> targets)
+        private Dictionary<string, Dictionary<string, string>> GetServiceDetails(ICollection<string> targets)
         {
             var services = new Dictionary<string, Dictionary<string, string>>();
             ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT Name,StartMode,StartName,Caption,State,Description FROM Win32_Service");
 
             foreach (ManagementObject mo in searcher.Get())
             {
-                if (!targets.Contains(mo["Name"])) continue;
+                if (!targets.Contains(mo["Name"]))
+                {
+                    continue;
+                }
+
                 var properties = new Dictionary<string, string>();
                 foreach (var p in mo.Properties)
                 {
                     if (p.Name != "Name")
                     {
-                        properties.Add(p.Name, p.Value != null ? p.Value.ToString() : "");
+                        properties.Add(p.Name, p.Value != null ? p.Value.ToString() : string.Empty);
                     }
                 }
+
                 services.Add(mo["Name"].ToString(), properties);
             }
 
             return services;
         }
 
-        private Dictionary<string, Dictionary<string, string>> _getAllServices()
+        private Dictionary<string, Dictionary<string, string>> GetAllServices()
         {
             var services = new Dictionary<string, Dictionary<string, string>>();
             ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT Name,StartMode,StartName,Caption,State FROM Win32_Service");
@@ -89,16 +92,14 @@ namespace Hale.Modules
                 {
                     if (p.Name != "Name")
                     {
-                        properties.Add(p.Name, p.Value != null ? p.Value.ToString() : "");
+                        properties.Add(p.Name, p.Value != null ? p.Value.ToString() : string.Empty);
                     }
                 }
+
                 services.Add(mo["Name"].ToString(), properties);
             }
 
             return services;
         }
-
-        #endregion
-
     }
 }

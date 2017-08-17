@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Management;
-using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
-using Hale.Lib.Modules;
-using Hale.Lib.Modules.Checks;
-using Hale.Lib.Modules.Attributes;
-
-namespace Hale.Modules
+﻿namespace Hale.Modules
 {
-    partial class ServiceModule
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Management;
+    using System.ServiceProcess;
+    using Hale.Lib.Modules;
+    using Hale.Lib.Modules.Attributes;
+    using Hale.Lib.Modules.Checks;
+    using Hale.Lib.Modules.Results;
+
+    public partial class ServiceModule
     {
         [CheckFunction(Default = true, Identifier = "running")]
         [ReturnUnit("status", UnitType.Custom, Name = "Status Code", Description = "Service status code")]
@@ -21,7 +20,7 @@ namespace Hale.Modules
 
             try
             {
-                IEnumerable<string> services = settings.Targetless ? _getAutomaticServices() : settings.Targets;
+                IEnumerable<string> services = settings.Targetless ? this.GetAutomaticServices() : settings.Targets;
                 foreach (var service in services)
                 {
                     var cr = new CheckResult();
@@ -33,22 +32,23 @@ namespace Hale.Modules
                         cr.Warning = sc.Status != ServiceControllerStatus.Running;
 
                         // Set critical if the service is either stopping or stopped
-                        cr.Critical = _criticalStatuses.Contains(sc.Status);
+                        cr.Critical = CriticalStatuses.Contains(sc.Status);
 
                         cr.Message = $"Service \"{sc.DisplayName}\" has the status of {sc.Status.ToString()}.";
 
                         cr.RawValues.Add(new DataPoint("status", (int)sc.Status));
 
                         cr.RanSuccessfully = true;
-
                     }
                     catch (Exception x)
                     {
                         cr.ExecutionException = x;
                         cr.RanSuccessfully = false;
                     }
+
                     cfr.CheckResults.Add(service, cr);
                 }
+
                 cfr.RanSuccessfully = true;
             }
             catch (Exception x)
@@ -61,8 +61,7 @@ namespace Hale.Modules
             return cfr;
         }
 
-        #region WMI
-        private string[] _getAutomaticServices()
+        private string[] GetAutomaticServices()
         {
             var services = new List<string>();
             ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT Name FROM Win32_Service WHERE StartMode = 'Auto'");
@@ -74,6 +73,5 @@ namespace Hale.Modules
 
             return services.ToArray();
         }
-        #endregion
     }
 }

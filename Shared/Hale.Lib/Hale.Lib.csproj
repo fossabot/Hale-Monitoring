@@ -24,6 +24,10 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\..\AnalysisRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <DocumentationFile>bin\Debug\Hale.Lib.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -58,18 +62,57 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgentIdentification.cs" />
+    <Compile Include="Config\AgentConfigBase.cs" />
+    <Compile Include="Config\AgentConfigModule.cs" />
+    <Compile Include="Config\AgentConfigRaw.cs" />
+    <Compile Include="Config\AgentConfigTask.cs" />
+    <Compile Include="Generalization\GenericKeyValuePairEnumerator.cs" />
+    <Compile Include="Generalization\GenericValueCollection.cs" />
+    <Compile Include="Generalization\GenericValueEnumerator.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="IdNetworkInterface.cs" />
+    <Compile Include="JsonRpc\JsonRpcDefaults.cs" />
+    <Compile Include="JsonRpc\JsonRpcError.cs" />
+    <Compile Include="JsonRpc\JsonRpcRequest.cs" />
+    <Compile Include="JsonRpc\JsonRpcResponse.cs" />
+    <Compile Include="Modules\Results\ActionFunctionResult.cs" />
+    <Compile Include="Modules\Actions\ActionResultRecord.cs" />
+    <Compile Include="Modules\Results\AlertFunctionResult.cs" />
+    <Compile Include="Modules\Alerts\AlertResultRecord.cs" />
+    <Compile Include="Modules\Attributes\ActionFunctionAttribute.cs" />
     <Compile Include="Modules\Attributes\CheckFunctionAttribute.cs" />
     <Compile Include="Modules\Attributes\HaleModuleAttribute.cs" />
     <Compile Include="Modules\Attributes\HaleModuleAuthorAttribute.cs" />
     <Compile Include="Modules\Attributes\HaleModuleDescriptionAttribute.cs" />
     <Compile Include="Modules\Attributes\HaleModuleNameAttribute.cs" />
+    <Compile Include="Modules\Attributes\InfoFunctionAttribute.cs" />
+    <Compile Include="Modules\Attributes\ModuleFunctionAttribute.cs" />
     <Compile Include="Modules\Attributes\ReturnUnitAttribute.cs" />
+    <Compile Include="Modules\Results\CheckFunctionResult.cs" />
+    <Compile Include="Modules\Checks\CheckAction.cs" />
+    <Compile Include="Modules\Checks\CheckActions.cs" />
+    <Compile Include="Modules\Checks\CheckThresholds.cs" />
+    <Compile Include="Modules\Results\InfoFunctionResult.cs" />
+    <Compile Include="Modules\Info\InfoProviderExtensions.cs" />
+    <Compile Include="Modules\Info\InfoResultRecord.cs" />
+    <Compile Include="Modules\Manifest\ModuleManifestAuthor.cs" />
+    <Compile Include="Modules\Manifest\ModuleManifestInformation.cs" />
+    <Compile Include="Modules\Manifest\ModuleManifestMetric.cs" />
+    <Compile Include="Modules\Manifest\ModuleManifestModule.cs" />
+    <Compile Include="Modules\Manifest\ModuleManifestOptions.cs" />
+    <Compile Include="Modules\Manifest\ModuleManifestOptionsField.cs" />
+    <Compile Include="Modules\Manifest\ModuleManifestOptionsGroup.cs" />
+    <Compile Include="Modules\Manifest\ModuleManifestOptionType.cs" />
+    <Compile Include="Modules\Results\ModuleResultRecord.cs" />
+    <Compile Include="Modules\Results\ResultRecordChunk.cs" />
     <Compile Include="Modules\UnitType.cs" />
+    <Compile Include="Modules\UnitTypeResolution.cs" />
+    <Compile Include="QueuedTask.cs" />
+    <Compile Include="TaskBase.cs" />
     <Compile Include="Utilities\ComputerInfo.cs" />
     <Compile Include="Config\AgentConfig.cs" />
     <Compile Include="Config\NemesisConfig.cs" />
     <Compile Include="Generalization\GenericValueDictionary.cs" />
-    <Compile Include="JsonRpc\JsonRpcBase.cs" />
     <Compile Include="JsonRpc\JsonRpcErrorCode.cs" />
     <Compile Include="Modules\Actions\ActionResult.cs" />
     <Compile Include="Modules\Actions\ActionSettings.cs" />
@@ -85,21 +128,22 @@
     <Compile Include="Modules\Checks\ICheckProvider.cs" />
     <Compile Include="Modules\Exceptions\UnknownUnsuccessfulException.cs" />
     <Compile Include="Modules\IModuleProviderBase.cs" />
-    <Compile Include="Modules\IModuleResultRecord.cs" />
+    <Compile Include="Modules\Results\IModuleResultRecord.cs" />
     <Compile Include="Modules\Info\IInfoProvider.cs" />
     <Compile Include="Modules\Info\InfoResult.cs" />
     <Compile Include="Modules\Info\InfoSettings.cs" />
     <Compile Include="Modules\Module.cs" />
     <Compile Include="Modules\ModuleFunctionResult.cs" />
     <Compile Include="Modules\ModuleFunctionType.cs" />
-    <Compile Include="Modules\ModuleManifest.cs" />
+    <Compile Include="Modules\Manifest\ModuleManifest.cs" />
     <Compile Include="Modules\ModuleProviderExtensions.cs" />
-    <Compile Include="Modules\ModuleResult.cs" />
+    <Compile Include="Modules\Results\ModuleResult.cs" />
     <Compile Include="Modules\ModuleSettingsBase.cs" />
     <Compile Include="Modules\VersionedIdentifier.cs" />
     <Compile Include="Networking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scheduler.cs" />
+    <Compile Include="Utilities\CriticalServiceProviderNotFoundException.cs" />
     <Compile Include="Utilities\ServiceProvider.cs" />
     <Compile Include="Utilities\StorageUnitFormatter.cs" />
     <Compile Include="Utilities\StringParserExtensions.cs" />
@@ -107,6 +151,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hale.Lib.Modules;
-using Hale.Lib.Modules.Actions;
-
-namespace Hale.Lib.Modules.Actions
+﻿namespace Hale.Lib.Modules.Actions
 {
-    public interface IActionProvider: IModuleProviderBase
+    using Hale.Lib.Modules;
+    using Hale.Lib.Modules.Results;
+
+    public delegate ActionFunctionResult ActionFunction(ActionSettings settings);
+
+    public delegate ActionResult SingleResultActionFunction(ActionSettings settings);
+
+    public interface IActionProvider : IModuleProviderBase
     {
         void InitializeActionProvider(ActionSettings settings);
     }
-
-    public delegate ActionFunctionResult ActionFunction(ActionSettings settings);
-    public delegate ActionResult SingleResultActionFunction(ActionSettings settings);
 
     public static class ActionProviderExtensions
     {
@@ -54,6 +50,5 @@ namespace Hale.Lib.Modules.Actions
         {
             actionProvider.AddSingleResultActionFunction("default", func);
         }
-
     }
 }

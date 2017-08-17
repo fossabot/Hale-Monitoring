@@ -1,11 +1,6 @@
 ﻿namespace Hale.Core.Controllers
 {
-    using System;
-    using System.Linq;
-    using System.Net.Http;
-    using System.Security.Claims;
     using System.Web.Http;
-    using Hale.Core.Data.Entities;
     using Hale.Core.Model.Interfaces;
     using Hale.Core.Model.Models;
     using Hale.Core.Models.Users;
