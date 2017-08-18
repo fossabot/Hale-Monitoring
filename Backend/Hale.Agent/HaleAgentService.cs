@@ -12,6 +12,7 @@
     using NLog;
     using YamlDotNet.Serialization;
     using YamlDotNet.Serialization.NamingConventions;
+    using System.Threading;
 
     public partial class HaleAgentService : ServiceBase
     {
@@ -67,6 +68,10 @@
 
         private void InitializeNemesis()
         {
+#if DEBUG
+            // This is only to prevent errors while the core launches.
+            Thread.Sleep(TimeSpan.FromSeconds(3));
+#endif
             this.log.Info("Initializing Nemesis...");
             this.env.NemesisConfigFile = Path.Combine(this.env.DataPath, "nemesis.yaml");
             this.env.NemesisKeyFile = Path.Combine(this.env.DataPath, "agent-keys.xml");

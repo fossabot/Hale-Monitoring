@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public delegate ModuleFunctionResult ModuleFunction(ModuleSettingsBase settings);
+    public delegate ModuleResultSet ModuleFunction(ModuleSettingsBase settings);
 
     public interface IModuleProviderBase
     {

@@ -5,7 +5,7 @@
     using Hale.Lib.Modules.Alerts;
 
     [Serializable]
-    public class AlertFunctionResult : ModuleFunctionResult
+    public class AlertResultSet : ModuleResultSet
     {
         private GenericValueDictionary<AlertResult> alertResults;
 

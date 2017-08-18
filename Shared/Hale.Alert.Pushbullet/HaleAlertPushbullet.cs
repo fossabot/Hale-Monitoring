@@ -28,9 +28,9 @@
 
         public string InitResponse { get; private set; }
 
-        public AlertFunctionResult DefaultAlert(AlertSettings settings)
+        public AlertResultSet DefaultAlert(AlertSettings settings)
         {
-            var afr = new AlertFunctionResult();
+            var afr = new AlertResultSet();
             foreach (var target in settings.Targets)
             {
                 var ar = new AlertResult();

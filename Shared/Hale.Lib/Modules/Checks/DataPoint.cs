@@ -19,7 +19,7 @@
 
         public override string ToString()
         {
-            return string.Concat(this.DataType, "=>", this.Value);
+            return string.Concat(this.DataType, " => ", this.Value.ToString("F2"));
         }
     }
 

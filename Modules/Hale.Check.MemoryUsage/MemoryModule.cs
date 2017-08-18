@@ -13,19 +13,10 @@
     /// All checks need to realize the interface ICheck.
     /// </summary>
     [HaleModule("com.itshale.core.memory", 0, 1, 1)]
-    public class MemoryModule : Module, ICheckProvider, IInfoProvider
+    [HaleModuleName("Memory Module")]
+    [HaleModuleAuthor("Hale Project")]
+    public class MemoryModule
     {
-        public override string Name => "Memory Module";
-
-        public override string Author => "Hale Project";
-
-        public override string Identifier => "com.itshale.core.memory";
-
-        public override Version Version => new Version(0, 1, 1);
-
-        public override string Platform => "Windows";
-
-        public override decimal TargetApi => 1.2M;
 
         [CheckFunction(Default = true, Identifier = "usage")]
         [ReturnUnit("freePercentage", UnitType.Percent, Name = "Free Relative")]
@@ -83,18 +74,6 @@
             var result = new InfoResult();
             result.ExecutionException = new NotImplementedException();
             return result;
-        }
-
-        public void InitializeCheckProvider(CheckSettings settings)
-        {
-            this.AddSingleResultCheckFunction(this.DefaultCheck);
-            this.AddSingleResultCheckFunction("usage", this.DefaultCheck);
-        }
-
-        public void InitializeInfoProvider(InfoSettings settings)
-        {
-            this.AddSingleResultInfoFunction(this.DefaultInfo);
-            this.AddSingleResultInfoFunction("sizes", this.DefaultInfo);
         }
     }
 }

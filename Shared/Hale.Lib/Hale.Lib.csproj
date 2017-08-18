@@ -75,9 +75,10 @@
     <Compile Include="JsonRpc\JsonRpcError.cs" />
     <Compile Include="JsonRpc\JsonRpcRequest.cs" />
     <Compile Include="JsonRpc\JsonRpcResponse.cs" />
-    <Compile Include="Modules\Results\ActionFunctionResult.cs" />
+    <Compile Include="Modules\Attributes\TargetMode.cs" />
+    <Compile Include="Modules\ModuleResultSet.cs" />
     <Compile Include="Modules\Actions\ActionResultRecord.cs" />
-    <Compile Include="Modules\Results\AlertFunctionResult.cs" />
+    <Compile Include="Modules\Results\ActionResultSet.cs" />
     <Compile Include="Modules\Alerts\AlertResultRecord.cs" />
     <Compile Include="Modules\Attributes\ActionFunctionAttribute.cs" />
     <Compile Include="Modules\Attributes\CheckFunctionAttribute.cs" />
@@ -88,11 +89,9 @@
     <Compile Include="Modules\Attributes\InfoFunctionAttribute.cs" />
     <Compile Include="Modules\Attributes\ModuleFunctionAttribute.cs" />
     <Compile Include="Modules\Attributes\ReturnUnitAttribute.cs" />
-    <Compile Include="Modules\Results\CheckFunctionResult.cs" />
     <Compile Include="Modules\Checks\CheckAction.cs" />
     <Compile Include="Modules\Checks\CheckActions.cs" />
     <Compile Include="Modules\Checks\CheckThresholds.cs" />
-    <Compile Include="Modules\Results\InfoFunctionResult.cs" />
     <Compile Include="Modules\Info\InfoProviderExtensions.cs" />
     <Compile Include="Modules\Info\InfoResultRecord.cs" />
     <Compile Include="Modules\Manifest\ModuleManifestAuthor.cs" />
@@ -103,6 +102,9 @@
     <Compile Include="Modules\Manifest\ModuleManifestOptionsField.cs" />
     <Compile Include="Modules\Manifest\ModuleManifestOptionsGroup.cs" />
     <Compile Include="Modules\Manifest\ModuleManifestOptionType.cs" />
+    <Compile Include="Modules\Results\AlertResultSet.cs" />
+    <Compile Include="Modules\Results\CheckResultSet.cs" />
+    <Compile Include="Modules\Results\InfoResultSet.cs" />
     <Compile Include="Modules\Results\ModuleResultRecord.cs" />
     <Compile Include="Modules\Results\ResultRecordChunk.cs" />
     <Compile Include="Modules\UnitType.cs" />
@@ -133,7 +135,6 @@
     <Compile Include="Modules\Info\InfoResult.cs" />
     <Compile Include="Modules\Info\InfoSettings.cs" />
     <Compile Include="Modules\Module.cs" />
-    <Compile Include="Modules\ModuleFunctionResult.cs" />
     <Compile Include="Modules\ModuleFunctionType.cs" />
     <Compile Include="Modules\Manifest\ModuleManifest.cs" />
     <Compile Include="Modules\ModuleProviderExtensions.cs" />

@@ -1,6 +1,7 @@
 ﻿namespace Hale.Lib.Modules.Attributes
 {
     using System;
+    using Mode = TargetMode;
 
     [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = true)]
     public class ModuleFunctionAttribute : Attribute
@@ -20,5 +21,7 @@
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        public Mode TargetMode { get; set; } = Mode.Targetless;
     }
 }

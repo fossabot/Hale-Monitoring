@@ -5,7 +5,7 @@
     using Hale.Lib.Modules.Checks;
 
     [Serializable]
-    public class CheckFunctionResult : ModuleFunctionResult
+    public class CheckResultSet : ModuleResultSet
     {
         private GenericValueDictionary<CheckResult> checkResults;
 

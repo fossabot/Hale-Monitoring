@@ -14,9 +14,9 @@
     {
         [CheckFunction(Default = true, Identifier = "running")]
         [ReturnUnit("status", UnitType.Custom, Name = "Status Code", Description = "Service status code")]
-        public CheckFunctionResult ServiceRunningCheck(CheckSettings settings)
+        public CheckResultSet ServiceRunningCheck(CheckSettings settings)
         {
-            var cfr = new CheckFunctionResult();
+            var cfr = new CheckResultSet();
 
             try
             {

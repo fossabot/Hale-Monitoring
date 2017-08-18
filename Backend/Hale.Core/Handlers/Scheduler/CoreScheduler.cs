@@ -27,7 +27,7 @@
                     break;
             }
 
-            qiTask.Completed = DateTime.Now;
+            qiTask.Completed = DateTime.UtcNow;
         }
     }
 }

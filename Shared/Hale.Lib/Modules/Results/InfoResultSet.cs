@@ -5,7 +5,7 @@
     using Hale.Lib.Modules.Info;
 
     [Serializable]
-    public class InfoFunctionResult : ModuleFunctionResult
+    public class InfoResultSet : ModuleResultSet
     {
         private GenericValueDictionary<InfoResult> infoResults;
 

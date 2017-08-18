@@ -4,9 +4,9 @@
 
     public static class InfoProviderExtensions
     {
-        public static InfoFunctionResult ExecuteInfoFunction(this IInfoProvider infoProvider, string name, InfoSettings settings)
+        public static InfoResultSet ExecuteInfoFunction(this IInfoProvider infoProvider, string name, InfoSettings settings)
         {
-            return infoProvider.ExecuteFunction(name, settings, "info") as InfoFunctionResult;
+            return infoProvider.ExecuteFunction(name, settings, "info") as InfoResultSet;
         }
 
         public static void AddInfoFunction(this IInfoProvider infoProvider, string name, InfoFunction func)
@@ -27,7 +27,7 @@
             infoProvider.Functions.Add("info_" + name, (settings) =>
             {
                 var ir = func(settings as InfoSettings);
-                var ifr = new InfoFunctionResult();
+                var ifr = new InfoResultSet();
                 ifr.InfoResults.Add("default", ir);
                 ifr.RanSuccessfully = ir.RanSuccessfully;
                 ifr.FunctionException = ir.ExecutionException;

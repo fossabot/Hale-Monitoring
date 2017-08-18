@@ -13,28 +13,12 @@
     using Hale.Lib.Modules.Results;
     using Module = Hale.Lib.Modules.Module;
 
-    /// <summary>
-    /// All checks need to realize the interface ICheck.
-    /// </summary>
     [HaleModule("com.itshale.core.cpu", 0, 1, 1)]
     [HaleModuleName("CPU Module")]
     [HaleModuleDescription("CPU functions")]
     [HaleModuleAuthor("Hale Project")]
-    public class CpuModule : Module, ICheckProvider, IInfoProvider
+    public class CpuModule
     {
-        public override string Name => "CPU Module";
-
-        public override string Platform => "Windows";
-
-        public override decimal TargetApi => 1.2M;
-
-        public override string Identifier => "com.itshale.core.cpu";
-
-        public override Version Version => new Version(0, 1, 1);
-
-        Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
-            = new Dictionary<string, ModuleFunction>();
-
         [CheckFunction(Default = true, Identifier = "usage")]
         [ReturnUnit("CpuUsage", UnitType.Percent, Name = "CPU Usage", Description = "Percent of CPU time spent non-idle")]
         public CheckResult DefaultCheck(CheckSettings settings)
@@ -166,9 +150,9 @@
         }
 
         [InfoFunction(Default = true)]
-        public InfoFunctionResult DefaultInfo(InfoSettings settings)
+        public InfoResultSet DefaultInfo(InfoSettings settings)
         {
-            var result = new InfoFunctionResult();
+            var result = new InfoResultSet();
             try
             {
                 var cpus = this.GetCPUProperties(new byte[] { }, new[] { "MaxClockSpeed", "NumberOfLogicalProcessors", "NumberOfCores", "Name", "Manufacturer" });
@@ -191,18 +175,6 @@
             }
 
             return result;
-        }
-
-        public void InitializeCheckProvider(CheckSettings settings)
-        {
-            this.AddSingleResultCheckFunction(this.DefaultCheck);
-            this.AddSingleResultCheckFunction("usage", this.DefaultCheck);
-            this.AddSingleResultCheckFunction("performance", this.PerformanceCheck);
-        }
-
-        public void InitializeInfoProvider(InfoSettings settings)
-        {
-            this.AddInfoFunction(this.DefaultInfo);
         }
 
         private Dictionary<byte, Dictionary<string, string>> GetCPUProperties(byte[] targets, string[] filter)

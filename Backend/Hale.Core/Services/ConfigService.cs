@@ -66,7 +66,7 @@
 
             var currentUser = this.Db.Accounts.First(x => x.UserName == currentUsername);
 
-            configSet.Modified = DateTime.Now;
+            configSet.Modified = DateTime.UtcNow;
             configSet.ModifiedBy = currentUser.Id;
 
             foreach (var task in newConfig.Tasks)

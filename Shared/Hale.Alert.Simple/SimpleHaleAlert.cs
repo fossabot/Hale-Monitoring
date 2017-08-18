@@ -21,9 +21,9 @@
 
         public new decimal TargetApi { get; } = 1.3M;
 
-        public AlertFunctionResult DefaultAlert(AlertSettings settings)
+        public AlertResultSet DefaultAlert(AlertSettings settings)
         {
-            var afr = new AlertFunctionResult();
+            var afr = new AlertResultSet();
             foreach (var target in settings.Targets)
             {
                 var result = new AlertResult();

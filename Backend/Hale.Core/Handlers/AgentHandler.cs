@@ -152,7 +152,6 @@
             {
                 var req = JsonRpcRequest.FromJsonString(e.Command);
                 this.log.Debug("Got message of type \"{0}\"... ", req.Method);
-
                 response = this.ExecuteRequest(e, req);
             }
             catch (Exception x)
@@ -452,9 +451,9 @@
                 HardwareSummary = agentId.HardwareSummary,
                 NicSummary = sbNics.ToString(),
                 OperatingSystem = agentId.OperatingSystem,
-                LastConnected = DateTime.Now,
-                Created = DateTime.Now,
-                Modified = DateTime.Now
+                LastConnected = DateTime.UtcNow,
+                Created = DateTime.UtcNow,
+                Modified = DateTime.UtcNow
             });
             this.db.SaveChanges();
 

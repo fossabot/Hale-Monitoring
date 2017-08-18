@@ -14,6 +14,8 @@
     using Hale.Lib.Modules.Checks;
     using Hale.Lib.Modules.Info;
     using Hale.Lib.Utilities;
+    using System.Text.RegularExpressions;
+    using Hale.Lib.Modules.Results;
 
     internal partial class AgentScheduler : Scheduler
     {
@@ -81,45 +83,37 @@
             var config = ServiceProvider.GetServiceCritical<AgentConfig>();
 
             // VerifyChecks(config.Checks);
-            foreach (var check in config.Checks)
-            {
-                var task = new ModuleTask();
-                task.Function = check.Check;
-                task.Module = check.Module.ToString();
-                task.FunctionType = ModuleFunctionType.Check;
-                task.Settings = check;
-
-                this.ScheduleTask(task, check.Interval);
-            }
-
-            foreach (var info in config.Info)
-            {
-                var task = new ModuleTask();
-                task.Function = info.Info;
-                task.Module = info.Module.ToString();
-                task.FunctionType = ModuleFunctionType.Info;
-                task.Settings = info;
-
-                if (task.Settings.Startup)
-                {
-                    this.EnqueueTasks(new List<TaskBase>() { task });
-                }
-
-                this.ScheduleTask(task, info.Interval);
-            }
-
-            foreach (var action in config.Actions)
-            {
-                var task = new ModuleTask();
-                task.Function = action.Action;
-                task.Module = action.Module.ToString();
-                task.FunctionType = ModuleFunctionType.Action;
-                task.Settings = action;
-
-                this.ScheduleTask(task, action.Interval);
-            }
+            config.Checks.ForEach(check => this.ProcessConfigFunction(check, ModuleFunctionType.Check));
+            config.Info.ForEach(info => this.ProcessConfigFunction(info, ModuleFunctionType.Info));
+            config.Actions.ForEach(action => this.ProcessConfigFunction(action, ModuleFunctionType.Action));
 
             this.ProcessInternalTasks(config);
+        }
+
+        private void ProcessConfigFunction(ModuleSettingsBase function, ModuleFunctionType type)
+        {
+            if (!function.Startup && !function.Enabled)
+            {
+                return;
+            }
+
+            var task = new ModuleTask()
+            {
+                FunctionType = type,
+                Function = function.Function,
+                Module = function.Module.ToString(),
+                Settings = function
+            };
+
+            if (task.Settings.Startup)
+            {
+                this.EnqueueTask(task);
+            }
+
+            if (task.Settings.Enabled)
+            {
+                this.ScheduleTask(task, function.Interval);
+            }
         }
 
         private void RunModuleTask(QueuedModuleTask queuedTask)
@@ -147,93 +141,27 @@
                     throw new FileNotFoundException($"Check DLL \"{dll}\" not found!");
                 }
 
+                ModuleResultSet functionResult;
                 switch (task.FunctionType)
                 {
                     case ModuleFunctionType.Check:
-                        {
-                            var functionResult = ModuleLoader.ExecuteCheckFunction(dll, checkPath, task.Function, (CheckSettings)task.Settings);
-
-                            queuedTask.Completed = DateTime.Now;
-
-                            foreach (var kvpResult in functionResult.CheckResults)
-                            {
-                                var result = kvpResult.Value;
-                                var target = kvpResult.Key;
-                                if (result.RanSuccessfully)
-                                {
-                                    this.Log.Info($"Task {task}({result.Target}) returned the raw values {result.RawValues}");
-                                }
-                                else
-                                {
-                                    this.Log.Warn($"Task {task}({result.Target}) executed with error: {result.ExecutionException.Message}");
-                                }
-
-                                this.Log.Info($"  -> {result.Message}");
-                            }
-
-                            resultStorage.StoreResult(queuedTask, functionResult);
-                        }
-
+                        functionResult = ModuleLoader.ExecuteFunction<CheckResultSet>(dll, checkPath, task.Function, task.Settings);
+                        this.LogCheckResults(task, functionResult);
                         break;
                     case ModuleFunctionType.Info:
-                        {
-                            var functionResult = ModuleLoader.ExecuteInfoFunction(dll, checkPath, task.Function, (InfoSettings)task.Settings);
-
-                            queuedTask.Completed = DateTime.Now;
-
-                            foreach (var kvpResult in functionResult.InfoResults)
-                            {
-                                var result = kvpResult.Value;
-                                var target = kvpResult.Key;
-                                if (result.RanSuccessfully || result.ExecutionException == null)
-                                {
-                                    this.Log.Info($"Task {task}({result.Target}) executed successfully!");
-                                    foreach (var item in result.Items)
-                                    {
-                                        this.Log.Debug($" - {item.Key} = {item.Value}");
-                                    }
-                                }
-                                else
-                                {
-                                    this.Log.Warn($"Task {task}({result.Target}) executed with error: {result.ExecutionException.Message}");
-                                }
-
-                                this.Log.Info($"  -> {result.Message}");
-                            }
-
-                            resultStorage.StoreResult(queuedTask, functionResult);
-                        }
-
+                        functionResult = ModuleLoader.ExecuteFunction<InfoResultSet>(dll, checkPath, task.Function, task.Settings);
+                        this.LogInfoResult(task, functionResult);
                         break;
                     case ModuleFunctionType.Action:
-                        {
-                            var functionResult = ModuleLoader.ExecuteActionFunction(dll, checkPath, task.Function, (ActionSettings)task.Settings);
-
-                            queuedTask.Completed = DateTime.Now;
-
-                            foreach (var kvpResult in functionResult.ActionResults)
-                            {
-                                var result = kvpResult.Value;
-                                var target = kvpResult.Key;
-                                if (result.RanSuccessfully)
-                                {
-                                    this.Log.Info($"Task {task}({result.Target}) executed successfully!");
-                                }
-                                else
-                                {
-                                    this.Log.Warn($"Task {task}({result.Target}) executed with error: {result.ExecutionException.Message}");
-                                }
-
-                                this.Log.Info($"  -> {result.Message}");
-                            }
-
-                            resultStorage.StoreResult(queuedTask, functionResult);
-                        }
-
+                        functionResult = ModuleLoader.ExecuteFunction<ActionResultSet>(dll, checkPath, task.Function, task.Settings);
+                        this.LogActionResult(task, functionResult);
                         break;
                     default:
                         throw new ArgumentException($"Incorrect function type \"{task.FunctionType}\".");
                 }
+
+                queuedTask.Completed = DateTime.UtcNow;
+                resultStorage.StoreResult(queuedTask, functionResult);
 
                 this.Log.Info($"The task {task} completed in {(queuedTask.Completed - queuedTask.Added).TotalSeconds.ToString("F2")} second(s)");
             }
@@ -243,13 +171,80 @@
             }
         }
 
+        private void LogActionResult(ModuleTask task, ModuleResultSet functionResult)
+        {
+            var actionResult = functionResult as ActionResultSet;
+            foreach (var kvpResult in actionResult.ActionResults)
+            {
+                var result = kvpResult.Value;
+                var target = kvpResult.Key;
+                if (result.RanSuccessfully)
+                {
+                    this.Log.Info($"Task {task}({result.Target}) executed successfully!");
+                }
+                else
+                {
+                    this.Log.Warn($"Task {task}({result.Target}) executed with error: {result.ExecutionException.Message}");
+                }
+
+                this.Log.Info($"  -> {result.Message}");
+            }
+        }
+
+        private void LogInfoResult(ModuleTask task, ModuleResultSet functionResult)
+        {
+            var infoResult = functionResult as InfoResultSet;
+            foreach (var kvpResult in infoResult.InfoResults)
+            {
+                var result = kvpResult.Value;
+                var target = kvpResult.Key;
+                if (result.RanSuccessfully || result.ExecutionException == null)
+                {
+                    this.Log.Info($"Task {task}({result.Target}) executed successfully!");
+                    foreach (var item in result.Items)
+                    {
+                        this.Log.Debug($" - {item.Key} = {item.Value}");
+                    }
+                }
+                else
+                {
+                    this.Log.Warn($"Task {task}({result.Target}) executed with error: {result.ExecutionException.Message}");
+                }
+
+                this.Log.Info($"  -> {result.Message}");
+            }
+        }
+
+        private void LogCheckResults(ModuleTask task, ModuleResultSet functionResult)
+        {
+            var checkResult = functionResult as CheckResultSet;
+            foreach (var kvpResult in checkResult.CheckResults)
+            {
+                var result = kvpResult.Value;
+                var target = kvpResult.Key;
+                if (result.RanSuccessfully)
+                {
+                    this.Log.Info($"Task {task}({result.Target}) returned the raw values {result.RawValues}");
+                }
+                else
+                {
+                    this.Log.Warn($"Task {task}({result.Target}) executed with error: {result.ExecutionException.Message}");
+                }
+
+                this.Log.Info($"  -> {result.Message}");
+            }
+        }
+
         private string GetModulePath(string check)
         {
             var env = ServiceProvider.GetServiceCritical<EnvironmentConfig>();
+
+            var matches = Regex.Match(check, @"(.*)\.(.*_.*)$");
+
             return Path.Combine(
                 env.ModulePath,
-                check.Substring(0, check.LastIndexOf('.')),
-                check.Substring(check.LastIndexOf('.') + 1));
+                matches.Groups[1].Value,
+                matches.Groups[2].Value);
         }
 
         private void VerifyChecks(Dictionary<string, ModuleSettingsBase> checks)
@@ -289,7 +284,7 @@
                 }
                 else
                 {
-                    queuedTask.Added = DateTime.Now;
+                    queuedTask.Added = DateTime.UtcNow;
                     this.TaskQueue.Enqueue(queuedTask);
                 }
             }

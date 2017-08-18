@@ -39,10 +39,10 @@
             {
                 if (!worker.CancellationPending)
                 {
-                    if (DateTime.Now - lastRun > this.config.HeartBeatInterval)
+                    if (DateTime.UtcNow - lastRun > this.config.HeartBeatInterval)
                     {
                         log.Debug("Sending heartbeat to Core...");
-                        lastRun = DateTime.Now;
+                        lastRun = DateTime.UtcNow;
 
                         var req = new JsonRpcRequest()
                         {

@@ -103,50 +103,64 @@
             return provider;
         }
 
-        public CheckFunctionResult ExecuteCheckFunction(string dll, string name, CheckSettings settings)
+        public TResult ExecuteFunction<TResult>(string dll, string name, ModuleSettingsBase settings)
+            where TResult : ModuleResultSet, new()
         {
             this.InitLogging();
+
+            var functionType = GetModuleFunctionType(typeof(TResult));
+
             var type = GetHaleModule(dll);
-            var method = type.GetMethods().SingleOrDefault(mi =>
-                mi.GetCustomAttributes().Any(ca =>
-                    ca is ModuleFunctionAttribute
-                    && ((ModuleFunctionAttribute)ca).Identifier == name));
+            var method = GetFunctionMethod(name, type, functionType);
 
-            var module = Activator.CreateInstance(type) as HaleModule;
-            var checkResult = method.Invoke(module, new object[] { settings }) as CheckFunctionResult;
+            HaleModule module = Activator.CreateInstance(type) as HaleModule;
+            ModuleResultSet wrappedResult;
 
-            return this.AddVersionInfo(checkResult, module) as CheckFunctionResult;
+            if (method == null)
+            {
+                throw new EntryPointNotFoundException($"The module does not contain a function named \"{name}\" of type \"{functionType}\"");
+            }
+
+            if (method.GetCustomAttribute<ModuleFunctionAttribute>().TargetMode != TargetMode.Multiple)
+            {
+                ModuleResult result = method.Invoke(module, new object[] { settings }) as ModuleResult;
+                wrappedResult = ModuleResultSet.FromSingle<TResult>(result, name);
+            }
+            else
+            {
+                wrappedResult = method.Invoke(module, new object[] { settings }) as ModuleResultSet;
+            }
+
+            return this.AddVersionInfo(wrappedResult, module) as TResult;
         }
 
-        public ActionFunctionResult ExecuteActionFunction(string dll, string name, ActionSettings settings)
+        private static ModuleFunctionType GetModuleFunctionType(Type type)
         {
-            this.InitLogging();
-            HaleModule module;
-            var action = this.GetProvider<IActionProvider>(dll, out module);
-            action.InitializeActionProvider(settings);
-            var result = action.ExecuteActionFunction(name, settings);
+            ModuleFunctionType functionType = ModuleFunctionType.None;
 
-            return this.AddVersionInfo(result, module) as ActionFunctionResult;
-        }
+            switch (type.Name)
+            {
+                case nameof(ActionResultSet):
+                    functionType = ModuleFunctionType.Action;
+                    break;
 
-        public InfoFunctionResult ExecuteInfoFunction(string dll, string name, InfoSettings settings)
-        {
-            this.InitLogging();
-            HaleModule module;
-            var info = this.GetProvider<IInfoProvider>(dll, out module);
-            info.InitializeInfoProvider(settings);
-            var result = info.ExecuteInfoFunction(name, settings);
-            return this.AddVersionInfo(result, module) as InfoFunctionResult;
-        }
+                case nameof(AlertResultSet):
+                    functionType = ModuleFunctionType.Alert;
+                    break;
 
-        public AlertFunctionResult ExecuteAlertFunction(string dll, string name, AlertSettings settings)
-        {
-            this.InitLogging();
-            HaleModule module;
-            var alert = this.GetProvider<IAlertProvider>(dll, out module);
-            alert.InitializeAlertProvider(settings);
-            var result = alert.ExecuteAlertFunction(name, settings);
-            return this.AddVersionInfo(result, module) as AlertFunctionResult;
+                case nameof(CheckResultSet):
+                    functionType = ModuleFunctionType.Check;
+                    break;
+
+                case nameof(InfoResultSet):
+                    functionType = ModuleFunctionType.Info;
+                    break;
+
+                default:
+                    throw new ArgumentException(nameof(type));
+            }
+
+            return functionType;
         }
 
         public ModuleRuntimeInfo GetModuleInfo(string dll)
@@ -258,7 +272,20 @@
             return type;
         }
 
-        private ModuleFunctionResult AddVersionInfo(ModuleFunctionResult result, HaleModule module)
+        private static MethodInfo GetFunctionMethod(string name, Type type, ModuleFunctionType functionType)
+        {
+            Func<ModuleFunctionAttribute, bool> isDefault = attr => attr.Default && name == "default";
+            Func<ModuleFunctionAttribute, bool> isMatching = attr => attr.Identifier == name;
+
+            return type
+                .GetMethods()
+                .SingleOrDefault(methodInfo => methodInfo.GetCustomAttributes()
+                    .Any(customAttr => customAttr is ModuleFunctionAttribute modAttr
+                        && modAttr.Type == functionType
+                        && (isMatching(modAttr) || isDefault(modAttr))));
+        }
+
+        private ModuleResultSet AddVersionInfo(ModuleResultSet result, HaleModule module)
         {
             if (result.Module == null)
             {

@@ -13,30 +13,13 @@
 
     [HaleModule("com.itshale.core.storage", 0, 1, 1)]
     [HaleModuleName("Storage Module")]
-    public sealed class StorageModule : Module, ICheckProvider, IInfoProvider
+    public sealed class StorageModule
     {
-        public StorageModule()
+
+        [ModuleFunction(ModuleFunctionType.Check, Default = true, Identifier = "usage", TargetMode = TargetMode.Multiple)]
+        public CheckResultSet CheckUsage(CheckSettings settings)
         {
-        }
-
-        public override string Name => "Storage Module";
-
-        public override string Author => "Hale Project";
-
-        public override string Identifier => "com.itshale.core.storage";
-
-        public override string Platform => "Windows";
-
-        public override decimal TargetApi => 1.2M;
-
-        public override Version Version => new Version(0, 1, 1, 0);
-
-        Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
-            = new Dictionary<string, ModuleFunction>();
-
-        public CheckFunctionResult CheckUsage(CheckSettings settings)
-        {
-            CheckFunctionResult result = new CheckFunctionResult();
+            CheckResultSet result = new CheckResultSet();
 
             var sb = new StringBuilder();
 
@@ -96,23 +79,11 @@
             return result;
         }
 
-        public InfoFunctionResult InfoListVolumes(InfoSettings settings)
+        public InfoResultSet InfoListVolumes(InfoSettings settings)
         {
-            var result = new InfoFunctionResult();
+            var result = new InfoResultSet();
             result.FunctionException = new NotImplementedException();
             return result;
-        }
-
-        public void InitializeCheckProvider(CheckSettings settings)
-        {
-            this.AddCheckFunction(this.CheckUsage);
-            this.AddCheckFunction("usage", this.CheckUsage);
-        }
-
-        public void InitializeInfoProvider(InfoSettings settings)
-        {
-            this.AddInfoFunction(this.InfoListVolumes);
-            this.AddInfoFunction("list", this.InfoListVolumes);
         }
     }
 }

@@ -5,7 +5,7 @@
     using Hale.Lib.Modules.Actions;
 
     [Serializable]
-    public class ActionFunctionResult : ModuleFunctionResult
+    public class ActionResultSet : ModuleResultSet
     {
         private GenericValueDictionary<ActionResult> actionResults;
 

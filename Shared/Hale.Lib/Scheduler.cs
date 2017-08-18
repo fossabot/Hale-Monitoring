@@ -171,7 +171,7 @@
             }
             else
             {
-                queuedTask.Added = DateTime.Now;
+                queuedTask.Added = DateTime.UtcNow;
                 this.TaskQueue.Enqueue(queuedTask);
                 this.Log.Debug($"Enqueued task {task}.");
             }

@@ -3,9 +3,10 @@
     using System;
     using System.Collections.Generic;
     using Hale.Lib.Modules.Exceptions;
+    using Hale.Lib.Modules.Results;
 
     [Serializable]
-    public class ModuleFunctionResult
+    public class ModuleResultSet
     {
         private Exception functionException;
 
@@ -37,6 +38,21 @@
         private ICollection<string> Targets
         {
             get { return this.Results.Keys; }
+        }
+
+        public static TResult FromSingle<TResult>(ModuleResult moduleResult, string name)
+            where TResult : ModuleResultSet, new()
+        {
+            return new TResult()
+            {
+                Results = new Dictionary<string, object>()
+                 {
+                     { name, moduleResult }
+                 },
+                RanSuccessfully = moduleResult.RanSuccessfully,
+                Message = moduleResult.Message,
+                FunctionException = moduleResult.ExecutionException
+            };
         }
     }
 }

@@ -18,7 +18,7 @@
 
     internal static class ResultStorageExtensions
     {
-        public static void StoreResult(this IResultStorage rs, QueuedModuleTask task, ModuleFunctionResult result)
+        public static void StoreResult(this IResultStorage rs, QueuedModuleTask task, ModuleResultSet result)
         {
             rs.StoreResult(new ModuleResultRecord()
             {

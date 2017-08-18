@@ -2,6 +2,7 @@
 {
     using System;
     using NLog;
+    using System.ServiceProcess;
 
     public class Program : MarshalByRefObject
     {

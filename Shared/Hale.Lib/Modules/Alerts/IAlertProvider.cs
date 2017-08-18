@@ -2,7 +2,7 @@
 {
     using Hale.Lib.Modules.Results;
 
-    public delegate AlertFunctionResult AlertFunction(AlertSettings settings);
+    public delegate AlertResultSet AlertFunction(AlertSettings settings);
 
     public interface IAlertProvider : IModuleProviderBase
     {
@@ -11,9 +11,9 @@
 
     public static class AlertProviderExtensions
     {
-        public static AlertFunctionResult ExecuteAlertFunction(this IAlertProvider alertProvider, string action, AlertSettings settings)
+        public static AlertResultSet ExecuteAlertFunction(this IAlertProvider alertProvider, string action, AlertSettings settings)
         {
-            return alertProvider.ExecuteFunction(action, settings, "alert") as AlertFunctionResult;
+            return alertProvider.ExecuteFunction(action, settings, "alert") as AlertResultSet;
         }
 
         public static void AddAlertFunction(this IAlertProvider alertProvider, string alert, AlertFunction func)

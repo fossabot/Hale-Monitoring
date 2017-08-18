@@ -3,7 +3,7 @@
     using Hale.Lib.Modules;
     using Hale.Lib.Modules.Results;
 
-    public delegate ActionFunctionResult ActionFunction(ActionSettings settings);
+    public delegate ActionResultSet ActionFunction(ActionSettings settings);
 
     public delegate ActionResult SingleResultActionFunction(ActionSettings settings);
 
@@ -14,9 +14,9 @@
 
     public static class ActionProviderExtensions
     {
-        public static ActionFunctionResult ExecuteActionFunction(this IActionProvider actionProvider, string action, ActionSettings settings)
+        public static ActionResultSet ExecuteActionFunction(this IActionProvider actionProvider, string action, ActionSettings settings)
         {
-            return actionProvider.ExecuteFunction(action, settings, "action") as ActionFunctionResult;
+            return actionProvider.ExecuteFunction(action, settings, "action") as ActionResultSet;
         }
 
         public static void AddActionFunction(this IActionProvider actionProvider, string action, ActionFunction func)
@@ -37,7 +37,7 @@
             actionProvider.Functions.Add("action_" + name, (settings) =>
             {
                 var ar = func(settings as ActionSettings);
-                var afr = new ActionFunctionResult();
+                var afr = new ActionResultSet();
                 afr.RanSuccessfully = ar.RanSuccessfully;
                 afr.FunctionException = ar.ExecutionException;
                 afr.Message = ar.Message;

@@ -11,9 +11,9 @@
     public partial class ServiceModule
     {
         [InfoFunction(Identifier = "list", Default = true)]
-        public InfoFunctionResult ListServicesInfo(InfoSettings settings)
+        public InfoResultSet ListServicesInfo(InfoSettings settings)
         {
-            var ifr = new InfoFunctionResult();
+            var ifr = new InfoResultSet();
             try
             {
                 foreach (var service in settings.Targetless ? this.GetAllServices() : this.GetServiceDetails(settings.Targets))

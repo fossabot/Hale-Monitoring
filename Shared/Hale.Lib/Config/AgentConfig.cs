@@ -46,9 +46,9 @@
         public static Dictionary<string, Dictionary<string, string>> GetTargets(Dictionary<string, object> input)
         {
             var targets = new Dictionary<string, Dictionary<string, string>>();
-            if (input.ContainsKey("targetSettings"))
+            if (input.ContainsKey("targets"))
             {
-                foreach (DictionaryEntry kvpTarget in (IDictionary)input["targetSettings"])
+                foreach (DictionaryEntry kvpTarget in (IDictionary)input["targets"])
                 {
                     Dictionary<string, string> targetSettings = new Dictionary<string, string>();
                     if (kvpTarget.Value != null)

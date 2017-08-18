@@ -15,6 +15,7 @@
     using Hale.Lib.Modules.Info;
     using NLog;
     using YamlDotNet.Serialization;
+    using Hale.Lib.Modules.Results;
 
     internal class Program : MarshalByRefObject
     {
@@ -167,7 +168,7 @@
 
             try
             {
-                var added = DateTime.Now;
+                var added = DateTime.UtcNow;
 
                 var checkPath = opts.ModulePath;
                 var dll = Path.GetFullPath(Path.Combine(checkPath, opts.Dll));
@@ -179,7 +180,7 @@
 
                 if (typeof(T) == typeof(CheckSettings))
                 {
-                    var result = ModuleLoader.ExecuteCheckFunction(opts.Dll, opts.ModulePath, name, settings as CheckSettings);
+                    var result = ModuleLoader.ExecuteFunction<CheckResultSet>(opts.Dll, opts.ModulePath, name, settings as CheckSettings);
                     if (result == null)
                     {
                         throw new Exception("Returned null result!");
@@ -198,7 +199,7 @@
                 }
                 else if (typeof(T) == typeof(InfoSettings))
                 {
-                    var result = ModuleLoader.ExecuteInfoFunction(opts.Dll, opts.ModulePath, name, settings as InfoSettings);
+                    var result = ModuleLoader.ExecuteFunction<InfoResultSet>(opts.Dll, opts.ModulePath, name, settings as InfoSettings);
                     if (result == null)
                     {
                         throw new Exception("Returned null result!");
@@ -217,7 +218,7 @@
                 }
                 else if (typeof(T) == typeof(ActionSettings))
                 {
-                    var result = ModuleLoader.ExecuteActionFunction(opts.Dll, opts.ModulePath, name, settings as ActionSettings);
+                    var result = ModuleLoader.ExecuteFunction<ActionResultSet>(opts.Dll, opts.ModulePath, name, settings as ActionSettings);
                     if (result == null)
                     {
                         throw new Exception("Returned null result!");
@@ -236,7 +237,7 @@
                 }
                 else if (typeof(T) == typeof(AlertSettings))
                 {
-                    var result = ModuleLoader.ExecuteAlertFunction(opts.Dll, opts.ModulePath, name, settings as AlertSettings);
+                    var result = ModuleLoader.ExecuteFunction<AlertResultSet>(opts.Dll, opts.ModulePath, name, settings as AlertSettings);
                     if (result == null)
                     {
                         throw new Exception("Returned null result!");
@@ -254,7 +255,7 @@
                     }
                 }
 
-                var completed = DateTime.Now;
+                var completed = DateTime.UtcNow;
                 log.Info($"The {type} task {taskName} completed in {(completed - added).TotalSeconds.ToString("F2")} second(s)");
             }
             catch (Exception x)

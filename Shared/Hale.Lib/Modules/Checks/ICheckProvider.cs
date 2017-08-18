@@ -2,7 +2,7 @@
 {
     using Hale.Lib.Modules.Results;
 
-    public delegate CheckFunctionResult CheckFunction(CheckSettings settings);
+    public delegate CheckResultSet CheckFunction(CheckSettings settings);
 
     /// <summary>
     ///  A simplified delegate without the function result wrapper
@@ -35,9 +35,9 @@
         /// <param name="name">The exposed name of the function</param>
         /// <param name="settings">The target settings object to pass to the function</param>
         /// <returns></returns>
-        public static CheckFunctionResult ExecuteCheckFunction(this ICheckProvider checkProvider, string name, CheckSettings settings)
+        public static CheckResultSet ExecuteCheckFunction(this ICheckProvider checkProvider, string name, CheckSettings settings)
         {
-            return checkProvider.ExecuteFunction(name, settings, "check") as CheckFunctionResult;
+            return checkProvider.ExecuteFunction(name, settings, "check") as CheckResultSet;
         }
 
         /// <summary>
@@ -75,7 +75,7 @@
             checkProvider.Functions.Add("check_" + name, (settings) =>
             {
                 var cr = func(settings as CheckSettings);
-                var cfr = new CheckFunctionResult();
+                var cfr = new CheckResultSet();
                 cfr.CheckResults.Add("default", cr);
                 cfr.RanSuccessfully = cr.RanSuccessfully;
                 cfr.FunctionException = cr.ExecutionException;

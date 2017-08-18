@@ -12,22 +12,22 @@
         {
 #if DEBUG
             this.log = LogManager.GetLogger("TL:" + name);
-            this.last = DateTime.Now;
+            this.last = DateTime.UtcNow;
 #endif
         }
 
         public void Trace(string label)
         {
 #if DEBUG
-            this.log.Trace(label + ": " + (DateTime.Now - this.last).ToString("ss\\.ffff"));
-            this.last = DateTime.Now;
+            this.log.Trace(label + ": " + (DateTime.UtcNow - this.last).ToString("ss\\.ffff"));
+            this.last = DateTime.UtcNow;
 #endif
         }
 
         public void Reset()
         {
 #if DEBUG
-            this.last = DateTime.Now;
+            this.last = DateTime.UtcNow;
 #endif
         }
     }

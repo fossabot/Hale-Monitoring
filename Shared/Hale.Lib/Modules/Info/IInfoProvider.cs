@@ -2,7 +2,7 @@
 {
     using Hale.Lib.Modules.Results;
 
-    public delegate InfoFunctionResult InfoFunction(InfoSettings settings);
+    public delegate InfoResultSet InfoFunction(InfoSettings settings);
 
     public delegate InfoResult SingleResultInfoFunction(InfoSettings settings);
 

@@ -1,32 +1,18 @@
 ﻿namespace Hale.Checks
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics;
     using Hale.Lib.Modules;
+    using Hale.Lib.Modules.Attributes;
     using Hale.Lib.Modules.Checks;
-    using Hale.Lib.Modules.Info;
 
-    /// <summary>
-    /// All checks need to realize the interface ICheck.
-    /// </summary>
-    public class PagingUsage : Module, ICheckProvider, IInfoProvider
+    [HaleModule("com.itshale.core.paging", 0, 1, 1)]
+    [HaleModuleName("Paging Usage Module")]
+    [HaleModuleAuthor("Hale Project")]
+    public class PagingUsage
     {
-        public override string Name => "Page File";
-
-        public override string Author => "Hale Project";
-
-        public override string Identifier => "com.itshale.core.paging";
-
-        public override Version Version => new Version(0, 1, 1);
-
-        public override string Platform => "Windows";
-
-        public override decimal TargetApi => 1.2M;
-
-        Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
-            = new Dictionary<string, ModuleFunction>();
-
+        [CheckFunction(Default = true, Identifier ="paging")]
+        [ReturnUnit("paging", UnitType.Percent, Precision = "percent", Name ="% Usage")]
         public CheckResult DefaultCheck(CheckSettings settings)
         {
             CheckResult result = new CheckResult();
@@ -56,25 +42,6 @@
             }
 
             return result;
-        }
-
-        public InfoResult DefaultInfo(InfoSettings settings)
-        {
-            var result = new InfoResult();
-            result.ExecutionException = new NotImplementedException();
-            return result;
-        }
-
-        public void InitializeCheckProvider(CheckSettings settings)
-        {
-            this.AddSingleResultCheckFunction(this.DefaultCheck);
-            this.AddSingleResultCheckFunction("usage", this.DefaultCheck);
-        }
-
-        public void InitializeInfoProvider(InfoSettings settings)
-        {
-            this.AddSingleResultInfoFunction(this.DefaultInfo);
-            this.AddSingleResultInfoFunction("sizes", this.DefaultInfo);
         }
     }
 }

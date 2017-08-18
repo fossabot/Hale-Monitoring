@@ -112,7 +112,7 @@
             var comment = new NodeComment()
             {
                 Text = newComment.Text,
-                Timestamp = DateTime.Now,
+                Timestamp = DateTime.UtcNow,
                 User = user,
                 Node = node
             };

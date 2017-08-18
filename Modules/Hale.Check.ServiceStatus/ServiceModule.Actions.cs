@@ -10,9 +10,9 @@
     public partial class ServiceModule
     {
         [ActionFunction(Identifier = "start")]
-        public ActionFunctionResult StartServiceAction(ActionSettings settings)
+        public ActionResultSet StartServiceAction(ActionSettings settings)
         {
-            var afr = new ActionFunctionResult();
+            var afr = new ActionResultSet();
 
             var globalTimeout = settings.ContainsKey("timeout") ?
                 TimeSpan.Parse(settings["timeout"]) :
@@ -30,9 +30,9 @@
         }
 
         [ActionFunction(Identifier = "stop")]
-        public ActionFunctionResult StopServiceAction(ActionSettings settings)
+        public ActionResultSet StopServiceAction(ActionSettings settings)
         {
-            var afr = new ActionFunctionResult();
+            var afr = new ActionResultSet();
 
             var globalTimeout = settings.ContainsKey("timeout") ?
                 TimeSpan.Parse(settings["timeout"]) :
@@ -50,9 +50,9 @@
         }
 
         [ActionFunction(Identifier = "restart")]
-        public ActionFunctionResult RestartServiceAction(ActionSettings settings)
+        public ActionResultSet RestartServiceAction(ActionSettings settings)
         {
-            var afr = new ActionFunctionResult();
+            var afr = new ActionResultSet();
 
             var globalTimeout = settings.ContainsKey("timeout") ?
                 TimeSpan.Parse(settings["timeout"]) :
@@ -60,7 +60,7 @@
 
             foreach (var kvpTarget in settings.TargetSettings)
             {
-                var start = DateTime.Now;
+                var start = DateTime.UtcNow;
                 var resultStop = this.ChangeServiceState(settings, kvpTarget.Value, kvpTarget.Key, ServiceControllerStatus.Stopped, globalTimeout);
                 if (resultStop.RanSuccessfully)
                 {
@@ -110,7 +110,7 @@
                 var sc = targetSettings.ContainsKey("machine") ?
                     new ServiceController(target, targetSettings["machine"]) :
                     new ServiceController(target);
-                var start = DateTime.Now;
+                var start = DateTime.UtcNow;
                 if (newStatus == ServiceControllerStatus.Running)
                 {
                     sc.Start();
@@ -122,7 +122,7 @@
                 }
 
                 sc.WaitForStatus(newStatus, timeout);
-                var elapsed = DateTime.Now - start;
+                var elapsed = DateTime.UtcNow - start;
                 if (sc.Status == newStatus)
                 {
                     result.RanSuccessfully = true;
