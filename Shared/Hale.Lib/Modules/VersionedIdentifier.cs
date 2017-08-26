@@ -9,7 +9,7 @@ namespace Hale.Lib.Modules
     using Semver;
 
     [Serializable]
-    public class VersionedIdentifier: ISerializable
+    public class VersionedIdentifier : ISerializable
     {
         public VersionedIdentifier()
         {
@@ -36,7 +36,7 @@ namespace Hale.Lib.Modules
         {
             var version = info.GetValue("Version", typeof(string)) as string;
 
-            if(version.Split('.').Length == 3)
+            if (version.Split('.').Length == 3)
             {
                 this.Version = SemVersion.Parse(version);
             }

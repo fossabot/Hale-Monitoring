@@ -26,10 +26,8 @@
         public static AgentConfig LoadConfigFromFile(string file)
             => LoadConfig(() => File.OpenText(file));
 
-
         public static AgentConfig LoadConfigFromString(string input)
             => LoadConfig(() => new StringReader(input));
-
 
         private static AgentConfig LoadConfig(Func<TextReader> createReader)
         {
