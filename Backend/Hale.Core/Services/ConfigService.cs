@@ -110,7 +110,7 @@
                             m => m.Identifier == ms.Module.Identifier &&
                             m.Major == ms.Module.Version.Major &&
                             m.Minor == ms.Module.Version.Minor &&
-                            m.Revision == ms.Module.Version.Revision)
+                            m.Revision == ms.Module.Version.Patch)
 
                             // FIXME: We probably shouldn't allow saving a configuration file with an unknown module identifier or version
                             ?? new EModule

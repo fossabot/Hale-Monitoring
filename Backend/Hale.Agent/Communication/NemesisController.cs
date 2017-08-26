@@ -121,7 +121,12 @@
                 var serialized = JsonRpcDefaults.Encoding.GetString(req.Serialize());
                 var respTask = this.node.SendCommand(serialized);
                 var response = JsonRpcResponse.FromJsonString(respTask.Result); // Blocking!
-                if (response.Error != null)
+                if (response == null)
+                {
+                    this.log.Error("Error uploading records: Got an invalid response from Hub");
+                    return new Guid[0];
+                }
+                else if (response.Error != null)
                 {
                     this.log.Warn($"Error uploading records: {response.Error.Message} ({response.Error.Code})");
                     return new Guid[0];

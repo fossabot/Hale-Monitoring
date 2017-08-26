@@ -24,39 +24,44 @@
         .Build();
 
         public static AgentConfig LoadConfigFromFile(string file)
-        {
-            using (StreamReader sr = File.OpenText(file))
-            {
-                return LoadConfig(sr);
-            }
-        }
+            => LoadConfig(() => File.OpenText(file));
+
 
         public static AgentConfig LoadConfigFromString(string input)
-        {
-            using (StringReader sr = new StringReader(input))
-            {
-                return LoadConfig(sr);
-            }
-        }
+            => LoadConfig(() => new StringReader(input));
 
-        private static AgentConfig LoadConfig(TextReader reader)
-        {
-            var bare = Deserializer.Deserialize<AgentConfigRaw>(reader);
 
-            if (bare.Version == LegacyConfigTypes.Length)
+        private static AgentConfig LoadConfig(Func<TextReader> createReader)
+        {
+            AgentConfigBare bare;
+            using (var reader = createReader())
             {
-                // Load the latest config version
-                return AgentConfig.Load(Deserializer.Deserialize<AgentConfigRaw>(reader));
+                bare = Deserializer.Deserialize<AgentConfigBare>(reader);
             }
-            else
+
+            if (bare == null)
             {
-                // Upgrade the configuration to the newest format
-                /*
-                   Example:
-                   var cv1 = AgentConfigV1.Load(Deserializer.Deserialize<AgentConfigRawV1>(reader));
-                   return AgentConfig.Upgrade(cv1);
-                 */
-                throw new NotImplementedException($"Unknown configuration file version {bare.Version}");
+                throw new FormatException("Invalid configuration format");
+            }
+
+            // NOTE: We need to create a new reader because there is no interface for resetting a TextReader -NM 2017-08-26
+            using (var reader = createReader())
+            {
+                if (bare.Version == LegacyConfigTypes.Length)
+                {
+                    // Load the latest config version
+                    return AgentConfig.Load(Deserializer.Deserialize<AgentConfigRaw>(reader));
+                }
+                else
+                {
+                    // Upgrade the configuration to the newest format
+                    /*
+                       Example:
+                       var cv1 = AgentConfigV1.Load(Deserializer.Deserialize<AgentConfigRawV1>(reader));
+                       return AgentConfig.Upgrade(cv1);
+                     */
+                    throw new NotImplementedException($"Unknown configuration file version {bare.Version}");
+                }
             }
         }
     }

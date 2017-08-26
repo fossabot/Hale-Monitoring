@@ -49,7 +49,7 @@
             EModule me = this.db.Modules.FirstOrDefault(m =>
                     m.Major == mi.Module.Version.Major &&
                     m.Minor == mi.Module.Version.Minor &&
-                    m.Revision == mi.Module.Version.Revision &&
+                    m.Revision == mi.Module.Version.Patch &&
                     m.Identifier == mi.Module.Identifier);
 
             if (me == null)
@@ -60,7 +60,7 @@
                 {
                     Major = mi.Module.Version.Major,
                     Minor = mi.Module.Version.Minor,
-                    Revision = mi.Module.Version.Revision,
+                    Revision = mi.Module.Version.Patch,
                     Identifier = mi.Module.Identifier
                 });
                 }

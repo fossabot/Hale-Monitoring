@@ -1,5 +1,7 @@
 ﻿namespace Hale.Lib.Utilities
 {
+    using System;
+
     public static class StringParserExtensions
     {
         public static(string eaten, bool success, string rest) EatUntil(this string input, char end)
@@ -26,6 +28,17 @@
             }
 
             return (input.Substring(0, count), true, input.Substring(count));
+        }
+
+        public static void Deconstruct(this string[] input, out string left, out string right)
+        {
+            if (input.Length != 2)
+            {
+                throw new FormatException("Sequence count did not match output tuple size");
+            }
+
+            left = input[0];
+            right = input[1];
         }
     }
 }

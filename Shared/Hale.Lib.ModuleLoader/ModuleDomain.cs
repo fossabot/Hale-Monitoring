@@ -98,7 +98,7 @@
             var provider = (T)instance;
             module = (HaleModule)instance;
 
-            this.log.Debug($"Loaded module <{VersionedIdentifier.ToString(module)}> {module.Name}");
+            this.log.Debug($"Loaded module <{new VersionedIdentifier(HaleModuleAttribute.GetFromType(type))}> {module.Name}");
 
             return provider;
         }
@@ -113,7 +113,7 @@
             var type = GetHaleModule(dll);
             var method = GetFunctionMethod(name, type, functionType);
 
-            HaleModule module = Activator.CreateInstance(type) as HaleModule;
+            var module = Activator.CreateInstance(type);
             ModuleResultSet wrappedResult;
 
             if (method == null)
@@ -131,36 +131,7 @@
                 wrappedResult = method.Invoke(module, new object[] { settings }) as ModuleResultSet;
             }
 
-            return this.AddVersionInfo(wrappedResult, module) as TResult;
-        }
-
-        private static ModuleFunctionType GetModuleFunctionType(Type type)
-        {
-            ModuleFunctionType functionType = ModuleFunctionType.None;
-
-            switch (type.Name)
-            {
-                case nameof(ActionResultSet):
-                    functionType = ModuleFunctionType.Action;
-                    break;
-
-                case nameof(AlertResultSet):
-                    functionType = ModuleFunctionType.Alert;
-                    break;
-
-                case nameof(CheckResultSet):
-                    functionType = ModuleFunctionType.Check;
-                    break;
-
-                case nameof(InfoResultSet):
-                    functionType = ModuleFunctionType.Info;
-                    break;
-
-                default:
-                    throw new ArgumentException(nameof(type));
-            }
-
-            return functionType;
+            return this.AddVersionInfo(wrappedResult, type) as TResult;
         }
 
         public ModuleRuntimeInfo GetModuleInfo(string dll)
@@ -257,6 +228,35 @@
             return mri;
         }
 
+        private static ModuleFunctionType GetModuleFunctionType(Type type)
+        {
+            ModuleFunctionType functionType = ModuleFunctionType.None;
+
+            switch (type.Name)
+            {
+                case nameof(ActionResultSet):
+                    functionType = ModuleFunctionType.Action;
+                    break;
+
+                case nameof(AlertResultSet):
+                    functionType = ModuleFunctionType.Alert;
+                    break;
+
+                case nameof(CheckResultSet):
+                    functionType = ModuleFunctionType.Check;
+                    break;
+
+                case nameof(InfoResultSet):
+                    functionType = ModuleFunctionType.Info;
+                    break;
+
+                default:
+                    throw new ArgumentException(nameof(type));
+            }
+
+            return functionType;
+        }
+
         private static Type GetHaleModule(string dll)
         {
             var assembly = Assembly.LoadFile(dll);
@@ -285,11 +285,11 @@
                         && (isMatching(modAttr) || isDefault(modAttr))));
         }
 
-        private ModuleResultSet AddVersionInfo(ModuleResultSet result, HaleModule module)
+        private ModuleResultSet AddVersionInfo(ModuleResultSet result, Type moduleType)
         {
             if (result.Module == null)
             {
-                result.Module = new VersionedIdentifier(module);
+                result.Module = new VersionedIdentifier(HaleModuleAttribute.GetFromType(moduleType));
             }
 
             return result;

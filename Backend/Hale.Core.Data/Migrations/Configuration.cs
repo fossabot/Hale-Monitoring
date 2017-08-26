@@ -8,6 +8,7 @@ namespace Hale.Core.Data.Migrations
     using Hale.Core.Data.Entities.Nodes;
     using Hale.Core.Data.Entities.Users;
     using Hale.Lib.Modules;
+    using Semver;
     using EModule = Entities.Modules.Module;
 
     internal sealed class Configuration : DbMigrationsConfiguration<HaleDBContext>
@@ -261,7 +262,7 @@ namespace Hale.Core.Data.Migrations
                 Module = new EModule()
                 {
                     Identifier = "com.itshale.core.memory",
-                    Version = new Version(1, 0, 0, 0),
+                    Version = new SemVersion(1, 0, 0),
                 },
                 Startup = true,
                 FunctionSettings = new List<AgentConfigSetFunctionSettings>()

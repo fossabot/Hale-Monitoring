@@ -298,6 +298,7 @@
                 }
                 catch (Exception x)
                 {
+                    this.log.Warn(x, "Error handling upload from agent: " + x.Message);
                     return FetchApplicationErrorResponse(req, x);
                 }
             }
@@ -318,7 +319,7 @@
             var module = this.db.Modules.SingleOrDefault(m =>
                 m.Major == v.Major &&
                 m.Minor == v.Minor &&
-                m.Revision == v.Revision &&
+                m.Revision == v.Patch &&
                 m.Identifier == record.Module.Identifier);
             if (module == null)
             {
@@ -338,7 +339,7 @@
         {
             var func = this.db.Functions.SingleOrDefault(f =>
                 f.Name == record.Function &&
-                f.Module == module &&
+                f.Module.Id == module.Id &&
                 f.Type == record.FunctionType);
 
             // Todo: Decide if we really want to add all module functions that are missing to the database here -NM 2016-08-13

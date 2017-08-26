@@ -1,8 +1,11 @@
-﻿namespace Hale.Core.Data.Entities.Modules
+﻿#pragma warning disable CS3003 // Type is not CLS-compliant
+
+namespace Hale.Core.Data.Entities.Modules
 {
     using System;
     using System.ComponentModel.DataAnnotations.Schema;
     using Hale.Lib.Modules;
+    using Semver;
 
     public class Module
     {
@@ -25,7 +28,7 @@
         public string Identifier { get; set; }
 
         [NotMapped]
-        public Version Version { get; set; }
+        public SemVersion Version { get; set; }
 
         public int Major
         {
@@ -41,7 +44,7 @@
 
         public int Revision
         {
-            get { return this.Version?.Revision ?? 0; }
+            get { return this.Version?.Patch ?? 0; }
             set { this.UpdateVersion(revision: value); }
         }
 
@@ -64,7 +67,7 @@
 
             if (this.major.HasValue && this.minor.HasValue && this.revision.HasValue)
             {
-                this.Version = new Version(this.major.Value, this.minor.Value, 0, this.revision.Value);
+                this.Version = new SemVersion(this.major.Value, this.minor.Value, this.revision.Value);
             }
         }
     }
