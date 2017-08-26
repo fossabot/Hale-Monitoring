@@ -102,7 +102,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Communication\NemesisController.cs" />
-    <Compile Include="Communication\NemesisHeartbeatWorker.cs" />
     <Compile Include="Modules\IResultStorage.cs" />
     <Compile Include="Modules\ResultStorage.cs" />
     <Compile Include="Config\EnvironmentConfig.cs" />

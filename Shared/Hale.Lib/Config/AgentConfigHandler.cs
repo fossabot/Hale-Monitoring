@@ -59,6 +59,5 @@
                 throw new NotImplementedException($"Unknown configuration file version {bare.Version}");
             }
         }
-
     }
 }

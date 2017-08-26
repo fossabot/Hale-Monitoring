@@ -17,7 +17,7 @@
 
         public Guid Id { get; set; }
 
-        private static INamingConvention NamingConvention 
+        private static INamingConvention NamingConvention
             => new CamelCaseNamingConvention();
 
         public static NemesisConfig LoadFromFile(string file)

@@ -3,6 +3,7 @@
     using System;
     using System.IO;
     using System.ServiceProcess;
+    using System.Threading;
     using Hale.Agent.Communication;
     using Hale.Agent.Config;
     using Hale.Agent.Modules;
@@ -12,7 +13,6 @@
     using NLog;
     using YamlDotNet.Serialization;
     using YamlDotNet.Serialization.NamingConventions;
-    using System.Threading;
 
     public partial class HaleAgentService : ServiceBase
     {

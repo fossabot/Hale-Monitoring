@@ -15,7 +15,7 @@
             ModuleDomain moduleDomain = GetDomain(dll, modulePath);
             return moduleDomain.ExecuteFunction<TResult>(Path.GetFullPath(Path.Combine(modulePath, dll)), name, settings);
         }
-        
+
         public static ModuleRuntimeInfo GetModuleInfo(string dll, string modulePath)
         {
             ModuleDomain moduleDomain = GetDomain(dll, modulePath);

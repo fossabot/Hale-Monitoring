@@ -1,8 +1,8 @@
 ﻿namespace Hale.Agent
 {
     using System;
-    using NLog;
     using System.ServiceProcess;
+    using NLog;
 
     public class Program : MarshalByRefObject
     {

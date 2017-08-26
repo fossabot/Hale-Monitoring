@@ -1,7 +1,6 @@
 ﻿namespace Hale.Modules
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using System.Text;
     using Hale.Lib.Modules;
@@ -15,7 +14,6 @@
     [HaleModuleName("Storage Module")]
     public sealed class StorageModule
     {
-
         [ModuleFunction(ModuleFunctionType.Check, Default = true, Identifier = "usage", TargetMode = TargetMode.Multiple)]
         public CheckResultSet CheckUsage(CheckSettings settings)
         {

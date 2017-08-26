@@ -13,9 +13,9 @@
     using Hale.Lib.Modules.Alerts;
     using Hale.Lib.Modules.Checks;
     using Hale.Lib.Modules.Info;
+    using Hale.Lib.Modules.Results;
     using NLog;
     using YamlDotNet.Serialization;
-    using Hale.Lib.Modules.Results;
 
     internal class Program : MarshalByRefObject
     {

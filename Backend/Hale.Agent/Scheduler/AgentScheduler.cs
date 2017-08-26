@@ -4,18 +4,15 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using Hale.Agent.Config;
     using Hale.Agent.Modules;
     using Hale.Lib;
     using Hale.Lib.Config;
     using Hale.Lib.ModuleLoader;
     using Hale.Lib.Modules;
-    using Hale.Lib.Modules.Actions;
-    using Hale.Lib.Modules.Checks;
-    using Hale.Lib.Modules.Info;
-    using Hale.Lib.Utilities;
-    using System.Text.RegularExpressions;
     using Hale.Lib.Modules.Results;
+    using Hale.Lib.Utilities;
 
     internal partial class AgentScheduler : Scheduler
     {

@@ -17,7 +17,6 @@
     [HaleModuleAuthor("Hale Project")]
     public class MemoryModule
     {
-
         [CheckFunction(Default = true, Identifier = "usage")]
         [ReturnUnit("freePercentage", UnitType.Percent, Name = "Free Relative")]
         [ReturnUnit("freeBytes", UnitType.StorageUnit, Precision = UnitTypeResolution.StorageUnit.Byte, Name = "Free Absolute")]
