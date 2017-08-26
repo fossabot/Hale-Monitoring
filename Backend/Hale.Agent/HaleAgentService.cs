@@ -103,7 +103,7 @@
                 }
             }
 
-            this.config = AgentConfig.LoadFromFile(this.env.ConfigFile);
+            this.config = AgentConfigHandler.LoadConfigFromFile(this.env.ConfigFile);
             ServiceProvider.SetService(this.config);
 
             this.log.Debug("Configuration successfully loaded, found {0} checks.", this.config.Checks.Count);

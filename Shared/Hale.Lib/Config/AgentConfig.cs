@@ -30,18 +30,8 @@
 
         private static Deserializer Deserializer => new DeserializerBuilder()
                 .WithNamingConvention(new CamelCaseNamingConvention())
+                .IgnoreUnmatchedProperties()
                 .Build();
-
-        public static AgentConfig LoadFromFile(string file)
-        {
-            using (StreamReader sr = File.OpenText(file))
-            {
-                return Load(Deserializer.Deserialize<AgentConfigRaw>(sr));
-            }
-        }
-
-        public static AgentConfig LoadFromString(string input)
-            => Load(Deserializer.Deserialize<AgentConfigRaw>(input));
 
         public static Dictionary<string, Dictionary<string, string>> GetTargets(Dictionary<string, object> input)
         {

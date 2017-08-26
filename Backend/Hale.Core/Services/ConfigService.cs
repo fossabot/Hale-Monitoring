@@ -57,7 +57,7 @@
 
         public int SaveSerialized(int id, string serialized, string currentUsername)
         {
-            var newConfig = Lib.Config.AgentConfig.LoadFromString(serialized);
+            var newConfig = Lib.Config.AgentConfigHandler.LoadConfigFromString(serialized);
 
             var configSet = this.Db.AgentConfigs.Where(x => x.Id == id)
                 .Include(cs => cs.Tasks)
