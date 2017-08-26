@@ -17,15 +17,15 @@
 
         public Guid Id { get; set; }
 
-        public TimeSpan HeartBeatInterval { get; set; }
-
-        private static INamingConvention NamingConvention => new CamelCaseNamingConvention();
+        private static INamingConvention NamingConvention 
+            => new CamelCaseNamingConvention();
 
         public static NemesisConfig LoadFromFile(string file)
         {
             using (var reader = File.OpenText(file))
             {
                 Deserializer deserializer = new DeserializerBuilder()
+                .IgnoreUnmatchedProperties()
                 .WithNamingConvention(NamingConvention)
                 .Build();
                 return deserializer.Deserialize<NemesisConfig>(reader);
