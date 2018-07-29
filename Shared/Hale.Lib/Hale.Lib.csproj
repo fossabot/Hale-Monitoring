@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net45</TargetFramework>
+    <TargetFrameworks>net471;netstandard2</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,10 +33,10 @@
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="System.Runtime" Version="4.1.0" />
-    <PackageReference Include="System.Runtime.Extensions" Version="4.1.0" />
-    <PackageReference Include="System.Runtime.InteropServices" Version="4.1.0" />
-    <PackageReference Include="System.Text.RegularExpressions" Version="4.1.0" />
+    <PackageReference Include="System.Runtime" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Extensions" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.0" />
     <PackageReference Include="System.ValueTuple" Version="4.3.1" />
     <PackageReference Include="YamlDotNet" Version="4.2.1" />
   </ItemGroup>

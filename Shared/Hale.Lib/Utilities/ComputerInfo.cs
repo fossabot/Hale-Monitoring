@@ -1,63 +1,23 @@
 ﻿namespace Hale.Lib.Utilities
 {
+    using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
-    using System.Management;
     using System.Net.NetworkInformation;
     using System.Text;
+    using RI = System.Runtime.InteropServices.RuntimeInformation;
 
-    public static class ComputerInfo
+    public static partial class ComputerInfo
     {
         private const int GIGABYTE = 1024 * 1024 * 1024;
 
+        private const string CpuInfoPath = "/proc/cpuinfo";
+        private const string DmiBasePath = "/sys/devices/virtual/dmi/id";
+
         public static string GetOperatingSystemInfo()
         {
-            var osi = GetMultipleProperties("SELECT * FROM Win32_OperatingSystem", new[] { "Caption", "OSArchitecture", "Version" }).FirstOrDefault();
-            if (osi == null)
-            {
-                return "Unknown";
-            }
-
-            return $"{osi["Caption"]} {osi["OSArchitecture"]} {osi["Version"]}";
-        }
-
-        public static string GetHardwareInfo()
-        {
-            var sbHw = new StringBuilder();
-
-            var sys = GetMultipleProperties("SELECT * FROM Win32_ComputerSystem", new[] { "Manufacturer", "Model" }).FirstOrDefault();
-
-            if (sys != null || sys["Manufacturer"].Contains("O.E.M."))
-            {
-                sbHw.Append("Custom, ");
-            }
-            else
-            {
-                sbHw.Append($"{sys["Manufacturer"]} {sys["Model"]}, ");
-            }
-
-            var cpus = GetMultipleProperties("SELECT * FROM Win32_Processor", new[] { "Name", "MaxClockSpeed", "NumberOfCores", "NumberOfLogicalProcessors" });
-
-            string cpuSpeed = (decimal.Parse(cpus[0]["MaxClockSpeed"]) / 1000M).ToString("F2");
-
-            // sbHw.Append($"CPU: {cpus.Count}x{cpus[0]["Name"].Trim()}");
-            sbHw.Append($"{cpus.Count}x({cpus[0]["NumberOfLogicalProcessors"]}L/{cpus[0]["NumberOfCores"]}P)@{cpuSpeed}GHz, ");
-
-            var ram = GetMultipleProperties("SELECT * FROM Win32_PhysicalMemory", new[] { "Capacity", "Speed" });
-
-            var totalRam = ram.Select(r => long.Parse(r["Capacity"])).Sum();
-            sbHw.Append($"{decimal.Divide(totalRam, GIGABYTE).ToString("F1")}GB");
-
-            if (ram.Select(r => r["Capacity"]).Distinct().Count() == 1)
-            {
-                sbHw.Append($"({ram.Count}x{decimal.Divide(long.Parse(ram[0]["Capacity"]), GIGABYTE)}GB)");
-            }
-
-            /*
-             * sbHw.AppendLine($" @ {ram[0]["Speed"]}MHz");
-             */
-
-            return sbHw.ToString();
+            return $"{RI.OSDescription.Trim()} {RI.OSArchitecture}";
         }
 
         public static IdNetworkInterface[] GetNetworkInterfaceInfo()
@@ -89,28 +49,182 @@
             return inis.ToArray();
         }
 
-        private static List<Dictionary<string, string>> GetMultipleProperties(string query, string[] filter)
+#if NETSTANDARD2_0
+        public static string GetHardwareInfo()
         {
-            var instances = new List<Dictionary<string, string>>();
+            var sbHw = new StringBuilder();
 
-            var searcher = new ManagementObjectSearcher(query);
-            var moc = searcher.Get();
+            var vendor = GetDmiInfo("sys_vendor");
+            var model = GetDmiInfo("product_name");
 
-            foreach (var mo in moc)
+            if (TryGetCpus(out CpuInfo[] cpus))
             {
-                var items = new Dictionary<string, string>();
-                foreach (var p in mo.Properties)
-                {
-                    if (p.Value != null && filter.Contains(p.Name))
-                    {
-                        items.Add(p.Name, p.Value.ToString().TrimEnd());
-                    }
-                }
-
-                instances.Add(items);
+                sbHw.Append($"{cpus.Length}x({cpus[0].Threads}L/{cpus[0].Cores}P)@{cpus[0].ClockGhz:F2} GHz, ");
             }
 
-            return instances;
+            if (TryGetRam(out decimal total, out decimal _))
+            {
+                sbHw.Append($"{total / 1024 / 1024:F1} GiB");
+            }
+
+            /*
+            var totalRam = ram.Select(r => long.Parse(r["Capacity"])).Sum();
+
+            if (ram.Select(r => r["Capacity"]).Distinct().Count() == 1)
+            {
+                sbHw.Append($"({ram.Count}x{decimal.Divide(long.Parse(ram[0]["Capacity"]), GIGABYTE)}GB)");
+            }
+            */
+
+            /*
+             * sbHw.AppendLine($" @ {ram[0]["Speed"]}MHz");
+             */
+
+            return sbHw.ToString();
+        }
+
+        private static bool TryGetRam(out decimal total, out decimal free)
+        {
+            total = 0;
+            free = 0;
+            if (File.Exists(CpuInfoPath))
+            {
+                try
+                {
+                    foreach (var line in File.ReadAllLines(CpuInfoPath))
+                    {
+                        if (line.StartsWith("MemTotal"))
+                        {
+                            var parts = line.Split(' ');
+                            if (parts.Length == 3 && decimal.TryParse(parts[1], out total) && free != 0)
+                            {
+                                return true;
+                            }
+                        }
+                        else if (line.StartsWith("MemFree"))
+                        {
+                            var parts = line.Split(' ');
+                            if (parts.Length == 3 && decimal.TryParse(parts[1], out free) && total != 0)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+                catch
+                {
+                }
+            }
+
+            return false;
+        }
+
+        private static bool TryGetCpus(out CpuInfo[] cpus)
+        {
+            // "Name", "MaxClockSpeed", "NumberOfCores", "NumberOfLogicalProcessors"
+            var logCpus = new List<CpuInfo>();
+            int phyCount = 0;
+
+            if (File.Exists(CpuInfoPath))
+            {
+                try
+                {
+                    var cpu = default(CpuInfo);
+                    foreach (var line in File.ReadAllLines(CpuInfoPath))
+                    {
+                        var parts = line.Split(':');
+                        if (parts.Length < 2)
+                        {
+                            logCpus.Add(cpu);
+                            cpu = default(CpuInfo);
+                            continue;
+                        }
+
+                        var key = parts[0].Trim();
+                        var value = parts[1].Trim();
+
+                        switch (key)
+                        {
+                            case "model name":
+                                cpu.Name = value;
+                                break;
+
+                            case "cpu MHz":
+                                if (decimal.TryParse(value, out decimal clockDec))
+                                {
+                                    cpu.ClockGhz = clockDec / 1000;
+                                }
+
+                                break;
+
+                            case "cpu cores":
+                                if (int.TryParse(value, out int coreNum))
+                                {
+                                    cpu.Cores = coreNum;
+                                }
+
+                                break;
+
+                            case "physical id":
+                                if (int.TryParse(value, out int phyId))
+                                {
+                                    cpu.PhysicalID = phyId;
+                                    phyCount = Math.Max(phyCount, phyId + 1);
+                                }
+
+                                break;
+                        }
+                    }
+
+                    cpus = new CpuInfo[phyCount];
+
+                    foreach (var lc in logCpus)
+                    {
+                        if (cpus[lc.PhysicalID].Threads == 0)
+                        {
+                            cpus[lc.PhysicalID] = lc;
+                        }
+
+                        cpus[lc.PhysicalID].Threads++;
+                    }
+
+                    return true;
+                }
+                catch
+                {
+                }
+            }
+
+            cpus = new CpuInfo[0];
+            return false;
+        }
+
+        private static string GetDmiInfo(string id)
+        {
+            var dmiFile = Path.Combine(DmiBasePath, id);
+            if (File.Exists(dmiFile))
+            {
+                try
+                {
+                    return File.ReadAllText(dmiFile);
+                }
+                catch
+                {
+                }
+            }
+
+            return null;
+        }
+
+#endif
+
+        public struct CpuInfo
+        {
+            public string Name;
+            public decimal ClockGhz;
+            public int Cores;
+            public int Threads;
+            public int PhysicalID;
         }
     }
 }
