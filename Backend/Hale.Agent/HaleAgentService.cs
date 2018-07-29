@@ -2,7 +2,6 @@
 {
     using System;
     using System.IO;
-    using System.ServiceProcess;
     using System.Threading;
     using Hale.Agent.Communication;
     using Hale.Agent.Config;
@@ -13,6 +12,12 @@
     using NLog;
     using YamlDotNet.Serialization;
     using YamlDotNet.Serialization.NamingConventions;
+
+#if NETCOREAPP2_1
+    using Hale.Lib.Facades;
+#else
+    using System.ServiceProcess;
+#endif
 
     public partial class HaleAgentService : ServiceBase
     {
