@@ -1,20 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project>
-  <Import Project="$(NuGetPackageRoot)\MSBuildTasks\1.5.0.235\tools\MSBuild.Community.Tasks.Targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild" Condition="Exists('$(NuGetPackageRoot)\MSBuildTasks\1.5.0.235\tools\MSBuild.Community.Tasks.Targets')">
-    <Error Condition="!Exists('$(NuGetPackageRoot)\MSBuildTasks\1.5.0.235\tools\MSBuild.Community.Tasks.Targets')" Text="$([System.String]::Format('$(ErrorText)', '$(NuGetPackageRoot)\MSBuildTasks\1.5.0.235\tools\MSBuild.Community.Tasks.Targets'))" />
+  
+  <PropertyGroup>
+    <Major>1</Major>
+    <Minor>4</Minor>
+    <MSBuildCommunityTasksVersion>1.5.0.235</MSBuildCommunityTasksVersion>
+    <NuGetRoot>$(NuGetPackageRoot)</NuGetRoot>
+    <MSBuildCommunityTasksTargetsPath>$(NuGetPackageRoot)msbuildtasks\$(MSBuildCommunityTasksVersion)\tools\MSBuild.Community.Tasks.Targets</MSBuildCommunityTasksTargetsPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(NUGET_PACKAGES)' != ''">
+    <NuGetRoot>$(NUGET_PACKAGES)</NuGetRoot>
+  </PropertyGroup>
+  
+  <Import Project="$(MSBuildCommunityTasksTargetsPath)" Condition="exists('$(MSBuildCommunityTasksTargetsPath)')" />
+  
+  <Target Name="NugetEnv">
+    <Message Text="NuGetPackageRoot: $(NuGetPackageRoot)" Importance="high" />
+    <Message Text="NuGetPackageFolders: $(NuGetPackageFolders)" Importance="high" />
+    <Message Text="NUGET_PACKAGES: $(NUGET_PACKAGES)" Importance="high" />
+    <Message Text="NuGetRoot: $(NuGetRoot)" Importance="high" />
+    <Message Text="MSBuildCommunityTasksTargetsPath: $(MSBuildCommunityTasksTargetsPath)" Importance="high" />
+    <Message Text="MSBuildCommunityTasks Exists: Yes" Condition="exists('$(MSBuildCommunityTasksTargetsPath)')" Importance="high" />
+    <Message Text="MSBuildCommunityTasks Exists: No" Condition="!exists('$(MSBuildCommunityTasksTargetsPath)')" Importance="high" />
   </Target>
-  <Target Name="Version" BeforeTargets="CoreBuild">
-    <PropertyGroup>
-      <Major>1</Major>
-      <Minor>4</Minor>
-    </PropertyGroup>
-    <GitVersion LocalPath="$(MSBuildProjectDirectory)">
-      <Output TaskParameter="CommitHash" PropertyName="Revision" />
-    </GitVersion>
-    <Script Language="C#" Code="public static string ScriptMain() { var n=System.DateTime.UtcNow; return n.ToString(&quot;yy&quot;)+n.DayOfYear; }" Imports="System">
-      <Output TaskParameter="ReturnValue" PropertyName="Build" />
-    </Script>
+
+  <Target Name="UpdateVersion" BeforeTargets="CoreBuild" DependsOnTargets="NugetEnv">
+    <Exec Command="git rev-parse --short HEAD" ConsoleToMsBuild="true" EchoOff="true">
+      <Output TaskParameter="ConsoleOutput" PropertyName="Revision" />
+    </Exec>
+    <CreateProperty Value="$([System.DateTime]::UtcNow.ToString('yy'))$([System.DateTime]::UtcNow.DayOfYear.ToString().PadLeft(3,'0'))">
+      <Output TaskParameter="Value" PropertyName="Build" />
+    </CreateProperty>
     <Message Text="Version: $(Major).$(Minor)" Importance="high" />
     <Message Text="Build: $(Build)" Importance="high" />
     <Message Text="Revision: $(Revision)" Importance="high" />
