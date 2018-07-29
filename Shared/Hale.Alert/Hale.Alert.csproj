@@ -44,4 +44,5 @@
   <ItemGroup>
     <Reference Include="System.Data.DataSetExtensions" />
   </ItemGroup>
+  <Import Project="..\..\BuildVersion.xml" Condition="Exists('..\..\BuildVersion.xml')" />
 </Project>

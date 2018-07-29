@@ -37,4 +37,5 @@
   <ItemGroup>
     <None Include="README.md" />
   </ItemGroup>
+  <Import Project="..\..\BuildVersion.xml" Condition="Exists('..\..\BuildVersion.xml')" />
 </Project>

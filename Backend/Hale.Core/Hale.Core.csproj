@@ -35,14 +35,6 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\WebApiSwagger.XML</DocumentationFile>
   </PropertyGroup>
-  <Import Project="..\..\packages\MSBuildTasks.1.5.0.235\tools\MSBuild.Community.Tasks.Targets" />
-  <Import Project="..\..\BuildVersion.xml" Condition="Exists('..\..\BuildVersion.xml')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild" Condition="Exists('..\..\packages\MSBuildTasks.1.5.0.235\tools\MSBuild.Community.Tasks.Targets')">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\MSBuildTasks.1.5.0.235\tools\MSBuild.Community.Tasks.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MSBuildTasks.1.5.0.235\tools\MSBuild.Community.Tasks.Targets'))" />
-  </Target>
   <ItemGroup>
     <ProjectReference Include="..\..\Hale.MsiInterop\Hale.MsiInterop.csproj" />
     <ProjectReference Include="..\..\Shared\Hale.Lib.ModuleLoader\Hale.Lib.ModuleLoader.csproj" />
@@ -52,8 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BCrypt-Official" Version="0.1.109" />
-    <PackageReference Include="Dapper" Version="1.50.5" />
-    <PackageReference Include="DapperExtensions" Version="1.6.3" />
     <PackageReference Include="EntityFramework" Version="6.1.3" />
     <PackageReference Include="EntityFramework6.Npgsql" Version="3.1.1" />
     <PackageReference Include="Humanizer.Core" Version="2.1.0" />
@@ -136,4 +126,5 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <Import Project="..\..\BuildVersion.xml" Condition="Exists('..\..\BuildVersion.xml')" />
 </Project>

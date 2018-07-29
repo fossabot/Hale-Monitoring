@@ -57,4 +57,5 @@
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
+  <Import Project="..\..\BuildVersion.xml" Condition="Exists('..\..\BuildVersion.xml')" />
 </Project>
