@@ -1,11 +1,5 @@
 language: csharp
 solution: Hale-Monitoring.sln
-before_script:
-  - nuget restore Hale-Monitoring.sln
-script:
-  - xbuild /p:Configuration=Release Hale-Monitoring.sln
-cache:
-  directories:
-    - packages
+mono: 5.12
 notifications:
   slack: itshale:zzA1c500hMvaht5WuURG7qob
