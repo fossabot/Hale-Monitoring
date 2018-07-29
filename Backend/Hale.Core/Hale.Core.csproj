@@ -1,15 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net451</TargetFramework>
-    <OutputType>Exe</OutputType>
-    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
-    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
-    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
-    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <TargetFrameworks>net471;netcoreapp2.1</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,11 +27,13 @@
     <DocumentationFile>bin\Release\WebApiSwagger.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Hale.MsiInterop\Hale.MsiInterop.csproj" />
     <ProjectReference Include="..\..\Shared\Hale.Lib.ModuleLoader\Hale.Lib.ModuleLoader.csproj" />
     <ProjectReference Include="..\..\Shared\Hale.Lib\Hale.Lib.csproj" />
     <ProjectReference Include="..\Hale.Core.Data\Hale.Core.Data.csproj" />
     <ProjectReference Include="..\Hale.Core.Model\Hale.Core.Model.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net471'">
+    <ProjectReference Include="..\..\Hale.MsiInterop\Hale.MsiInterop.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BCrypt-Official" Version="0.1.109" />
@@ -87,10 +80,10 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.Core" Version="5.3.2" />
-    <PackageReference Include="System.Runtime" Version="4.1.0" />
-    <PackageReference Include="System.Runtime.Extensions" Version="4.1.0" />
-    <PackageReference Include="System.Runtime.InteropServices" Version="4.1.0" />
-    <PackageReference Include="System.Text.RegularExpressions" Version="4.1.0" />
+    <PackageReference Include="System.Runtime" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Extensions" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.0" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.3.0" />
     <PackageReference Include="WebActivatorEx" Version="2.1.0" />
     <PackageReference Include="YamlDotNet" Version="4.2.1" />
