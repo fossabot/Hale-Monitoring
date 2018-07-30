@@ -1,5 +1,13 @@
 language: csharp
 solution: Hale-Monitoring.sln
-mono: 5.12.0
+matrix:
+  include:
+    - mono: 5.12.0
+      script: msbuild /p:Configuration=Debug Hale-Monitoring.sln
+    - mono: none
+      dotnet: 2.1
+      install: dotnet restore
+      script: 
+        - build -f netcoreapp2.1 -c Hale-Monitoring.sln
 notifications:
   slack: itshale:zzA1c500hMvaht5WuURG7qob
