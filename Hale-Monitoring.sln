@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hale.Alert.Simple", "Shared
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hale.Lib.ModuleLoader", "Shared\Hale.Lib.ModuleLoader\Hale.Lib.ModuleLoader.csproj", "{A9904F35-66FA-4296-92E3-15FA49D9CF1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale.CheckTester", "Tools\Hale.CheckTester\Hale.CheckTester.csproj", "{45358E81-C3DA-4A94-9A69-B7468F610509}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hale.CheckTester", "Tools\Hale.CheckTester\Hale.CheckTester.csproj", "{45358E81-C3DA-4A94-9A69-B7468F610509}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CpuModule", "Modules\Hale.Check.CpuUsage\CpuModule.csproj", "{D5431865-303D-4709-BDA8-5D1E26C4445E}"
 EndProject

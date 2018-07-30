@@ -52,12 +52,6 @@ namespace Hale.Lib.Modules
 
         public SemVersion Version { get; set; }
 
-        public static string ToString(string identifier, SemVersion version)
-            => $"{identifier}_v{version.Major}.{version.Minor}.{version.Patch}";
-
-        public override string ToString()
-            => ToString(this.Identifier, this.Version);
-
         public static VersionedIdentifier Parse(string input)
         {
             (string identifier, string version) = input.Split('_');
@@ -140,6 +134,12 @@ namespace Hale.Lib.Modules
 
             return new VersionedIdentifier(identifier, new Version(major, minor, revision));
         }
+
+        public static string ToString(string identifier, SemVersion version)
+            => $"{identifier}_v{version.Major}.{version.Minor}.{version.Patch}";
+
+        public override string ToString()
+            => ToString(this.Identifier, this.Version);
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {

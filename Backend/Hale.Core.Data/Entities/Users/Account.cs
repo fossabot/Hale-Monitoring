@@ -53,5 +53,6 @@
         public int? ModifiedBy { get; set; }
 
         public IList<AccountDetail> AccountDetails { get; set; }
+
     }
 }
