@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Hale.Core.Data.Migrations
@@ -13,7 +12,7 @@ namespace Hale.Core.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     UserName = table.Column<string>(maxLength: 450, nullable: true),
                     Email = table.Column<string>(nullable: true),
                     FullName = table.Column<string>(nullable: true),
@@ -38,7 +37,7 @@ namespace Hale.Core.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Identifier = table.Column<string>(maxLength: 32, nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Created = table.Column<DateTimeOffset>(nullable: false),
@@ -56,7 +55,7 @@ namespace Hale.Core.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Action = table.Column<string>(nullable: true),
                     Module = table.Column<string>(nullable: true),
                     Target = table.Column<string>(nullable: true)
@@ -71,7 +70,7 @@ namespace Hale.Core.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Identifier = table.Column<string>(nullable: true),
                     Major = table.Column<int>(nullable: false),
                     Minor = table.Column<int>(nullable: false),
@@ -87,7 +86,7 @@ namespace Hale.Core.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     FriendlyName = table.Column<string>(nullable: true),
                     HostName = table.Column<string>(nullable: true),
                     Domain = table.Column<string>(nullable: true),
@@ -116,7 +115,7 @@ namespace Hale.Core.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     HostId = table.Column<int>(nullable: false),
                     ModuleId = table.Column<int>(nullable: false),
                     FunctionId = table.Column<int>(nullable: false),
@@ -137,7 +136,7 @@ namespace Hale.Core.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<int>(nullable: false),
                     Key = table.Column<string>(nullable: true),
                     Value = table.Column<string>(nullable: true),
@@ -162,7 +161,7 @@ namespace Hale.Core.Data.Migrations
                     Interval = table.Column<TimeSpan>(nullable: false),
                     Startup = table.Column<bool>(nullable: false),
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     AgentConfigSetId = table.Column<int>(nullable: true)
                 },
@@ -182,7 +181,7 @@ namespace Hale.Core.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Type = table.Column<byte>(nullable: false),
                     ModuleId = table.Column<int>(nullable: false),
                     Function = table.Column<string>(nullable: true),
@@ -229,7 +228,7 @@ namespace Hale.Core.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     Identifier = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
@@ -252,7 +251,7 @@ namespace Hale.Core.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     NodeId = table.Column<int>(nullable: true),
                     UserId = table.Column<int>(nullable: true),
                     Timestamp = table.Column<DateTimeOffset>(nullable: false),
@@ -280,7 +279,7 @@ namespace Hale.Core.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     HostId = table.Column<int>(nullable: false),
                     Key = table.Column<string>(nullable: true),
                     Value = table.Column<string>(nullable: true),
@@ -302,7 +301,7 @@ namespace Hale.Core.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ResultId = table.Column<int>(nullable: true),
                     Key = table.Column<string>(nullable: true),
                     Value = table.Column<double>(nullable: false)
@@ -323,7 +322,7 @@ namespace Hale.Core.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ResultId = table.Column<int>(nullable: true),
                     Key = table.Column<string>(nullable: true),
                     Value = table.Column<string>(nullable: true)
@@ -344,7 +343,7 @@ namespace Hale.Core.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Key = table.Column<string>(nullable: true),
                     Value = table.Column<string>(nullable: true),
                     Target = table.Column<string>(nullable: true),
@@ -364,23 +363,27 @@ namespace Hale.Core.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Accounts",
                 columns: new[] { "Id", "Activated", "Created", "CreatedBy", "Email", "Enabled", "FullName", "IsAdmin", "Modified", "ModifiedBy", "OldPassword", "Password", "PasswordChanged", "UserName" },
-                values: new object[,]
-                {
-                    { 4, true, new DateTimeOffset(new DateTime(2018, 7, 30, 2, 39, 1, 337, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0)), null, "foobar@acmegroup.com", false, "Test User 04", false, null, null, null, "$2a$05$TWzK83kI0Q/iXXM4WuaCz.GTSaMJbmsR3lT.slUfsgTwkO5YPh7hK", null, "test04" },
-                    { 2, true, new DateTimeOffset(new DateTime(2018, 7, 30, 2, 39, 1, 331, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0)), null, "nils@piksel.se", true, "Test User 02", false, null, null, null, "$2a$05$03cdsu77QqL9/kz8e5PNluIfbc/s.GV6JSdodJDKfArcT0m5zT1sC", null, "test02" },
-                    { 1, true, new DateTimeOffset(new DateTime(2018, 7, 30, 2, 39, 1, 219, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0)), null, "simon.aronsson@outlook.com", true, "Test User 01", true, null, null, null, "$2a$05$xNzyg0FGbqN8QEA2ZhESaeiMYZBZmAHR9kiK8UK6ItAtIfptiFQxG", null, "test01" },
-                    { 3, false, new DateTimeOffset(new DateTime(2018, 7, 30, 2, 39, 1, 334, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0)), null, "foo@bar.com", true, "Test User 03", false, null, null, null, "$2a$05$MD6eCdGZbxWY3cvn2Dwt7eemt/COO/HQ0xGj0628UigUUuNsWYTVy", null, "test03" }
-                });
+                values: new object[] { 4, true, new DateTimeOffset(new DateTime(2018, 7, 30, 6, 11, 58, 838, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0)), null, "foobar@acmegroup.com", false, "Test User 04", false, null, null, null, "$2a$05$hD7kYpARPJ5qd9tXM5UgnO/.41H.2CJRIaWepPHcjcub5tDyheU8q", null, "test04" });
 
             migrationBuilder.InsertData(
-                table: "AgentConfigSetFunctionSettings",
-                columns: new[] { "Id", "AgentConfigSetFunctionId", "Key", "Target", "Value" },
-                values: new object[] { 1, 0, "foo", "default", "bar" });
+                table: "Accounts",
+                columns: new[] { "Id", "Activated", "Created", "CreatedBy", "Email", "Enabled", "FullName", "IsAdmin", "Modified", "ModifiedBy", "OldPassword", "Password", "PasswordChanged", "UserName" },
+                values: new object[] { 2, true, new DateTimeOffset(new DateTime(2018, 7, 30, 6, 11, 58, 832, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0)), null, "nils@piksel.se", true, "Test User 02", false, null, null, null, "$2a$05$nPh.H6huDCRI28dg0nwER.TLTy.cbrk9tVlIB/7iT.aYiMtIavHEe", null, "test02" });
+
+            migrationBuilder.InsertData(
+                table: "Accounts",
+                columns: new[] { "Id", "Activated", "Created", "CreatedBy", "Email", "Enabled", "FullName", "IsAdmin", "Modified", "ModifiedBy", "OldPassword", "Password", "PasswordChanged", "UserName" },
+                values: new object[] { 1, true, new DateTimeOffset(new DateTime(2018, 7, 30, 6, 11, 58, 711, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0)), null, "simon.aronsson@outlook.com", true, "Test User 01", true, null, null, null, "$2a$05$OS9Z/x.AqZbG86U10wtSBumXefJ.X8i47SReZdDLFeeY5bITZ3PLy", null, "test01" });
+
+            migrationBuilder.InsertData(
+                table: "Accounts",
+                columns: new[] { "Id", "Activated", "Created", "CreatedBy", "Email", "Enabled", "FullName", "IsAdmin", "Modified", "ModifiedBy", "OldPassword", "Password", "PasswordChanged", "UserName" },
+                values: new object[] { 3, false, new DateTimeOffset(new DateTime(2018, 7, 30, 6, 11, 58, 835, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0)), null, "foo@bar.com", true, "Test User 03", false, null, null, null, "$2a$05$1wnTBWxmpZKToBd9AI7T4OHtHoFL9iPKKENlfNYp8l4Pd/KeIAhNi", null, "test03" });
 
             migrationBuilder.InsertData(
                 table: "AgentConfigs",
                 columns: new[] { "Id", "Created", "CreatedBy", "Identifier", "Modified", "ModifiedBy", "Name" },
-                values: new object[] { 1, new DateTimeOffset(new DateTime(2018, 7, 30, 2, 39, 1, 343, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0)), null, "seed_config01", null, null, null });
+                values: new object[] { 1, new DateTimeOffset(new DateTime(2018, 7, 30, 6, 11, 58, 844, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0)), null, "seed_config01", null, null, null });
 
             migrationBuilder.InsertData(
                 table: "Modules",
@@ -390,27 +393,77 @@ namespace Hale.Core.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Nodes",
                 columns: new[] { "Id", "Blocked", "Configured", "ConfiguredBy", "Created", "Domain", "FriendlyName", "Guid", "HardwareSummary", "HostName", "Ip", "LastConnected", "Modified", "ModifiedBy", "NicSummary", "OperatingSystem", "RsaKey", "Status" },
-                values: new object[,]
-                {
-                    { 4, false, true, null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost04", new Guid("057449e7-e7f1-47b6-80a7-b21ed8dea051"), null, "test-host-04", "10.1.2.4", null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, null, null, 1 },
-                    { 5, false, true, null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost05", new Guid("faf16de0-b8e4-4a0f-8c1b-eb410725c6d2"), null, "test-host-05", "10.1.2.5", null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, null, null, 0 },
-                    { 6, false, true, null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost06", new Guid("844fa1ab-3b54-45bf-ab5c-9bedfcd6afa3"), null, "test-host-06", "10.1.2.6", null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, null, null, 0 },
-                    { 2, false, true, null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost02", new Guid("faf16de0-b8e4-4a0f-8c1b-eb410725c6da"), null, "test-host-02", "10.1.2.2", null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, null, null, 0 },
-                    { 8, false, true, null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost08", new Guid("faf16de0-b8e4-4a0f-8c1b-eb410725c6d5"), null, "test-host-01", "10.1.2.8", null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, null, null, 0 },
-                    { 9, false, false, null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost09", new Guid("844fa1ab-3b54-45bf-ab5c-9bedfcd6afa6"), null, "test-host-01", "10.1.2.9", null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, "Microsoft Windows NT 10.0.14393.0", null, 0 },
-                    { 10, false, false, null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost10", new Guid("057449e7-e7f1-47b6-80a7-b21ed8dea05b"), null, "test-host-01", "10.1.2.10", null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, "Microsoft Windows NT 10.0.14393.0", null, 1 },
-                    { 11, false, false, null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost11", new Guid("faf16de0-b8e4-4a0f-8c1b-eb410725c6dd"), null, "test-host-01", "10.1.2.11", null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, "Microsoft Windows NT 10.0.14393.0", null, 0 },
-                    { 12, false, false, null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost12", new Guid("844fa1ab-3b54-45bf-ab5c-9bedfcd6afbb"), null, "test-host-01", "10.1.2.12", null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, "Microsoft Windows NT 10.0.14393.0", null, 0 },
-                    { 13, false, false, null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost13", new Guid("844fa1ab-3b54-45bf-ab5c-9bedfcd6afcc"), null, "test-host-01", "10.1.2.13", null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, "Microsoft Windows NT 10.0.14393.0", null, 0 },
-                    { 1, false, true, null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost01", new Guid("057449e7-e7f1-47b6-80a7-b21ed8dea058"), null, "test-host-01", "127.0.0.1", null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, null, null, 1 },
-                    { 3, false, true, null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost03", new Guid("844fa1ab-3b54-45bf-ab5c-9bedfcd6afa9"), null, "test-host-03", "10.1.2.3", null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, null, null, 0 },
-                    { 7, false, true, null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost07", new Guid("057449e7-e7f1-47b6-80a7-b21ed8dea044"), null, "test-host-01", "10.1.2.7", null, new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, null, null, 1 }
-                });
+                values: new object[] { 4, false, true, null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost04", new Guid("057449e7-e7f1-47b6-80a7-b21ed8dea051"), null, "test-host-04", "10.1.2.4", null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, null, null, 1 });
+
+            migrationBuilder.InsertData(
+                table: "Nodes",
+                columns: new[] { "Id", "Blocked", "Configured", "ConfiguredBy", "Created", "Domain", "FriendlyName", "Guid", "HardwareSummary", "HostName", "Ip", "LastConnected", "Modified", "ModifiedBy", "NicSummary", "OperatingSystem", "RsaKey", "Status" },
+                values: new object[] { 5, false, true, null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost05", new Guid("faf16de0-b8e4-4a0f-8c1b-eb410725c6d2"), null, "test-host-05", "10.1.2.5", null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, null, null, 0 });
+
+            migrationBuilder.InsertData(
+                table: "Nodes",
+                columns: new[] { "Id", "Blocked", "Configured", "ConfiguredBy", "Created", "Domain", "FriendlyName", "Guid", "HardwareSummary", "HostName", "Ip", "LastConnected", "Modified", "ModifiedBy", "NicSummary", "OperatingSystem", "RsaKey", "Status" },
+                values: new object[] { 6, false, true, null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost06", new Guid("844fa1ab-3b54-45bf-ab5c-9bedfcd6afa3"), null, "test-host-06", "10.1.2.6", null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, null, null, 0 });
+
+            migrationBuilder.InsertData(
+                table: "Nodes",
+                columns: new[] { "Id", "Blocked", "Configured", "ConfiguredBy", "Created", "Domain", "FriendlyName", "Guid", "HardwareSummary", "HostName", "Ip", "LastConnected", "Modified", "ModifiedBy", "NicSummary", "OperatingSystem", "RsaKey", "Status" },
+                values: new object[] { 7, false, true, null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost07", new Guid("057449e7-e7f1-47b6-80a7-b21ed8dea044"), null, "test-host-01", "10.1.2.7", null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, null, null, 1 });
+
+            migrationBuilder.InsertData(
+                table: "Nodes",
+                columns: new[] { "Id", "Blocked", "Configured", "ConfiguredBy", "Created", "Domain", "FriendlyName", "Guid", "HardwareSummary", "HostName", "Ip", "LastConnected", "Modified", "ModifiedBy", "NicSummary", "OperatingSystem", "RsaKey", "Status" },
+                values: new object[] { 2, false, true, null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost02", new Guid("faf16de0-b8e4-4a0f-8c1b-eb410725c6da"), null, "test-host-02", "10.1.2.2", null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, null, null, 0 });
+
+            migrationBuilder.InsertData(
+                table: "Nodes",
+                columns: new[] { "Id", "Blocked", "Configured", "ConfiguredBy", "Created", "Domain", "FriendlyName", "Guid", "HardwareSummary", "HostName", "Ip", "LastConnected", "Modified", "ModifiedBy", "NicSummary", "OperatingSystem", "RsaKey", "Status" },
+                values: new object[] { 9, false, false, null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost09", new Guid("844fa1ab-3b54-45bf-ab5c-9bedfcd6afa6"), null, "test-host-01", "10.1.2.9", null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, "Microsoft Windows NT 10.0.14393.0", null, 0 });
+
+            migrationBuilder.InsertData(
+                table: "Nodes",
+                columns: new[] { "Id", "Blocked", "Configured", "ConfiguredBy", "Created", "Domain", "FriendlyName", "Guid", "HardwareSummary", "HostName", "Ip", "LastConnected", "Modified", "ModifiedBy", "NicSummary", "OperatingSystem", "RsaKey", "Status" },
+                values: new object[] { 10, false, false, null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost10", new Guid("057449e7-e7f1-47b6-80a7-b21ed8dea05b"), null, "test-host-01", "10.1.2.10", null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, "Microsoft Windows NT 10.0.14393.0", null, 1 });
+
+            migrationBuilder.InsertData(
+                table: "Nodes",
+                columns: new[] { "Id", "Blocked", "Configured", "ConfiguredBy", "Created", "Domain", "FriendlyName", "Guid", "HardwareSummary", "HostName", "Ip", "LastConnected", "Modified", "ModifiedBy", "NicSummary", "OperatingSystem", "RsaKey", "Status" },
+                values: new object[] { 11, false, false, null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost11", new Guid("faf16de0-b8e4-4a0f-8c1b-eb410725c6dd"), null, "test-host-01", "10.1.2.11", null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, "Microsoft Windows NT 10.0.14393.0", null, 0 });
+
+            migrationBuilder.InsertData(
+                table: "Nodes",
+                columns: new[] { "Id", "Blocked", "Configured", "ConfiguredBy", "Created", "Domain", "FriendlyName", "Guid", "HardwareSummary", "HostName", "Ip", "LastConnected", "Modified", "ModifiedBy", "NicSummary", "OperatingSystem", "RsaKey", "Status" },
+                values: new object[] { 12, false, false, null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost12", new Guid("844fa1ab-3b54-45bf-ab5c-9bedfcd6afbb"), null, "test-host-01", "10.1.2.12", null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, "Microsoft Windows NT 10.0.14393.0", null, 0 });
+
+            migrationBuilder.InsertData(
+                table: "Nodes",
+                columns: new[] { "Id", "Blocked", "Configured", "ConfiguredBy", "Created", "Domain", "FriendlyName", "Guid", "HardwareSummary", "HostName", "Ip", "LastConnected", "Modified", "ModifiedBy", "NicSummary", "OperatingSystem", "RsaKey", "Status" },
+                values: new object[] { 13, false, false, null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost13", new Guid("844fa1ab-3b54-45bf-ab5c-9bedfcd6afcc"), null, "test-host-01", "10.1.2.13", null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, "Microsoft Windows NT 10.0.14393.0", null, 0 });
+
+            migrationBuilder.InsertData(
+                table: "Nodes",
+                columns: new[] { "Id", "Blocked", "Configured", "ConfiguredBy", "Created", "Domain", "FriendlyName", "Guid", "HardwareSummary", "HostName", "Ip", "LastConnected", "Modified", "ModifiedBy", "NicSummary", "OperatingSystem", "RsaKey", "Status" },
+                values: new object[] { 1, false, true, null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost01", new Guid("057449e7-e7f1-47b6-80a7-b21ed8dea058"), null, "test-host-01", "127.0.0.1", null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, null, null, 1 });
+
+            migrationBuilder.InsertData(
+                table: "Nodes",
+                columns: new[] { "Id", "Blocked", "Configured", "ConfiguredBy", "Created", "Domain", "FriendlyName", "Guid", "HardwareSummary", "HostName", "Ip", "LastConnected", "Modified", "ModifiedBy", "NicSummary", "OperatingSystem", "RsaKey", "Status" },
+                values: new object[] { 3, false, true, null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost03", new Guid("844fa1ab-3b54-45bf-ab5c-9bedfcd6afa9"), null, "test-host-03", "10.1.2.3", null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, null, null, 0 });
+
+            migrationBuilder.InsertData(
+                table: "Nodes",
+                columns: new[] { "Id", "Blocked", "Configured", "ConfiguredBy", "Created", "Domain", "FriendlyName", "Guid", "HardwareSummary", "HostName", "Ip", "LastConnected", "Modified", "ModifiedBy", "NicSummary", "OperatingSystem", "RsaKey", "Status" },
+                values: new object[] { 8, false, true, null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "domain.com", "TestHost08", new Guid("faf16de0-b8e4-4a0f-8c1b-eb410725c6d5"), null, "test-host-01", "10.1.2.8", null, new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, null, null, 0 });
 
             migrationBuilder.InsertData(
                 table: "AgentConfigSetFuncSettings",
                 columns: new[] { "Id", "AgentConfigSetId", "CriticalActionId", "CriticalThreshold", "Enabled", "Function", "Interval", "ModuleId", "Startup", "Type", "WarningActionId", "WarningThreshold" },
                 values: new object[] { 1, 0, null, 1f, true, "default", new TimeSpan(0, 0, 10, 0, 0), 1, true, (byte)1, null, 0.5f });
+
+            migrationBuilder.InsertData(
+                table: "AgentConfigSetFunctionSettings",
+                columns: new[] { "Id", "AgentConfigSetFunctionId", "Key", "Target", "Value" },
+                values: new object[] { 1, 1, "foo", "default", "bar" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AccountDetails_AccountId",
@@ -421,15 +474,13 @@ namespace Hale.Core.Data.Migrations
                 name: "IX_Accounts_UserName",
                 table: "Accounts",
                 column: "UserName",
-                unique: true,
-                filter: "[UserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AgentConfigs_Identifier",
                 table: "AgentConfigs",
                 column: "Identifier",
-                unique: true,
-                filter: "[Identifier] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AgentConfigSetFuncSettings_AgentConfigSetId",

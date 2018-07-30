@@ -357,6 +357,7 @@ namespace Hale.Core.Data.Contexts
                 new AgentConfigSetFunctionSettings()
                 {
                     Id = 1,
+                    AgentConfigSetFunctionId = acf.Id,
                     Target = "default",
                     Key = "foo",
                     Value = "bar"
@@ -409,7 +410,8 @@ namespace Hale.Core.Data.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.EnableSensitiveDataLogging(); 
+            optionsBuilder.EnableSensitiveDataLogging();
+            //optionsBuilder.UseSqlite("Data Source=blogging.db");
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=HaleDBTest;Trusted_Connection=True;");
             base.OnConfiguring(optionsBuilder);
         }

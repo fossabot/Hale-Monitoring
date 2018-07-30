@@ -3,7 +3,6 @@ using System;
 using Hale.Core.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hale.Core.Data.Migrations
@@ -15,15 +14,12 @@ namespace Hale.Core.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846");
 
             modelBuilder.Entity("Hale.Core.Data.Entities.Agent.AgentConfigSet", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTimeOffset>("Created");
 
@@ -41,21 +37,19 @@ namespace Hale.Core.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Identifier")
-                        .IsUnique()
-                        .HasFilter("[Identifier] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("AgentConfigs");
 
                     b.HasData(
-                        new { Id = 1, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 2, 39, 1, 343, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0)), Identifier = "seed_config01" }
+                        new { Id = 1, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 6, 11, 58, 844, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0)), Identifier = "seed_config01" }
                     );
                 });
 
             modelBuilder.Entity("Hale.Core.Data.Entities.Agent.AgentConfigSetCheckAction", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Action");
 
@@ -71,8 +65,7 @@ namespace Hale.Core.Data.Migrations
             modelBuilder.Entity("Hale.Core.Data.Entities.Agent.AgentConfigSetFunction", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("AgentConfigSetId");
 
@@ -116,8 +109,7 @@ namespace Hale.Core.Data.Migrations
             modelBuilder.Entity("Hale.Core.Data.Entities.Agent.AgentConfigSetFunctionSettings", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("AgentConfigSetFunctionId");
 
@@ -134,15 +126,14 @@ namespace Hale.Core.Data.Migrations
                     b.ToTable("AgentConfigSetFunctionSettings");
 
                     b.HasData(
-                        new { Id = 1, AgentConfigSetFunctionId = 0, Key = "foo", Target = "default", Value = "bar" }
+                        new { Id = 1, AgentConfigSetFunctionId = 1, Key = "foo", Target = "default", Value = "bar" }
                     );
                 });
 
             modelBuilder.Entity("Hale.Core.Data.Entities.Agent.AgentConfigSetTask", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int?>("AgentConfigSetId");
 
@@ -164,8 +155,7 @@ namespace Hale.Core.Data.Migrations
             modelBuilder.Entity("Hale.Core.Data.Entities.Modules.CheckRecord", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Key");
 
@@ -183,8 +173,7 @@ namespace Hale.Core.Data.Migrations
             modelBuilder.Entity("Hale.Core.Data.Entities.Modules.Function", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
 
@@ -206,8 +195,7 @@ namespace Hale.Core.Data.Migrations
             modelBuilder.Entity("Hale.Core.Data.Entities.Modules.InfoRecord", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Key");
 
@@ -225,8 +213,7 @@ namespace Hale.Core.Data.Migrations
             modelBuilder.Entity("Hale.Core.Data.Entities.Modules.Module", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Identifier");
 
@@ -248,8 +235,7 @@ namespace Hale.Core.Data.Migrations
             modelBuilder.Entity("Hale.Core.Data.Entities.Modules.Result", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<bool>("AboveCritical");
 
@@ -277,8 +263,7 @@ namespace Hale.Core.Data.Migrations
             modelBuilder.Entity("Hale.Core.Data.Entities.Nodes.Node", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<bool>("Blocked");
 
@@ -319,27 +304,26 @@ namespace Hale.Core.Data.Migrations
                     b.ToTable("Nodes");
 
                     b.HasData(
-                        new { Id = 1, Blocked = false, Configured = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost01", Guid = new Guid("057449e7-e7f1-47b6-80a7-b21ed8dea058"), HostName = "test-host-01", Ip = "127.0.0.1", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Status = 1 },
-                        new { Id = 2, Blocked = false, Configured = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost02", Guid = new Guid("faf16de0-b8e4-4a0f-8c1b-eb410725c6da"), HostName = "test-host-02", Ip = "10.1.2.2", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Status = 0 },
-                        new { Id = 3, Blocked = false, Configured = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost03", Guid = new Guid("844fa1ab-3b54-45bf-ab5c-9bedfcd6afa9"), HostName = "test-host-03", Ip = "10.1.2.3", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Status = 0 },
-                        new { Id = 4, Blocked = false, Configured = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost04", Guid = new Guid("057449e7-e7f1-47b6-80a7-b21ed8dea051"), HostName = "test-host-04", Ip = "10.1.2.4", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Status = 1 },
-                        new { Id = 5, Blocked = false, Configured = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost05", Guid = new Guid("faf16de0-b8e4-4a0f-8c1b-eb410725c6d2"), HostName = "test-host-05", Ip = "10.1.2.5", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Status = 0 },
-                        new { Id = 6, Blocked = false, Configured = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost06", Guid = new Guid("844fa1ab-3b54-45bf-ab5c-9bedfcd6afa3"), HostName = "test-host-06", Ip = "10.1.2.6", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Status = 0 },
-                        new { Id = 7, Blocked = false, Configured = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost07", Guid = new Guid("057449e7-e7f1-47b6-80a7-b21ed8dea044"), HostName = "test-host-01", Ip = "10.1.2.7", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Status = 1 },
-                        new { Id = 8, Blocked = false, Configured = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost08", Guid = new Guid("faf16de0-b8e4-4a0f-8c1b-eb410725c6d5"), HostName = "test-host-01", Ip = "10.1.2.8", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Status = 0 },
-                        new { Id = 9, Blocked = false, Configured = false, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost09", Guid = new Guid("844fa1ab-3b54-45bf-ab5c-9bedfcd6afa6"), HostName = "test-host-01", Ip = "10.1.2.9", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), OperatingSystem = "Microsoft Windows NT 10.0.14393.0", Status = 0 },
-                        new { Id = 10, Blocked = false, Configured = false, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost10", Guid = new Guid("057449e7-e7f1-47b6-80a7-b21ed8dea05b"), HostName = "test-host-01", Ip = "10.1.2.10", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), OperatingSystem = "Microsoft Windows NT 10.0.14393.0", Status = 1 },
-                        new { Id = 11, Blocked = false, Configured = false, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost11", Guid = new Guid("faf16de0-b8e4-4a0f-8c1b-eb410725c6dd"), HostName = "test-host-01", Ip = "10.1.2.11", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), OperatingSystem = "Microsoft Windows NT 10.0.14393.0", Status = 0 },
-                        new { Id = 12, Blocked = false, Configured = false, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost12", Guid = new Guid("844fa1ab-3b54-45bf-ab5c-9bedfcd6afbb"), HostName = "test-host-01", Ip = "10.1.2.12", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), OperatingSystem = "Microsoft Windows NT 10.0.14393.0", Status = 0 },
-                        new { Id = 13, Blocked = false, Configured = false, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost13", Guid = new Guid("844fa1ab-3b54-45bf-ab5c-9bedfcd6afcc"), HostName = "test-host-01", Ip = "10.1.2.13", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 0, 39, 1, 342, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), OperatingSystem = "Microsoft Windows NT 10.0.14393.0", Status = 0 }
+                        new { Id = 1, Blocked = false, Configured = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost01", Guid = new Guid("057449e7-e7f1-47b6-80a7-b21ed8dea058"), HostName = "test-host-01", Ip = "127.0.0.1", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Status = 1 },
+                        new { Id = 2, Blocked = false, Configured = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost02", Guid = new Guid("faf16de0-b8e4-4a0f-8c1b-eb410725c6da"), HostName = "test-host-02", Ip = "10.1.2.2", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Status = 0 },
+                        new { Id = 3, Blocked = false, Configured = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost03", Guid = new Guid("844fa1ab-3b54-45bf-ab5c-9bedfcd6afa9"), HostName = "test-host-03", Ip = "10.1.2.3", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Status = 0 },
+                        new { Id = 4, Blocked = false, Configured = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost04", Guid = new Guid("057449e7-e7f1-47b6-80a7-b21ed8dea051"), HostName = "test-host-04", Ip = "10.1.2.4", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Status = 1 },
+                        new { Id = 5, Blocked = false, Configured = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost05", Guid = new Guid("faf16de0-b8e4-4a0f-8c1b-eb410725c6d2"), HostName = "test-host-05", Ip = "10.1.2.5", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Status = 0 },
+                        new { Id = 6, Blocked = false, Configured = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost06", Guid = new Guid("844fa1ab-3b54-45bf-ab5c-9bedfcd6afa3"), HostName = "test-host-06", Ip = "10.1.2.6", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Status = 0 },
+                        new { Id = 7, Blocked = false, Configured = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost07", Guid = new Guid("057449e7-e7f1-47b6-80a7-b21ed8dea044"), HostName = "test-host-01", Ip = "10.1.2.7", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Status = 1 },
+                        new { Id = 8, Blocked = false, Configured = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost08", Guid = new Guid("faf16de0-b8e4-4a0f-8c1b-eb410725c6d5"), HostName = "test-host-01", Ip = "10.1.2.8", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Status = 0 },
+                        new { Id = 9, Blocked = false, Configured = false, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost09", Guid = new Guid("844fa1ab-3b54-45bf-ab5c-9bedfcd6afa6"), HostName = "test-host-01", Ip = "10.1.2.9", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), OperatingSystem = "Microsoft Windows NT 10.0.14393.0", Status = 0 },
+                        new { Id = 10, Blocked = false, Configured = false, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost10", Guid = new Guid("057449e7-e7f1-47b6-80a7-b21ed8dea05b"), HostName = "test-host-01", Ip = "10.1.2.10", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), OperatingSystem = "Microsoft Windows NT 10.0.14393.0", Status = 1 },
+                        new { Id = 11, Blocked = false, Configured = false, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost11", Guid = new Guid("faf16de0-b8e4-4a0f-8c1b-eb410725c6dd"), HostName = "test-host-01", Ip = "10.1.2.11", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), OperatingSystem = "Microsoft Windows NT 10.0.14393.0", Status = 0 },
+                        new { Id = 12, Blocked = false, Configured = false, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost12", Guid = new Guid("844fa1ab-3b54-45bf-ab5c-9bedfcd6afbb"), HostName = "test-host-01", Ip = "10.1.2.12", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), OperatingSystem = "Microsoft Windows NT 10.0.14393.0", Status = 0 },
+                        new { Id = 13, Blocked = false, Configured = false, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), Domain = "domain.com", FriendlyName = "TestHost13", Guid = new Guid("844fa1ab-3b54-45bf-ab5c-9bedfcd6afcc"), HostName = "test-host-01", Ip = "10.1.2.13", Modified = new DateTimeOffset(new DateTime(2018, 7, 30, 4, 11, 58, 842, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), OperatingSystem = "Microsoft Windows NT 10.0.14393.0", Status = 0 }
                     );
                 });
 
             modelBuilder.Entity("Hale.Core.Data.Entities.Nodes.NodeComment", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int?>("NodeId");
 
@@ -361,8 +345,7 @@ namespace Hale.Core.Data.Migrations
             modelBuilder.Entity("Hale.Core.Data.Entities.Nodes.NodeDetail", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("HostId");
 
@@ -382,8 +365,7 @@ namespace Hale.Core.Data.Migrations
             modelBuilder.Entity("Hale.Core.Data.Entities.Users.Account", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<bool>("Activated");
 
@@ -415,24 +397,22 @@ namespace Hale.Core.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("UserName")
-                        .IsUnique()
-                        .HasFilter("[UserName] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Accounts");
 
                     b.HasData(
-                        new { Id = 1, Activated = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 2, 39, 1, 219, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0)), Email = "simon.aronsson@outlook.com", Enabled = true, FullName = "Test User 01", IsAdmin = true, Password = "$2a$05$xNzyg0FGbqN8QEA2ZhESaeiMYZBZmAHR9kiK8UK6ItAtIfptiFQxG", UserName = "test01" },
-                        new { Id = 2, Activated = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 2, 39, 1, 331, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0)), Email = "nils@piksel.se", Enabled = true, FullName = "Test User 02", IsAdmin = false, Password = "$2a$05$03cdsu77QqL9/kz8e5PNluIfbc/s.GV6JSdodJDKfArcT0m5zT1sC", UserName = "test02" },
-                        new { Id = 3, Activated = false, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 2, 39, 1, 334, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0)), Email = "foo@bar.com", Enabled = true, FullName = "Test User 03", IsAdmin = false, Password = "$2a$05$MD6eCdGZbxWY3cvn2Dwt7eemt/COO/HQ0xGj0628UigUUuNsWYTVy", UserName = "test03" },
-                        new { Id = 4, Activated = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 2, 39, 1, 337, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0)), Email = "foobar@acmegroup.com", Enabled = false, FullName = "Test User 04", IsAdmin = false, Password = "$2a$05$TWzK83kI0Q/iXXM4WuaCz.GTSaMJbmsR3lT.slUfsgTwkO5YPh7hK", UserName = "test04" }
+                        new { Id = 1, Activated = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 6, 11, 58, 711, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0)), Email = "simon.aronsson@outlook.com", Enabled = true, FullName = "Test User 01", IsAdmin = true, Password = "$2a$05$OS9Z/x.AqZbG86U10wtSBumXefJ.X8i47SReZdDLFeeY5bITZ3PLy", UserName = "test01" },
+                        new { Id = 2, Activated = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 6, 11, 58, 832, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0)), Email = "nils@piksel.se", Enabled = true, FullName = "Test User 02", IsAdmin = false, Password = "$2a$05$nPh.H6huDCRI28dg0nwER.TLTy.cbrk9tVlIB/7iT.aYiMtIavHEe", UserName = "test02" },
+                        new { Id = 3, Activated = false, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 6, 11, 58, 835, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0)), Email = "foo@bar.com", Enabled = true, FullName = "Test User 03", IsAdmin = false, Password = "$2a$05$1wnTBWxmpZKToBd9AI7T4OHtHoFL9iPKKENlfNYp8l4Pd/KeIAhNi", UserName = "test03" },
+                        new { Id = 4, Activated = true, Created = new DateTimeOffset(new DateTime(2018, 7, 30, 6, 11, 58, 838, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0)), Email = "foobar@acmegroup.com", Enabled = false, FullName = "Test User 04", IsAdmin = false, Password = "$2a$05$hD7kYpARPJ5qd9tXM5UgnO/.41H.2CJRIaWepPHcjcub5tDyheU8q", UserName = "test04" }
                     );
                 });
 
             modelBuilder.Entity("Hale.Core.Data.Entities.Users.AccountDetail", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int?>("AccountId");
 
