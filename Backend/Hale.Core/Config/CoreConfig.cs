@@ -31,6 +31,8 @@
 
         public ApiSection Api { get; set; }
 
+        public DatabaseSection Database { get; set; }
+
         private static INamingConvention NamingConvention
             => new YamlDotNet.Serialization.NamingConventions.CamelCaseNamingConvention();
 
@@ -87,5 +89,19 @@
 
             public string FrontendRoot { get; set; }
         }
+
+        public class DatabaseSection
+        {
+            public DatabaseType Type { get; set; }
+
+            public string ConnectionString { get;set; }
+        }
+    }
+
+    public enum DatabaseType
+    {
+        SqlServer,
+        PostgreSQL,
+        SQLite
     }
 }

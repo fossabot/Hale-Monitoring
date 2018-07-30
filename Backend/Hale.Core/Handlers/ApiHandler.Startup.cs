@@ -4,7 +4,9 @@
     using System.Reflection;
     using System.Web.Http;
     using Hale.Core.Config;
+    using Hale.Core.Data.Contexts;
     using Hale.Lib.Utilities;
+    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Owin.Cors;
     using Microsoft.Owin.FileSystems;
     using Microsoft.Owin.Security;
@@ -59,7 +61,7 @@
 
             private void ConfigureFrontend(IAppBuilder app)
             {
-                var api = ServiceProvider.GetServiceCritical<CoreConfig>().Api;
+                var api = Lib.Utilities.ServiceProvider.GetServiceCritical<CoreConfig>().Api;
                 if (string.IsNullOrEmpty(api.FrontendRoot) || !Directory.Exists(api.FrontendRoot))
                 {
                     return;
@@ -78,6 +80,26 @@
 #endif
                 app.UseFileServer(fso);
                 log.Info($"Serving static content from '{Path.GetFullPath(api.FrontendRoot)}'.");
+
+            }
+
+            private void ConfigureServices(IServiceCollection services)
+            {
+                var db = Lib.Utilities.ServiceProvider.GetServiceCritical<CoreConfig>().Database;
+                switch (db.Type)
+                {
+                    case DatabaseType.SqlServer:
+                        services.AddDbContext<HaleDBContext>(o => o.UseSqlServer(
+                            db.ConnectionString,
+                            x => x.MigrationsAssembly("Hale.Core.Data")));
+                        break;
+
+                    case DatabaseType.PostgreSQL:
+                        services.AddDbContext<HaleDBContext>(o => o.UseNpgsql(
+                            db.ConnectionString,
+                            x => x.MigrationsAssembly("Hale.Core.Data")));
+                        break;
+                }
             }
         }
     }
