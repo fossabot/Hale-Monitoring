@@ -44,8 +44,6 @@
     <PackageReference Include="YamlDotNet" Version="4.2.1" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <Import Project="..\..\BuildVersion.xml" Condition="Exists('..\..\BuildVersion.xml')" />

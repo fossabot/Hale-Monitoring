@@ -38,7 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="3.1.0" />
-    <PackageReference Include="libnemesis" Version="4.0.16331.224" />
+    <PackageReference Include="libnemesis" Version="5.0.0" />
     <!--
     <PackageReference Include="Microsoft.AspNet.Cors" Version="5.2.3" />
     <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.1" />
@@ -120,16 +120,16 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net471'">
-    <PackageReference Include="Microsoft.AspNetCore" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" />
-    <PackageReference Include="Microsoft.AspNetCore.Authorization" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />
     
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.1" />
     <!-- Microsoft.AspNetCore.Authentication -->
   </ItemGroup>
   <PropertyGroup>

@@ -33,10 +33,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
   <Import Project="..\..\BuildVersion.xml" Condition="Exists('..\..\BuildVersion.xml')" />
