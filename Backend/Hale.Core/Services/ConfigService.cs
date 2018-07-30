@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
     using System.Linq;
     using System.Linq.Expressions;
     using Hale.Core.Data.Entities.Agent;
@@ -12,6 +11,7 @@
     using Hale.Core.Models;
     using Hale.Core.Utils;
     using Hale.Lib.Modules;
+    using Microsoft.EntityFrameworkCore;
     using EModule = Hale.Core.Data.Entities.Modules.Module;
 
     public class ConfigService : HaleBaseService, IConfigService

@@ -2,13 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
     using System.Linq;
     using Hale.Core.Data.Entities;
     using Hale.Core.Data.Entities.Nodes;
     using Hale.Core.Model.Interfaces;
     using Hale.Core.Model.Models;
     using Hale.Core.Models.Messages;
+    using Microsoft.EntityFrameworkCore;
 
     public class NodesService : HaleBaseService, INodesService
     {

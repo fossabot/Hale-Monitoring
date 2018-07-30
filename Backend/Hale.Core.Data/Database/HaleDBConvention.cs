@@ -1,5 +1,6 @@
 ﻿namespace Hale.Core.Data.Contexts
 {
+    /*
     using System.Data.Entity.Infrastructure.Pluralization;
     using System.Data.Entity.ModelConfiguration.Conventions;
     using System.Runtime.InteropServices;
@@ -18,4 +19,5 @@
                     c.ClrType.Namespace.Substring(c.ClrType.Namespace.LastIndexOf('.') + 1)));
         }
     }
+    */
 }

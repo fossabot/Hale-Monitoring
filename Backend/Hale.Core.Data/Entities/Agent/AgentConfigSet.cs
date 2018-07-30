@@ -21,13 +21,13 @@ namespace Hale.Core.Data.Entities.Agent
         /// <summary>
         /// Databse row ID
         /// </summary>
+        [Key]
         public int Id { get; set; }
 
         /// <summary>
         /// Unique identifier for this configuration
         /// </summary>
         [StringLength(32)]
-        [Index("IX_Identifier_Unique", IsUnique = true)]
         public string Identifier { get; set; }
 
         /// <summary>

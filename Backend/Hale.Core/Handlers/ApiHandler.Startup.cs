@@ -14,6 +14,7 @@
     using NLog;
     using Owin;
     using Swashbuckle.Application;
+    using Microsoft.EntityFrameworkCore;
 
     internal partial class ApiHandler
     {

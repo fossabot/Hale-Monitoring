@@ -12,7 +12,6 @@
         [Key]
         public int Id { get; set; }
 
-        [Index(IsUnique = true)]
         [StringLength(450)] // Needs a max length to be able to function as a unique field.
         public string UserName { get; set; }
 
