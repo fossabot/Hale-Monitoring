@@ -56,13 +56,14 @@
             {
                 try
                 {
-                    me = this.db.Modules.Add(new EModule()
-                {
-                    Major = mi.Module.Version.Major,
-                    Minor = mi.Module.Version.Minor,
-                    Revision = mi.Module.Version.Patch,
-                    Identifier = mi.Module.Identifier
-                });
+                    me = new EModule()
+                    {
+                        Major = mi.Module.Version.Major,
+                        Minor = mi.Module.Version.Minor,
+                        Revision = mi.Module.Version.Patch,
+                        Identifier = mi.Module.Identifier
+                    };
+                    this.db.Modules.Add(me);
                 }
                 catch (Exception x)
                 {
