@@ -1,19 +1,19 @@
 ﻿namespace Hale.Core.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
     using System.Linq;
     using System.Net.Http;
     using System.Security.Claims;
-    using System.Web.Http;
 
     /// <summary>
     /// Base API Controller providing a db instance and auth protection.
     /// </summary>
     [Authorize]
-    public abstract class ProtectedApiController : ApiController
+    public abstract class ProtectedApiController : ControllerBase
     {
         internal string CurrentUsername => this.Request
-            .GetOwinContext()
-            .Authentication
+            .HttpContext
             .User
             .Identities
             .First()

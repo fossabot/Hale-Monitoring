@@ -1,14 +1,14 @@
 ﻿namespace Hale.Core.Controllers
 {
-    using System.Web.Http;
     using Hale.Core.Model.Interfaces;
     using Hale.Core.Services;
     using NLog;
+    using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
     /// Handles requests regarding results for a given node.
     /// </summary>
-    [RoutePrefix("api/v1/nodes")]
+    [Route("api/v1/nodes")]
     public class NodesResultsController : ProtectedApiController
     {
         private readonly Logger log = LogManager.GetCurrentClassLogger();
@@ -30,7 +30,7 @@
         /// <returns></returns>
         [HttpGet]
         [Route("{id}/results")]
-        public IHttpActionResult List(int id)
+        public ActionResult List(int id)
         {
             var nodeResults = this.nodeResultsService.List(id);
             return this.Ok(nodeResults);
@@ -44,9 +44,9 @@
         /// <returns></returns>
         [HttpGet]
         [Route("{id}/results/{functionId}")]
-        public IHttpActionResult Get(int nodeId, int functionId)
+        public ActionResult Get(int nodeId, int functionId)
         {
-            return this.Ok();
+            return Ok();
         }
     }
 }

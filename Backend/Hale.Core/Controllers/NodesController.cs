@@ -1,16 +1,17 @@
 ﻿namespace Hale.Core.Controllers
 {
     using System.Collections.Generic;
-    using System.Web.Http;
-    using System.Web.Http.Description;
+    using Hale.Core.Data.Entities;
     using Hale.Core.Data.Entities.Nodes;
     using Hale.Core.Model.Interfaces;
     using Hale.Core.Model.Models;
     using Hale.Core.Models.Messages;
     using Hale.Core.Services;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
     using NLog;
 
-    [RoutePrefix("api/v1/nodes")]
+    [Route("api/v1/nodes")]
     public class NodesController : ProtectedApiController
     {
         private readonly Logger log = LogManager.GetCurrentClassLogger();
@@ -30,14 +31,9 @@
         /// Get a list of summaries for all nodes
         /// </summary>
         /// <returns></returns>
-        [Route]
-        [ResponseType(typeof(List<Node>))]
-        [AcceptVerbs("GET")]
-        public IHttpActionResult List()
-        {
-            var hostList = this.nodesService.List();
-            return this.Ok(hostList);
-        }
+        [HttpGet]
+        public IList<NodeSummaryDTO> List()
+            => this.nodesService.List();
 
         /// <summary>
         /// Get Node Details by Node ID
@@ -45,17 +41,16 @@
         /// <param name="id"></param>
         /// <returns></returns>
         [Route("{id}")]
-        [ResponseType(typeof(Node))]
         [AcceptVerbs("GET")]
-        public IHttpActionResult Get(int id)
+        public IActionResult Get(int id)
         {
             var node = this.nodesService.GetNodeById(id);
             if (node == null)
             {
-                return this.NotFound();
+                return NotFound();
             }
 
-            return this.Ok(node);
+            return Ok(node);
         }
 
         /// <summary>
@@ -66,10 +61,10 @@
         /// <returns></returns>
         [Route("{id}")]
         [HttpPost]
-        public IHttpActionResult Update(int id, [FromBody] NodeDTO hostToSave)
+        public IActionResult Update(int id, [FromBody] NodeDTO hostToSave)
         {
             this.nodesService.Update(id, hostToSave, this.CurrentUsername);
-            return this.Ok();
+            return Ok();
         }
 
         /// <summary>
@@ -79,10 +74,10 @@
         /// <returns></returns>
         [Route("{id}/comments")]
         [AcceptVerbs("GET")]
-        public IHttpActionResult GetComments(int id)
+        public IActionResult GetComments(int id)
         {
             var comments = this.nodesService.GetComments(id);
-            return this.Ok(comments);
+            return Ok(comments);
         }
 
         /// <summary>
@@ -94,7 +89,7 @@
         [Authorize]
         [Route("{id}/comments")]
         [AcceptVerbs("POST")]
-        public IHttpActionResult SaveComment(int id, [FromBody] NewCommentDTO newComment)
+        public IActionResult SaveComment(int id, [FromBody] NewCommentDTO newComment)
         {
             this.nodesService.SaveComment(id, newComment, this.CurrentUsername);
             return this.Ok();
@@ -109,7 +104,7 @@
         [Authorize]
         [Route("{id}/comments/{commentId}")]
         [AcceptVerbs("DELETE")]
-        public IHttpActionResult DeleteComment(int id, int commentId)
+        public IActionResult DeleteComment(int id, int commentId)
         {
             this.nodesService.DeleteComment(id, commentId);
             return this.Ok();

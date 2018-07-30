@@ -3,7 +3,9 @@
     using System;
     using Hale.Core.Config;
     using Hale.Lib.Utilities;
-    using Microsoft.Owin.Hosting;
+    using Microsoft.AspNetCore;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Hosting.Internal;
     using NLog;
 
     internal partial class ApiHandler
@@ -24,7 +26,10 @@
             string url = this.GetApiUri();
             try
             {
-                WebApp.Start<Startup>(url);
+                new WebHostBuilder()
+                   .UseKestrel()
+                   .UseUrls(url)
+                   .UseStartup<Startup>();
                 this.log.Info($"API listening at \"{url}\".");
             }
             catch (Exception x)

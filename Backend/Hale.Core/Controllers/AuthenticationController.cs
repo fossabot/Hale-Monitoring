@@ -4,19 +4,20 @@
     using System.Linq;
     using System.Net.Http;
     using System.Security.Claims;
-    using System.Web.Http;
     using Hale.Core.Model.Interfaces;
     using Hale.Core.Model.Models;
     using Hale.Core.Models.Messages;
     using Hale.Core.Services;
-    using Microsoft.Owin.Security;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authentication;
     using NLog;
+    using Microsoft.AspNetCore.Authorization;
 
     /// <summary>
     /// TODO: Add text here
     /// </summary>
-    [RoutePrefix("api/v1/authentication")]
-    public class AuthenticationController : ApiController
+    [Route("api/v1/authentication")]
+    public class AuthenticationController : ControllerBase
     {
         private readonly Logger log;
         private readonly IAuthService authService;
@@ -35,8 +36,7 @@
         }
 
         internal string CurrentUsername => this.Request
-            .GetOwinContext()
-            .Authentication
+            .HttpContext
             .User
             .Identities
             .First()
@@ -51,7 +51,7 @@
         /// <returns></returns>
         [Route("")]
         [HttpPost]
-        public IHttpActionResult Login([FromBody] LoginAttemptDTO attempt)
+        public IActionResult Login([FromBody] LoginAttemptDTO attempt)
         {
             var passwordAccepted = this.authService.Authorize(attempt.Username, attempt.Password);
             if (!passwordAccepted)
@@ -66,7 +66,7 @@
         [Route("admin")]
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public IHttpActionResult AdminStatus()
+        public IActionResult AdminStatus()
         {
             return this.Ok();
         }
@@ -75,10 +75,9 @@
         /// TODO: Add text here
         /// </summary>
         /// <returns></returns>
-        [Route]
         [HttpGet]
         [Authorize(Roles = "User")]
-        public IHttpActionResult Status()
+        public IActionResult Status()
         {
             return this.Ok();
         }
@@ -87,19 +86,18 @@
         /// TODO: Add text here
         /// </summary>
         /// <returns></returns>
-        [Route]
         [HttpDelete]
         [Authorize]
-        public IHttpActionResult Logout()
+        public IActionResult Logout()
         {
-            var context = this.Request.GetOwinContext();
-            context.Authentication.SignOut();
+            var context = this.Request.HttpContext;
+            context.SignOutAsync();
             return this.Ok();
         }
 
         [Route("activate")]
         [HttpPost]
-        public IHttpActionResult Activate([FromBody]ActivationAttemptDTO attempt)
+        public IActionResult Activate([FromBody]ActivationAttemptDTO attempt)
         {
             var gotActivated = this.authService.Activate(attempt);
 
@@ -114,7 +112,7 @@
         [Route("change-password")]
         [HttpPost]
         [Authorize]
-        public IHttpActionResult ChangePassword(PasswordDTO passwordChange)
+        public IActionResult ChangePassword(PasswordDTO passwordChange)
         {
             var passwordAccepted = this.authService.Authorize(this.CurrentUsername, passwordChange.OldPassword);
 
@@ -142,11 +140,10 @@
             }
 
             this.Request
-                .GetOwinContext()
-                .Authentication
-                .SignIn(
-                    new AuthenticationProperties() { IsPersistent = attempt.Persistent },
-                    new ClaimsIdentity(claims, "HaleCoreAuth"));
+                .HttpContext
+                .SignInAsync(
+                    new ClaimsPrincipal(new ClaimsIdentity(claims, "HaleCoreAuth")),
+                    new AuthenticationProperties() { IsPersistent = attempt.Persistent });
         }
     }
 }

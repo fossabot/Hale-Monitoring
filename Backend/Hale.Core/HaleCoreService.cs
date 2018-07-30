@@ -103,7 +103,7 @@
         private void LaunchModuleHandler()
         {
             ModuleHandler moduleHandler = new ModuleHandler();
-            moduleHandler.ScanForModules(this.env.ModulePath);
+            //moduleHandler.ScanForModules(this.env.ModulePath);
         }
 
         private void LaunchCoreInstances()

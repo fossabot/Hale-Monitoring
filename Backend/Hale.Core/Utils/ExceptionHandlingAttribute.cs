@@ -3,24 +3,27 @@
     using System;
     using System.Net;
     using System.Net.Http;
-    using System.Web.Http.Filters;
+    // using System.Web.Http.Filters;
     using Hale.Core.Model.Models;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Filters;
     using Newtonsoft.Json;
 
     public class ExceptionHandlingAttribute : ExceptionFilterAttribute
     {
-        public override void OnException(HttpActionExecutedContext context)
+
+        public override void OnException(ExceptionContext context)
         {
-            context.Response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
+            context.Result = new JsonResult(new ExceptionDTO
             {
-                Content = new StringContent(JsonConvert.SerializeObject(
-                    new ExceptionDTO
-                    {
-                        Message = context.Exception.Message,
+                Message = context.Exception.Message,
 #if DEBUG
-                        StackTrace = context.Exception.StackTrace.Split(new string[] { Environment.NewLine }, StringSplitOptions.None)
+                StackTrace = context.Exception.StackTrace.Split(new string[] { Environment.NewLine }, StringSplitOptions.None)
 #endif
-                    }))
+            })
+            {
+               StatusCode = StatusCodes.Status500InternalServerError,
             };
         }
     }
