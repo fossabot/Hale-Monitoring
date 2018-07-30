@@ -10,9 +10,8 @@ matrix:
     - name: ".NET Core 2.1"
       dotnet: 2.1
       mono: none
-      install: dotnet restore
       script: 
-        - dotnet build -f netcoreapp2.1 -c Debug Backend/Hale.Agent/Hale.Agent.csproj
-        - dotnet build -f netcoreapp2.1 -c Debug Backend/Hale.Core/Hale.Core.csproj
+        - dotnet build -f netcoreapp2.1 -c Debug server/Backend/Hale.Agent/Hale.Agent.csproj
+        - dotnet build -f netcoreapp2.1 -c Debug server/Backend/Hale.Core/Hale.Core.csproj
 notifications:
   slack: itshale:zzA1c500hMvaht5WuURG7qob
