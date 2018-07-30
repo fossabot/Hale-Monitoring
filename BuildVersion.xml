@@ -15,7 +15,8 @@
     <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
     <MSBuildCommunityTasksVersion>1.5.0.235</MSBuildCommunityTasksVersion>
     <NuGetRoot>$(NuGetPackageRoot)</NuGetRoot>
-    <MSBuildCommunityTasksTargetsPath>$(NuGetPackageRoot)msbuildtasks\$(MSBuildCommunityTasksVersion)\tools\MSBuild.Community.Tasks.Targets</MSBuildCommunityTasksTargetsPath>
+    <MSBuildCommunityTasksPath>$(NuGetPackageRoot)msbuildtasks\$(MSBuildCommunityTasksVersion)</MSBuildCommunityTasksPath>
+    <MSBuildCommunityTasksTargetsPath>$(MSBuildCommunityTasksPath)\tools\MSBuild.Community.Tasks.Targets</MSBuildCommunityTasksTargetsPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(NUGET_PACKAGES)' != ''">
@@ -34,7 +35,11 @@
     <Message Text="MSBuildCommunityTasks Exists: No" Condition="!exists('$(MSBuildCommunityTasksTargetsPath)')" Importance="high" />
   </Target>
 
-  <Target Name="UpdateVersion" BeforeTargets="CoreCompile" DependsOnTargets="NugetEnv">
+  <Target Name="CoreWarning" BeforeTargets="CoreCompile" Condition="'$(MSBuildRuntimeType)' == 'Core'">
+    <Warning Text="Version updating is not supported on .NET Core!" />
+  </Target>
+  
+  <Target Name="UpdateVersion" BeforeTargets="CoreCompile" DependsOnTargets="NugetEnv" Condition="'$(MSBuildRuntimeType)' != 'Core'">
     <Exec Command="git rev-parse --short HEAD" ConsoleToMsBuild="true" EchoOff="true">
       <Output TaskParameter="ConsoleOutput" PropertyName="Revision" />
     </Exec>
