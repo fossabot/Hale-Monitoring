@@ -28,8 +28,8 @@
     <CodeAnalysisRuleSet>..\..\AnalysisRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Hale.Lib.ModuleLoader\Hale.Lib.ModuleLoader.csproj" />
-    <ProjectReference Include="..\..\Shared\Hale.Lib\Hale.Lib.csproj" />
+    <ProjectReference Include="..\Shared\Hale.Lib.ModuleLoader\Hale.Lib.ModuleLoader.csproj" />
+    <ProjectReference Include="..\Shared\Hale.Lib\Hale.Lib.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="libnemesis" Version="5.0.0" />
@@ -61,5 +61,5 @@
     </None>
     <None Include="README.md" />
   </ItemGroup>
-    <Import Project="..\..\BuildVersion.xml" Condition="Exists('..\..\BuildVersion.xml')" />
+    <Import Project="..\BuildVersion.xml" Condition="Exists('..\BuildVersion.xml')" />
 </Project>

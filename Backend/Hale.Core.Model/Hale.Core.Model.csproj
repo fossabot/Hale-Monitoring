@@ -24,7 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Hale.Lib\Hale.Lib.csproj" />
+    <ProjectReference Include="..\Shared\Hale.Lib\Hale.Lib.csproj" />
     <ProjectReference Include="..\Hale.Core.Data\Hale.Core.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -35,5 +35,5 @@
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
-  <Import Project="..\..\BuildVersion.xml" Condition="Exists('..\..\BuildVersion.xml')" />
+  <Import Project="..\BuildVersion.xml" Condition="Exists('..\BuildVersion.xml')" />
 </Project>

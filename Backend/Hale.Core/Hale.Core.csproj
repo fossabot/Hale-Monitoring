@@ -28,13 +28,13 @@
     <DocumentationFile>bin\Release\WebApiSwagger.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Hale.Lib.ModuleLoader\Hale.Lib.ModuleLoader.csproj" />
-    <ProjectReference Include="..\..\Shared\Hale.Lib\Hale.Lib.csproj" />
+    <ProjectReference Include="..\Shared\Hale.Lib.ModuleLoader\Hale.Lib.ModuleLoader.csproj" />
+    <ProjectReference Include="..\Shared\Hale.Lib\Hale.Lib.csproj" />
     <ProjectReference Include="..\Hale.Core.Data\Hale.Core.Data.csproj" />
     <ProjectReference Include="..\Hale.Core.Model\Hale.Core.Model.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net471'">
-    <ProjectReference Include="..\..\Hale.MsiInterop\Hale.MsiInterop.csproj" />
+    <ProjectReference Include="..\Hale.MsiInterop\Hale.MsiInterop.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="3.1.0" />
@@ -136,5 +136,5 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
   </PropertyGroup>
-  <Import Project="..\..\BuildVersion.xml" Condition="Exists('..\..\BuildVersion.xml')" />
+  <Import Project="..\BuildVersion.xml" Condition="Exists('..\BuildVersion.xml')" />
 </Project>
