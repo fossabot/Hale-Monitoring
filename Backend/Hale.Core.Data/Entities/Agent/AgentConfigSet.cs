@@ -14,7 +14,7 @@ namespace Hale.Core.Data.Entities.Agent
     {
         public static AgentConfigSet Empty => new AgentConfigSet()
         {
-            Functions = new List<AgentConfigSetFunctions>(),
+            Functions = new List<AgentConfigSetFunction>(),
             Tasks = new List<AgentConfigSetTask>(),
         };
 
@@ -58,7 +58,7 @@ namespace Hale.Core.Data.Entities.Agent
         /// <summary>
         /// TODO: Add text here
         /// </summary>
-        public List<AgentConfigSetFunctions> Functions { get; set; }
+        public List<AgentConfigSetFunction> Functions { get; set; }
 
         /// <summary>
         /// TODO: Add text here

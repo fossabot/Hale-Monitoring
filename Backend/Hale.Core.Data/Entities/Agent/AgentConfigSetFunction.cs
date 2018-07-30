@@ -7,7 +7,7 @@ namespace Hale.Core.Data.Entities.Agent
     using Hale.Lib.Modules;
     using EModule = Hale.Core.Data.Entities.Modules.Module;
 
-    public class AgentConfigSetFunctions
+    public class AgentConfigSetFunction
     {
         public int Id { get; set; }
 
@@ -16,6 +16,7 @@ namespace Hale.Core.Data.Entities.Agent
         public List<AgentConfigSetFunctionSettings> FunctionSettings { get; set; }
 
         public EModule Module { get; set; }
+        public int ModuleId { get; set; }
 
         public string Function { get; set; } // TODO: Make this a reference to Function -NM 2017-08-10
 
@@ -32,5 +33,8 @@ namespace Hale.Core.Data.Entities.Agent
         public AgentConfigSetCheckAction WarningAction { get; set; }
 
         public AgentConfigSetCheckAction CriticalAction { get; set; }
+
+        public int AgentConfigSetId { get; set; }
+        public AgentConfigSet AgentConfigSet { get; set; }
     }
 }
