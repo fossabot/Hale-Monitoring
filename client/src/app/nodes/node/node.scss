@@ -1,0 +1,50 @@
+
+.header {
+  background: #fff;
+  padding: 20px 0 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.hg-node {
+  margin-top: 20px;
+  background: #fff;
+  padding: 20px;
+  h3 {
+    font-size: 20px;
+    color: #666;
+    .status-box {
+      width: 18px;
+      height: 18px;
+      content: '';
+      display: inline-block;
+      border-radius: 3px;
+      margin: 0 5px -1px 0;
+      // margin-bottom: 2px;
+      &.warning {
+        background: #ff8800;
+      }
+    }
+  }
+}
+
+.hg-section {
+  h4 {
+    font-size: 16px;
+    // border-bottom: 1px solid #444;
+    color: #888;
+    margin-bottom: 10px;
+  }
+  .form-group {
+    font-size: 12px;
+    margin-bottom: 0px;
+    label {
+      font-weight: bold;
+      color: #aaa;
+    }
+    .col-md-7 {
+      border-left: 3px solid #efefef;
+      margin-top: 0px;
+      padding-top: 6px;
+    }
+  }
+}

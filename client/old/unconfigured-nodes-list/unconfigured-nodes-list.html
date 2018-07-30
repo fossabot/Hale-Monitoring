@@ -1,0 +1,35 @@
+<div style="height:100%;width:100%">
+  <div style="height: 50px;margin-right:25px;">
+    <input type="text" placeholder="Filter" class="form-control" ng-model="$ctrl.filter">
+  </div>
+  <div style="height:calc(100% - 30px);overflow-y:scroll;padding-right:10px;">
+    <div class="panel panel-default">
+      <table ng-table="$ctrl.tableParams" show-filter="false" class="table panel-body">
+        <tr ng-repeat-start="host in $data" ng-class="{'striped' : $index % 2 === 0}" ng-click="host.edit = !host.edit" class="clickable">
+            <td data-title="'Host Name'">
+            {{host.hostName}}
+            </td>
+            <td data-title="'Hardware Spec.'">
+            {{host.hardwareSummary || '-'}}
+            </td>
+            <td data-title="'Operating System'">
+            {{host.operatingSystem || '-'}}
+            </td>
+            <td data-title="'Last Connected'">
+            {{host.lastConnected || '-'}}
+            </td>
+            <td data-title="'Created'">
+              {{host.created}}
+            </td>
+        </tr>
+        <tr ng-repeat-end ng-show="host.edit === true" ng-class="{'striped' : $index % 2 === 0, 'editing': host.edit}">
+            <td colspan="100">
+              <unconfigured-edit-form hg-node="host" hg-callbacks="$ctrl.callbacks"></unconfigured-edit-form>
+            </td>
+        </tr>
+      </ng-repeat>
+    </table>
+    </div>
+    
+  </div>
+</div>

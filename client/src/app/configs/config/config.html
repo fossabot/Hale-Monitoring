@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="hg-content">
+        <div class="text-right">
+          <button type="button" class="btn btn-primary" [disabled]="config == original" (click)="doSave()">
+            Save
+          </button>
+        </div>
+        <app-config-editor [(config)]="config"></app-config-editor>
+      </div>
+    </div>
+  </div>
+</div>

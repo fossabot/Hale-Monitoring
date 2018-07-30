@@ -1,0 +1,97 @@
+<div class="container hg-login-container" style="margin-top:200px">
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <div class="text-center" style="margin-bottom: 20px">
+        <p>
+          <span class="fa-stack fa-lg" style="font-size:40px">
+            <i style="color: rgba(0, 0, 0, 0.1)" class="fa fa-circle fa-stack-2x" ></i>
+            <i style="color: rgba(255,255,255,0.7)" class="fa fa-unlock-alt fa-stack-1x" ></i>
+          </span>
+        </p>
+      </div>
+      <div id="activate-box">
+        <form #activate="ngForm" (ngSubmit)="doActivate(activate)">
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon">
+                  <i class="fa fa-fw fa-user"></i>
+              </span>
+              <input
+                class="form-control"
+                type="text"
+                name="userName"
+                placeholder="Username"
+                #userName="ngModel"
+                ngModel
+                required>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon">
+                  <i class="fa fa-fw fa-key"></i>
+              </span>
+              <input
+                class="form-control"
+                type="text"
+                name="activationCode"
+                placeholder="Activation Code"
+                #activationCode="ngModel"
+                ngModel
+                required>
+            </div>
+          </div>
+          <div class="form-group" [ngClass]="{'has-danger': password?.value && password?.errors}">
+            <div class="input-group">
+              <span class="input-group-addon">
+                  <i class="fa fa-fw fa-asterisk"></i>
+              </span>
+              <input
+                class="form-control"
+                type="password"
+                name="password"
+                placeholder="Password"
+                #password="ngModel"
+                appValidatePassword
+                [appValidateEquals]="confirmPassword"
+                reverse="true"
+                ngModel
+                required>
+            </div>
+            <div>
+              <small class="text-danger" *ngIf="password?.value && password?.errors">
+                The password is too weak
+              </small>
+            </div>
+          </div>
+          <div class="form-group" [ngClass]="{'has-danger': confirmPassword?.value && confirmPassword?.errors}">
+            <div class="input-group">
+              <span class="input-group-addon">
+                  <i class="fa fa-fw fa-refresh"></i>
+              </span>
+              <input
+                class="form-control"
+                type="password"
+                name="confirmPassword"
+                placeholder="Password (again)"
+                #confirmPassword="ngModel"
+                [appValidateEquals]="password"
+                ngModel
+                required>
+            </div>
+            <div>
+              <small class="text-danger" *ngIf="confirmPassword?.value && confirmPassword?.errors">
+                The passwords do not match
+              </small>
+            </div>
+          </div>
+          <div class="form-group text-center">
+            <button class="btn btn-primary" [disabled]="!activate.valid">
+              Activate
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

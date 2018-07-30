@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="hg-node">
+        <h3 style="margin-bottom:10px;padding-bottom:10px;margin-right:10px;">
+          <div class="status-box" [ngClass]="getStatus()"></div>
+          {{node.friendlyName}}
+        </h3>
+        <div class="hg-section">
+          <app-node-basics [node]="node">
+          </app-node-basics>
+        </div>
+        <div class="hg-section">
+          <app-node-checks [nodeId]="node.id">
+          </app-node-checks>
+        </div>
+         <div class="hg-section">
+          <app-node-timestamps [node]="node">
+          </app-node-timestamps>
+        </div>
+        <div class="hg-section">
+          <app-node-comments [nodeId]="node.id">
+          </app-node-comments>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

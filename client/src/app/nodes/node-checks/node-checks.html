@@ -1,0 +1,29 @@
+
+<div style="margin-bottom: 20px" *ngIf="results">
+  <h4>
+    Monitoring
+  </h4>
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th>
+          Message
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let result of results">
+        <td>
+          {{result.moduleIdentifier}}.{{result.functionName}}
+          {{result.target && result.target != 'default' ? '- ' + result.target : ''}}
+        </td>
+        <td>
+          {{result.message}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

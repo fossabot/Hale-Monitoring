@@ -1,0 +1,64 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>
+      </th>
+      <th>
+        Username
+      </th>
+      <th>
+        Full Name
+      </th>
+      <th>
+        Email
+      </th>
+      <th>
+        Modified
+      </th>
+      <th>
+        Created
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td style="width: 20px">
+        <div class="status-box" [ngClass]="getStatusClass(user)" [ngbTooltip]="getStatusText(user)"></div>
+      </td>
+      <td>
+        <a uiSref="app.hale.admin.users.edit" [uiParams]="{id: user.id}">
+          {{user.userName}}
+        </a>
+      </td>
+      <td>
+        {{user.fullName}}
+      </td>
+      <td>
+        {{user.email}}
+      </td>
+      <td class="date-person-cell">
+        <img
+          *ngIf="user.modifiedBy"
+          ngbTooltip="{{user.modifiedBy.fullName}}"
+          [src]="getGravatarUrl(user.modifiedBy.email)">
+        {{user.modified | date: 'd MMM yyyy'}}
+      </td>
+      <td class="date-person-cell">
+        <img
+          *ngIf="user.createdBy"
+          ngbTooltip="{{user.createdBy.fullName}}"
+          [src]="getGravatarUrl(user.createdBy.email)">
+        {{user.created | date: 'd MMM yyyy'}}
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="text-right">
+  <button
+    type="button"
+    uiSref="app.hale.admin.users.create"
+    class="btn btn-primary clickable">
+    Create user
+  </button>
+</div>
+

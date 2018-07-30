@@ -1,0 +1,19 @@
+.dark .nav-item a.active,
+.dark .nav-item a.active:hover {
+    background-color: #292b2c;
+    color: #fff;
+    border-radius: 0px;
+}
+
+.dark .nav-item a {
+  color: #292b2c;
+}
+
+.dark .nav-item a:hover {
+  background-color: #fafafa;
+  border-radius: 0px;
+}
+
+.nav-pills {
+  font-size: 16px;
+}

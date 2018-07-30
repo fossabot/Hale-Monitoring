@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="hg-content" [ngSwitch]="configs != undefined">
+        <div *ngSwitchCase="false">
+          No configs available.
+        </div>
+        <table class="table table-hover" *ngSwitchCase="true">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Content</th>
+              <th>Modified</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let config of configs">
+              <td>
+                <a uiSref="app.hale.config"  [uiParams]="{id: config.id}">
+                  {{config.name || config.identifier}}
+                </a>
+              </td>
+              <td>
+                {{getContentString(config)}}
+              </td>
+              <td class="date-person-cell">
+                <img
+                  title="{{config.createdBy.fullName}}"
+                  *ngIf="config.modifiedBy"
+                  [src]="getGravatarUrl(config.modifiedBy.email)">
+                {{config.modified | date: 'd MMM yyyy'}}<br/>
+              </td>
+              <td class="date-person-cell">
+                <img
+                  *ngIf="config.createdBy"
+                  ngbTooltip="{{config.createdBy.fullName}}"
+                  [src]="getGravatarUrl(config.createdBy.email)">
+                {{config.created | date: 'd MMM yyyy'}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <app-dev-button [json]="configs" *ngIf="configs">
+      </app-dev-button>
+    </div>
+  </div>
+</div>
