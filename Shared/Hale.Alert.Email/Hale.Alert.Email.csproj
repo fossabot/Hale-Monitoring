@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net45</TargetFramework>
+    <TargetFramework>net471</TargetFramework>
     <RootNamespace>Hale_Alert_Email</RootNamespace>
     <AssemblyName>Hale-Alert-Email</AssemblyName>
   </PropertyGroup>
