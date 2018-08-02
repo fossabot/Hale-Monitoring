@@ -11,5 +11,9 @@ namespace Hale.Core.Data.Entities.Agent
         public string Value { get; set; }
 
         public string Target { get; set; }
+
+        public int AgentConfigSetFunctionId { get; set; }
+        public AgentConfigSetFunction AgentConfigSetFunction { get; set; }
+
     }
 }

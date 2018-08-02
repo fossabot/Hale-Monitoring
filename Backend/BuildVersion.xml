@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  
+  <PropertyGroup>
+    <Major>1</Major>
+    <Minor>4</Minor>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+    <MSBuildCommunityTasksVersion>1.5.0.235</MSBuildCommunityTasksVersion>
+    <NuGetRoot>$(NuGetPackageRoot)</NuGetRoot>
+    <MSBuildCommunityTasksPath>$(NuGetPackageRoot)msbuildtasks\$(MSBuildCommunityTasksVersion)</MSBuildCommunityTasksPath>
+    <MSBuildCommunityTasksTargetsPath>$(MSBuildCommunityTasksPath)\tools\MSBuild.Community.Tasks.Targets</MSBuildCommunityTasksTargetsPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(NUGET_PACKAGES)' != ''">
+    <NuGetRoot>$(NUGET_PACKAGES)</NuGetRoot>
+  </PropertyGroup>
+  
+  <Import Project="$(MSBuildCommunityTasksTargetsPath)" Condition="exists('$(MSBuildCommunityTasksTargetsPath)')" />
+  
+  <Target Name="NugetEnv">
+    <Message Text="NuGetPackageRoot: $(NuGetPackageRoot)" Importance="high" />
+    <Message Text="NuGetPackageFolders: $(NuGetPackageFolders)" Importance="high" />
+    <Message Text="NUGET_PACKAGES: $(NUGET_PACKAGES)" Importance="high" />
+    <Message Text="NuGetRoot: $(NuGetRoot)" Importance="high" />
+    <Message Text="MSBuildCommunityTasksTargetsPath: $(MSBuildCommunityTasksTargetsPath)" Importance="high" />
+    <Message Text="MSBuildCommunityTasks Exists: Yes" Condition="exists('$(MSBuildCommunityTasksTargetsPath)')" Importance="high" />
+    <Message Text="MSBuildCommunityTasks Exists: No" Condition="!exists('$(MSBuildCommunityTasksTargetsPath)')" Importance="high" />
+  </Target>
+
+  <Target Name="CoreWarning" BeforeTargets="CoreCompile" Condition="'$(MSBuildRuntimeType)' == 'Core'">
+    <Warning Text="Version updating is not supported on .NET Core!" />
+  </Target>
+  
+  <Target Name="UpdateVersion" BeforeTargets="CoreCompile" DependsOnTargets="NugetEnv" Condition="'$(MSBuildRuntimeType)' != 'Core'">
+    <Exec Command="git rev-parse --short HEAD" ConsoleToMsBuild="true" EchoOff="true">
+      <Output TaskParameter="ConsoleOutput" PropertyName="Revision" />
+    </Exec>
+    <CreateProperty Value="$([System.DateTime]::UtcNow.ToString('yy'))$([System.DateTime]::UtcNow.DayOfYear.ToString().PadLeft(3,'0'))">
+      <Output TaskParameter="Value" PropertyName="Build" />
+    </CreateProperty>
+    <Message Text="Version: $(Major).$(Minor)" Importance="high" />
+    <Message Text="Build: $(Build)" Importance="high" />
+    <Message Text="Revision: $(Revision)" Importance="high" />
+    <AssemblyInfo CodeLanguage="CS" OutputFile="Properties\AssemblyInfo.cs" 
+                  AssemblyTitle="$(Title)" 
+                  AssemblyDescription="$(Description)" 
+                  AssemblyCompany="Hale Project" 
+                  AssemblyProduct="Hale Monitoring" 
+                  AssemblyCopyright="Copyright © 2018, Hale Project" 
+                  ComVisible="false" 
+                  CLSCompliant="true" 
+                  AssemblyInformationalVersion="$(Major).$(Minor).$(Build).$(Revision)" 
+                  AssemblyVersion="$(Major).$(Minor).$(Build)" 
+                  AssemblyFileVersion="$(Major).$(Minor).$(Build)" />
+  </Target>
+</Project>

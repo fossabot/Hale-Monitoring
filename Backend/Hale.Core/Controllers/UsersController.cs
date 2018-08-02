@@ -1,13 +1,14 @@
 ﻿namespace Hale.Core.Controllers
 {
-    using System.Web.Http;
     using Hale.Core.Model.Interfaces;
     using Hale.Core.Model.Models;
     using Hale.Core.Models.Users;
     using Hale.Core.Services;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
     using NLog;
 
-    [RoutePrefix("api/v1/users")]
+    [Route("api/v1/users")]
     public class UsersController : ProtectedApiController
     {
         private readonly Logger log = LogManager.GetCurrentClassLogger();
@@ -25,7 +26,7 @@
 
         [HttpGet]
         [Route("available")]
-        public IHttpActionResult CheckIfAvailable(string username)
+        public IActionResult CheckIfAvailable(string username)
         {
             return this.Ok(this.userService.GetUsernameAvailable(username));
         }
@@ -37,7 +38,7 @@
         /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
-        public IHttpActionResult Get(int id)
+        public IActionResult Get(int id)
         {
             var user = this.userService.GetUserById(id);
             if (user == null)
@@ -54,7 +55,7 @@
         /// <returns></returns>
         [HttpGet]
         [Route("current")]
-        public IHttpActionResult GetCurrent()
+        public IActionResult GetCurrent()
         {
             var currentUser = this.userService.GetUserByUserName(this.CurrentUsername);
             return this.Ok(currentUser);
@@ -66,7 +67,7 @@
         /// <returns></returns>
         [HttpGet]
         [Route("")]
-        public IHttpActionResult List()
+        public IActionResult List()
         {
             var userList = this.userService.List();
             return this.Ok(userList);
@@ -80,7 +81,7 @@
         [Route("")]
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public IHttpActionResult Create([FromBody] CreateAccountRequestDTO userRequest)
+        public IActionResult Create([FromBody] CreateAccountRequestDTO userRequest)
         {
             var currentUser = this.userService.GetUserByUserName(this.CurrentUsername);
             this.userService.CreateUser(userRequest, currentUser);
@@ -95,7 +96,7 @@
         /// <returns></returns>
         [HttpPatch]
         [Route("{id}")]
-        public IHttpActionResult Update(int id, [FromBody]UserDTO user)
+        public IActionResult Update(int id, [FromBody]UserDTO user)
         {
             this.userService.UpdateUser(id, user, this.CurrentUsername);
             return this.Ok();

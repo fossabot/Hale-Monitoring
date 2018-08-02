@@ -14,7 +14,7 @@
         internal HaleBaseService(HaleDBContext context)
         {
             this.db = context;
-            this.db.Database.Log = s => System.Diagnostics.Debug.Write(s);
+            // this.db.Database.Log = s => System.Diagnostics.Debug.Write(s);
         }
 
         internal HaleDBContext Db => this.Db;

@@ -14,20 +14,20 @@ namespace Hale.Core.Data.Entities.Agent
     {
         public static AgentConfigSet Empty => new AgentConfigSet()
         {
-            Functions = new List<AgentConfigSetFunctions>(),
+            Functions = new List<AgentConfigSetFunction>(),
             Tasks = new List<AgentConfigSetTask>(),
         };
 
         /// <summary>
         /// Databse row ID
         /// </summary>
+        [Key]
         public int Id { get; set; }
 
         /// <summary>
         /// Unique identifier for this configuration
         /// </summary>
         [StringLength(32)]
-        [Index("IX_Identifier_Unique", IsUnique = true)]
         public string Identifier { get; set; }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Hale.Core.Data.Entities.Agent
         /// <summary>
         /// TODO: Add text here
         /// </summary>
-        public List<AgentConfigSetFunctions> Functions { get; set; }
+        public List<AgentConfigSetFunction> Functions { get; set; }
 
         /// <summary>
         /// TODO: Add text here

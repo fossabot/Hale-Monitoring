@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net45</TargetFramework>
+    <TargetFrameworks>net471;netcoreapp2.1</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <Title>Hale Agent</Title>
   </PropertyGroup>
@@ -28,36 +28,22 @@
     <CodeAnalysisRuleSet>..\..\AnalysisRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Hale.Lib.ModuleLoader\Hale.Lib.ModuleLoader.csproj" />
-    <ProjectReference Include="..\..\Shared\Hale.Lib\Hale.Lib.csproj" />
+    <ProjectReference Include="..\Shared\Hale.Lib.ModuleLoader\Hale.Lib.ModuleLoader.csproj" />
+    <ProjectReference Include="..\Shared\Hale.Lib\Hale.Lib.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="libnemesis" Version="4.0.16331.224" />
-    <PackageReference Include="Microsoft.AspNet.Cors" Version="5.2.3" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.3" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.3" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.2.3" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Owin" Version="5.2.3" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.OwinSelfHost" Version="5.2.3" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.SelfHost" Version="5.2.3" />
-    <PackageReference Include="Microsoft.Owin" Version="3.0.1" />
-    <PackageReference Include="Microsoft.Owin.Host.HttpListener" Version="3.0.1" />
-    <PackageReference Include="Microsoft.Owin.Hosting" Version="3.0.1" />
+    <PackageReference Include="libnemesis" Version="5.0.0" />
     <PackageReference Include="MSBuildTasks" Version="1.5.0.235">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="NLog" Version="4.4.11" />
-    <PackageReference Include="Owin" Version="1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="NLog" Version="4.5.7" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="System.Management.Automation_PowerShell_3.0" Version="6.3.9600.17400" />
     <PackageReference Include="YamlDotNet" Version="4.2.1" />
-    <PackageReference Include="YamlDotNet.Dynamic" Version="3.2.3" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.ServiceProcess" />
   </ItemGroup>
   <ItemGroup>
@@ -68,7 +54,6 @@
       <DependentUpon>HaleAgentService.cs</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <None Include="App.config" />
     <None Include="app.manifest" />
     <None Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -76,5 +61,5 @@
     </None>
     <None Include="README.md" />
   </ItemGroup>
-    <Import Project="..\..\BuildVersion.xml" Condition="Exists('..\..\BuildVersion.xml')" />
+    <Import Project="..\BuildVersion.xml" Condition="Exists('..\BuildVersion.xml')" />
 </Project>

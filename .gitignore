@@ -167,3 +167,5 @@ $RECYCLE.BIN/
 # Misc
 # =========================
 [Dd]ist/
+.vs
+AssemblyInfo.cs

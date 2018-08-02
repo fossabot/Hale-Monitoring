@@ -323,11 +323,12 @@
                 m.Identifier == record.Module.Identifier);
             if (module == null)
             {
-                module = this.db.Modules.Add(new EModule()
+                module = new EModule()
                 {
                     Version = v,
                     Identifier = record.Module.Identifier
-                });
+                };
+                this.db.Modules.Add(module);
                 this.log.Warn($"Added missing module '{record.Module.ToString()}' to database.");
                 this.db.SaveChanges();
             }
@@ -350,7 +351,7 @@
                     Name = record.Function,
                     Module = module,
                     Type = record.FunctionType
-                });
+                }).Entity;
                 this.log.Warn($"Added missing module function '{record.Module.ToString()}[{record.FunctionType}]{record.Function}' to database.");
 
                 this.db.SaveChanges();
@@ -512,8 +513,8 @@
             // Hack: Since we dont want to generate new keys even if the database has been cleaned right now -NM
             if (host.RsaKey == null)
             {
-                host = this.db.Nodes.Attach(host);
-                host.RsaKey = xfks.PrivateKey.Key;
+                var thost = this.db.Nodes.Attach(host);
+                thost.Entity.RsaKey = xfks.PrivateKey.Key;
 
                 this.db.SaveChanges();
             }

@@ -1,14 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net45</TargetFramework>
-    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
-    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
-    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
-    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <TargetFrameworks>netstandard2</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,49 +26,50 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Hale.Lib\Hale.Lib.csproj" />
+    <Compile Remove="Migrations\Configuration.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="BCrypt-Official" Version="0.1.109" />
-    <PackageReference Include="EntityFramework" Version="6.1.3" />
-    <PackageReference Include="EntityFramework6.Npgsql" Version="3.1.1" />
+    <ProjectReference Include="..\Shared\Hale.Lib\Hale.Lib.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Attributes" Version="2.1.0-preview1-final" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="Npgsql" Version="3.2.5" />
+    <PackageReference Include="Npgsql" Version="4.0.2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.1.1" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.1" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.NodaTime" Version="2.1.1" />
     <PackageReference Include="Semver" Version="2.0.4" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="System.Runtime" Version="4.1.0" />
-    <PackageReference Include="System.Runtime.Extensions" Version="4.1.0" />
-    <PackageReference Include="System.Runtime.InteropServices" Version="4.1.0" />
-    <PackageReference Include="System.Text.RegularExpressions" Version="4.1.0" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.3.0" />
+    <PackageReference Include="System.Runtime" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Extensions" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.1" />
   </ItemGroup>
+
   <ItemGroup>
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Data.Linq" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Migrations\201708062356425_Init.Designer.cs">
-      <DependentUpon>201708062356425_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Migrations\201708071429240_AddAdminPropertyForUsers.Designer.cs">
-      <DependentUpon>201708071429240_AddAdminPropertyForUsers.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Migrations\201708101604391_UpdateModuleFunctionType.Designer.cs">
-      <DependentUpon>201708101604391_UpdateModuleFunctionType.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Migrations\201708101703304_UpdateModuleToRefAndAddThresholdsAndMissingCols.Designer.cs">
-      <DependentUpon>201708101703304_UpdateModuleToRefAndAddThresholdsAndMissingCols.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Migrations\201708101728582_RevertSchemaNames.Designer.cs">
-      <DependentUpon>201708101728582_RevertSchemaNames.cs</DependentUpon>
-    </Compile>
     <None Include="App.config" />
+    <None Include="Migrations\Configuration.cs" />
     <Content Include="LICENSE.txt" />
   </ItemGroup>
-  <Import Project="..\..\BuildVersion.xml" Condition="Exists('..\..\BuildVersion.xml')" />
+
+  <ItemGroup>
+    <Reference Include="System.Configuration">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.1\System.Configuration.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+  </PropertyGroup>
+  <Import Project="..\BuildVersion.xml" Condition="Exists('..\BuildVersion.xml')" />
 </Project>

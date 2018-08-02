@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
     using System.Linq;
     using System.Linq.Expressions;
     using Hale.Core.Data.Entities.Agent;
@@ -12,6 +11,7 @@
     using Hale.Core.Models;
     using Hale.Core.Utils;
     using Hale.Lib.Modules;
+    using Microsoft.EntityFrameworkCore;
     using EModule = Hale.Core.Data.Entities.Modules.Module;
 
     public class ConfigService : HaleBaseService, IConfigService
@@ -78,9 +78,9 @@
                 act.Startup = task.Value.Startup;
             }
 
-            AgentConfigSetFunctions UpdateFunction(ModuleSettingsBase ms, IEnumerable<AgentConfigSetFunctions> fs)
+            AgentConfigSetFunction UpdateFunction(ModuleSettingsBase ms, IEnumerable<AgentConfigSetFunction> fs)
             {
-                AgentConfigSetFunctions func;
+                AgentConfigSetFunction func;
                 var candidates = fs.Where(c =>
                     c.Module != null &&
                     c.Module.Identifier == ms.Module.Identifier &&
@@ -102,7 +102,7 @@
                     // _db.AgentConfigSetFuncSettings.RemoveRange(candidates);
 
                     // Create new entity
-                    func = new AgentConfigSetFunctions()
+                    func = new AgentConfigSetFunction()
                     {
                         Function = ms.Function,
                         Type = ModuleFunctionType.Check,
@@ -157,7 +157,7 @@
                 return func;
             }
 
-            var updatedFuncs = new List<AgentConfigSetFunctions>();
+            var updatedFuncs = new List<AgentConfigSetFunction>();
 
             var checks = configSet?.Functions.Where(f => f.Type == ModuleFunctionType.Check);
             foreach (var check in newConfig.Checks)

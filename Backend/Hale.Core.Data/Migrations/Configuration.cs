@@ -2,7 +2,7 @@ namespace Hale.Core.Data.Migrations
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity.Migrations;
+    using Microsoft.EntityFrameworkCore.Migrations;
     using Hale.Core.Data.Contexts;
     using Hale.Core.Data.Entities.Agent;
     using Hale.Core.Data.Entities.Nodes;

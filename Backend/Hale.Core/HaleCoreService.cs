@@ -4,11 +4,16 @@
     using System.ComponentModel;
     using System.IO;
     using System.Reflection;
-    using System.ServiceProcess;
     using Hale.Core.Config;
     using Hale.Core.Handlers;
     using Hale.Lib.Utilities;
     using NLog;
+
+#if NETCOREAPP2_1
+    using Hale.Lib.Facades;
+#else
+    using System.ServiceProcess;
+#endif
 
     /// <summary>
     /// The main entry point for starting the Hale-Core service.
@@ -98,7 +103,7 @@
         private void LaunchModuleHandler()
         {
             ModuleHandler moduleHandler = new ModuleHandler();
-            moduleHandler.ScanForModules(this.env.ModulePath);
+            //moduleHandler.ScanForModules(this.env.ModulePath);
         }
 
         private void LaunchCoreInstances()
