@@ -2,6 +2,8 @@
 
 Experimental hale backend remake in rust
 
-To install:
-```$ rustup update
-$ cargo update```
+To run:
+
+```$ cargo run```
+
+Make sure you have installed `rustup` and that the nightly branched is used since `rocket` relies on it.
