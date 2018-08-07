@@ -1,0 +1,10 @@
+[package]
+name = "hale"
+version = "0.1.0"
+authors = ["Nils Måsén <nils@piksel.se>"]
+
+[dependencies]
+rocket = "0.3.15"
+rocket_codegen = "0.3.15"
+diesel = { version = "1.0.0", features = ["postgres"] }
+dotenv = "0.9.0"
