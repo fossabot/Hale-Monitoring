@@ -6,4 +6,4 @@ To run:
 
 ```$ cargo run```
 
-Make sure you have installed `rustup` and that the nightly branched is used since `rocket` relies on it.
+Make sure you have installed `rustup` and that the nightly branch is used since `rocket` relies on it.
